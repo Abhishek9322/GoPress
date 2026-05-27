@@ -1,0 +1,9 @@
+﻿
+
+
+
+ Migration Command
+ //Add-Migration AddOrderTable -Project GoPress.Infrastructure -StartupProject GoPress.API
+
+ Update datebase Command
+ //Update-Database -Project GoPress.Infrastructure -StartupProject GoPress.API
