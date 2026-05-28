@@ -27,36 +27,43 @@ namespace GoPress.Application.Features.Auth.CommandHndler
         public async Task<AuthResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var dto = request.LoginDto;
-            var user =await _userRepository.GetUserByEmailAsync(dto.Email);
+
+            var user = await _userRepository
+                .GetUserByEmailAsync(dto.Email);
 
             if (user == null)
             {
-                return new AuthResponse
-                {
-                    Success = false,
-                    Message = "Invalid email or password."
-                };
+                return AuthResponse.FailureResponse(
+                    "Invalid email or password.");
             }
+
             var isPasswordValid = _passwordHasher
-               .VerifyPassword(dto.Password, user.PasswordHash);
+                .VerifyPassword(dto.Password, user.PasswordHash);
 
             if (!isPasswordValid)
             {
-                return new AuthResponse
-                {
-                    Success = false,
-                    Message = "Invalid Password"
-                };
+                return AuthResponse.FailureResponse(
+                    "Invalid Password");
             }
-            var token =_jwtService.GenerateToken(user);
 
-            return new AuthResponse
+            if (!user.IsApproved)
             {
-                Success = true,
-                Message = "Login Successful",
-                Token = token,
-                Role = user.Role.ToString()
-            };
+                return AuthResponse.FailureResponse(
+                    "Your account is pending admin approval.");
+            }
+
+            if (!user.IsActive)
+            {
+                return AuthResponse.FailureResponse(
+                    "Your account is inactive.");
+            }
+
+            var token = _jwtService.GenerateToken(user);
+
+            return AuthResponse.SuccessResponse(
+                "Login Successful",
+                token,
+                user.Role.ToString());
         }
     }
 }

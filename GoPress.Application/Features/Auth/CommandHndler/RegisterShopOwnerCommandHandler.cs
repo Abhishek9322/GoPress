@@ -13,20 +13,22 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Auth.CommandHndler
 {
-    public class RegisterCustomerCommandHandler : IRequestHandler<RegisterCustomerCommand, AuthResponse>
+    public class RegisterShopOwnerCommandHandler : IRequestHandler<RegisterShopOwnerCommand, AuthResponse>
     {
         private readonly IUserRepository _repository;
-        private readonly IPasswordHasher _hasher;
-        public RegisterCustomerCommandHandler(IUserRepository repository,IPasswordHasher hasher)
+        private readonly IPasswordHasher _password;
+        public RegisterShopOwnerCommandHandler(IUserRepository repository, IPasswordHasher password)
         {
-            _hasher = hasher;
+            _password = password;
             _repository = repository;
-        }
-        public async Task<AuthResponse> Handle(RegisterCustomerCommand request, CancellationToken cancellationToken)
-        {
-            var dto = request.RegisterCustomerDto;
 
-            var isEmailExists = await _repository.IsEmailExistsAsync(dto.Email); //Check Email Exist or not 
+        }
+        public async Task<AuthResponse> Handle(RegisterShopOwnerCommand request, CancellationToken cancellationToken)
+        {
+            var dto = request.RegisterShopOwnerDto;
+            // Check Email Exists
+            var isEmailExists = await _repository
+                .IsEmailExistsAsync(dto.Email);
 
             if (isEmailExists)
             {
@@ -37,34 +39,40 @@ namespace GoPress.Application.Features.Auth.CommandHndler
                 };
             }
 
-            //Create user
-
+            // Create Shop Owner User
             var user = new ApplicationUser
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
                 PhoneNumber = dto.PhoneNumber,
-                PasswordHash = _hasher.HashPassword(dto.Password), //Hash Password
-                Role = UserRoleenum.Customer,
-                IsApproved = true,
-                IsActive = true,
+                PasswordHash =_password.HashPassword(dto.Password),
+                Role = UserRoleenum.ShopOwner,
+                IsApproved = false,    // IMPORTANT
+                IsActive = false,
 
-                CustomerProfile = new CustomerProfile
+                ShopOwnerProfile = new ShopOwnerProfile
                 {
-                    Address = dto.Address,
+                    ShopName = dto.ShopName,
+                    ShopAddress = dto.ShopAddress,
                     City = dto.City,
                     State = dto.State,
-                    Pincode = dto.Pincode
+                    Pincode = dto.Pincode,
+                    ShopLicenseNumber=dto.ShopLicenseNumber,
+                    GSTNumber = dto.GSTNumber
                 }
             };
+
             await _repository.AddUserAsync(user);
+
             await _repository.SaveChangesAsync();
 
             return new AuthResponse
             {
                 Success = true,
-                Message = "Customer registered successfully."
+                Message =
+                    "Shop Owner registration submitted successfully. Waiting for admin approval."
             };
+
         }
     }
 }
