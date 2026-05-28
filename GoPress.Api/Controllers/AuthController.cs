@@ -60,8 +60,21 @@ namespace GoPress.Api.Controllers
         }
 
 
+        [HttpPost("register-shop-owner")]
+        public async Task<IActionResult> RegisterShopOwner(RegisterShopOwnerDto dto)
+        {
+            var command = new RegisterShopOwnerCommand
+            {
+                RegisterShopOwnerDto = dto
+            };
+
+            var result = await _mediator.Send(command);
+
+            return Ok(result);
+        }
+
         //just for the test here
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "ShopOwner")]
         [HttpGet("profile")]
         public IActionResult GetProfile()
         {

@@ -14,5 +14,30 @@ namespace GoPress.Application.Features.Auth.Responses
         public string Token { get; set; } = string.Empty;
 
         public string Role { get; set; } = string.Empty;
+        // Success Response
+        public static AuthResponse SuccessResponse(
+            string message,
+            string token = "",
+            string role = "")
+        {
+            return new AuthResponse
+            {
+                Success = true,
+                Message = message,
+                Token = token,
+                Role = role
+            };
+        }
+
+        // Failure Response
+        public static AuthResponse FailureResponse(
+            string message)
+        {
+            return new AuthResponse
+            {
+                Success = false,
+                Message = message
+            };
+        }
     }
 }
