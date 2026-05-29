@@ -1,4 +1,5 @@
 using GoPress.Api.Configurations;
+using GoPress.Api.Middleware;
 using GoPress.Application;
 using GoPress.Infrastructure;
 
@@ -36,5 +37,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.SeedDatabaseAsync();
 
 app.Run();

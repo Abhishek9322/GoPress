@@ -13,25 +13,25 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Auth.CommandHndler
 {
-    public class RegisterShopOwnerCommandHandler : IRequestHandler<RegisterShopOwnerCommand, AuthResponse>
+    public class RegisterDeliveryBoyCommandHandler : IRequestHandler<RegisterDeliveryBoyCommand, AuthResponse>
     {
         private readonly IUserRepository _repository;
         private readonly IPasswordHasher _password;
-        public RegisterShopOwnerCommandHandler(IUserRepository repository, IPasswordHasher password)
+        public RegisterDeliveryBoyCommandHandler(IUserRepository repository,IPasswordHasher password)
         {
             _password = password;
-            _repository = repository;
-
+            _repository = repository;   
         }
-        public async Task<AuthResponse> Handle(RegisterShopOwnerCommand request, CancellationToken cancellationToken)
+        public async Task<AuthResponse> Handle(RegisterDeliveryBoyCommand request, CancellationToken cancellationToken)
         {
-            var dto = request.RegisterShopOwnerDto;
-            // Check Email Exists
+            var dto = request.RegisterDeliveryBoyDto;
+
             var isEmailExists = await _repository
                 .IsEmailExistsAsync(dto.Email);
 
             if (isEmailExists)
             {
+
                 return new AuthResponse
                 {
                     Success = false,
@@ -39,27 +39,25 @@ namespace GoPress.Application.Features.Auth.CommandHndler
                 };
             }
 
-
-            // Create Shop Owner User
             var user = new ApplicationUser
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
                 PhoneNumber = dto.PhoneNumber,
-                PasswordHash =_password.HashPassword(dto.Password),
-                Role = UserRoleenum.ShopOwner,
+                PasswordHash = _password.HashPassword(dto.Password),
+                Role = UserRoleenum.DeliveryBoy,
                 IsApproved = false,    // IMPORTANT
                 IsActive = false,
 
-                ShopOwnerProfile = new ShopOwnerProfile
+                DeliveryBoyProfile = new DeliveryBoyProfile
                 {
-                    ShopName = dto.ShopName,
-                    ShopAddress = dto.ShopAddress,
+                    BikeNumber=dto.BikeNumber,
+                    AadhaarNumber = dto.AadhaarNumber,
+                    LicenseNumber = dto.LicenseNumber,
+                    Address=dto.Address,
                     City = dto.City,
                     State = dto.State,
-                    Pincode = dto.Pincode,
-                    ShopLicenseNumber=dto.ShopLicenseNumber,
-                    GSTNumber = dto.GSTNumber
+                    Pincode = dto.Pincode
                 }
             };
 
@@ -70,8 +68,7 @@ namespace GoPress.Application.Features.Auth.CommandHndler
             return new AuthResponse
             {
                 Success = true,
-                Message =
-                    "Shop Owner registration submitted successfully. Waiting for admin approval."
+                Message = "Registration successful. Please wait for admin approval."
             };
 
         }

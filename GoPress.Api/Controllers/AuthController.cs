@@ -30,7 +30,7 @@ namespace GoPress.Api.Controllers
 
         }
 
-        [HttpPost("Login")]
+        [HttpPost("All-Login")]
         public async Task<IActionResult> Login(LoginDto login)
         {
             var command = new LoginCommand
@@ -73,8 +73,19 @@ namespace GoPress.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("register-Delivery-Boy")]
+        public async Task<IActionResult> RegisterDeliveryBoy(RegisterDeliveryBoyDto dto)
+        {
+            var command = new RegisterDeliveryBoyCommand
+            {
+                RegisterDeliveryBoyDto = dto
+            };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
+
         //just for the test here
-        [Authorize(Roles = "ShopOwner")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("profile")]
         public IActionResult GetProfile()
         {
