@@ -20,6 +20,8 @@ namespace GoPress.Infrastructure.Data
         public DbSet<DeliveryBoyProfile> DeliveryBoyProfiles { get; set; }
         public DbSet<ShopOwnerProfile> ShopOwnerProfiles { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -48,6 +50,33 @@ namespace GoPress.Infrastructure.Data
                 .HasOne(x => x.User)
                 .WithMany(x => x.RefreshTokens)
                 .HasForeignKey(x => x.UserId);
+
+            // CUSTOMER -> ORDERS
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.Customer)
+                .WithMany(x => x.CustomerOrders)
+                .HasForeignKey(x => x.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // SHOP OWNER -> ORDERS
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.ShopOwner)
+                .WithMany(x => x.ShopOwnerOrders)
+                .HasForeignKey(x => x.ShopOwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // DELIVERY BOY -> ORDERS
+            modelBuilder.Entity<Order>()
+                .HasOne(x => x.DeliveryBoy)
+                .WithMany(x => x.DeliveryBoyOrders)
+                .HasForeignKey(x => x.DeliveryBoyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ORDER -> ORDER ITEMS
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(x => x.Order)
+                .WithMany(x => x.OrderItems)
+                .HasForeignKey(x => x.OrderId);
         }
     }
 }
