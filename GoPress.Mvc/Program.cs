@@ -1,5 +1,12 @@
+using GoPress.Mvc.Configurations;
+using GoPress.Mvc.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.Configure<ApiSettings>(
+    builder.Configuration.GetSection("ApiSettings"));
+
+builder.Services.AddHttpClient<ApiService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

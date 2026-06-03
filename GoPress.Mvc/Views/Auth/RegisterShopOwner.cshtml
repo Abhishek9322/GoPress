@@ -1,0 +1,456 @@
+﻿@model GoPress.Mvc.Models.Auth.RegisterShopOwnerViewModel
+
+@{
+    ViewData["Title"] = "Shop Owner Registration";
+}
+
+<style>
+
+    body {
+        background: #f5f7fb;
+        font-family: 'Segoe UI';
+    }
+
+    .register-wrapper {
+        min-height: 100vh;
+        display: flex;
+    }
+
+    /* LEFT SIDE */
+
+    .left-side {
+        width: 40%;
+        background: #eafcff;
+        padding: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .left-side h1 {
+            font-size: 52px;
+            font-weight: bold;
+            color: #111;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .left-side p {
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
+
+    .feature-box {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 30px;
+    }
+
+    .feature-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 14px;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+    }
+
+    .feature-text h4 {
+        font-size: 20px;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .feature-text p {
+        margin: 0;
+        font-size: 15px;
+    }
+
+    .left-image {
+        margin-top: 40px;
+    }
+
+        .left-image img {
+            width: 100%;
+            border-radius: 20px;
+            height: 280px;
+            object-fit: cover;
+        }
+
+    /* RIGHT SIDE */
+
+    .right-side {
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 850px;
+        background: white;
+        padding: 45px;
+        border-radius: 22px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+        .register-card h2 {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .register-card p {
+            color: #777;
+            margin-bottom: 35px;
+        }
+
+    .section-title {
+        margin-top: 35px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: #666;
+    }
+
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        height: 55px;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+    }
+
+    .register-btn {
+        width: 100%;
+        border: none;
+        height: 58px;
+        background: #26c6da;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 14px;
+        margin-top: 30px;
+    }
+
+        .register-btn:hover {
+            background: #10b6cb;
+        }
+
+    .terms {
+        margin-top: 25px;
+        color: #666;
+        font-size: 14px;
+    }
+
+        .terms a {
+            text-decoration: none;
+        }
+
+    @@media(max-width: 992px) {
+
+        .register-wrapper {
+            flex-direction: column;
+        }
+
+        .left-side,
+        .right-side {
+            width: 100%;
+        }
+
+        .left-side {
+            padding: 40px;
+        }
+
+        .register-card {
+            padding: 30px;
+        }
+    }
+
+</style>
+
+<div class="register-wrapper">
+
+    <!-- LEFT SIDE -->
+
+    <div class="left-side">
+
+        <h1>
+            Grow Your Business
+            with Press & Go
+        </h1>
+
+        <p>
+            Join the largest network of garment care
+            professionals and manage your business online.
+        </p>
+
+        <div class="feature-box">
+
+            <div class="feature-icon">
+                🚀
+            </div>
+
+            <div class="feature-text">
+
+                <h4>
+                    Expand Your Reach
+                </h4>
+
+                <p>
+                    Connect with thousands of nearby customers.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="feature-box">
+
+            <div class="feature-icon">
+                📦
+            </div>
+
+            <div class="feature-text">
+
+                <h4>
+                    Manage Orders
+                </h4>
+
+                <p>
+                    Track pickups, deliveries and payments easily.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="feature-box">
+
+            <div class="feature-icon">
+                💰
+            </div>
+
+            <div class="feature-text">
+
+                <h4>
+                    Secure Payments
+                </h4>
+
+                <p>
+                    Receive instant online payments safely.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="left-image">
+
+            <img src="~/images/dashboard/shop-owner.jpg"
+                 alt="Shop Owner" />
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+
+    <div class="right-side">
+
+        <div class="register-card">
+
+            <h2>
+                Register Your Shop
+            </h2>
+
+            <p>
+                Fill your business details to start accepting orders.
+            </p>
+
+            <form method="post">
+
+                <!-- BUSINESS INFO -->
+
+                <div class="section-title">
+                    BUSINESS INFORMATION
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">
+                            Full Name
+                        </label>
+
+                        <input asp-for="FullName"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">
+                            Shop Name
+                        </label>
+
+                        <input asp-for="ShopName"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input asp-for="Email"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input asp-for="PhoneNumber"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">
+                            Password
+                        </label>
+
+                        <input asp-for="Password"
+                               type="password"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+
+                        <label class="form-label">
+                            GST Number
+                        </label>
+
+                        <input asp-for="GSTNumber"
+                               class="form-control" />
+
+                    </div>
+
+                </div>
+
+                <!-- LOCATION -->
+
+                <div class="section-title">
+                    SHOP LOCATION
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12 mb-4">
+
+                        <label class="form-label">
+                            Shop Address
+                        </label>
+
+                        <input asp-for="ShopAddress"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+
+                        <label class="form-label">
+                            City
+                        </label>
+
+                        <input asp-for="City"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+
+                        <label class="form-label">
+                            State
+                        </label>
+
+                        <input asp-for="State"
+                               class="form-control" />
+
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+
+                        <label class="form-label">
+                            Pincode
+                        </label>
+
+                        <input asp-for="Pincode"
+                               class="form-control" />
+
+                    </div>
+
+                </div>
+
+                <!-- LICENSE -->
+
+                <div class="section-title">
+                    BUSINESS VERIFICATION
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12 mb-4">
+
+                        <label class="form-label">
+                            Shop License Number
+                        </label>
+
+                        <input asp-for="ShopLicenseNumber"
+                               class="form-control" />
+
+                    </div>
+
+                </div>
+
+                <div class="terms">
+
+                    <input type="checkbox" />
+
+                    I agree to the
+                    <a href="#">Terms & Conditions</a>
+
+                </div>
+
+                <button type="submit"
+                        class="register-btn">
+
+                    Register Shop & Start Earning
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

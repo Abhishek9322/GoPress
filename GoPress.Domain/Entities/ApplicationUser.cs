@@ -28,5 +28,11 @@ namespace GoPress.Domain.Entities
 
         public ICollection<RefreshToken> RefreshTokens { get; set; }
 
+        //order 
+        public ICollection<Order> CustomerOrders { get; set; }
+
+        public ICollection<Order> ShopOwnerOrders { get; set; }
+
+        public ICollection<Order> DeliveryBoyOrders { get; set; }
     }
 }

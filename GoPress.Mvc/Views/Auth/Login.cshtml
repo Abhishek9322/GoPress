@@ -1,0 +1,358 @@
+﻿@model GoPress.Mvc.Models.Auth.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+
+    body {
+        background: linear-gradient(135deg, #f5fbfd, #ffffff);
+        font-family: 'Segoe UI', sans-serif;
+        min-height: 100vh;
+    }
+
+    .login-wrapper {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 20px;
+    }
+
+    .login-container {
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .logo-box {
+        margin-bottom: 25px;
+    }
+
+    .logo-icon {
+        width: 75px;
+        height: 75px;
+        background: #e8fbff;
+        border-radius: 22px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        color: #22c7e6;
+        margin-bottom: 18px;
+    }
+
+    .brand-name {
+        font-size: 42px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .login-card {
+        background: white;
+        border-radius: 22px;
+        padding: 45px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        margin-top: 25px;
+    }
+
+    .login-title {
+        font-size: 48px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 12px;
+    }
+
+    .login-subtitle {
+        color: #6b7280;
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 35px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 10px;
+        display: block;
+        text-align: left;
+    }
+
+    .form-control {
+        height: 56px;
+        border-radius: 14px;
+        border: 1px solid #d1d5db;
+        padding-left: 16px;
+        box-shadow: none !important;
+        margin-bottom: 25px;
+    }
+
+        .form-control:focus {
+            border-color: #22c7e6;
+        }
+
+    .password-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .forgot-link {
+        color: #22c7e6;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .remember-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        color: #4b5563;
+        font-size: 15px;
+    }
+
+    .login-btn {
+        width: 100%;
+        height: 58px;
+        border: none;
+        border-radius: 14px;
+        background: #22c7e6;
+        color: white;
+        font-size: 20px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .login-btn:hover {
+            background: #0ea5c6;
+        }
+
+    .divider {
+        margin: 30px 0;
+        display: flex;
+        align-items: center;
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider span {
+            margin: 0 15px;
+        }
+
+    .social-buttons {
+        display: flex;
+        gap: 15px;
+    }
+
+    .social-btn {
+        flex: 1;
+        height: 54px;
+        border: 1px solid #d1d5db;
+        background: white;
+        border-radius: 14px;
+        font-weight: 600;
+        color: #374151;
+        transition: 0.3s;
+    }
+
+        .social-btn:hover {
+            background: #f9fafb;
+        }
+
+    .register-box {
+        background: #f9fafb;
+        margin: 35px -45px -45px;
+        padding: 25px;
+        border-top: 1px solid #e5e7eb;
+        border-radius: 0 0 22px 22px;
+        color: #6b7280;
+    }
+
+        .register-box a {
+            color: #22c7e6;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+    .bottom-links {
+        margin-top: 35px;
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+        .bottom-links a {
+            color: #6b7280;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+</style>
+
+<div class="login-wrapper">
+
+    <div class="login-container">
+
+        <!-- LOGO -->
+
+        <div class="logo-box">
+
+            <div class="logo-icon">
+                ☁
+            </div>
+
+            <div class="brand-name">
+                FreshPress
+            </div>
+
+        </div>
+
+        <!-- LOGIN CARD -->
+
+        <div class="login-card">
+
+            <h1 class="login-title">
+                Welcome Back
+            </h1>
+
+            <p class="login-subtitle">
+                Enter your email and password to access
+                your FreshPress account
+            </p>
+
+            <form method="post">
+
+                <!-- EMAIL -->
+
+                <label class="form-label">
+                    Email
+                </label>
+
+                <input asp-for="Email"
+                       class="form-control"
+                       placeholder="name@example.com" />
+
+                <!-- PASSWORD -->
+
+                <div class="password-row">
+
+                    <label class="form-label">
+                        Password
+                    </label>
+
+                    <a href="#"
+                       class="forgot-link">
+
+                        Forgot password?
+
+                    </a>
+
+                </div>
+
+                <input asp-for="Password"
+                       type="password"
+                       class="form-control"
+                       placeholder="••••••••" />
+
+                <!-- REMEMBER -->
+
+                <div class="remember-box">
+
+                    <input type="checkbox" checked />
+
+                    <span>
+                        Remember me for 30 days
+                    </span>
+
+                </div>
+
+                <!-- BUTTON -->
+
+                <button type="submit"
+                        class="login-btn">
+
+                    Sign In
+
+                </button>
+
+                <!-- DIVIDER -->
+
+                <div class="divider">
+
+                    <span>
+                        OR CONTINUE WITH
+                    </span>
+
+                </div>
+
+                <!-- SOCIAL -->
+
+                <div class="social-buttons">
+
+                    <button type="button"
+                            class="social-btn">
+
+                        Google
+
+                    </button>
+
+                    <button type="button"
+                            class="social-btn">
+
+                        Facebook
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <!-- REGISTER -->
+
+            <div class="register-box">
+
+                Don't have an account?
+
+                <a asp-controller="Auth"
+                   asp-action="RegisterCustomer">
+
+                    Register now
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="bottom-links">
+
+            <a href="#">
+                Terms of Service
+            </a>
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+            <a href="#">
+                Support
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
