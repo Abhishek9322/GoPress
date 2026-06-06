@@ -4,8 +4,9 @@ using GoPress.Mvc.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
-namespace GoPress.Mvc.Controllers
+namespace GoPress.Mvc.Areas.Auth.Controllers
 {
+    [Area("Auth")]
     public class AuthController : Controller
     {
         private readonly ApiService _apiService;
@@ -52,28 +53,34 @@ namespace GoPress.Mvc.Controllers
                 case "Customer":
                     return RedirectToAction(
                         "Customer",
-                        "Dashboard");
+                        "Dashboard",
+                        new { area = "" });
 
                 case "DeliveryBoy":
                     return RedirectToAction(
                         "DeliveryBoy",
-                        "Dashboard");
+                        "Dashboard",
+                        new { area = "" });
 
                 case "ShopOwner":
                     return RedirectToAction(
                         "ShopOwner",
-                        "Dashboard");
+                        "Dashboard",
+                        new { area = "" });
 
                 case "Admin":
                     return RedirectToAction(
                         "Admin",
-                        "Dashboard");
+                        "Dashboard",
+                        new { area = "" });
 
                 default:
                     return RedirectToAction(
                         "Index",
-                        "Home");
-            }
+                        "Home",
+                        new { area = "" });
+             
+             }
 
         }
 
@@ -83,7 +90,9 @@ namespace GoPress.Mvc.Controllers
             Response.Cookies.Delete("AuthToken");
 
             return RedirectToAction(
-                "Login");
+                         "Login",
+                         "Auth",
+                         new { area = "Auth" });
         }
 
         // CUSTOMER REGISTER PAGE
@@ -112,9 +121,12 @@ namespace GoPress.Mvc.Controllers
                 return View(register);
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction(
+                          "Login",
+                          "Auth",
+                          new { area = "Auth" });
 
-            
+
         }
 
         // DELIVERY REGISTER PAGE
@@ -143,7 +155,10 @@ namespace GoPress.Mvc.Controllers
                 return View(register);
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction(
+                         "Login",
+                         "Auth",
+                         new { area = "Auth" });
         }
         // SHOP OWNER REGISTER PAGE
         [HttpGet]
@@ -172,7 +187,10 @@ namespace GoPress.Mvc.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Login");
+            return RedirectToAction(
+                         "Login",
+                         "Auth",
+                         new { area = "Auth" });
         }
     }
 }

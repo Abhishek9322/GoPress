@@ -33,6 +33,7 @@ namespace GoPress.Infrastructure
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IPasswordHasher, PasswordHasher>();
             service.AddScoped<IJwtService,JwtService>();
+            service.AddScoped<IOrderRepository, OrderRepository>();
 
 
             return service;
