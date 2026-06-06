@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="Features\Auth\QueriesHandler\" />
     <Folder Include="Features\Auth\Queries\" />
-    <Folder Include="Features\Orders\Commands\" />
-    <Folder Include="Features\Orders\Queries\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Validators\" />
   </ItemGroup>

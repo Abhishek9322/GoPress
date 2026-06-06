@@ -102,7 +102,8 @@
 
                 <div class="d-flex align-items-center gap-3">
 
-                    <a asp-controller="Auth"
+                    <a asp-area="Auth"
+                       asp-controller="Auth"
                        asp-action="Login"
                        class="signin-link">
 
@@ -110,7 +111,8 @@
 
                     </a>
 
-                    <a asp-controller="Auth"
+                    <a asp-area="Auth"  
+                       asp-controller="Auth"
                        asp-action="RegisterCustomer"
                        class="get-started-btn">
 
@@ -175,14 +177,14 @@
 
                     <h5>Partners</h5>
 
-                    <a asp-controller="Auth"
+                    <a asp-area="Auth" asp-controller="Auth"
                        asp-action="RegisterShopOwner">
 
                         Shop Owner
 
                     </a>
 
-                    <a asp-controller="Auth"
+                    <a asp-area="Auth" asp-controller="Auth"
                        asp-action="RegisterDeliveryBoy">
 
                         Delivery Partner

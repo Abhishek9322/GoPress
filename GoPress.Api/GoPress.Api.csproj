@@ -15,10 +15,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.18.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\GoPress.Domain\GoPress.Domain.csproj" />
 		<ProjectReference Include="..\GoPress.Application\GoPress.Application.csproj" />

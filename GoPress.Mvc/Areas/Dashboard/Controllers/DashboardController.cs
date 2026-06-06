@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace GoPress.Mvc.Controllers
+namespace GoPress.Mvc.Areas.Dashboard.Controllers
 {
+    [Area("Dashboard")]
     public class DashboardController : Controller
     {
 

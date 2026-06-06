@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Dashboard\Views\Dashboard\" />
     <Folder Include="wwwroot\images\default\" />
     <Folder Include="wwwroot\images\shops\" />
     <Folder Include="wwwroot\images\products\" />
