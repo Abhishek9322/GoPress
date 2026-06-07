@@ -21,6 +21,8 @@ namespace GoPress.Api.Controllers
             _mediator = mediator;
         }
 
+        //Create Update Delete Oprations here       
+
         [Authorize(Roles = "Customer")]
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderRequestDto requestDto)
@@ -86,11 +88,12 @@ namespace GoPress.Api.Controllers
             return Ok(response);
 
         }
-
+         
+        //Get Opration here
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
-            var query = new GetOrderById
+            var query = new GetOrderByIdQuery
             {
                 OrderId = id
             };
@@ -100,5 +103,66 @@ namespace GoPress.Api.Controllers
 
             return Ok(response);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("All-Orders")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            // var currentCustomer = User.GetCurrentUser();
+
+            var query = new GetAllOrdersQuery();
+
+            var response =
+                await _mediator.Send(query);
+            return Ok(response);
+
+        }
+
+        [Authorize(Roles = "Customer")]
+        [HttpGet("Customer-Orders")]
+        public async Task<IActionResult> GetCustomerAllOrders()
+        {
+            var CustomerId = User.GetCurrentUser();
+
+            var query = new GetCustomerOrdersQuery
+            {
+                CustomerId = CustomerId.UserId
+            };
+
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [Authorize(Roles = "ShopOwner")]
+        [HttpGet("ShopOwner-Orders")]
+        public async Task<IActionResult> GetShopOrders()
+        {
+            var shopOwnerId = User.GetCurrentUser();
+
+            var query = new GetShopOrdersQuery
+            {
+                ShopOwnerId = shopOwnerId.UserId
+            };
+
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+        [Authorize(Roles = "DeliveryBoy")]
+        [HttpGet("DeliveryBoy-Orders")]
+        public async Task<IActionResult> GetDeliveryOrders()
+        {
+            var deliveryBoyId = User.GetCurrentUser();
+
+            var query = new GetDeliveryOrdersQuery
+            {
+                DeliveryBoyId = deliveryBoyId.UserId
+            };
+
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+
     }
 }
