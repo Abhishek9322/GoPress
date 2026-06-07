@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Orders.Queries
 {
-    public class GetOrderById:IRequest<Response<OrderResponseDto>>
+    public class GetOrderByIdQuery:IRequest<Response<OrderResponseDto>>
     {
         public int OrderId { get; set; }
     }

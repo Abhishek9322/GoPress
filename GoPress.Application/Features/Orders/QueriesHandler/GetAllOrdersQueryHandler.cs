@@ -11,35 +11,34 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Orders.QueriesHandler
 {
-    public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, Response<OrderResponseDto>>
+    public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery,Response<List<OrderResponseDto>>>
     {
         private readonly IOrderRepository _orderRepository;
-
-        public GetOrderByIdQueryHandler(IOrderRepository orderRepository)
+        public GetAllOrdersQueryHandler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }
-        public async Task<Response<OrderResponseDto>> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<OrderResponseDto>>> Handle(GetAllOrdersQuery request, CancellationToken cancellationToken)
         {
-            var order =await _orderRepository.GetByIdAsync(request.OrderId);
+            var orders = await _orderRepository.GetAllOrdersAsync();
 
-            if (order == null)
-            {
-                return new Response<OrderResponseDto>("Order Not Found");
-            }
-            var response = new OrderResponseDto
+            var response=orders.Select(order => new OrderResponseDto
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
                 ShopOwnerId = order.ShopOwnerId,
                 DeliveryBoyId = order.DeliveryBoyId,
+
                 PickupAddress = order.PickupAddress,
                 DeliveryAddress = order.DeliveryAddress,
+
                 PickupDate = order.PickupDate,
                 DeliveryDate = order.DeliveryDate,
+
                 TotalAmount = order.TotalAmount,
                 Notes = order.Notes,
                 Status = order.Status,
+
                 OrderItems = order.OrderItems
                .Select(x => new OrderItemResponseDto
                {
@@ -49,11 +48,11 @@ namespace GoPress.Application.Features.Orders.QueriesHandler
                    Price = x.Price,
                    TotalPrice = x.TotalPrice
                }).ToList()
-            };
+            }).ToList();
 
-            return new Response<OrderResponseDto>(
-               response,
-               "Order Retrieved Successfully");
+            return new Response<List<OrderResponseDto>>(
+                response,
+                "All Orders Retrieved Successfully");
         }
     }
 }
