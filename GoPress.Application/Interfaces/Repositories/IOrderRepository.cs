@@ -21,6 +21,8 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<List<Order>> GetAllOrdersAsync();
 
+        Task<List<Order>> GetAvailableOrdersAsync();
+
         Task UpdateAsync(Order order);
         Task DeleteAsync(Order order);
     }

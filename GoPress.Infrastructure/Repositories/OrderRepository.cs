@@ -1,5 +1,6 @@
 ﻿using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Entities;
+using GoPress.Domain.Enums;
 using GoPress.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -75,6 +76,16 @@ namespace GoPress.Infrastructure.Repositories
             _context.Orders.Remove(order);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Order>> GetAvailableOrdersAsync()
+        {
+            return await _context.Orders
+                 .Include(o => o.Customer)
+                 .Include(o => o.ShopOwner)
+                 .ThenInclude(o => o.ShopOwnerProfile)
+                 .Where(x =>x.Status == OrderStatusEnum.Accepted && x.DeliveryBoyId == null)
+                 .ToListAsync();
         }
     }
 }
