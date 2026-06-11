@@ -1,6 +1,8 @@
 ﻿using GoPress.Api.Extensions;
-using GoPress.Application.Features.Orders.Commands;
-using GoPress.Application.Features.Orders.Queries;
+using GoPress.Application.Features.Orders.AcceptOrder.Comman;
+using GoPress.Application.Features.Orders.RejectOrder.command;
+using GoPress.Application.Features.Orders.CreateOrder.Command;
+using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -23,7 +25,7 @@ namespace GoPress.Api.Controllers
         [HttpGet("available-orders")]   
         public async Task<IActionResult> GetAvailableOrders()
         {
-            var query = new GetAvailableOrdersQuery();  
+            var query = new GetAvailableDBoyOrdersQuery();  
 
             var response = await _mediator.Send(query);
             return Ok(response);
@@ -34,7 +36,7 @@ namespace GoPress.Api.Controllers
         {
             var currentUser = User.GetCurrentUser();
 
-            var command = new AcceptPickupCommand
+            var command = new AcceptPickupByDBoyCommand
                 {
                     OrderId = orderId,
                     DeliveryBoyId = currentUser.UserId
@@ -44,5 +46,21 @@ namespace GoPress.Api.Controllers
 
             return Ok(response);
         }
+
+        [Authorize(Roles = "DeliveryBoy")]
+        [HttpGet("DeliveryBoy-Orders")]
+        public async Task<IActionResult> GetDeliveryOrders()
+        {
+            var deliveryBoyId = User.GetCurrentUser();
+
+            var query = new GetDeliveryDBoyOrdersQuery
+            {
+                DeliveryBoyId = deliveryBoyId.UserId
+            };
+
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
     }
 }

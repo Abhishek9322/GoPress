@@ -1,7 +1,9 @@
 ﻿using GoPress.Api.Extensions;
 using GoPress.Application.DTOs.Orders;
-using GoPress.Application.Features.Orders.Commands;
-using GoPress.Application.Features.Orders.Queries;
+using GoPress.Application.Features.Orders.AcceptOrder.Comman;
+using GoPress.Application.Features.Orders.RejectOrder.command;
+using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
+using GoPress.Application.Features.Orders.CreateOrder.Command;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -133,36 +135,8 @@ namespace GoPress.Api.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "ShopOwner")]
-        [HttpGet("ShopOwner-Orders")]
-        public async Task<IActionResult> GetShopOrders()
-        {
-            var shopOwnerId = User.GetCurrentUser();
-
-            var query = new GetShopOrdersQuery
-            {
-                ShopOwnerId = shopOwnerId.UserId
-            };
-
-            var response = await _mediator.Send(query);
-            return Ok(response);
-        }
-
-        [Authorize(Roles = "DeliveryBoy")]
-        [HttpGet("DeliveryBoy-Orders")]
-        public async Task<IActionResult> GetDeliveryOrders()
-        {
-            var deliveryBoyId = User.GetCurrentUser();
-
-            var query = new GetDeliveryOrdersQuery
-            {
-                DeliveryBoyId = deliveryBoyId.UserId
-            };
-
-            var response = await _mediator.Send(query);
-            return Ok(response);
-        }
-
+    
+       
 
     }
 }

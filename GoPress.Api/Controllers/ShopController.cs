@@ -1,5 +1,8 @@
 ﻿using GoPress.Api.Extensions;
-using GoPress.Application.Features.Orders.Commands;
+using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
+using GoPress.Application.Features.Orders.AcceptOrder.Comman;
+using GoPress.Application.Features.Orders.RejectOrder.command;
+
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +30,7 @@ namespace GoPress.Api.Controllers
             {
                 return Unauthorized();
             }
-            var command = new AcceptOrderCommand
+            var command = new AcceptOrderByShopOwnerCommand
             {
                 OrderId = orderId,
                ShopOwnerId=currentUser.UserId
@@ -45,7 +48,7 @@ namespace GoPress.Api.Controllers
         {
             var currentUser = User.GetCurrentUser();
 
-            var command = new RejectOrderCommand
+            var command = new RejectOrderByShopOwnerCommand
             {
                 OrderId = orderId,
                 ShopOwnerId = currentUser.UserId
@@ -54,6 +57,21 @@ namespace GoPress.Api.Controllers
             var response =
                 await _mediator.Send(command);
 
+            return Ok(response);
+        }
+
+        [Authorize(Roles = "ShopOwner")]
+        [HttpGet("ShopOwner-Orders")]
+        public async Task<IActionResult> GetShopOrders()
+        {
+            var shopOwnerId = User.GetCurrentUser();
+
+            var query = new GetShopOrdersQuery
+            {
+                ShopOwnerId = shopOwnerId.UserId
+            };
+
+            var response = await _mediator.Send(query);
             return Ok(response);
         }
 
