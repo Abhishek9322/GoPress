@@ -49,7 +49,7 @@ namespace GoPress.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Order>> GetDeliveryOrdersAsync(int deliveryBoyId)
+        public async Task<List<Order>> GetDeliveryOrdersAsync(int deliveryBoyId)   //Get Avlabal order All not selected by any other devlivry boy 
         {
             return await _context.Orders
                 .Include(x => x.OrderItems)
@@ -78,7 +78,7 @@ namespace GoPress.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Order>> GetAvailableOrdersAsync()
+        public async Task<List<Order>> GetAvailableOrdersAsync()   //
         {
             return await _context.Orders
                  .Include(o => o.Customer)
