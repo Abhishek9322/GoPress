@@ -36,12 +36,13 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
             if (order.DeliveryBoyId != null)
             {
                 return new Response<string>(
-                    "Order already assigned");
+                    "Order already accepted by another delivery boy");
             }
 
             order.DeliveryBoyId = request.DeliveryBoyId;
 
-            order.Status = OrderStatusEnum.Accepted;
+            order.Status = OrderStatusEnum.PickupAssigned;
+            await _orderRepository.UpdateAsync(order);
 
             return new Response<string>("Pickup Accepted Successfully");
         }
