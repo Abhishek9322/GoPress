@@ -37,6 +37,8 @@ namespace GoPress.Infrastructure.Repositories
         public async Task<Order?> GetByIdAsync(int id)
         {
             return await _context.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.ShopOwner)
                 .Include(x => x.OrderItems)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -67,7 +69,7 @@ namespace GoPress.Infrastructure.Repositories
 
         public async Task UpdateAsync(Order order)
         {
-           // _context.Orders.Update(order);
+           _context.Orders.Update(order);
 
             await _context.SaveChangesAsync();
         }
