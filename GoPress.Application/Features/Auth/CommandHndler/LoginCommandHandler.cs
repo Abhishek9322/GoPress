@@ -2,6 +2,7 @@
 using GoPress.Application.Features.Auth.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Application.Interfaces.Services;
+using GoPress.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,16 @@ namespace GoPress.Application.Features.Auth.CommandHndler
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IJwtService _jwtService;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
         public LoginCommandHandler(IUserRepository userRepository,
             IPasswordHasher passwordHasher,
-            IJwtService jwtService)
+            IJwtService jwtService,
+            IRefreshTokenRepository refreshTokenRepository)
         {
             _userRepository = userRepository;
             _passwordHasher = passwordHasher;
             _jwtService = jwtService;
+            _refreshTokenRepository = refreshTokenRepository;
         }
         public async Task<AuthResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
@@ -58,11 +62,21 @@ namespace GoPress.Application.Features.Auth.CommandHndler
                     "Your account is inactive.");
             }
 
-            var token = _jwtService.GenerateToken(user);
+            var accessToken = _jwtService.GenerateToken(user);
+
+            var refreshToken = _jwtService.GenerateRefreshToken();
+
+            await _refreshTokenRepository.AddAsync(new RefreshToken
+            {
+                Token = refreshToken,
+                UserId = user.Id,
+                ExpiryDate = DateTime.UtcNow.AddDays(7)
+            });
 
             return AuthResponse.SuccessResponse(
                 "Login Successful",
-                token,
+                accessToken,
+                refreshToken,
                 user.Role.ToString());
         }
     }

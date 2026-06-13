@@ -34,6 +34,7 @@ namespace GoPress.Infrastructure
             service.AddScoped<IPasswordHasher, PasswordHasher>();
             service.AddScoped<IJwtService,JwtService>();
             service.AddScoped<IOrderRepository, OrderRepository>();
+            service.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 
             return service;

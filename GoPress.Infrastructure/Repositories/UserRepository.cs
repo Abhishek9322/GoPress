@@ -36,5 +36,11 @@ namespace GoPress.Infrastructure.Repositories
         {
           return await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Email == email);
         }
+
+        public async Task<ApplicationUser?> GetByIdAsync(int id)
+        {
+            return await _context.ApplicationUsers
+           .FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

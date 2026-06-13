@@ -47,7 +47,7 @@ namespace GoPress.Api.Controllers
             // Store JWT in Cookie
             Response.Cookies.Append(
                 "AuthToken",
-                result.Token,
+                result.AccessToken,
                 new CookieOptions
                 {
                     HttpOnly = true,
@@ -55,6 +55,18 @@ namespace GoPress.Api.Controllers
                     SameSite = SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddDays(1)
                 });
+            // Refresh Token Cookie
+            Response.Cookies.Append(
+                "RefreshToken",
+                result.RefreshToken,
+                new CookieOptions
+                {
+                    HttpOnly = true,
+                    Secure = true,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTimeOffset.UtcNow.AddDays(7)
+                });
+
 
             return Ok(result);
         }
@@ -84,8 +96,27 @@ namespace GoPress.Api.Controllers
             return Ok(result);
         }
 
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken(RefreshTokenRequestDto refreshDto)
+        {
+            var command = new RefreshTokenCommand
+            {
+                RefreshTokenDto = refreshDto
+            };
+
+            var result =
+                await _mediator.Send(command);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+        }
+
         //just for the test here
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Customer")]
         [HttpGet("profile")]
         public IActionResult GetProfile()
         {

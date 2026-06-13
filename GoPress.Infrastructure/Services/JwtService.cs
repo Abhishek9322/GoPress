@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using System.Security.Cryptography;
 
 namespace GoPress.Infrastructure.Services
 {
@@ -19,6 +20,7 @@ namespace GoPress.Infrastructure.Services
         {
             _configuration=configuration;
         }
+          // Access token 
         public string GenerateToken(ApplicationUser user)
         {
             var claims = new[]
@@ -53,6 +55,18 @@ namespace GoPress.Infrastructure.Services
 
             return new JwtSecurityTokenHandler()
                 .WriteToken(token);
+        }
+
+        //Refrash token 
+        public string GenerateRefreshToken()
+        {
+            var randomNumber = new Byte[64];
+
+            using var range=RandomNumberGenerator.Create();
+
+            range.GetBytes(randomNumber);
+
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }
