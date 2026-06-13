@@ -7,6 +7,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using GoPress.Application.Features.Orders.AcceptOrder.Command;
+using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 
 namespace GoPress.Api.Controllers
 {
@@ -62,5 +64,71 @@ namespace GoPress.Api.Controllers
             return Ok(response);
         }
 
+
+        [HttpPut("pickup-completed/{orderId}")]
+        public async Task<IActionResult> PickupCompleted(int orderId)
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var order = new PickupCompletedCommand
+            {
+                OrderId = orderId,
+                DeliveryBoyId = currentUser.UserId
+            };
+
+            var response = await _mediator.Send(order);
+
+            return Ok(response);
+        }
+
+        [HttpGet("ready-for-delivery-orders")]
+        public async Task<IActionResult> GetReadyForDeliveryOrders()
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var query =new GetReadyForDeliveryOrdersQuery
+                {
+                    DeliveryBoyId =
+                        currentUser.UserId
+                };
+
+            var response = await _mediator.Send(query);
+
+            return Ok(response);
+        }
+
+        [HttpPut("start-delivery/{orderId}")]
+        public async Task<IActionResult> StartDelivery(int orderId)
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var command =  new StartDeliveryCommand
+                {
+                    OrderId = orderId,
+                    DeliveryBoyId =
+                        currentUser.UserId
+                };
+
+            var response =await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [HttpPut("deliver-order/{orderId}")]
+        public async Task<IActionResult>DeliverOrder(int orderId)
+        {
+            var currentUser =User.GetCurrentUser();
+
+            var command = new DeliverOrderCommand
+                {
+                    OrderId = orderId,
+                    DeliveryBoyId =
+                        currentUser.UserId
+                };
+
+            var response =await _mediator.Send(command);
+
+            return Ok(response);
+        }
     }
 }

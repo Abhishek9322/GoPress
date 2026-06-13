@@ -20,7 +20,7 @@ namespace GoPress.Application.Interfaces.Repositories
         Task<List<Order>> GetDeliveryOrdersAsync(int deliveryBoyId);
 
         Task<List<Order>> GetAllOrdersAsync();
-
+        Task<List<Order>> GetReadyForDeliveryOrdersAsync(int deliveryBoyId);
         Task<List<Order>> GetAvailableOrdersAsync();
 
         Task UpdateAsync(Order order);

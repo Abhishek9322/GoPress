@@ -89,5 +89,13 @@ namespace GoPress.Infrastructure.Repositories
                  .Where(x =>x.Status == OrderStatusEnum.Accepted && x.DeliveryBoyId == null)
                  .ToListAsync();
         }
+
+        public async Task<List<Order>> GetReadyForDeliveryOrdersAsync(int deliveryBoyId)
+        {
+           return await _context.Orders
+                .Include(x=>x.Customer)
+                .Where(x => x.Status == OrderStatusEnum.ReadyForDelivery && x.DeliveryBoyId == deliveryBoyId)
+                .ToListAsync();
+        }
     }
 }

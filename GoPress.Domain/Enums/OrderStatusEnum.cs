@@ -13,9 +13,10 @@ namespace GoPress.Domain.Enums
         PickupAssigned = 3,
         PickedUp = 4,
         Processing = 5,
-        OutForDelivery = 6,
-        Delivered = 7,
-        Cancelled = 8,
-        Rejected = 9
+        ReadyForDelivery = 6,
+        OutForDelivery = 7,
+        Delivered = 8,
+        Cancelled = 9,
+        Rejected = 10
     }
 }
