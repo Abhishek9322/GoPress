@@ -13,6 +13,7 @@ namespace GoPress.Application.Interfaces.Repositories
         Task AddUserAsync(ApplicationUser user);
         Task<ApplicationUser?> GetUserByEmailAsync(string email);
         Task SaveChangesAsync();
+        Task<ApplicationUser?> GetByIdAsync(int id);
     }
 
 }

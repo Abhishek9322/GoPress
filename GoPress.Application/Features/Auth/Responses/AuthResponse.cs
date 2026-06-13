@@ -8,30 +8,34 @@ namespace GoPress.Application.Features.Auth.Responses
 {
     public class AuthResponse
     {
+
         public bool Success { get; set; }
 
         public string Message { get; set; }
-        public string Token { get; set; } = string.Empty;
+
+        public string AccessToken { get; set; } = string.Empty;
+
+        public string RefreshToken { get; set; } = string.Empty;
 
         public string Role { get; set; } = string.Empty;
-        // Success Response
+
         public static AuthResponse SuccessResponse(
             string message,
-            string token = "",
+            string accessToken = "",
+            string refreshToken = "",
             string role = "")
         {
             return new AuthResponse
             {
                 Success = true,
                 Message = message,
-                Token = token,
+                AccessToken = accessToken,
+                RefreshToken = refreshToken,
                 Role = role
             };
         }
 
-        // Failure Response
-        public static AuthResponse FailureResponse(
-            string message)
+        public static AuthResponse FailureResponse(string message)
         {
             return new AuthResponse
             {

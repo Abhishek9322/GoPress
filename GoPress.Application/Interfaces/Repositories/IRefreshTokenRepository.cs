@@ -1,7 +1,13 @@
-﻿namespace GoPress.Application.Interfaces.Repositories
+﻿using GoPress.Domain.Entities;
+
+namespace GoPress.Application.Interfaces.Repositories
 {
-    internal interface IRefreshTokenRepository
+    public interface IRefreshTokenRepository
     {
+        Task AddAsync(RefreshToken refreshToken);
+        Task<RefreshToken?> GetByTokenAsync(string token);
+
+        Task UpdateAsync(RefreshToken refreshToken);    
     }
 
 }
