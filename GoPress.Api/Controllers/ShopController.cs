@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 
 namespace GoPress.Api.Controllers
 {
@@ -76,5 +77,36 @@ namespace GoPress.Api.Controllers
         }
 
 
+        [HttpPut("start-processing/{orderId}")]
+        public async Task<IActionResult> StartProcessing(int orderId)
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var command = new ShopOwnerStartProcessingCommand
+                {
+                    OrderId = orderId,
+                    ShopOwnerId = currentUser.UserId
+                };
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [HttpPut("ready-for-delivery/{orderId}")]
+        public async Task<IActionResult> ReadyForDelivery(int orderId)
+        {
+            var currentUser =User.GetCurrentUser();
+
+            var command = new ShopOwnerReadyForDeliveryCommand
+                {
+                    OrderId = orderId,
+                    ShopOwnerId = currentUser.UserId
+                };
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
     }
 }
