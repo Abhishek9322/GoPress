@@ -1,30 +1,30 @@
 ﻿using GoPress.Api.Extensions;
-using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
 using GoPress.Application.Features.Orders.AcceptOrder.Comman;
+using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
+using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 using GoPress.Application.Features.Orders.RejectOrder.command;
-
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 
-namespace GoPress.Api.Controllers
+namespace GoPress.Api.Controllers.ShopOwner
 {
-    [Route("api/[controller]")]
+    [Route("api/ShopOwner/Orders")]
     [ApiController]
     [Authorize(Roles = "ShopOwner")]
-    public class ShopController : ControllerBase
+    public class ShopOwnerOrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public ShopController(IMediator mediator)
+        public ShopOwnerOrdersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [Authorize(Roles = "ShopOwner")]
-        [HttpPut("accept-order/{orderId}")]
-        public async Task<IActionResult>AcceptOrder(int orderId)
+
+       
+        [HttpPut("{orderId}/accept-order")]
+        public async Task<IActionResult> AcceptOrder(int orderId)
         {
             var currentUser = User.GetCurrentUser();
             if (currentUser == null)
@@ -34,7 +34,7 @@ namespace GoPress.Api.Controllers
             var command = new AcceptOrderByShopOwnerCommand
             {
                 OrderId = orderId,
-               ShopOwnerId=currentUser.UserId
+                ShopOwnerId = currentUser.UserId
             };
 
             var response = await _mediator.Send(command);
@@ -43,8 +43,8 @@ namespace GoPress.Api.Controllers
         }
 
 
-        [Authorize(Roles = "ShopOwner")]
-        [HttpPut("reject-order/{orderId}")]
+  
+        [HttpPut("{orderId}/reject-order")]
         public async Task<IActionResult> RejectOrder(int orderId)
         {
             var currentUser = User.GetCurrentUser();
@@ -61,8 +61,8 @@ namespace GoPress.Api.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "ShopOwner")]
-        [HttpGet("ShopOwner-Orders")]
+       
+        [HttpGet]
         public async Task<IActionResult> GetShopOrders()
         {
             var shopOwnerId = User.GetCurrentUser();
@@ -77,32 +77,32 @@ namespace GoPress.Api.Controllers
         }
 
 
-        [HttpPut("start-processing/{orderId}")]
+        [HttpPut("{orderId}/start-processing")]
         public async Task<IActionResult> StartProcessing(int orderId)
         {
             var currentUser = User.GetCurrentUser();
 
             var command = new ShopOwnerStartProcessingCommand
-                {
-                    OrderId = orderId,
-                    ShopOwnerId = currentUser.UserId
-                };
+            {
+                OrderId = orderId,
+                ShopOwnerId = currentUser.UserId
+            };
 
             var response = await _mediator.Send(command);
 
             return Ok(response);
         }
 
-        [HttpPut("ready-for-delivery/{orderId}")]
+        [HttpPut("{orderId}/ready-for-delivery")]
         public async Task<IActionResult> ReadyForDelivery(int orderId)
         {
-            var currentUser =User.GetCurrentUser();
+            var currentUser = User.GetCurrentUser();
 
             var command = new ShopOwnerReadyForDeliveryCommand
-                {
-                    OrderId = orderId,
-                    ShopOwnerId = currentUser.UserId
-                };
+            {
+                OrderId = orderId,
+                ShopOwnerId = currentUser.UserId
+            };
 
             var response = await _mediator.Send(command);
 
