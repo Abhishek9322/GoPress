@@ -1,31 +1,42 @@
 ﻿using GoPress.Api.Extensions;
 using GoPress.Application.DTOs.Orders;
-using GoPress.Application.Features.Orders.AcceptOrder.Comman;
-using GoPress.Application.Features.Orders.RejectOrder.command;
-using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
 using GoPress.Application.Features.Orders.CreateOrder.Command;
+using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
-namespace GoPress.Api.Controllers
+namespace GoPress.Api.Controllers.Customer
 {
-    [Route("api/[controller]")]
+    [Route("api/Customers/orders")]
     [ApiController]
-    [Authorize]
-    public class OrderController : ControllerBase
+    [Authorize(Roles = "Customer")]
+    public class CustomerOrdersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public OrderController(IMediator mediator)
+        public CustomerOrdersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        //Create Update Delete Oprations here       
+       
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerAllOrders()
+        {
+            var CustomerId = User.GetCurrentUser();
 
-        [Authorize(Roles = "Customer")]
+            var query = new GetCustomerOrdersQuery
+            {
+                CustomerId = CustomerId.UserId
+            };
+
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
+
+       
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderRequestDto requestDto)
         {
@@ -35,7 +46,7 @@ namespace GoPress.Api.Controllers
                 return Unauthorized();
             }
             var command = new CreateOrderCommand
-            { 
+            {
                 CustomerId = currentUser.UserId,
                 Order = requestDto
             };
@@ -44,7 +55,8 @@ namespace GoPress.Api.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Customer")]
+
+      
         [HttpPut("{orderId}")]
         public async Task<IActionResult> UpdateOrder(int orderId, UpdateCustomerOrderDto dto)
         {
@@ -67,8 +79,7 @@ namespace GoPress.Api.Controllers
             return Ok(response);
         }
 
-
-        [Authorize(Roles = "Customer")]
+    
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
@@ -90,53 +101,8 @@ namespace GoPress.Api.Controllers
             return Ok(response);
 
         }
-         
-        //Get Opration here
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
-        {
-            var query = new GetOrderByIdQuery
-            {
-                OrderId = id
-            };
 
-            var response =
-                await _mediator.Send(query);
 
-            return Ok(response);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpGet("All-Orders")]
-        public async Task<IActionResult> GetAllOrders()
-        {
-            // var currentCustomer = User.GetCurrentUser();
-
-            var query = new GetAllOrdersQuery();
-
-            var response =
-                await _mediator.Send(query);
-            return Ok(response);
-
-        }
-
-        [Authorize(Roles = "Customer")]
-        [HttpGet("Customer-Orders")]
-        public async Task<IActionResult> GetCustomerAllOrders()
-        {
-            var CustomerId = User.GetCurrentUser();
-
-            var query = new GetCustomerOrdersQuery
-            {
-                CustomerId = CustomerId.UserId
-            };
-
-            var response = await _mediator.Send(query);
-            return Ok(response);
-        }
-
-    
-       
 
     }
 }
