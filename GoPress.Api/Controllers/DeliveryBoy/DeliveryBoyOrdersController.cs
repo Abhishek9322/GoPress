@@ -127,5 +127,20 @@ namespace GoPress.Api.Controllers.DeliveryBoy
 
             return Ok(response);
         }
+
+        [HttpGet("delivered")]
+        public async Task<IActionResult>GetDeliveredOrders()
+        {
+            var currentUser =User.GetCurrentUser();
+
+            var query =new GetComplitedOrderByDBoyQuery
+            {
+                    DeliveryBoyId = currentUser.UserId
+                };
+
+            var response =await _mediator.Send(query);
+
+            return Ok(response);
+        }
     }
 }
