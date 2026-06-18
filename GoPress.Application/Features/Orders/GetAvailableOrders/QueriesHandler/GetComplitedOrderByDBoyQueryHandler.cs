@@ -34,7 +34,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                     DeliveryAddress = order.DeliveryAddress,
                     TotalAmount = order.TotalAmount,
                     DeliveryDate = order.DeliveryDate
-                }).ToList();
+                }).ToList();  
 
             return new Response<List<DeliveredOrderDto>>(result, "Delivered Order ");
         }
