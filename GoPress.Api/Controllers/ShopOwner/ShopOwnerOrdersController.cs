@@ -61,7 +61,24 @@ namespace GoPress.Api.Controllers.ShopOwner
             return Ok(response);
         }
 
-       
+
+        //
+        [HttpGet("All-Rejected-Orders")]
+        public async Task<IActionResult> GetRejectOrder()
+        {
+           var currentUser=User.GetCurrentUser();
+
+            var result = new GetRejectOrderShopOwnerQuery
+            {
+                ShopOwnerId = currentUser.UserId,
+            };
+
+            var response = await _mediator.Send(result);
+
+            return Ok(response);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> GetShopOrders()
         {
@@ -108,5 +125,44 @@ namespace GoPress.Api.Controllers.ShopOwner
 
             return Ok(response);
         }
+
+        //
+        [HttpGet("All-ReadyforDelivery-Order")]
+        public async Task<IActionResult> GetReadyForDelivery()
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var result = new GetReadyForDeliveryByShopOwnerQuery
+            {
+                ShopOwnerId = currentUser.UserId
+            };
+
+            var response = await _mediator.Send(result);
+
+            return Ok(response);
+        }
+
+
+
+
+        //
+        [HttpGet]
+         public async Task<IActionResult> GetCompletedOrders()
+        {
+            var currentuser=User.GetCurrentUser();
+
+            var response = new GetCompletedOrdersByShopOwnerQuery
+            {
+                ShopOwnerId = currentuser.UserId
+            };
+
+            var result=await _mediator.Send(response);
+
+            return Ok(result);
+        }
+
+
     }
+
+
 }

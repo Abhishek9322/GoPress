@@ -110,5 +110,35 @@ namespace GoPress.Infrastructure.Repositories
          .OrderByDescending(x => x.CreatedAt)
          .ToListAsync();
         }
+
+        public async Task<List<Order>> GetCompletedOrdersByShopOwnerAsync(int shopOwnerId)
+        {
+                    return await _context.Orders
+                                         .Include(x => x.Customer)
+                                         .Where(x =>
+                                                x.ShopOwnerId == shopOwnerId &&
+                                                x.Status == OrderStatusEnum.Delivered)
+                                         .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetRejectedOrdersByShopOwnerAsync(int shopOwnerId)
+        {
+            return await _context.Orders
+                                 .Include(x => x.Customer)
+                                   .Where(x =>
+                                   x.ShopOwnerId == shopOwnerId &&
+                                      x.Status == OrderStatusEnum.Rejected)
+                                 .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetReadyForDeliveryByShopOwnerAsync(int shopOwnerId)
+        {
+            return await _context.Orders
+                                 .Include(x => x.Customer)
+                                .Where(x =>
+                                x.ShopOwnerId == shopOwnerId &&
+                                 x.Status == OrderStatusEnum.ReadyForDelivery)
+                              .ToListAsync();
+        }
     }
 }
