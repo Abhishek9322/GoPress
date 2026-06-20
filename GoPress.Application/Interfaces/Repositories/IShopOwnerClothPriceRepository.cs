@@ -12,6 +12,8 @@ namespace GoPress.Application.Interfaces.Repositories
         Task AddAsync(ShopOwnerClothPrice clothPrice);
         Task<ShopOwnerClothPrice?> GetByShopOwnerAndClothTypeAsync(int shopOwnerId,int clothTypeId);
         Task<List<ShopOwnerClothPrice>> GetShopPricesAsync(int shopOwnerId);
+        Task<List<ShopOwnerClothPrice>> GetByShopOwnerIdAsync(int shopOwnerId);
+        Task<ShopOwnerClothPrice?>GetByIdAsync(int id);
         Task UpdateAsync(ShopOwnerClothPrice clothPrice);
         Task DeleteAsync(ShopOwnerClothPrice clothPrice);
 
