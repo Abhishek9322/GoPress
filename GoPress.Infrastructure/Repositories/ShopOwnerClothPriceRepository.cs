@@ -41,7 +41,18 @@ namespace GoPress.Infrastructure.Repositories
                  .Where(x => x.ShopOwnerId == shopOwnerId)
                  .ToListAsync();
         }
+        public async Task<List<ShopOwnerClothPrice>> GetByShopOwnerIdAsync(int shopOwnerId)
+        {
+            return await _context.ShopOwnerClothPrices
+                 .Include(c => c.ClothType)
+                 .Where(x => x.ShopOwnerId == shopOwnerId)
+                 .ToListAsync();
+        }
+        public async Task<ShopOwnerClothPrice?> GetByIdAsync(int id)
+        {
+            return await _context.ShopOwnerClothPrices.FirstOrDefaultAsync(c=>c.Id == id);
 
+        }
         public async Task UpdateAsync(ShopOwnerClothPrice clothPrice)
         {
             _context.ShopOwnerClothPrices
@@ -57,5 +68,6 @@ namespace GoPress.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+       
     }
 }

@@ -143,10 +143,6 @@ namespace GoPress.Api.Controllers.ShopOwner
 
             return Ok(response);
         }
-
-
-
-
         //
         [HttpGet("completed-orders")]
          public async Task<IActionResult> GetCompletedOrders()
@@ -164,22 +160,7 @@ namespace GoPress.Api.Controllers.ShopOwner
         }
 
 
-        [HttpPost("Cloth-price")]
-        public async Task<IActionResult> AddClothPrice(AddClothPriceDto addClothPrice)
-        {
-            var currentuser=User.GetCurrentUser();
-
-            var command = new AddClothPriceCommand
-            {
-                ShopOwnerId = currentuser.UserId,
-                Price = addClothPrice
-            };
-
-            var response = await _mediator.Send(command);
-
-            return Ok(response);
-
-        }
+      
 
     }
 
