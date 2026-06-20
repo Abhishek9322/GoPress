@@ -1,5 +1,7 @@
 ﻿using GoPress.Api.Extensions;
+using GoPress.Application.DTOs.Orders;
 using GoPress.Application.Features.Orders.AcceptOrder.Comman;
+using GoPress.Application.Features.Orders.CreateOrder.Command;
 using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
 using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 using GoPress.Application.Features.Orders.RejectOrder.command;
@@ -161,6 +163,23 @@ namespace GoPress.Api.Controllers.ShopOwner
             return Ok(result);
         }
 
+
+        [HttpPost("Cloth-price")]
+        public async Task<IActionResult> AddClothPrice(AddClothPriceDto addClothPrice)
+        {
+            var currentuser=User.GetCurrentUser();
+
+            var command = new AddClothPriceCommand
+            {
+                ShopOwnerId = currentuser.UserId,
+                Price = addClothPrice
+            };
+
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+
+        }
 
     }
 

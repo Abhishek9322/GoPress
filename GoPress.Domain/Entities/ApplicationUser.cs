@@ -34,5 +34,6 @@ namespace GoPress.Domain.Entities
         public ICollection<Order> ShopOwnerOrders { get; set; }
 
         public ICollection<Order> DeliveryBoyOrders { get; set; }
+        public ICollection<ShopOwnerClothPrice>ShopOwnerClothPrices{ get; set; }
     }
 }

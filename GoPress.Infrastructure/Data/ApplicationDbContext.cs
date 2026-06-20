@@ -22,6 +22,9 @@ namespace GoPress.Infrastructure.Data
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ClothType> ClothTypes { get; set; }
+
+        public DbSet<ShopOwnerClothPrice> ShopOwnerClothPrices { get; set; }    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -78,6 +81,32 @@ namespace GoPress.Infrastructure.Data
                 .WithMany(x => x.OrderItems)
                 .HasForeignKey(x => x.OrderId);
 
+            // ShopOwner -> Cloth Prices
+
+            modelBuilder.Entity<ShopOwnerClothPrice>()
+                .HasOne(x => x.ShopOwner)
+                .WithMany(x => x.ShopOwnerClothPrices)
+                .HasForeignKey(x => x.ShopOwnerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ClothType -> ShopOwner Prices
+
+            modelBuilder.Entity<ShopOwnerClothPrice>()
+                .HasOne(x => x.ClothType)
+                .WithMany(x => x.ShopOwnerClothPrices)
+                .HasForeignKey(x => x.ClothTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            //to fixt isdeleted proper
+            modelBuilder.Entity<ClothType>()
+                .Property(x => x.IsDeleted)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<ClothType>()
+                .Property(x => x.CreatedAt)
+                .HasDefaultValueSql("GETUTCDATE()");
+
 
             // ==========================
             // INDEXES
@@ -108,6 +137,20 @@ namespace GoPress.Infrastructure.Data
             // Order items by order
             modelBuilder.Entity<OrderItem>()
                 .HasIndex(x => x.OrderId);
+
+            // cloth type name 
+            modelBuilder.Entity<ClothType>()
+                .HasIndex(x => x.Name)
+                .IsUnique();
+
+            // shopowner and cloth type  /prevenht from /Shirt ₹10/ Shirt ₹20 / by same shop owner
+            modelBuilder.Entity<ShopOwnerClothPrice>()
+                .HasIndex(x => new
+              {
+                  x.ShopOwnerId,
+                  x.ClothTypeId
+             })
+              .IsUnique();
         }
     }
 }
