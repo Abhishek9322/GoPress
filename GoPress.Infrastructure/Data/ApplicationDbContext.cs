@@ -77,6 +77,37 @@ namespace GoPress.Infrastructure.Data
                 .HasOne(x => x.Order)
                 .WithMany(x => x.OrderItems)
                 .HasForeignKey(x => x.OrderId);
+
+
+            // ==========================
+            // INDEXES
+            // ==========================
+
+            // User login lookup
+            modelBuilder.Entity<ApplicationUser>()
+                .HasIndex(x => x.Email)
+                .IsUnique();
+
+            // Refresh token lookup
+            modelBuilder.Entity<RefreshToken>()
+                .HasIndex(x => x.Token)
+                .IsUnique();
+
+            // Orders by customer        
+            modelBuilder.Entity<Order>()
+                .HasIndex(x => x.CustomerId);
+
+            // Orders by shop owner
+            modelBuilder.Entity<Order>()
+                .HasIndex(x => x.ShopOwnerId);
+
+            // Orders by delivery boy
+            modelBuilder.Entity<Order>()
+                .HasIndex(x => x.DeliveryBoyId);
+
+            // Order items by order
+            modelBuilder.Entity<OrderItem>()
+                .HasIndex(x => x.OrderId);
         }
     }
 }

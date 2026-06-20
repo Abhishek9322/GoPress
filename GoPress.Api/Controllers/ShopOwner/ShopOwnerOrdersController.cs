@@ -79,7 +79,7 @@ namespace GoPress.Api.Controllers.ShopOwner
         }
 
 
-        [HttpGet]
+        [HttpGet("all-orders")]
         public async Task<IActionResult> GetShopOrders()
         {
             var shopOwnerId = User.GetCurrentUser();
@@ -146,7 +146,7 @@ namespace GoPress.Api.Controllers.ShopOwner
 
 
         //
-        [HttpGet]
+        [HttpGet("completed-orders")]
          public async Task<IActionResult> GetCompletedOrders()
         {
             var currentuser=User.GetCurrentUser();
