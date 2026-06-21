@@ -13,50 +13,66 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Response<int>>
     {
+        private readonly IShopOwnerClothPriceRepository _shopOwnerClothPriceRepository;
         private readonly IOrderRepository _orderRepository;
-        public CreateOrderCommandHandler(IOrderRepository orderRepository)
+        public CreateOrderCommandHandler(IOrderRepository orderRepository, IShopOwnerClothPriceRepository shopOwnerClothPriceRepository)
         {
             _orderRepository = orderRepository;
+            _shopOwnerClothPriceRepository = shopOwnerClothPriceRepository;
         }
         public async Task<Response<int>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             decimal totalAmount = 0;
-
             var orderItems = new List<OrderItem>();
 
             foreach (var item in request.Order.OrderItems)
             {
-                var totalPrice =
-                    item.Quantity * item.Price;
+                var clothPrice = await _shopOwnerClothPriceRepository
+                         .GetByShopOwnerAndClothTypeAsync(request.Order.ShopOwnerId, item.ClothTypeId);
+
+                if (clothPrice == null)
+                {
+                    return new Response<int>(
+                        "Price not configured");
+                }
+
+                var totalPrice = clothPrice.Price * item.Quantity;
 
                 totalAmount += totalPrice;
 
                 orderItems.Add(new OrderItem
                 {
-                    ClothName = item.ClothName,
+                    ClothTypeId = item.ClothTypeId,
+                    ClothName = clothPrice.ClothType.Name,
                     Quantity = item.Quantity,
-                    Price = item.Price,
+                    Price = clothPrice.Price,
                     TotalPrice = totalPrice
                 });
             }
-
             var order = new Order
             {
                 CustomerId = request.CustomerId,
-                ShopOwnerId = request.Order.ShopOwnerId,    //problem is here dot send this with the order 
+
+                ShopOwnerId = request.Order.ShopOwnerId,
+
                 PickupAddress = request.Order.PickupAddress,
+
                 DeliveryAddress = request.Order.DeliveryAddress,
+
                 PickupDate = request.Order.PickupDate,
-                Notes =request.Order.Notes,
+
+                Notes = request.Order.Notes,
+
                 TotalAmount = totalAmount,
+
                 OrderItems = orderItems
             };
 
-            var createdOrder =
-                await _orderRepository.CreateAsync(order);
+
+            var createOrder = await _orderRepository.CreateAsync(order);
 
             return new Response<int>(
-                createdOrder.Id,
+                createOrder.Id,
                 "Order Created Successfully");
         }
     }

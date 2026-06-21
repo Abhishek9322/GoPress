@@ -8,10 +8,8 @@ namespace GoPress.Application.DTOs.Orders
 {
     public class CreateOrderItemDto
     {
-        public string ClothName { get; set; }
+        public int ClothTypeId { get; set; }
 
         public int Quantity { get; set; }
-
-        public decimal Price { get; set; }
     }
 }

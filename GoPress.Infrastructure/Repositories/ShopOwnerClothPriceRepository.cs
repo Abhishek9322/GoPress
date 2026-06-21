@@ -29,7 +29,8 @@ namespace GoPress.Infrastructure.Repositories
         public async Task<ShopOwnerClothPrice?> GetByShopOwnerAndClothTypeAsync(int shopOwnerId, int clothTypeId)
         {
             return await _context.ShopOwnerClothPrices
-               .FirstOrDefaultAsync(x =>
+                  .Include(x => x.ClothType)
+                  .FirstOrDefaultAsync(x =>
                    x.ShopOwnerId == shopOwnerId &&
                    x.ClothTypeId == clothTypeId);
         }
