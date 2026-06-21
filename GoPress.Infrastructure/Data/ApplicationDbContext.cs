@@ -81,6 +81,13 @@ namespace GoPress.Infrastructure.Data
                 .WithMany(x => x.OrderItems)
                 .HasForeignKey(x => x.OrderId);
 
+            //CLOTHTYPE -> ORDERITEM
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(x => x.ClothType)
+                .WithMany()
+                .HasForeignKey(x => x.ClothTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // ShopOwner -> Cloth Prices
 
             modelBuilder.Entity<ShopOwnerClothPrice>()
@@ -106,6 +113,24 @@ namespace GoPress.Infrastructure.Data
             modelBuilder.Entity<ClothType>()
                 .Property(x => x.CreatedAt)
                 .HasDefaultValueSql("GETUTCDATE()");
+
+
+            //No store type was specified for decimal property
+            modelBuilder.Entity<Order>()
+                .Property(x => x.TotalAmount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(x => x.Price)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(x => x.TotalPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<ShopOwnerClothPrice>()
+                .Property(x => x.Price)
+                .HasPrecision(18, 2);
 
 
             // ==========================

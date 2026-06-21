@@ -10,7 +10,7 @@ namespace GoPress.Domain.Entities
         // Shirt
         // Pant
         // Saree
-
+        public int ClothTypeId { get; set; }
         public string ClothName { get; set; }
 
         // Quantity
@@ -25,6 +25,8 @@ namespace GoPress.Domain.Entities
         // NAVIGATION
 
         public Order Order { get; set; }
+
+        public ClothType ClothType { get; set; }
 
     }
 }
