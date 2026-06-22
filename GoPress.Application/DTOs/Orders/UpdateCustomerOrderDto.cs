@@ -10,6 +10,6 @@
 
         public string? Notes { get; set; }
 
-        public List<OrderItemResponseDto> OrderItems { get; set; }
+        public List<UpdateCustomerOrderItemDto> OrderItems { get; set; }
     }
 }

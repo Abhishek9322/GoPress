@@ -73,7 +73,7 @@ namespace GoPress.Api.Controllers.Customer
 
       
         [HttpPut("{orderId}")]
-        public async Task<IActionResult> UpdateOrder(int orderId, UpdateCustomerOrderDto dto)
+        public async Task<IActionResult> UpdateOrder(int orderId, UpdateCustomerOrderDto updateorderdto)
         {
             var currentUser = User.GetCurrentUser();
 
@@ -86,7 +86,7 @@ namespace GoPress.Api.Controllers.Customer
                 {
                     OrderId = orderId,
                     CustomerId = currentUser.UserId,
-                    Order = dto
+                    Order = updateorderdto
                 };
             var response =
                 await _mediator.Send(command);
