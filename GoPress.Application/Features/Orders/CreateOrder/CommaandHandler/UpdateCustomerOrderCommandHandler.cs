@@ -15,11 +15,14 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     public class UpdateCustomerOrderCommandHandler : IRequestHandler<UpdateCustomerOrderCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly IShopOwnerClothPriceRepository _shopOwnerClothPriceRepository;
 
         public UpdateCustomerOrderCommandHandler(
-            IOrderRepository orderRepository)
+            IOrderRepository orderRepository,
+            IShopOwnerClothPriceRepository shopOwnerClothPriceRepository)
         {
             _orderRepository = orderRepository;
+            _shopOwnerClothPriceRepository = shopOwnerClothPriceRepository;
         }
 
         public async Task<Response<string>> Handle(UpdateCustomerOrderCommand request, CancellationToken cancellationToken)
@@ -48,37 +51,40 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
                     "Order Cannot Be Updated");
             }
 
-            // UPDATE BASIC DETAILS
-
-            order.PickupAddress = request.Order.PickupAddress;
-            order.DeliveryAddress =request.Order.DeliveryAddress;
-            order.PickupDate =request.Order.PickupDate;
-            order.Notes = request.Order.Notes;
-
-            // REMOVE OLD ITEMS
+            decimal totalAmount = 0;
 
             order.OrderItems.Clear();
 
-            decimal totalAmount = 0;
-
             foreach (var item in request.Order.OrderItems)
             {
-                decimal totalPrice =
-                    item.Quantity * item.Price;
+                var clothPrice = await _shopOwnerClothPriceRepository
+                    .GetByShopOwnerAndClothTypeAsync(order.ShopOwnerId, item.ClothTypeId);
+
+                if (clothPrice == null)
+                {
+                    return new Response<string>(
+                        "Price Not Configured");
+                }
+
+                var totalPrice = clothPrice.Price * item.Quantity;
 
                 totalAmount += totalPrice;
 
                 order.OrderItems.Add(new OrderItem
                 {
-                    ClothName = item.ClothName,
+                    ClothTypeId = item.ClothTypeId,
+                    ClothName = clothPrice.ClothType.Name,
                     Quantity = item.Quantity,
-                    Price = item.Price,
+                    Price = clothPrice.Price,
                     TotalPrice = totalPrice
                 });
             }
 
+            order.PickupAddress =request.Order.PickupAddress;
+            order.DeliveryAddress =request.Order.DeliveryAddress;
+            order.PickupDate =request.Order.PickupDate;
+            order.Notes =request.Order.Notes;
             order.TotalAmount = totalAmount;
-
             order.UpdatedAt = DateTime.UtcNow;
 
             await _orderRepository.UpdateAsync(order);
