@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Entities;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,14 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     {
         private readonly IShopOwnerClothPriceRepository _shopOwnerClothPriceRepository;
         private readonly IOrderRepository _orderRepository;
-        public CreateOrderCommandHandler(IOrderRepository orderRepository, IShopOwnerClothPriceRepository shopOwnerClothPriceRepository)
+        private readonly ILogger<CreateOrderCommandHandler> _logger;
+        public CreateOrderCommandHandler(IOrderRepository orderRepository,
+            IShopOwnerClothPriceRepository shopOwnerClothPriceRepository,
+            ILogger<CreateOrderCommandHandler> logger)
         {
             _orderRepository = orderRepository;
             _shopOwnerClothPriceRepository = shopOwnerClothPriceRepository;
+            _logger = logger;
         }
         public async Task<Response<int>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
@@ -68,8 +73,14 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
                 OrderItems = orderItems
             };
 
+            _logger.LogInformation("Customer {CustomerId} is creating an order",
+                request.CustomerId);
 
             var createOrder = await _orderRepository.CreateAsync(order);
+
+            _logger.LogInformation("Order {OrderId} created successfully for customer {CustomerId}",
+                  createOrder.Id,
+                 request.CustomerId);
 
             return new Response<int>(
                 createOrder.Id,
