@@ -21,6 +21,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);     // Infras
 
 //builder.Services.AddAplicationService();
 
+//git test
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
