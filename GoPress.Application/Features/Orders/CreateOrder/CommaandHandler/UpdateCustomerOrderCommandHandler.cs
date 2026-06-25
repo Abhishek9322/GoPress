@@ -4,6 +4,7 @@ using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Entities;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,16 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IShopOwnerClothPriceRepository _shopOwnerClothPriceRepository;
+        private readonly ILogger<UpdateCustomerOrderCommandHandler> _logger;
 
         public UpdateCustomerOrderCommandHandler(
             IOrderRepository orderRepository,
-            IShopOwnerClothPriceRepository shopOwnerClothPriceRepository)
+            IShopOwnerClothPriceRepository shopOwnerClothPriceRepository,
+            ILogger<UpdateCustomerOrderCommandHandler> logger)
         {
             _orderRepository = orderRepository;
             _shopOwnerClothPriceRepository = shopOwnerClothPriceRepository;
+            _logger = logger;
         }
 
         public async Task<Response<string>> Handle(UpdateCustomerOrderCommand request, CancellationToken cancellationToken)
@@ -87,7 +91,16 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
             order.TotalAmount = totalAmount;
             order.UpdatedAt = DateTime.UtcNow;
 
+            _logger.LogInformation(
+                "Customer {CustomerId} updating order {OrderId}",
+              request.CustomerId,
+              request.OrderId);
+
             await _orderRepository.UpdateAsync(order);
+
+            _logger.LogInformation(
+               "Order {OrderId} updated successfully",
+              request.OrderId);
 
             return new Response<string>(
                 "Order Updated Successfully");

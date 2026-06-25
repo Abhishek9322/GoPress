@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,11 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
     public class DeliverOrderCommandhandler : IRequestHandler<DeliverOrderCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
-        public DeliverOrderCommandhandler(IOrderRepository orderRepository)
+        private readonly ILogger<DeliverOrderCommandhandler> _logger;
+        public DeliverOrderCommandhandler(IOrderRepository orderRepository,
+            ILogger<DeliverOrderCommandhandler> logger)
         {
+            _logger = logger;
             _orderRepository = orderRepository;
         }
         public async Task<Response<string>> Handle(DeliverOrderCommand request, CancellationToken cancellationToken)
@@ -42,7 +46,17 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
 
             order.Status = OrderStatusEnum.Delivered;
             order.DeliveryDate = DateTime.UtcNow;
+
+            _logger.LogInformation(
+                    "Order {OrderId} delivered by DeliveryBoy {DeliveryBoyId}",
+               request.OrderId,
+               request.DeliveryBoyId);
+
             await _orderRepository.UpdateAsync(order);
+
+            _logger.LogInformation(
+                "Order {OrderId} updated to Delivered successfully",
+                request.OrderId);
 
             return new Response<string>(
                 "Order Delivered Successfully");

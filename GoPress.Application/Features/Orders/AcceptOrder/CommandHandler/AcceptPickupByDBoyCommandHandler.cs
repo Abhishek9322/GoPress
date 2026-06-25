@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,13 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
     public class AcceptPickupByDBoyCommandHandler : IRequestHandler<AcceptPickupByDBoyCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
-        public AcceptPickupByDBoyCommandHandler(IOrderRepository orderRepository)
+        private readonly ILogger<AcceptPickupByDBoyCommandHandler> _logger;
+
+        public AcceptPickupByDBoyCommandHandler(IOrderRepository orderRepository,
+            ILogger<AcceptPickupByDBoyCommandHandler> logger)
         {
             _orderRepository = orderRepository;
+            _logger = logger;
         }
         public async Task<Response<string>> Handle(AcceptPickupByDBoyCommand request, CancellationToken cancellationToken)
         {
@@ -42,7 +47,18 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
             order.DeliveryBoyId = request.DeliveryBoyId;
 
             order.Status = OrderStatusEnum.PickupAssigned;
+
+            _logger.LogInformation(
+                    "DeliveryBoy {DeliveryBoyId} accepted order {OrderId}",
+              request.DeliveryBoyId,
+              request.OrderId);
+
             await _orderRepository.UpdateAsync(order);
+
+            _logger.LogInformation(
+                 "DeliveryBoy {DeliveryBoyId} accepted order successfully {OrderId}",
+               request.DeliveryBoyId,
+               request.OrderId);
 
             return new Response<string>("Pickup Accepted Successfully");
         }
