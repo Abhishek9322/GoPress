@@ -104,7 +104,7 @@ namespace GoPress.Application.Features.Auth.CommandHndler
                 Token = refreshToken,
                 UserId = user.Id,
                 ExpiryDate = DateTime.UtcNow.AddDays(7)
-            });
+            });   
 
             _logger.LogInformation(
                 "User Login Successfully  {UserId}",
