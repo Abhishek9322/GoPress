@@ -16,7 +16,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     {
         private readonly IShopOwnerClothPriceRepository _shopOwnerClothPriceRepository;
         private readonly IOrderRepository _orderRepository;
-        private readonly ILogger<CreateOrderCommandHandler> _logger;
+        private readonly ILogger<CreateOrderCommandHandler> _logger;    
         public CreateOrderCommandHandler(IOrderRepository orderRepository,
             IShopOwnerClothPriceRepository shopOwnerClothPriceRepository,
             ILogger<CreateOrderCommandHandler> logger)
