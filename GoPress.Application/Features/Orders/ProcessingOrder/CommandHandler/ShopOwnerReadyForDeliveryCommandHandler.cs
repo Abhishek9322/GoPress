@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,12 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
     public class ShopOwnerReadyForDeliveryCommandHandler : IRequestHandler<ShopOwnerReadyForDeliveryCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
-        public ShopOwnerReadyForDeliveryCommandHandler(IOrderRepository orderRepository)
+        private readonly ILogger<ShopOwnerReadyForDeliveryCommandHandler> _logger;
+        public ShopOwnerReadyForDeliveryCommandHandler(IOrderRepository orderRepository,
+            ILogger<ShopOwnerReadyForDeliveryCommandHandler> logger)
         {
             _orderRepository = orderRepository;
+            _logger = logger;
         }
         public async Task<Response<string>> Handle(ShopOwnerReadyForDeliveryCommand request, CancellationToken cancellationToken)
         {
@@ -45,7 +49,16 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
 
             order.Status =OrderStatusEnum.ReadyForDelivery;
 
+            _logger.LogInformation(
+                    "Order {OrderId} marked ReadyForDelivery by ShopOwner {ShopOwnerId}",
+                 request.OrderId,
+                request.ShopOwnerId);
+
             await _orderRepository.UpdateAsync(order);
+
+            _logger.LogInformation(
+                "Order {OrderId} updated to ReadyForDelivery successfully",
+                request.OrderId);
 
             return new Response<string>(
                 "Order Ready For Delivery");

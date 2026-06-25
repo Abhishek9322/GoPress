@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
     public class AcceptOrderByShopOwnerCommandHandler : IRequestHandler<AcceptOrderByShopOwnerCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
-        public AcceptOrderByShopOwnerCommandHandler(IOrderRepository orderRepository)
+        private readonly ILogger<AcceptOrderByShopOwnerCommandHandler> _logger;
+        public AcceptOrderByShopOwnerCommandHandler(IOrderRepository orderRepository,
+            ILogger<AcceptOrderByShopOwnerCommandHandler> logger)
         {
             _orderRepository = orderRepository;
+            _logger = logger;
         }
         public async Task<Response<string>> Handle(AcceptOrderByShopOwnerCommand request, CancellationToken cancellationToken)
         {
@@ -38,7 +42,19 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
             }
 
             order.Status = OrderStatusEnum.Accepted;
+
+            _logger.LogInformation(
+               "ShopOwner {ShopOwnerId} accepted order {OrderId}",
+               request.ShopOwnerId,
+               request.OrderId);
+
             await _orderRepository.UpdateAsync(order);
+
+            _logger.LogInformation(
+              "ShopOwner {ShopOwnerId} accepted order successfully  {OrderId}",
+              request.ShopOwnerId,
+              request.OrderId);
+
 
             return new Response<string>("Order Accepted Successfully");
         }

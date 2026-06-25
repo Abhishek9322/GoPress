@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,12 @@ namespace GoPress.Application.Features.Orders.RejectOrder.CommandHandler
     public class RejectOrderByShopOwnerCommandHandler : IRequestHandler<RejectOrderByShopOwnerCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
-        public RejectOrderByShopOwnerCommandHandler(IOrderRepository orderRepository)
+        private readonly ILogger<RejectOrderByShopOwnerCommandHandler> _logger;
+        public RejectOrderByShopOwnerCommandHandler(IOrderRepository orderRepository,
+            ILogger<RejectOrderByShopOwnerCommandHandler> logger)
         {
             _orderRepository = orderRepository;
+            _logger = logger;
         }
         public async Task<Response<string>> Handle(RejectOrderByShopOwnerCommand request, CancellationToken cancellationToken)
         {
@@ -42,7 +46,18 @@ namespace GoPress.Application.Features.Orders.RejectOrder.CommandHandler
 
             order.Status = OrderStatusEnum.Rejected;
 
+            _logger.LogWarning(
+               "ShopOwner {ShopOwnerId} rejected order {OrderId}",
+             request.ShopOwnerId,
+             request.OrderId);
+
             await _orderRepository.UpdateAsync(order);
+
+            _logger.LogWarning(
+              "ShopOwner {ShopOwnerId} rejected order successfully  {OrderId}",
+              request.ShopOwnerId,
+              request.OrderId);
+
 
             return new Response<string>(
                 "Order Rejected Successfully");

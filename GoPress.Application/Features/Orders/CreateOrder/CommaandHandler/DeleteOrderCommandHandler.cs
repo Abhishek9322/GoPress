@@ -3,6 +3,7 @@ using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,11 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Response<string>>
     {
         private readonly IOrderRepository _repository;
-        public DeleteOrderCommandHandler(IOrderRepository repository)
+        private readonly ILogger<DeleteOrderCommandHandler> _logger;    
+        public DeleteOrderCommandHandler(IOrderRepository repository,ILogger<DeleteOrderCommandHandler> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
         public async Task<Response<string>> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
@@ -45,7 +48,17 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
                     null,
                     "Only Pending Orders Can Be Deleted");
             }
+
+            _logger.LogInformation(
+                                  "Customer {CustomerId} requested deletion of order {OrderId}",
+                       request.CustomerId,
+                        request.OrderId);
+
             await _repository.DeleteAsync(order);
+
+            _logger.LogInformation(
+                "Order {OrderId} deleted successfully",
+               request.OrderId);
 
             return new Response<string>(
                 "Success",
