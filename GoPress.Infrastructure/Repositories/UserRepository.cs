@@ -8,6 +8,7 @@ using GoPress.Domain.Entities;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Infrastructure.Data;
 using System.Diagnostics;
+using GoPress.Domain.Enums;
 
 
 namespace GoPress.Infrastructure.Repositories
@@ -41,6 +42,29 @@ namespace GoPress.Infrastructure.Repositories
         {
             return await _context.ApplicationUsers
            .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public  async Task<List<ApplicationUser>> GetPendingShopOwnersAsync()
+        {
+            return await _context.ApplicationUsers
+                .Include(x=>x.ShopOwnerProfile)
+                .Where(x => x.Role == UserRoleenum.ShopOwner && !x.IsApproved)
+                .ToListAsync();
+        }
+
+        public async Task<List<ApplicationUser>> GetPendingDeliveryBoysAsync()
+        {
+            return await _context.ApplicationUsers
+                .Include(x=>x.DeliveryBoyProfile)
+                 .Where(x => x.Role == UserRoleenum.DeliveryBoy && !x.IsApproved)
+                 .ToListAsync();
+        }
+
+        public async Task UpdateAsync(ApplicationUser user)
+        {
+           _context.ApplicationUsers.Update(user);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
