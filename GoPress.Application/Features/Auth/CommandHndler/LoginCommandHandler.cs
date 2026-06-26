@@ -92,6 +92,10 @@ namespace GoPress.Application.Features.Auth.CommandHndler
 
             var accessToken = _jwtService.GenerateToken(user);
 
+            _logger.LogInformation(
+               "Generating refresh tokens for user {UserId}",
+               user.Id);
+
             var refreshToken = _jwtService.GenerateRefreshToken();
 
             _logger.LogInformation(
