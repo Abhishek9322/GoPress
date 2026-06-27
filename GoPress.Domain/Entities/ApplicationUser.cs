@@ -19,6 +19,10 @@ namespace GoPress.Domain.Entities
         public bool IsApproved { get; set; } = false;
         public bool IsActive { get; set; } = false;
 
+        public string? RejectionReason { get; set; }
+
+        public DateTime? RejectedAt { get; set; }
+
         // Navigation Properties
         public CustomerProfile CustomerProfile { get; set; }
 
