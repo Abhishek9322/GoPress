@@ -1,5 +1,6 @@
 ﻿using GoPress.Application.Features.AdminApproval.Approved.Command;
 using GoPress.Application.Features.AdminApproval.GetPendingApproval.Queries;
+using GoPress.Application.Features.AdminApproval.Rejectuser.Command;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,17 @@ namespace GoPress.Api.Controllers.Admin
             };
 
             var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [HttpPut("{userId}/reject")]
+        public async Task<IActionResult> RejectUser(int userId,RejectUserCommand command)
+        {
+            command.UserId = userId;
+
+            var response =
+                await _mediator.Send(command);
 
             return Ok(response);
         }

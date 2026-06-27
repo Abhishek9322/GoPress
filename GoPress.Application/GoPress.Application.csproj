@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AdminApproval\Rejectuser\QueriesHandler\" />
+    <Folder Include="Features\AdminApproval\Rejectuser\Queries\" />
     <Folder Include="Features\Auth\QueriesHandler\" />
     <Folder Include="Features\Auth\Queries\" />
     <Folder Include="Behaviors\" />
