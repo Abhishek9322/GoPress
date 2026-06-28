@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using GoPress.Application.Features.AdminDashboard.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,12 +11,21 @@ namespace GoPress.Api.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class AdminDashBoardController : ControllerBase
     {
-          //Dashboard and all thing here
-     
-        [HttpGet("dashboard")]
-        public IActionResult GetProfile()
+
+        private readonly IMediator _mediator;
+        public AdminDashBoardController(IMediator mediator)
         {
-            return Ok("Authenticated User Admin");
+            _mediator = mediator;
+        }
+       
+        [HttpGet("Get-dashboard")]
+        public async Task<IActionResult> GetDashboard()
+        {
+            var response =
+                await _mediator.Send(
+                    new GetAdminDashboardQuery());
+
+            return Ok(response);
         }
     }
 }
