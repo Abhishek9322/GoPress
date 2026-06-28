@@ -11,7 +11,7 @@ namespace GoPress.Api.Controllers.Admin
     {
           //Dashboard and all thing here
      
-        [HttpGet("profile")]
+        [HttpGet("dashboard")]
         public IActionResult GetProfile()
         {
             return Ok("Authenticated User Admin");
