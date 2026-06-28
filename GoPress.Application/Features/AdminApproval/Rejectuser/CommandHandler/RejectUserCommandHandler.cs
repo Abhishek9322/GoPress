@@ -33,7 +33,7 @@ namespace GoPress.Application.Features.AdminApproval.Rejectuser.CommandHandler
                 _logger.LogWarning(
                     "User {UserId} not found.",
                     request.UserId);
-
+ 
                 return new Response<string>(
                     "User not found.");
             }
