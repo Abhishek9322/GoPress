@@ -59,12 +59,28 @@ namespace GoPress.Infrastructure.Repositories
                  .Where(x => x.Role == UserRoleenum.DeliveryBoy && !x.IsApproved)
                  .ToListAsync();
         }
+        public async Task<List<ApplicationUser>> GetApprovedShopownerAsync()
+        {
+            return await _context.ApplicationUsers
+                 .Include(x => x.ShopOwnerProfile)
+                 .Where(x => x.Role == UserRoleenum.ShopOwner && x.IsApproved)
+                 .ToListAsync();
+        }
 
+        public async Task<List<ApplicationUser>> GetApprovedDeliveryBoyAsync()
+        {
+            return await _context.ApplicationUsers
+                .Include(x => x.DeliveryBoyProfile)
+                .Where(x => x.Role == UserRoleenum.DeliveryBoy && x.IsApproved)
+                .ToListAsync();
+        }
         public async Task UpdateAsync(ApplicationUser user)
         {
            _context.ApplicationUsers.Update(user);
 
             await _context.SaveChangesAsync();
         }
+
+      
     }
 }

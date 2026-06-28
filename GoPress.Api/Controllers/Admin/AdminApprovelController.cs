@@ -1,4 +1,5 @@
 ﻿using GoPress.Application.Features.AdminApproval.Approved.Command;
+using GoPress.Application.Features.AdminApproval.GetApprovedUsers.Queries;
 using GoPress.Application.Features.AdminApproval.GetPendingApproval.Queries;
 using GoPress.Application.Features.AdminApproval.Rejectuser.Command;
 using MediatR;
@@ -60,6 +61,21 @@ namespace GoPress.Api.Controllers.Admin
             var response =
                 await _mediator.Send(command);
 
+            return Ok(response);
+        }
+
+        [HttpGet("Approed-shopowner")]
+        public async Task<IActionResult> GetAllApprovedShopOwner()
+        {
+            var responce = await _mediator.Send(new GetApprovedShopOwnersQuery());
+
+            return Ok(responce);
+        }
+
+        [HttpGet("Approved-DeliveryBoy")]
+        public async Task<IActionResult> GetAllApprovedDeliveryBoy()
+        {
+            var response=await _mediator.Send(new GetApprovedDeliveryBoyQuery());
             return Ok(response);
         }
     }
