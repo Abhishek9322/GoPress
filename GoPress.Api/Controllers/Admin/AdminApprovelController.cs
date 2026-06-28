@@ -1,4 +1,5 @@
-﻿using GoPress.Application.Features.AdminApproval.Approved.Command;
+﻿using GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.Command;
+using GoPress.Application.Features.AdminApproval.Approved.Command;
 using GoPress.Application.Features.AdminApproval.GetApprovedUsers.Queries;
 using GoPress.Application.Features.AdminApproval.GetPendingApproval.Queries;
 using GoPress.Application.Features.AdminApproval.Rejectuser.Command;
@@ -76,6 +77,16 @@ namespace GoPress.Api.Controllers.Admin
         public async Task<IActionResult> GetAllApprovedDeliveryBoy()
         {
             var response=await _mediator.Send(new GetApprovedDeliveryBoyQuery());
+            return Ok(response);
+        }
+
+        [HttpPut("{userId}/status")]
+        public async Task<IActionResult> ChangeUserStatus(int userId,ActivateDeactivateUserCommand command)
+        {
+            command.UserId = userId;
+
+            var response =await _mediator.Send(command);
+
             return Ok(response);
         }
     }
