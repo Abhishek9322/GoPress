@@ -36,6 +36,7 @@ namespace GoPress.Infrastructure
             service.AddScoped<IOrderRepository, OrderRepository>();
             service.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             service.AddScoped<IShopOwnerClothPriceRepository, ShopOwnerClothPriceRepository>();
+            service.AddScoped<IAdminRepository, AdminRepository>();
 
             return service;
         }
