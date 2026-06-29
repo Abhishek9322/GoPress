@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.AdminApproval.Approved.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.AdminApproval.Approved.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,10 +17,14 @@ namespace GoPress.Application.Features.AdminApproval.Approved.CommandHandler
     {
         private readonly IUserRepository _userRepository;
         private readonly ILogger<ApproveUserCommandHandler> _logger;
-        public ApproveUserCommandHandler(IUserRepository userRepository,ILogger<ApproveUserCommandHandler> logger)
+        private readonly ICacheService _cacheService;
+        public ApproveUserCommandHandler(IUserRepository userRepository,
+            ILogger<ApproveUserCommandHandler> logger,
+            ICacheService cacheService)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<Response<string>> Handle(ApproveUserCommand request, CancellationToken cancellationToken)
         {
@@ -49,6 +55,8 @@ namespace GoPress.Application.Features.AdminApproval.Approved.CommandHandler
             user.UpdatedAt = DateTime.UtcNow;
 
             await _userRepository.UpdateAsync(user);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
 
             _logger.LogInformation(
                 "User {UserId} approved successfully.",

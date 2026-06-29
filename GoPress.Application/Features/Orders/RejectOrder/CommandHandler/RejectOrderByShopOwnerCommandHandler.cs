@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.RejectOrder.command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.RejectOrder.command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -16,11 +18,14 @@ namespace GoPress.Application.Features.Orders.RejectOrder.CommandHandler
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<RejectOrderByShopOwnerCommandHandler> _logger;
+        private readonly ICacheService _cacheService;
         public RejectOrderByShopOwnerCommandHandler(IOrderRepository orderRepository,
-            ILogger<RejectOrderByShopOwnerCommandHandler> logger)
+            ILogger<RejectOrderByShopOwnerCommandHandler> logger,
+            ICacheService cacheService)
         {
             _orderRepository = orderRepository;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<Response<string>> Handle(RejectOrderByShopOwnerCommand request, CancellationToken cancellationToken)
         {
@@ -52,6 +57,8 @@ namespace GoPress.Application.Features.Orders.RejectOrder.CommandHandler
              request.OrderId);
 
             await _orderRepository.UpdateAsync(order);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);   
 
             _logger.LogWarning(
               "ShopOwner {ShopOwnerId} rejected order successfully  {OrderId}",

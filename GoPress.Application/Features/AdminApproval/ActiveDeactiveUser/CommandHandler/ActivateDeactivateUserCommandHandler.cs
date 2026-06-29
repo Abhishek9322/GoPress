@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,10 +17,14 @@ namespace GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.CommandH
     {
         private readonly IUserRepository _userRepository;
         private readonly ILogger<ActivateDeactivateUserCommandHandler> _logger;
-        public ActivateDeactivateUserCommandHandler(IUserRepository userRepository,ILogger<ActivateDeactivateUserCommandHandler> logger)
+        private readonly ICacheService _cacheService;
+        public ActivateDeactivateUserCommandHandler(IUserRepository userRepository,
+            ILogger<ActivateDeactivateUserCommandHandler> logger,
+            ICacheService cacheService)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<Response<string>> Handle(ActivateDeactivateUserCommand request, CancellationToken cancellationToken)
         {
@@ -39,6 +45,8 @@ namespace GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.CommandH
             ActiveDeactiveuser.UpdatedAt = DateTime.UtcNow;
 
             await _userRepository.UpdateAsync(ActiveDeactiveuser);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
 
             _logger.LogInformation(
                 "Admin changed user {UserId} active status to {Status}",
