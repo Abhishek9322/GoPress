@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.CreateOrder.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.CreateOrder.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -15,11 +17,15 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, Response<string>>
     {
         private readonly IOrderRepository _repository;
-        private readonly ILogger<DeleteOrderCommandHandler> _logger;    
-        public DeleteOrderCommandHandler(IOrderRepository repository,ILogger<DeleteOrderCommandHandler> logger)
+        private readonly ILogger<DeleteOrderCommandHandler> _logger;
+        private readonly ICacheService _cacheService;
+        public DeleteOrderCommandHandler(IOrderRepository repository,
+            ILogger<DeleteOrderCommandHandler> logger,
+            ICacheService cacheService)
         {
             _repository = repository;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<Response<string>> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
@@ -56,6 +62,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
 
             await _repository.DeleteAsync(order);
 
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);  
             _logger.LogInformation(
                 "Order {OrderId} deleted successfully",
                request.OrderId);

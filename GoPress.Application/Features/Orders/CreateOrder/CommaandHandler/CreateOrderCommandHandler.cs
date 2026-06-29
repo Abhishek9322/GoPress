@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.CreateOrder.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.CreateOrder.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Entities;
 using MediatR;
@@ -16,14 +18,17 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
     {
         private readonly IShopOwnerClothPriceRepository _shopOwnerClothPriceRepository;
         private readonly IOrderRepository _orderRepository;
-        private readonly ILogger<CreateOrderCommandHandler> _logger;    
+        private readonly ILogger<CreateOrderCommandHandler> _logger;
+        private readonly ICacheService _cacheService;
         public CreateOrderCommandHandler(IOrderRepository orderRepository,
             IShopOwnerClothPriceRepository shopOwnerClothPriceRepository,
-            ILogger<CreateOrderCommandHandler> logger)
+            ILogger<CreateOrderCommandHandler> logger,
+            ICacheService cacheService)
         {
             _orderRepository = orderRepository;
             _shopOwnerClothPriceRepository = shopOwnerClothPriceRepository;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<Response<int>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
@@ -77,6 +82,8 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
                 request.CustomerId);
 
             var createOrder = await _orderRepository.CreateAsync(order);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
 
             _logger.LogInformation("Order {OrderId} created successfully for customer {CustomerId}",
                   createOrder.Id,

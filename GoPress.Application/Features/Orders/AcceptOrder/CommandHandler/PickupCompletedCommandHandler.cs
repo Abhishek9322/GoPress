@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.AcceptOrder.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.AcceptOrder.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -14,9 +16,12 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommandHandler
     public class PickupCompletedCommandHandler : IRequestHandler<PickupCompletedCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRespository;
-        public PickupCompletedCommandHandler(IOrderRepository orderRepository)
+        private readonly ICacheService _cacheService;
+        public PickupCompletedCommandHandler(IOrderRepository orderRepository,
+            ICacheService cacheService)
         {
             _orderRespository = orderRepository;
+            _cacheService = cacheService;
         }
         public async Task<Response<string>> Handle(PickupCompletedCommand request, CancellationToken cancellationToken)
         {
@@ -40,6 +45,8 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommandHandler
             order.Status = OrderStatusEnum.PickedUp;
 
             await _orderRespository.UpdateAsync(order);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
 
             return new Response<string>("Clothes Picked Up Successfully");
 

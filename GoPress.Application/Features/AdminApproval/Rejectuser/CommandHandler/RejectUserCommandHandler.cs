@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.AdminApproval.Rejectuser.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.AdminApproval.Rejectuser.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -15,10 +17,14 @@ namespace GoPress.Application.Features.AdminApproval.Rejectuser.CommandHandler
     {
         private readonly IUserRepository _userRepository;
         private readonly ILogger<RejectUserCommandHandler> _logger;
-        public RejectUserCommandHandler(IUserRepository userRepository,ILogger<RejectUserCommandHandler> logger)
+        private readonly ICacheService _cacheService;
+        public RejectUserCommandHandler(IUserRepository userRepository,
+            ILogger<RejectUserCommandHandler> logger,
+            ICacheService cacheService)
         {
             _userRepository=userRepository;
             _logger = logger;
+            _cacheService=cacheService;
         }
         public async Task<Response<string>> Handle(RejectUserCommand request, CancellationToken cancellationToken)
         {
@@ -58,6 +64,8 @@ namespace GoPress.Application.Features.AdminApproval.Rejectuser.CommandHandler
             user.UpdatedAt = DateTime.UtcNow;
 
             await _userRepository.SaveChangesAsync();
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
 
             _logger.LogInformation(
               "User {UserId} rejected successfully.",

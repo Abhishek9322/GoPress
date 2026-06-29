@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GoPress.Infrastructure.Repositories
 {
-    public class AdminRepository : IAdminRepository
+    public class AdminRepository : IAdminRepository     
     {
         private readonly ApplicationDbContext _context; 
         public AdminRepository(ApplicationDbContext context)

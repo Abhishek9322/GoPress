@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Application.Interfaces.Services;
 using GoPress.Infrastructure.Services;
+using GoPress.Application.Interfaces.Caching;
+using GoPress.Infrastructure.Caching;
 
 namespace GoPress.Infrastructure
 {
@@ -37,6 +39,9 @@ namespace GoPress.Infrastructure
             service.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             service.AddScoped<IShopOwnerClothPriceRepository, ShopOwnerClothPriceRepository>();
             service.AddScoped<IAdminRepository, AdminRepository>();
+
+            service.AddScoped<ICacheService, CacheService>();
+            service.AddMemoryCache();
 
             return service;
         }

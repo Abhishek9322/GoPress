@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.AcceptOrder.Comman;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.AcceptOrder.Comman;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -16,12 +18,14 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<AcceptPickupByDBoyCommandHandler> _logger;
-
+        private readonly ICacheService _cacheService;
         public AcceptPickupByDBoyCommandHandler(IOrderRepository orderRepository,
-            ILogger<AcceptPickupByDBoyCommandHandler> logger)
+            ILogger<AcceptPickupByDBoyCommandHandler> logger,
+            ICacheService cacheService)
         {
             _orderRepository = orderRepository;
             _logger = logger;
+            _cacheService = cacheService;
         }
         public async Task<Response<string>> Handle(AcceptPickupByDBoyCommand request, CancellationToken cancellationToken)
         {
@@ -54,6 +58,8 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
               request.OrderId);
 
             await _orderRepository.UpdateAsync(order);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
 
             _logger.LogInformation(
                  "DeliveryBoy {DeliveryBoyId} accepted order successfully {OrderId}",
