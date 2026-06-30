@@ -1,4 +1,5 @@
-﻿using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
+﻿using GoPress.Application.Features.AdminOrdersmanagment.GetAllOrderByStatus.Queries;
+using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,34 +18,44 @@ namespace GoPress.Api.Controllers.Admin
             _mediator= mediator;
         }
 
-        [HttpGet("All-Orders")]
-        public async Task<IActionResult> GetAllOrders()
+        //[HttpGet("All-Orders")]
+        //public async Task<IActionResult> GetAllOrders()
+        //{
+        //    // var currentCustomer = User.GetCurrentUser();
+
+        //    var query = new GetAllOrdersQuery();
+
+        //    var response =
+        //        await _mediator.Send(query);
+        //    return Ok(response);
+
+        //}
+        ////Get Opration here
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetOrderById(int id)
+        //{
+        //    var query = new GetOrderByIdQuery
+        //    {
+        //        OrderId = id
+        //    };
+
+        //    var response =
+        //        await _mediator.Send(query);
+
+        //    return Ok(response);
+        //}
+
+
+
+        [HttpGet("Pending-Orders")]
+        public async Task<IActionResult> GetPendingOrders()
         {
-            // var currentCustomer = User.GetCurrentUser();
+            var response = await _mediator.Send(
+                new GetPendingOrdersByAdminQuery());
 
-            var query = new GetAllOrdersQuery();
-
-            var response =
-                await _mediator.Send(query);
             return Ok(response);
 
         }
-        //Get Opration here
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
-        {
-            var query = new GetOrderByIdQuery
-            {
-                OrderId = id
-            };
-
-            var response =
-                await _mediator.Send(query);
-
-            return Ok(response);
-        }
-
-
 
 
     }
