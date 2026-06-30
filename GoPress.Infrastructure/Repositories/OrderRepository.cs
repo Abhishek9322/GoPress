@@ -140,5 +140,18 @@ namespace GoPress.Infrastructure.Repositories
                                  x.Status == OrderStatusEnum.ReadyForDelivery)
                               .ToListAsync();
         }
+
+        //Admin order manage by status at one point 
+        public async Task<List<Order>> GetOrdersByStatusAsync(OrderStatusEnum orderStatus)
+        {
+           return await _context.Orders
+                .Include(x=>x.Customer)
+                .Include(x => x.ShopOwner)
+                .Include(x=>x.DeliveryBoy)
+                .Include(x=>x.OrderItems)
+                .Where(x=>x.Status == orderStatus)
+                .OrderByDescending(x=>x.CreatedAt)
+                .ToListAsync();
+        }
     }
 }

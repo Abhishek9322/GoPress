@@ -1,4 +1,5 @@
 ﻿using GoPress.Domain.Entities;
+using GoPress.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace GoPress.Application.Interfaces.Repositories
         Task<List<Order>> GetRejectedOrdersByShopOwnerAsync( int shopOwnerId);
 
         Task<List<Order>> GetReadyForDeliveryByShopOwnerAsync(int shopOwnerId);
+
+        Task<List<Order>> GetOrdersByStatusAsync(OrderStatusEnum orderStatus);
 
         Task UpdateAsync(Order order);
         Task DeleteAsync(Order order);
