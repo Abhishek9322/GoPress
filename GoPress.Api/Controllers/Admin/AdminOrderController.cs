@@ -32,19 +32,19 @@ namespace GoPress.Api.Controllers.Admin
 
         //}
         ////Get Opration here
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetOrderById(int id)
-        //{
-        //    var query = new GetOrderByIdQuery
-        //    {
-        //        OrderId = id
-        //    };
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOrderById(int id)
+        {
+            var query = new GetOrderByIdQuery
+            {
+                OrderId = id
+            };
 
-        //    var response =
-        //        await _mediator.Send(query);
+            var response =
+                await _mediator.Send(query);
 
-        //    return Ok(response);
-        //}
+            return Ok(response);
+        }
 
 
 
@@ -89,6 +89,9 @@ namespace GoPress.Api.Controllers.Admin
         [HttpGet("canceld-Orders")]
         public async Task<IActionResult> GetAllCanceledOrders()
         {
+            var response = await _mediator.Send(
+                new GetAllCancaledOrderByAdminQuery()); 
+
             return Ok();
         }
 
