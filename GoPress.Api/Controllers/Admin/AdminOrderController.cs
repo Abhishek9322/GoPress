@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Principal;
 
 namespace GoPress.Api.Controllers.Admin
 {
@@ -65,6 +66,27 @@ namespace GoPress.Api.Controllers.Admin
                 new GetdeliverdOrderByAdminQuery());
 
             return Ok(response);
+        }
+
+        [HttpGet("Rejected-Orders")]
+        public async Task<IActionResult> GetAllRejectedOrders()
+        {
+            var response = await _mediator.Send(
+                new GetAllRejectedOrderByAdminQuery());
+
+            return Ok(response);
+        }
+
+        [HttpGet("Accepted-Orders")]
+        public async Task<IActionResult> GetAllAcceptedOrders()
+        {
+            return Ok();
+        }
+
+        [HttpGet("canceld-Orders")]
+        public async Task<IActionResult> GetAllCanceledOrders()
+        {
+            return Ok();
         }
 
 
