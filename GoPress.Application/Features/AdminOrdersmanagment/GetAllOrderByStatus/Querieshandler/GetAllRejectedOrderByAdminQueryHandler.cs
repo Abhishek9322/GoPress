@@ -71,7 +71,7 @@ namespace GoPress.Application.Features.AdminOrdersmanagment.GetAllOrderByStatus.
 
             _logger.LogInformation("Rejected Orders cached successfully.");
 
-            return new Response<List<AdminOrderDto>>(response, "Deliverd Orders Retrieved Successfully");
+            return new Response<List<AdminOrderDto>>(response, "Rejected Orders Retrieved Successfully");
         }
     }
 }
