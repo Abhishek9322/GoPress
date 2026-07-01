@@ -80,7 +80,10 @@ namespace GoPress.Api.Controllers.Admin
         [HttpGet("Accepted-Orders")]
         public async Task<IActionResult> GetAllAcceptedOrders()
         {
-            return Ok();
+            var response = await _mediator.Send(
+                new GetAllAcceptedOrderByAdminQuery());
+
+            return Ok(response);
         }
 
         [HttpGet("canceld-Orders")]
