@@ -58,5 +58,15 @@ namespace GoPress.Api.Controllers.Admin
         }
 
 
+        [HttpGet("Deliverd-Orders")]
+        public async Task<IActionResult> GetDeliverdOrders()
+        {
+            var response=await _mediator.Send(
+                new GetdeliverdOrderByAdminQuery());
+
+            return Ok(response);
+        }
+
+
     }
 }
