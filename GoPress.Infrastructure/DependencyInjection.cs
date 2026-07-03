@@ -39,6 +39,7 @@ namespace GoPress.Infrastructure
             service.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
             service.AddScoped<IShopOwnerClothPriceRepository, ShopOwnerClothPriceRepository>();
             service.AddScoped<IAdminRepository, AdminRepository>();
+            service.AddScoped<IProfileRepository, ProfileRepository>();
 
             service.AddScoped<ICacheService, CacheService>();
             service.AddMemoryCache();
