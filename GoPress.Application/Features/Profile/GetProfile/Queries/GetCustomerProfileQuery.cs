@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoPress.Application.Features.Profile.CustomerProfile.Queries
+namespace GoPress.Application.Features.Profile.GetProfile.Queries
 {
     public class GetCustomerProfileQuery:IRequest<Response<CustomerProfileDto>>
     {

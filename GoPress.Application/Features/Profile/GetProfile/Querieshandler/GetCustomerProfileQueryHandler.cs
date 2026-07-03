@@ -1,6 +1,6 @@
 ﻿using GoPress.Application.DTOs.Profile;
 using GoPress.Application.Features.Orders.Responses;
-using GoPress.Application.Features.Profile.CustomerProfile.Queries;
+using GoPress.Application.Features.Profile.GetProfile.Queries;
 using GoPress.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoPress.Application.Features.Profile.CustomerProfile.Querieshandler
+namespace GoPress.Application.Features.Profile.GetProfile.Querieshandler
 {
     public class GetCustomerProfileQueryHandler : IRequestHandler<GetCustomerProfileQuery, Response<CustomerProfileDto>>
     {

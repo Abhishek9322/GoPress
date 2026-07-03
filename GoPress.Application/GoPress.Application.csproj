@@ -11,8 +11,6 @@
     <Folder Include="Features\AdminApproval\Rejectuser\Queries\" />
     <Folder Include="Features\Auth\QueriesHandler\" />
     <Folder Include="Features\Auth\Queries\" />
-    <Folder Include="Features\Profile\CustomerProfile\Command\" />
-    <Folder Include="Features\Profile\CustomerProfile\Commandhandler\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

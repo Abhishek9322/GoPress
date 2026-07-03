@@ -18,9 +18,22 @@ namespace GoPress.Infrastructure.Repositories
             _context= context;
         }
 
+        public async Task<ApplicationUser?> GetByIdAsync(int id)
+        {
+            return await _context.ApplicationUsers
+          .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<ApplicationUser?> GetCustomerProfileAsync(int userId)
         {
            return await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == userId);
+        }
+
+        public async Task updateAsync(ApplicationUser user)
+        {
+            _context.ApplicationUsers.Update(user);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
