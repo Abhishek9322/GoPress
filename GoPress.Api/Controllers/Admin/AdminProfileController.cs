@@ -9,5 +9,7 @@ namespace GoPress.Api.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class AdminProfileController : ControllerBase
     {
+
     }
+
 }

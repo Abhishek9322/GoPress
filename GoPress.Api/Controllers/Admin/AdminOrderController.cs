@@ -19,18 +19,18 @@ namespace GoPress.Api.Controllers.Admin
             _mediator= mediator;
         }
 
-        //[HttpGet("All-Orders")]
-        //public async Task<IActionResult> GetAllOrders()
-        //{
-        //    // var currentCustomer = User.GetCurrentUser();
+        [HttpGet("All-Orders")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            // var currentCustomer = User.GetCurrentUser();
 
-        //    var query = new GetAllOrdersQuery();
+            var query = new GetAllOrdersQuery();
 
-        //    var response =
-        //        await _mediator.Send(query);
-        //    return Ok(response);
+            var response =
+                await _mediator.Send(query);
+            return Ok(response);
 
-        //}
+        }
         ////Get Opration here
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
@@ -92,7 +92,7 @@ namespace GoPress.Api.Controllers.Admin
             var response = await _mediator.Send(
                 new GetAllCancaledOrderByAdminQuery()); 
 
-            return Ok();
+            return Ok(response);
         }
 
 
