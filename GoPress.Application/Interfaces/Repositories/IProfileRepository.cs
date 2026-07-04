@@ -11,6 +11,8 @@ namespace GoPress.Application.Interfaces.Repositories
     public interface IProfileRepository
     {
         Task<ApplicationUser?> GetCustomerProfileAsync(int userId);
+
+        Task<ApplicationUser?> GetShopOwnerProfileAsync(int userId);
         Task<ApplicationUser?> GetByIdAsync(int id);
         Task updateAsync(ApplicationUser user);
     }

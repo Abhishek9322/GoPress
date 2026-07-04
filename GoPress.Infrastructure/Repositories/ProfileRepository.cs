@@ -29,6 +29,13 @@ namespace GoPress.Infrastructure.Repositories
            return await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == userId);
         }
 
+        public async Task<ApplicationUser?> GetShopOwnerProfileAsync(int userId)
+        {
+            return await _context.ApplicationUsers
+                .Include(x => x.ShopOwnerProfile)
+                .FirstOrDefaultAsync(x => x.Id == userId);
+        }
+
         public async Task updateAsync(ApplicationUser user)
         {
             _context.ApplicationUsers.Update(user);
