@@ -41,7 +41,7 @@ namespace GoPress.Infrastructure
             service.AddScoped<IAdminRepository, AdminRepository>();
             service.AddScoped<IProfileRepository, ProfileRepository>();
 
-            service.AddScoped<ICacheService, CacheService>();
+            service.AddSingleton<ICacheService, CacheService>();
             service.AddMemoryCache();
 
             return service;
