@@ -1,4 +1,4 @@
-﻿namespace GoPress.Application.DTOs.Admin
+﻿namespace GoPress.Application.DTOs.Dashboard
 {
     public class AdminDashboardDto
     {

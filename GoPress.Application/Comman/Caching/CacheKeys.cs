@@ -10,6 +10,11 @@ namespace GoPress.Application.Comman.Caching
     {
         public const string AdminDashboard = "AdminDashboard";  //add unther with time like order ,user etc 
 
+        public const string ShopOwnerDashboard = "ShopOwnerDashboard";
+
+        public const string DeliveryBoyDashboard = "DeliveryBoyDashboard";
+
+        public const string CustomerDashboard = "CustomerDashboard";
 
         public const string PendingOrders = "PendingOrders";
 

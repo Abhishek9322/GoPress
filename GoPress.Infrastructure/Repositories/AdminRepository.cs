@@ -1,4 +1,4 @@
-﻿using GoPress.Application.DTOs.Admin;
+﻿using GoPress.Application.DTOs.Dashboard;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using GoPress.Infrastructure.Data;

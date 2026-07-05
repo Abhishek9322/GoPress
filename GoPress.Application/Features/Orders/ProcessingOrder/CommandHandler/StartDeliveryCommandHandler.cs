@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.ProcessingOrder.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -13,10 +15,12 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
 {
     public class StartDeliveryCommandHandler : IRequestHandler<StartDeliveryCommand, Response<string>>
     {
-        private readonly IOrderRepository _orderRepository; 
-        public StartDeliveryCommandHandler(IOrderRepository orderRepository)
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICacheService _cacheService;
+        public StartDeliveryCommandHandler(IOrderRepository orderRepository,ICacheService cacheService)
         {
             _orderRepository = orderRepository;
+            _cacheService=cacheService;
         }
         public async Task<Response<string>> Handle(StartDeliveryCommand request, CancellationToken cancellationToken)
         {
@@ -45,6 +49,7 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
             order.Status = OrderStatusEnum.OutForDelivery;
 
             await _orderRepository.UpdateAsync(order);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
 
             return new Response<string>(
                 "Delivery Started");

@@ -58,8 +58,8 @@ namespace GoPress.Application.Features.Orders.RejectOrder.CommandHandler
 
             await _orderRepository.UpdateAsync(order);
 
-            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);   
-
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
             _logger.LogWarning(
               "ShopOwner {ShopOwnerId} rejected order successfully  {OrderId}",
               request.ShopOwnerId,

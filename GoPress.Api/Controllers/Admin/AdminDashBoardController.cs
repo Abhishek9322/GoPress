@@ -1,4 +1,4 @@
-﻿using GoPress.Application.Features.AdminDashboard.Queries;
+﻿using GoPress.Application.Features.DashBoard.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

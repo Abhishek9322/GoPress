@@ -1,6 +1,6 @@
 ﻿using GoPress.Application.Comman.Caching;
-using GoPress.Application.DTOs.Admin;
-using GoPress.Application.Features.AdminDashboard.Queries;
+using GoPress.Application.DTOs.Dashboard;
+using GoPress.Application.Features.DashBoard.Queries;
 using GoPress.Application.Features.Orders.Responses;
 using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoPress.Application.Features.AdminDashboard.Querieshandler
+namespace GoPress.Application.Features.DashBoard.Querieshandler
 {
     public class GetAdminDashboardQueryHandler : IRequestHandler<GetAdminDashboardQuery, Response<AdminDashboardDto>>
     {
