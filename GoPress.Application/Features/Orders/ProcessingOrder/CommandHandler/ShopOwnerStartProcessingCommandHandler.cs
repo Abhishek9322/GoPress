@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.ProcessingOrder.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -14,8 +16,10 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
     public class ShopOwnerStartProcessingCommandHandler : IRequestHandler<ShopOwnerStartProcessingCommand, Response<string>>
     {
         private readonly IOrderRepository _orderRepository;
-        public ShopOwnerStartProcessingCommandHandler(IOrderRepository orderRepository)
+        private readonly ICacheService _cacheService;
+        public ShopOwnerStartProcessingCommandHandler(IOrderRepository orderRepository,ICacheService cacheService)
         {
+            _cacheService = cacheService;
             _orderRepository = orderRepository; 
         }
         public async Task<Response<string>> Handle(ShopOwnerStartProcessingCommand request, CancellationToken cancellationToken)
@@ -45,6 +49,7 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
             order.Status =OrderStatusEnum.Processing;
 
             await _orderRepository.UpdateAsync(order);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
 
             return new Response<string>("Order Processing Started");
         }

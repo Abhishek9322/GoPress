@@ -60,6 +60,7 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
             await _orderRepository.UpdateAsync(order);
 
             await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
 
             _logger.LogInformation(
                  "DeliveryBoy {DeliveryBoyId} accepted order successfully {OrderId}",

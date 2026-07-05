@@ -62,7 +62,8 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
 
             await _repository.DeleteAsync(order);
 
-            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);  
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
             _logger.LogInformation(
                 "Order {OrderId} deleted successfully",
                request.OrderId);

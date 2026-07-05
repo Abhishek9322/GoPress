@@ -1,5 +1,7 @@
-﻿using GoPress.Application.Features.Orders.ProcessingOrder.Command;
+﻿using GoPress.Application.Comman.Caching;
+using GoPress.Application.Features.Orders.ProcessingOrder.Command;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Interfaces.Caching;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Enums;
 using MediatR;
@@ -17,10 +19,13 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<ShopOwnerReadyForDeliveryCommandHandler> _logger;
+        private readonly ICacheService _cacheService;
         public ShopOwnerReadyForDeliveryCommandHandler(IOrderRepository orderRepository,
-            ILogger<ShopOwnerReadyForDeliveryCommandHandler> logger)
+            ILogger<ShopOwnerReadyForDeliveryCommandHandler> logger,
+            ICacheService cacheService)
         {
             _orderRepository = orderRepository;
+            _cacheService= cacheService;
             _logger = logger;
         }
         public async Task<Response<string>> Handle(ShopOwnerReadyForDeliveryCommand request, CancellationToken cancellationToken)
@@ -55,6 +60,7 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
                 request.ShopOwnerId);
 
             await _orderRepository.UpdateAsync(order);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
 
             _logger.LogInformation(
                 "Order {OrderId} updated to ReadyForDelivery successfully",

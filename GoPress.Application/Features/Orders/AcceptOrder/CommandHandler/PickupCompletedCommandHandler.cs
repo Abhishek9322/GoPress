@@ -47,6 +47,7 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommandHandler
             await _orderRespository.UpdateAsync(order);
 
             await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
 
             return new Response<string>("Clothes Picked Up Successfully");
 

@@ -84,6 +84,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
             var createOrder = await _orderRepository.CreateAsync(order);
 
             await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
 
             _logger.LogInformation("Order {OrderId} created successfully for customer {CustomerId}",
                   createOrder.Id,

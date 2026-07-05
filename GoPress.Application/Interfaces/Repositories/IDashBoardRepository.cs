@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Interfaces.Repositories
 {
-    public interface IAdminRepository
+    public interface IDashBoardRepository
     {
-        Task<AdminDashboardDto> GetDashboardAsync();
+        Task<ShopOwnerDashBoardDto> GetDashboardAsync(int shopOwnerId);
     }
 }
