@@ -49,7 +49,10 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
             order.Status =OrderStatusEnum.Processing;
 
             await _orderRepository.UpdateAsync(order);
+
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
             await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.DeliveryBoyDashboard);
 
             return new Response<string>("Order Processing Started");
         }

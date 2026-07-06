@@ -58,7 +58,9 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
                request.DeliveryBoyId);
 
             await _orderRepository.UpdateAsync(order);
+            await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
             await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.DeliveryBoyDashboard);
 
             _logger.LogInformation(
                 "Order {OrderId} updated to Delivered successfully",

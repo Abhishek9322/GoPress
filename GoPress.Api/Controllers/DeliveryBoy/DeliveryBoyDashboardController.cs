@@ -9,29 +9,32 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GoPress.Application.Features.Orders.AcceptOrder.Command;
 using GoPress.Application.Features.Orders.ProcessingOrder.Command;
+using GoPress.Application.Features.DashBoard.Queries;
 
 namespace GoPress.Api.Controllers.DeliveryBoy
 {
     [ApiController]
-    [Route("api/delivery-boys")]
+    [Route("api/delivery-boys/Dashboard")]
     [Authorize(Roles = "DeliveryBoy")]
-    public class DeliveryBoyController : ControllerBase       
+    public class DeliveryBoyDashboardController : ControllerBase       
     {
-
-        //Dashboard and all thing here
         private readonly IMediator _mediator;
-        public DeliveryBoyController(IMediator mediator)
+        public DeliveryBoyDashboardController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-       
-        [HttpGet("profile")]
-        public IActionResult GetProfile()
-        {
-            return Ok("Authenticated User DeliveryBoy");
+        [HttpGet]
+       public async Task<IActionResult> DeliveryBoyDashboard()
+       {
+            var currentUser = User.GetCurrentUser();
+
+            var response=await _mediator.Send(new GetDeliveryBoyDashboardQuery
+            {
+                DeliveryBoyId = currentUser.UserId
+            });
+
+            return Ok(response);
         }
-
-
     }
 }

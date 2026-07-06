@@ -9,6 +9,8 @@ namespace GoPress.Application.Interfaces.Repositories
 {
     public interface IDashBoardRepository
     {
-        Task<ShopOwnerDashBoardDto> GetDashboardAsync(int shopOwnerId);
+        Task<ShopOwnerDashBoardDto> GetDashboardForShopOwnerAsync(int shopOwnerId);
+
+        Task <DeliveryBoyDashBoardDto> GetDashboardForDeliveryBoyAsync(int deliveryBoyId);  
     }
 }

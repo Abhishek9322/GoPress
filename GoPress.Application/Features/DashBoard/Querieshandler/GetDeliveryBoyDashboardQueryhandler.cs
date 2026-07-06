@@ -14,31 +14,31 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.DashBoard.Querieshandler
 {
-    public class GetShopOwnerDashBoardQueryHandler : IRequestHandler<GetShopOwnerDashBoardQuery, Response<ShopOwnerDashBoardDto>>
+    public class GetDeliveryBoyDashboardQueryhandler : IRequestHandler<GetDeliveryBoyDashboardQuery, Response<DeliveryBoyDashBoardDto>>
     {
-        private readonly ILogger<GetShopOwnerDashBoardQueryHandler> _logger;
+        private readonly ILogger<GetDeliveryBoyDashboardQueryhandler> _logger;
         private readonly IDashBoardRepository _dashBoardRepository;
         private readonly ICacheService _cacheService;
-        public GetShopOwnerDashBoardQueryHandler(ILogger<GetShopOwnerDashBoardQueryHandler> logger,
-           IDashBoardRepository dashBoardRepository,
-           ICacheService cacheService)
+        public GetDeliveryBoyDashboardQueryhandler(ILogger<GetDeliveryBoyDashboardQueryhandler> logger,
+            IDashBoardRepository dashBoardRepository,
+            ICacheService cacheService)
         {
             _cacheService= cacheService;
             _logger = logger;
             _dashBoardRepository = dashBoardRepository;
+
         }
-        public async Task<Response<ShopOwnerDashBoardDto>> Handle(GetShopOwnerDashBoardQuery request, CancellationToken cancellationToken)
+        public async Task<Response<DeliveryBoyDashBoardDto>> Handle(GetDeliveryBoyDashboardQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Checking dashboard cache.");
 
-
-            var cachedDashboard = await _cacheService.GetAsync<ShopOwnerDashBoardDto>(CacheKeys.ShopOwnerDashboard);
+            var cachedDashboard = await _cacheService.GetAsync<DeliveryBoyDashBoardDto>(CacheKeys.DeliveryBoyDashboard);
 
             if (cachedDashboard != null)
             {
                 _logger.LogInformation("Dashboard returned from cache.");
 
-                return new Response<ShopOwnerDashBoardDto>(
+                return new Response<DeliveryBoyDashBoardDto>(
                     cachedDashboard,
                     "Dashboard retrieved from cache.");
             }
@@ -49,20 +49,18 @@ namespace GoPress.Application.Features.DashBoard.Querieshandler
             _logger.LogInformation(
                "Admin dashboard requested.");
 
-            var dashboardData = await _dashBoardRepository.GetDashboardForShopOwnerAsync(request.ShopOwnerId);
+            var dashboardData = await _dashBoardRepository.GetDashboardForDeliveryBoyAsync(request.DeliveryBoyId);
 
             await _cacheService.SetAsync(
-              CacheKeys.ShopOwnerDashboard,
+              CacheKeys.DeliveryBoyDashboard,
               dashboardData,
               TimeSpan.FromMinutes(5));
 
             _logger.LogInformation("Dashboard cached successfully.");
 
-            return new Response<ShopOwnerDashBoardDto>(
+            return new Response<DeliveryBoyDashBoardDto>(
                 dashboardData,
                 "Dashboard retrieved successfully.");
-
-
 
         }
     }

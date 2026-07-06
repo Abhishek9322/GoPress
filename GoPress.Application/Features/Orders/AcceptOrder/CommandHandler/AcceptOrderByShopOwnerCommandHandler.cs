@@ -58,6 +58,7 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
             //remove cache for admin dashboard to reflect the updated order status
             await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
             await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.DeliveryBoyDashboard);
 
             _logger.LogInformation(
               "ShopOwner {ShopOwnerId} accepted order successfully  {OrderId}",
