@@ -19,7 +19,7 @@ namespace GoPress.Infrastructure.Repositories
             _context=context;
         }
 
-        public async Task<ShopOwnerDashBoardDto> GetDashboardAsync(int shopOwnerId)
+        public async Task<ShopOwnerDashBoardDto> GetDashboardForShopOwnerAsync(int shopOwnerId)
         {
             var orders = _context.Orders
                 .Where(x => x.ShopOwnerId == shopOwnerId);
@@ -54,6 +54,57 @@ namespace GoPress.Infrastructure.Repositories
                     x.CreatedAt.Month == DateTime.UtcNow.Month &&
                     x.CreatedAt.Year == DateTime.UtcNow.Year)
             };
+        }
+
+        public async Task<DeliveryBoyDashBoardDto> GetDashboardForDeliveryBoyAsync(int deliveryBoyId)
+        {
+            var today = DateTime.UtcNow.Date;
+
+            var firstDayOfMonth = new DateTime(
+                today.Year,
+                today.Month,
+                1);
+
+            var dashboard = new DeliveryBoyDashBoardDto
+            {
+                AvailableOrders = await _context.Orders.CountAsync(x =>
+                                x.DeliveryBoyId == null &&
+                                x.Status == OrderStatusEnum.Accepted),
+
+                AcceptedOrders = await _context.Orders.CountAsync(x =>
+                                x.DeliveryBoyId == deliveryBoyId &&
+                                x.Status == OrderStatusEnum.Accepted),
+
+                PickedUpOrders = await _context.Orders.CountAsync(x =>
+                                x.DeliveryBoyId == deliveryBoyId &&
+                                x.Status == OrderStatusEnum.PickedUp),
+
+                ReadyForDeliveryOrders= await _context.Orders.CountAsync(x=>
+                                x.DeliveryBoyId == deliveryBoyId &&
+                                x.Status == OrderStatusEnum.ReadyForDelivery),
+
+                OutForDeliveryOrders = await _context.Orders.CountAsync(x =>
+                                x.DeliveryBoyId == deliveryBoyId &&
+                                x.Status == OrderStatusEnum.OutForDelivery),
+
+                DeliveredOrders = await _context.Orders.CountAsync(x =>
+                               x.DeliveryBoyId == deliveryBoyId &&
+                               x.Status == OrderStatusEnum.Delivered),
+
+                TodayDeliveries = await _context.Orders.CountAsync(x =>
+                               x.DeliveryBoyId == deliveryBoyId &&
+                               x.Status == OrderStatusEnum.Delivered &&
+                               x.DeliveryDate.HasValue &&
+                               x.DeliveryDate.Value.Date == today),
+
+                ThisMonthDeliveries = await _context.Orders.CountAsync(x =>
+                               x.DeliveryBoyId == deliveryBoyId &&
+                               x.Status == OrderStatusEnum.Delivered &&
+                               x.DeliveryDate.HasValue &&
+                               x.DeliveryDate.Value >= firstDayOfMonth)
+
+            };
+            return dashboard;
         }
     }
 }
