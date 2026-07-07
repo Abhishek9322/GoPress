@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoPress.Api.Controllers.Customer
 {
-    [Route("api/Customers")]
+    [Route("api/Customers/Home")]
     [ApiController]
     [Authorize(Roles = "Customer")]
-    public class CustomerController : ControllerBase
+    public class CustomerHomeController : ControllerBase
     {
 
         //Dashboard and all thing here
