@@ -12,5 +12,7 @@ namespace GoPress.Application.Interfaces.Repositories
         Task<ShopOwnerDashBoardDto> GetDashboardForShopOwnerAsync(int shopOwnerId);
 
         Task <DeliveryBoyDashBoardDto> GetDashboardForDeliveryBoyAsync(int deliveryBoyId);  
+
+        Task<CustomerDashBoardDto> GetDashboardForCustomerAsync(int customerId);
     }
 }

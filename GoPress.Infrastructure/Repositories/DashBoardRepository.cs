@@ -106,5 +106,40 @@ namespace GoPress.Infrastructure.Repositories
             };
             return dashboard;
         }
+
+        public async Task<CustomerDashBoardDto> GetDashboardForCustomerAsync(int customerId)
+        {
+
+            var order =  _context.Orders
+                .Where(x => x.CustomerId == customerId);
+
+            return new CustomerDashBoardDto
+            {
+                AcceptedOrder=await order.CountAsync(x=>
+                   x.Status==OrderStatusEnum.Accepted), 
+
+                DeliveredOrder = await order.CountAsync(x =>
+                       x.Status == OrderStatusEnum.Delivered),
+
+
+                PendingOrder=await order.CountAsync(x=>
+                  x.Status == OrderStatusEnum.Pending),
+
+                RejectedOrder=await order.CountAsync(x=>
+                    x.Status== OrderStatusEnum.Rejected),
+
+                CancelledOrder=await order.CountAsync(x=>
+                    x.Status==OrderStatusEnum.Cancelled),
+
+                proceessingOrder=await order.CountAsync(x=>
+                    x.Status==OrderStatusEnum.Processing),
+
+                OutForDeliveryOrder=await order.CountAsync(x=>
+                    x.Status==OrderStatusEnum.OutForDelivery)
+
+
+            };
+
+        }
     }
 }

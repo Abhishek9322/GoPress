@@ -47,7 +47,7 @@ namespace GoPress.Application.Features.DashBoard.Querieshandler
 
 
             _logger.LogInformation(
-               "Admin dashboard requested.");
+               "ShopOwner dashboard requested.");
 
             var dashboardData = await _dashBoardRepository.GetDashboardForShopOwnerAsync(request.ShopOwnerId);
 
