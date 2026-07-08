@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using GoPress.Api.Extensions;
+using GoPress.Application.Features.DashBoard.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,15 @@ namespace GoPress.Api.Controllers.Customer
         [HttpGet]
         public async Task<IActionResult> CustomerDashboard()
         {
-            return Ok();
+            var currentuser = User.GetCurrentUser();
+
+            var response = await _mediator.Send(new GetCustomerDashboardQuery
+            {
+                customerUserId = currentuser.UserId
+            });
+
+
+            return Ok(response);
         }
     }
 }

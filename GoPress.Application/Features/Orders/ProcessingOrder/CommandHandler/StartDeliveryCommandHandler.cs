@@ -53,6 +53,7 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
             await _cacheService.RemoveAsync(CacheKeys.AdminDashboard);
             await _cacheService.RemoveAsync(CacheKeys.ShopOwnerDashboard);
             await _cacheService.RemoveAsync(CacheKeys.DeliveryBoyDashboard);
+            await _cacheService.RemoveAsync(CacheKeys.CustomerDashboard);
 
             return new Response<string>(
                 "Delivery Started");
