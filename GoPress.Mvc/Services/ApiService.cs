@@ -39,8 +39,7 @@ namespace GoPress.Mvc.Services
         }
 
 
-        public async Task<TResponse>
-            PostAsync<TRequest, TResponse>(
+        public async Task<TResponse>PostAsync<TRequest, TResponse>(
                 string url,
                 TRequest data)
         {
