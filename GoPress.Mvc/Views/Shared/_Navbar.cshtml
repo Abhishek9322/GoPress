@@ -1,0 +1,105 @@
+﻿namespace GoPress.Mvc.Views.Shared
+{
+<nav class="navbar navbar-expand-lg custom-navbar">
+
+    <div class="container">
+
+        <a class="navbar-brand logo-text"
+           asp-controller="Home"
+           asp-action="Index">
+
+            <i class="fa-solid fa-shirt me-2"></i>
+
+            Press & Go
+
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse"
+             id="mainNavbar">
+
+            <ul class="navbar-nav mx-auto">
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       asp-controller="Home"
+                       asp-action="Index">
+
+                        Home
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#">
+
+                        Services
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#">
+
+                        Locations
+
+                    </a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link"
+                       href="#">
+
+                        How It Works
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+
+                <a asp-area="Auth"
+                   asp-controller="Auth"
+                   asp-action="Login"
+                   class="signin-link">
+
+                    Sign In
+
+                </a>
+
+                <a asp-area="Auth"
+                   asp-controller="Auth"
+                   asp-action="RegisterCustomer"
+                   class="get-started-btn">
+
+                    Get Started
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+}
