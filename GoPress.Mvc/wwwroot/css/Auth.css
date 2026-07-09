@@ -1,0 +1,62 @@
+﻿/* =========================
+   AUTH PAGES
+========================= */
+
+.auth-section {
+    padding: 80px 0;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 24px;
+    padding: 45px;
+    box-shadow: 0 4px 25px rgba(0,0,0,.06);
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: #6b7280;
+    margin-bottom: 40px;
+}
+
+.section-heading {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #6b7280;
+    margin: 25px 0 20px;
+}
+
+.custom-input {
+    height: 52px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+}
+
+.custom-textarea {
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+}
+
+.main-btn {
+    width: 100%;
+    height: 54px;
+    border: none;
+    border-radius: 12px;
+    background: #26c6da;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+    .main-btn:hover {
+        background: #10b8cf;
+    }

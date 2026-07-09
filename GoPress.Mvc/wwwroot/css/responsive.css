@@ -1,0 +1,43 @@
+﻿/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width:991px) {
+
+    .hero-card {
+        padding: 70px 40px;
+    }
+
+        .hero-card h1 {
+            font-size: 48px;
+        }
+
+    .feature-wrapper,
+    .steps,
+    .cta-cards {
+        flex-direction: column;
+    }
+}
+
+@media (max-width:768px) {
+
+    .hero-card h1 {
+        font-size: 38px;
+    }
+
+    .hero-card p {
+        width: 100%;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .auth-card {
+        padding: 25px;
+    }
+
+    .auth-title {
+        font-size: 30px;
+    }
+}

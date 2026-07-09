@@ -1,0 +1,234 @@
+﻿/* =========================
+   HERO SECTION
+========================= */
+
+.hero-section {
+    padding: 50px 0;
+}
+
+.hero-card {
+    background-image: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('/images/dashboard/hero-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 24px;
+    padding: 100px 70px;
+    color: white;
+}
+
+    .hero-card h1 {
+        font-size: 64px;
+        font-weight: 700;
+        line-height: 1.1;
+        max-width: 550px;
+    }
+
+    .hero-card p {
+        margin-top: 20px;
+        font-size: 18px;
+        max-width: 500px;
+        color: #f3f4f6;
+    }
+
+.hero-buttons {
+    margin-top: 35px;
+    display: flex;
+    gap: 18px;
+}
+
+.order-btn,
+.learn-btn {
+    padding: 14px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.order-btn {
+    background: #26c6da;
+    color: white;
+}
+
+    .order-btn:hover {
+        background: #10b8cf;
+    }
+
+.learn-btn {
+    background: white;
+    color: black;
+}
+
+    .learn-btn:hover {
+        background: #f3f4f6;
+    }
+
+/* =========================
+   FEATURES
+========================= */
+
+.features {
+    padding: 20px 0 60px;
+}
+
+.feature-wrapper {
+    display: flex;
+    gap: 25px;
+}
+
+.feature-card {
+    flex: 1;
+    padding: 35px;
+    border-radius: 18px;
+}
+
+    .feature-card h3 {
+        margin-bottom: 12px;
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .feature-card p {
+        color: #4b5563;
+        line-height: 1.7;
+    }
+
+.blue-bg {
+    background: #eafcff;
+}
+
+.green-bg {
+    background: #eefcf2;
+}
+
+.yellow-bg {
+    background: #fff7e0;
+}
+
+/* =========================
+   PROCESS
+========================= */
+
+.process-section {
+    background: white;
+    padding: 90px 0;
+    margin-top: 40px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+    .section-title h2 {
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    .section-title p {
+        margin-top: 15px;
+        color: #6b7280;
+    }
+
+.steps {
+    display: flex;
+    gap: 30px;
+}
+
+.step-card {
+    flex: 1;
+    text-align: center;
+}
+
+.step-number {
+    width: 70px;
+    height: 70px;
+    background: #26c6da;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.step-card h4 {
+    margin-top: 22px;
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.step-card p {
+    color: #6b7280;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta-section {
+    padding: 90px 0;
+}
+
+.cta-cards {
+    display: flex;
+    gap: 30px;
+}
+
+.cta-card {
+    flex: 1;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0,0,0,.07);
+}
+
+    .cta-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+    }
+
+.cta-content {
+    padding: 30px;
+}
+
+    .cta-content h3 {
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .cta-content ul {
+        margin-top: 15px;
+        margin-bottom: 25px;
+        padding-left: 18px;
+    }
+
+    .cta-content li {
+        margin-bottom: 10px;
+        color: #6b7280;
+    }
+
+.register-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+}
+
+.customer-btn {
+    background: #26c6da;
+}
+
+.shop-btn {
+    background: #22c55e;
+}
+
+.delivery-btn {
+    background: #eab308;
+}
