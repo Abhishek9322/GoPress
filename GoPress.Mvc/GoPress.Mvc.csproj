@@ -11,9 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Controller\" />
+    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Customer\Controller\" />
     <Folder Include="Areas\Customer\Views\" />
-    <Folder Include="Areas\Admin\" />
     <Folder Include="Areas\DeliveryBoy\Controller\" />
     <Folder Include="Areas\DeliveryBoy\Views\" />
     <Folder Include="Areas\ShopOwner\Controller\" />

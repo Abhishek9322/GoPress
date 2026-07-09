@@ -10,6 +10,12 @@ builder.Services.AddHttpClient<ApiService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

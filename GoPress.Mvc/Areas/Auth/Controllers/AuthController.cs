@@ -1,4 +1,5 @@
-﻿using GoPress.Mvc.Models.Auth;
+﻿using GoPress.Mvc.Helpers;
+using GoPress.Mvc.Models.Auth;
 using GoPress.Mvc.Models.Responses;
 using GoPress.Mvc.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,11 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
     public class AuthController : Controller
     {
         private readonly ApiService _apiService;
-
-        public AuthController(ApiService apiService)
+        private readonly ITokenService _tokenService;
+        public AuthController(ApiService apiService, ITokenService tokenService )
         {
             _apiService = apiService;
+            _tokenService = tokenService;
         }
         [HttpGet]
         public IActionResult Login()
@@ -23,76 +25,48 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
         [HttpPost]
         public async Task<IActionResult>Login(LoginViewModel login)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(login);
             }
 
-            var responce= 
-                await _apiService.PostAsync<LoginViewModel,AuthResponseViewModel>("api/auth/All-Login", login);
+            var response =
+                await _apiService.PostAsync<
+                    LoginViewModel,
+                    AuthResponseViewModel>(
+                    "api/auth/All-Login",
+                    login);
 
-            if(!responce.Success)
+            if (!response.Success)
             {
-                ViewBag.Error=responce.Message;
+                ViewBag.Error = response.Message;
                 return View(login);
             }
-            Response.Cookies.Append(
-                "AuthToken",
-                responce.Token,
-                new CookieOptions
+
+            _tokenService.SaveToken(response.Token);
+
+            var redirect =
+                RoleRedirectHelper.GetRedirect(response.Role);
+
+            return RedirectToAction(
+                redirect.Action,
+                redirect.Controller,
+                new
                 {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.Strict,
-                    Expires =
-                        DateTimeOffset.UtcNow
-                            .AddDays(1)
+                    area = redirect.Area
                 });
-            switch (responce.Role)
-            {
-                case "Customer":
-                    return RedirectToAction(
-                        "Customer",
-                        "Dashboard",
-                        new { area = "" });
-
-                case "DeliveryBoy":
-                    return RedirectToAction(
-                        "DeliveryBoy",
-                        "Dashboard",
-                        new { area = "" });
-
-                case "ShopOwner":
-                    return RedirectToAction(
-                        "ShopOwner",
-                        "Dashboard",
-                        new { area = "" });
-
-                case "Admin":
-                    return RedirectToAction(
-                        "Admin",
-                        "Dashboard",
-                        new { area = "" });
-
-                default:
-                    return RedirectToAction(
-                        "Index",
-                        "Home",
-                        new { area = "" });
-             
-             }
 
         }
 
         //Logout
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("AuthToken");
+            _tokenService.RemoveToken();
 
             return RedirectToAction(
-                         "Login",
-                         "Auth",
-                         new { area = "Auth" });
+                "Login",
+                "Auth",
+                new { area = "Auth" });
         }
 
         // CUSTOMER REGISTER PAGE
