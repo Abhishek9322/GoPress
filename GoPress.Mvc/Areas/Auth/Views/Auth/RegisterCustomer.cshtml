@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Customer Registration";
+    Layout = "_Layout";
 }
 
 <style>
@@ -117,34 +118,51 @@
         }
 
     .extra-box {
-        max-width: 620px;
-        margin: 25px auto 0;
-        background: white;
+        max-width: 720px;
+        margin: 30px auto 0;
+        padding: 25px 30px;
+        background: #fff;
         border: 1px dashed #d1d5db;
         border-radius: 16px;
-        padding: 25px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 20px;
     }
 
-    .extra-buttons a {
-        text-decoration: none;
-        border: 1px solid #d1d5db;
-        padding: 10px 18px;
-        border-radius: 10px;
-        margin-left: 10px;
-        color: #111827;
-        font-weight: 600;
-        transition: 0.3s;
+    .extra-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
     }
 
-        .extra-buttons a:hover {
-            background: #20c7e6;
-            color: white;
-            border-color: #20c7e6;
+        .extra-buttons a {
+            text-decoration: none;
+            border: 1px solid #d1d5db;
+            padding: 10px 18px;
+            border-radius: 10px;
+            color: #111827;
+            font-weight: 600;
+            transition: .3s;
+            white-space: nowrap;
         }
 
+            .extra-buttons a:hover {
+                background: #20c7e6;
+                color: #fff;
+                border-color: #20c7e6;
+            }
+
+    .extra-content {
+        flex: 1;
+    }
+
+    .extra-buttons {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+   
 </style>
 
 <div class="container register-wrapper">
@@ -350,11 +368,9 @@
 
     <div class="extra-box">
 
-        <div>
+        <div class="extra-content">
 
-            <strong>
-                Not a customer?
-            </strong>
+            <strong>Not a customer?</strong>
 
             <div class="text-muted">
                 Register your shop or join as a delivery partner.
@@ -366,16 +382,12 @@
 
             <a asp-controller="Auth"
                asp-action="RegisterShopOwner">
-
                 Shop Owner
-
             </a>
 
             <a asp-controller="Auth"
                asp-action="RegisterDeliveryBoy">
-
                 Delivery Boy
-
             </a>
 
         </div>
