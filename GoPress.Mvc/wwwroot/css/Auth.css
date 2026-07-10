@@ -1,48 +1,47 @@
-﻿/* =========================
-   AUTH PAGES
-========================= */
+﻿/* ==========================================
+   AUTH COMMON STYLES
+==========================================*/
 
 .auth-section {
     padding: 80px 0;
 }
 
 .auth-card {
-    background: white;
-    border-radius: 24px;
-    padding: 45px;
-    box-shadow: 0 4px 25px rgba(0,0,0,.06);
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
 }
 
 .auth-title {
     text-align: center;
-    font-size: 42px;
+    font-size: 40px;
     font-weight: 700;
-    margin-bottom: 12px;
+    color: #1f2937;
+    margin-bottom: 10px;
 }
 
 .auth-subtitle {
     text-align: center;
     color: #6b7280;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
 }
 
 .section-heading {
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 1px;
     color: #6b7280;
-    margin: 25px 0 20px;
+    letter-spacing: 1px;
+    margin: 25px 0 15px;
 }
 
 .custom-input {
     height: 52px;
     border-radius: 12px;
-    border: 1px solid #d1d5db;
 }
 
 .custom-textarea {
     border-radius: 12px;
-    border: 1px solid #d1d5db;
 }
 
 .main-btn {
@@ -51,7 +50,7 @@
     border: none;
     border-radius: 12px;
     background: #26c6da;
-    color: white;
+    color: #fff;
     font-size: 17px;
     font-weight: 600;
     transition: .3s;
