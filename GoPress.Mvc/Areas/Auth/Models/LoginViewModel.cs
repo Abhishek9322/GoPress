@@ -1,4 +1,4 @@
-﻿namespace GoPress.Mvc.Models.Auth
+﻿namespace GoPress.Mvc.Areas.Auth.Auth
 {
     public class LoginViewModel
     {

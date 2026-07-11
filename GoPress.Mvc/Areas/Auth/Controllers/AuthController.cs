@@ -1,5 +1,5 @@
-﻿using GoPress.Mvc.Helpers;
-using GoPress.Mvc.Models.Auth;
+﻿using GoPress.Mvc.Areas.Auth.Auth;
+using GoPress.Mvc.Helpers;
 using GoPress.Mvc.Models.Responses;
 using GoPress.Mvc.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +25,7 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
         [HttpPost]
         public async Task<IActionResult>Login(LoginViewModel login)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(login);
@@ -43,7 +44,13 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
                 return View(login);
             }
 
-            _tokenService.SaveToken(response.Token);
+            if (string.IsNullOrWhiteSpace(response.AccessToken))
+            {
+                ViewBag.Error = "Access token was not returned from the API.";
+                return View(login);
+            }
+
+            _tokenService.SaveToken(response.AccessToken);
 
             var redirect =
                 RoleRedirectHelper.GetRedirect(response.Role);
@@ -150,7 +157,7 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
                 .PostAsync<
                     RegisterShopOwnerViewModel,
                     AuthResponseViewModel>(
-                    "api/Auth/register-shop-owner",
+                    "api/Auth/register-shop-ow",
                     model);
 
             if (!response.Success)

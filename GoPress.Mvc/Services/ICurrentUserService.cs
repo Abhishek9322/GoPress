@@ -1,4 +1,4 @@
-﻿using GoPress.Mvc.Models.Auth;
+﻿using GoPress.Mvc.Areas.Auth.Auth;
 
 namespace GoPress.Mvc.Services
 {

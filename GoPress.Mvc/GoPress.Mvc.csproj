@@ -13,11 +13,9 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Controller\" />
     <Folder Include="Areas\Admin\Views\" />
-    <Folder Include="Areas\Customer\Controller\" />
-    <Folder Include="Areas\Customer\Views\" />
-    <Folder Include="Areas\DeliveryBoy\Controller\" />
+    <Folder Include="Areas\DeliveryBoy\Controllers\" />
     <Folder Include="Areas\DeliveryBoy\Views\" />
-    <Folder Include="Areas\ShopOwner\Controller\" />
+    <Folder Include="Areas\ShopOwner\Controllers\" />
     <Folder Include="Areas\ShopOwner\Views\" />
     <Folder Include="wwwroot\images\default\" />
     <Folder Include="wwwroot\images\shops\" />

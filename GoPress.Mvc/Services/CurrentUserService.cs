@@ -1,4 +1,4 @@
-﻿using GoPress.Mvc.Models.Auth;
+﻿using GoPress.Mvc.Areas.Auth.Auth;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
