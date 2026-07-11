@@ -1,6 +1,6 @@
-﻿namespace GoPress.Mvc.Models.Auth
+﻿namespace GoPress.Mvc.Areas.Auth.Auth
 {
-    public class RegisterDeliveryBoyViewModel
+    public class RegisterCustomerViewModel
     {
         public string FullName { get; set; }
 
@@ -17,11 +17,5 @@
         public string State { get; set; }
 
         public string Pincode { get; set; }
-
-        public string BikeNumber { get; set; }
-
-        public string LicenseNumber { get; set; }
-
-        public string AadhaarNumber { get; set; }
     }
 }
