@@ -295,8 +295,11 @@
                             Full Name
                         </label>
 
-                        <input asp-for="FullName"
-                               class="form-control" />
+                        <input type="text"
+                               id="FullName"
+                               name="FullName"
+                               class="form-control"
+                               value="@Model?.FullName" />
 
                     </div>
 
@@ -306,8 +309,11 @@
                             Shop Name
                         </label>
 
-                        <input asp-for="ShopName"
-                               class="form-control" />
+                        <input type="text"
+                               id="ShopName"
+                               name="ShopName"
+                               class="form-control"
+                               value="@Model?.ShopName" />
 
                     </div>
 
@@ -317,8 +323,11 @@
                             Email
                         </label>
 
-                        <input asp-for="Email"
-                               class="form-control" />
+                        <input type="email"
+                               id="Email"
+                               name="Email"
+                               class="form-control"
+                               value="@Model?.Email" />
 
                     </div>
 
@@ -328,8 +337,11 @@
                             Phone Number
                         </label>
 
-                        <input asp-for="PhoneNumber"
-                               class="form-control" />
+                        <input type="text"
+                               id="PhoneNumber"
+                               name="PhoneNumber"
+                               class="form-control"
+                               value="@Model?.PhoneNumber" />
 
                     </div>
 
@@ -339,8 +351,9 @@
                             Password
                         </label>
 
-                        <input asp-for="Password"
-                               type="password"
+                        <input type="password"
+                               id="Password"
+                               name="Password"
                                class="form-control" />
 
                     </div>
@@ -351,8 +364,11 @@
                             GST Number
                         </label>
 
-                        <input asp-for="GSTNumber"
-                               class="form-control" />
+                        <input type="text"
+                               id="GSTNumber"
+                               name="GSTNumber"
+                               class="form-control"
+                               value="@Model?.GSTNumber" />
 
                     </div>
 
@@ -372,8 +388,11 @@
                             Shop Address
                         </label>
 
-                        <input asp-for="ShopAddress"
-                               class="form-control" />
+                        <input type="text"
+                               id="ShopAddress"
+                               name="ShopAddress"
+                               class="form-control"
+                               value="@Model?.ShopAddress" />
 
                     </div>
 
@@ -383,8 +402,11 @@
                             City
                         </label>
 
-                        <input asp-for="City"
-                               class="form-control" />
+                        <input type="text"
+                               id="City"
+                               name="City"
+                               class="form-control"
+                               value="@Model?.City" />
 
                     </div>
 
@@ -394,8 +416,11 @@
                             State
                         </label>
 
-                        <input asp-for="State"
-                               class="form-control" />
+                        <input type="text"
+                               id="State"
+                               name="State"
+                               class="form-control"
+                               value="@Model?.State" />
 
                     </div>
 
@@ -405,8 +430,12 @@
                             Pincode
                         </label>
 
-                        <input asp-for="Pincode"
-                               class="form-control" />
+                        <input type="text"
+                               id="Pincode"
+                               name="Pincode"
+                               class="form-control"
+                               placeholder="400001"
+                               value="@Model?.Pincode" />
 
                     </div>
 
@@ -426,8 +455,11 @@
                             Shop License Number
                         </label>
 
-                        <input asp-for="ShopLicenseNumber"
-                               class="form-control" />
+                        <input type="text"
+                               id="ShopLicenseNumber"
+                               name="ShopLicenseNumber"
+                               class="form-control"
+                               value="@Model?.ShopLicenseNumber" />
 
                     </div>
 
@@ -435,22 +467,24 @@
 
                 <div class="terms">
 
-                    <input type="checkbox" />
+                    <input type="checkbox"
+                           id="Terms" />
 
-                    I agree to the
-                    <a href="#">Terms & Conditions</a>
+                    <label for="Terms">
+                        I agree to the
+                        <a href="#">Terms &amp; Conditions</a>
+                    </label>
 
                 </div>
 
                 <button type="submit"
                         class="register-btn">
 
-                    Register Shop & Start Earning
+                    Register Shop &amp; Start Earning
 
                 </button>
 
             </form>
-
         </div>
 
     </div>

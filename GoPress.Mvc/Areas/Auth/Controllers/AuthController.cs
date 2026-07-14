@@ -125,7 +125,7 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
                            .PostAsync<
                                RegisterDeliveryBoyViewModel,
                                AuthResponseViewModel>(
-                               "api/Auth/register-delivery-boy",
+                               "api/Auth/register-Delivery-Boy",
                                register);
 
             if (!response.Success)
@@ -148,16 +148,14 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult>
-          RegisterShopOwner(
-              RegisterShopOwnerViewModel model)
+        public async Task<IActionResult> RegisterShopOwner( RegisterShopOwnerViewModel model)
         {
             var response =
                 await _apiService
                 .PostAsync<
                     RegisterShopOwnerViewModel,
                     AuthResponseViewModel>(
-                    "api/Auth/register-shop-ow",
+                    "api/Auth/register-shop-owner",
                     model);
 
             if (!response.Success)
