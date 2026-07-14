@@ -56,6 +56,8 @@ namespace GoPress.Mvc.Services
                 await _httpClient
                     .PostAsync(url, content);
 
+            response.EnsureSuccessStatusCode();
+
             var responseContent =
                 await response.Content
                     .ReadAsStringAsync();

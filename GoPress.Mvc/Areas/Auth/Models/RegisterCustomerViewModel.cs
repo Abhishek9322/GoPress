@@ -16,6 +16,6 @@
 
         public string State { get; set; }
 
-        public string Pincode { get; set; }
+        public string? Pincode { get; set; }
     }
 }
