@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace GoPress.Mvc.Areas.Customer.Controllers
 {
     [Area("Customer")]
-    [Authorize(Roles = "Customer")]
     public class DashboardController : Controller
     {
         private readonly ApiService _apiService;

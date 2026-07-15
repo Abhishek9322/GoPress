@@ -23,9 +23,16 @@
              });
         }
 
+        public string? GetToken()
+        {
+           return _contextAccessor.HttpContext?.Request.Cookies["AuthToken"];
+
+        }
         public void RemoveToken()
         {
-            _contextAccessor.HttpContext.Response.Cookies.Delete("AuthToken");
+            _contextAccessor.HttpContext?.Response.Cookies.Delete("AuthToken");
         }
+
+      
     }
 }

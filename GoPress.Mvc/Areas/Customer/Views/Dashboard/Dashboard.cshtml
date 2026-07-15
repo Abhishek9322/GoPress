@@ -1,1 +1,152 @@
-﻿
+﻿@model GoPress.Mvc.Areas.Customer.Models.CustomerDashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_Layout";
+
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-dashboard.css"
+          asp-append-version="true" />
+}
+
+<div class="dashboard-container">
+
+    <!-- Header -->
+
+    <div class="dashboard-header">
+
+        @* <div> *@
+
+        @*     <h2> *@
+        @*         Welcome Back  *@
+        @*     </h2> *@
+
+        @*     <p> *@
+        @*         Manage your laundry orders from one place. *@
+        @*     </p> *@
+
+        @* </div> *@
+
+        <div class="dashboard-date">
+
+            @DateTime.Now.ToString("dddd, dd MMM yyyy")
+
+        </div>
+
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-card">
+
+            <h5>Total Orders</h5>
+
+            <h2>@Model.TotalOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card pending">
+
+            <h5>Pending</h5>
+
+            <h2>@Model.PendingOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card accepted">
+
+            <h5>Accepted</h5>
+
+            <h2>@Model.AcceptedOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card processing">
+
+            <h5>Processing</h5>
+
+            <h2>@Model.ProceessingOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card delivery">
+
+            <h5>Out For Delivery</h5>
+
+            <h2>@Model.OutForDeliveryOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card success">
+
+            <h5>Delivered</h5>
+
+            <h2>@Model.DeliveredOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card danger">
+
+            <h5>Cancelled</h5>
+
+            <h2>@Model.CancelledOrder</h2>
+
+        </div>
+
+        <div class="dashboard-card rejected">
+
+            <h5>Rejected</h5>
+
+            <h2>@Model.RejectedOrder</h2>
+
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="action-section">
+
+        <h3>
+            Quick Actions
+        </h3>
+
+        <div class="action-buttons">
+
+            <a asp-area="Customer"
+               asp-controller="Order"
+               asp-action="Create"
+               class="action-btn">
+
+                New Order
+
+            </a>
+
+            <a asp-area="Customer"
+               asp-controller="Order"
+               asp-action="Index"
+               class="action-btn secondary">
+
+                My Orders
+
+            </a>
+
+            <a asp-area="Customer"
+               asp-controller="Profile"
+               asp-action="Index"
+               class="action-btn secondary">
+
+                Profile
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
