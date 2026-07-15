@@ -2,16 +2,20 @@
 {
     public class CustomerDashboardViewModel
     {
-        public int TotalOrders { get; set; }
+        public int DeliveredOrder { get; set; }
 
-        public int PendingOrders { get; set; }
+        public int PendingOrder { get; set; }
 
-        public int AcceptedOrders { get; set; }
+        public int RejectedOrder { get; set; }
 
-        public int PickedUpOrders { get; set; }
+        public int CancelledOrder { get; set; }
 
-        public int DeliveredOrders { get; set; }
+        public int AcceptedOrder { get; set; }
 
-        public decimal TotalSpent { get; set; }
+        public int TotalOrder { get; set; }
+
+        public int ProceessingOrder { get; set; }
+
+        public int OutForDeliveryOrder { get; set; }
     }
 }

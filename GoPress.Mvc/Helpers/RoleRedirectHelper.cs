@@ -9,7 +9,7 @@
                 return role switch
                 {
                     "Customer"
-                        => ("Customer", "Dashboard", "Dashboard"),
+                        => ("Dashboard", "Dashboard", "Customer"),
 
                     "ShopOwner"
                         => ("ShopOwner", "Dashboard", "Dashboard"),
