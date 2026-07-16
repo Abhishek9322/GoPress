@@ -4,11 +4,11 @@
     {
         public int Id { get; set; }
 
-        public string CustomerId { get; set; } = string.Empty;
+        public int CustomerId { get; set; }
 
-        public string? ShopOwnerId { get; set; }
+        public int ShopOwnerId { get; set; }
 
-        public string? DeliveryBoyId { get; set; }
+        public int? DeliveryBoyId { get; set; }
 
         public string PickupAddress { get; set; } = string.Empty;
 
@@ -22,7 +22,8 @@
 
         public string? Notes { get; set; }
 
-        public string Status { get; set; } = string.Empty;
+        public OrderStatusEnum  Status { get; set; }
+
         public List<OrderItemViewModel> OrderItems { get; set; } = new();
     }
 }
