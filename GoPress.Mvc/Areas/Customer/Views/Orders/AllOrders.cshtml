@@ -67,10 +67,17 @@
                             </small>
 
                         </div>
+                        @{
+                            var statusClass = $"status-{order.Status.ToString().ToLower().Replace("_", "-")}";
+                        }
 
-                        <span class="status-badge status-@order.Status">
+                        <span class="status-badge @statusClass">
                             @order.Status
                         </span>
+
+                        @* <span class="status-badge status-@order.Status.Tolower()"> *@
+                        @*     @order.Status *@
+                        @* </span> *@
 
                     </div>
 
