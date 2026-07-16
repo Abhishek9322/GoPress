@@ -3,6 +3,12 @@
     ViewData["Title"] = "All Orders";
     Layout = "_Layout";
 }
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-orders.css"
+          asp-append-version="true" />
+}
 
 <div class="orders-page">
 
@@ -29,7 +35,6 @@
         </a>
 
     </div>
-
     @if (!Model.Any())
     {
         <div class="empty-box">
@@ -38,160 +43,120 @@
 
             <h4>No Orders Found</h4>
 
-            <p>
-                You haven't placed any orders yet.
-            </p>
+            <p>You haven't placed any orders yet.</p>
 
         </div>
     }
     else
     {
+        <div class="orders-grid">
 
-        <div class="table-responsive">
+            @foreach (var order in Model)
+            {
+                <div class="order-card">
 
-            <table class="table orders-table">
+                    <div class="order-card-header">
 
-                <thead>
+                        <div>
 
-                    <tr>
+                            <h5>Order #@order.Id</h5>
 
-                        <th>#</th>
-
-                        <th>Pickup</th>
-
-                        <th>Delivery</th>
-
-                        <th>Pickup Date</th>
-
-                        <th>Delivery Date</th>
-
-                        <th>Amount</th>
-
-                        <th>Status</th>
-
-                        <th></th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @foreach (var order in Model)
-                    {
-                        <tr>
-
-                            <td>
-                                #@order.Id
-                            </td>
-
-                            <td>
+                            <small>
+                                Pickup :
                                 @order.PickupDate.ToString("dd MMM yyyy")
-                            </td>
+                            </small>
 
-                            <td>
+                        </div>
+
+                        <span class="status-badge status-@order.Status">
+                            @order.Status
+                        </span>
+
+                    </div>
+
+                    <div class="order-details">
+
+                        <div class="detail-item">
+
+                            <span>Pickup Date</span>
+
+                            <strong>
+                                @order.PickupDate.ToString("dd MMM yyyy")
+                            </strong>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <span>Delivery Date</span>
+
+                            <strong>
                                 @(order.DeliveryDate?.ToString("dd MMM yyyy") ?? "-")
-                            </td>
+                            </strong>
 
-                            <td>
-                                @order.PickupDate
-                            </td>
+                        </div>
 
-                            <td>
-                                @order.DeliveryDate
-                            </td>
+                        <div class="detail-item">
 
-                            <td>
+                            <span>Total Amount</span>
+
+                            <strong class="price">
 
                                 ₹@order.TotalAmount
 
-                            </td>
+                            </strong>
 
-                            <td>
+                        </div>
 
-                                @{
-                                    var badgeClass = order.Status switch
-                                    {
-                                        "Pending" => "badge bg-warning text-dark",
+                    </div>
 
-                                        "Accepted" => "badge bg-primary",
+                    <div class="clothes-section">
 
-                                        "Processing" => "badge bg-info",
+                        <h6>Clothes</h6>
 
-                                        "OutForDelivery" => "badge bg-secondary",
+                        <ul>
 
-                                        "Delivered" => "badge bg-success",
+                            @foreach (var item in order.OrderItems)
+                            {
+                                <li>
 
-                                        "Rejected" => "badge bg-danger",
+                                    <span>@item.ClothName</span>
 
-                                        "Cancelled" => "badge bg-dark",
+                                    <span>
 
-                                        _ => "badge bg-light text-dark"
-                                    };
-                                }
+                                        x @item.Quantity
 
-                                <span class="@badgeClass">
-                                    @order.Status
-                                </span>
+                                    </span>
 
-                            </td>
+                                    <strong>
 
-                            <td>
+                                        ₹@item.TotalPrice
 
-                                <a asp-action="Details"
-                                   asp-route-id="@order.Id"
-                                   class="btn btn-sm btn-outline-primary">
+                                    </strong>
 
-                                    View
+                                </li>
+                            }
 
-                                </a>
+                        </ul>
 
-                            </td>
+                    </div>
 
-                        </tr>
+                    <div class="card-footer">
 
-                        <tr>
+                        <a asp-action="Details"
+                           asp-route-id="@order.Id"
+                           class="btn btn-primary">
 
-                            <td colspan="8">
+                            View Details
 
-                                <div class="items-box">
+                        </a>
 
-                                    <strong>Clothes</strong>
+                    </div>
 
-                                    <ul>
-
-                                        @foreach (var item in order.OrderItems)
-                                        {
-                                            <li>
-
-                                                @item.ClothName
-
-                                                ×
-
-                                                @item.Quantity
-
-                                                -
-
-                                                ₹@item.TotalPrice
-
-                                            </li>
-                                        }
-
-                                    </ul>
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-                    }
-
-                </tbody>
-
-            </table>
+                </div>
+            }
 
         </div>
-
     }
 
 </div>

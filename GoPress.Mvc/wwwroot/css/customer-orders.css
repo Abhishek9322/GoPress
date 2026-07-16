@@ -1,0 +1,245 @@
+﻿/* ==========================================
+   CUSTOMER ORDERS PAGE
+==========================================*/
+
+.orders-page {
+    padding: 35px;
+}
+
+/* =============================
+   Header
+=============================*/
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+    .page-header h2 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 5px;
+    }
+
+    .page-header p {
+        color: #6b7280;
+        margin: 0;
+    }
+/* ==========================================
+   GRID
+==========================================*/
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(360px,1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+
+/* ==========================================
+   CARD
+==========================================*/
+
+.order-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+}
+
+    .order-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,.12);
+    }
+
+
+/* ==========================================
+   HEADER
+==========================================*/
+
+.order-card-header {
+    background: #22c7e8;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .order-card-header h5 {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .order-card-header small {
+        opacity: .9;
+    }
+
+
+/* ==========================================
+   DETAILS
+==========================================*/
+
+.order-details {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.detail-item {
+    text-align: center;
+}
+
+    .detail-item span {
+        display: block;
+        color: #6b7280;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .detail-item strong {
+        font-size: 15px;
+        color: #111827;
+    }
+
+.price {
+    color: #16a34a;
+    font-size: 20px;
+}
+
+
+/* ==========================================
+   CLOTHES
+==========================================*/
+
+.clothes-section {
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+    .clothes-section h6 {
+        margin-bottom: 15px;
+        font-weight: 700;
+    }
+
+    .clothes-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .clothes-section li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px dashed #ddd;
+    }
+
+        .clothes-section li:last-child {
+            border-bottom: none;
+        }
+
+
+/* ==========================================
+   FOOTER
+==========================================*/
+
+.card-footer {
+    padding: 20px;
+    background: #fafafa;
+    text-align: right;
+}
+
+
+/* ==========================================
+   STATUS
+==========================================*/
+
+.status-badge {
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: #fff;
+}
+
+
+/* Pending */
+
+.status-pending {
+    background: #FFF3CD;
+    color: #856404;
+}
+
+/* Accepted */
+
+.status-accepted {
+    background: #D1ECF1;
+    color: #0C5460;
+}
+
+/* Processing */
+
+.status-processing {
+    background: #DBEAFE;
+    color: #1D4ED8;
+}
+
+/* Delivery */
+
+.status-delivery {
+    background: #EDE9FE;
+    color: #6D28D9;
+}
+
+/* Delivered */
+
+.status-delivered {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+/* Rejected */
+
+.status-rejected {
+    background: #FEE2E2;
+    color: #B91C1C;
+}
+
+/* Cancelled */
+
+.status-cancelled {
+    background: #E5E7EB;
+    color: #374151;
+}
+
+
+/* ==========================================
+   MOBILE
+==========================================*/
+
+@media(max-width:768px) {
+
+    .orders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-details {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .detail-item {
+        text-align: left;
+    }
+}
