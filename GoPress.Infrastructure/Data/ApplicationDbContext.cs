@@ -132,6 +132,9 @@ namespace GoPress.Infrastructure.Data
                 .Property(x => x.Price)
                 .HasPrecision(18, 2);
 
+            modelBuilder.Entity<ShopOwnerProfile>()
+                .Property(x => x.MinimumOrderAmount)
+                .HasPrecision(18, 2);
 
             // ==========================
             // INDEXES

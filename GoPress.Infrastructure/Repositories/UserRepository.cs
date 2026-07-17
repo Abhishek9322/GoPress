@@ -81,6 +81,21 @@ namespace GoPress.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-      
+        public async Task<List<ApplicationUser>> GetAvailableShopsAsync(string city)
+        {
+            var currentTime = TimeOnly.FromDateTime(DateTime.Now);
+
+            return await _context.ApplicationUsers
+                .Include(x => x.ShopOwnerProfile)
+                .Where(x =>x.Role == UserRoleenum.ShopOwner &&
+                x.IsApproved &&
+                x.IsActive &&
+                x.ShopOwnerProfile.City == city &&
+                x.ShopOwnerProfile.IsOpen &&
+                currentTime >= x.ShopOwnerProfile.OpeningTime &&
+                currentTime <= x.ShopOwnerProfile.ClosingTime)
+                .OrderBy(x => x.ShopOwnerProfile.ShopName)
+                .ToListAsync();
+        }
     }
 }

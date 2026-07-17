@@ -20,6 +20,7 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<List<ApplicationUser>> GetApprovedDeliveryBoyAsync();
 
+        Task<List<ApplicationUser>> GetAvailableShopsAsync(string City);
         Task UpdateAsync(ApplicationUser user);
     }
 
