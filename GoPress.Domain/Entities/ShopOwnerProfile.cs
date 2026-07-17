@@ -20,6 +20,12 @@ namespace GoPress.Domain.Entities
 
         public string GSTNumber { get; set; }
 
+        public TimeOnly OpeningTime { get; set; }
+
+        public TimeOnly ClosingTime { get; set; }
+
+        public bool IsOpen { get; set; } = true;
+
         // Navigation Property
         public ApplicationUser User { get; set; }
     }
