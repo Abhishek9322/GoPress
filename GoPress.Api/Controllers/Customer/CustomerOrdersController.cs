@@ -35,21 +35,7 @@ namespace GoPress.Api.Controllers.Customer
             return Ok(response);
         }
 
-        [HttpGet("shop-owner/{shopOwnerId}/price-list")]
-        public async Task<IActionResult> GetShopOwnerPriceList(int shopOwnerId)
-        {
-            var currentUser= User.GetCurrentUser();
-
-            var query = new GetShopOwnerPriceListQuery
-            {
-                ShopOwnerId = shopOwnerId
-                
-            };
-            var response=await _mediator.Send(query);
-
-            return Ok(response);
-
-        }
+      
 
 
         [HttpPost]
