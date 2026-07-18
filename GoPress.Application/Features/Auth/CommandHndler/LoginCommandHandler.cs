@@ -3,6 +3,7 @@ using GoPress.Application.Features.Auth.Responses;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Application.Interfaces.Services;
 using GoPress.Domain.Entities;
+using GoPress.Domain.Enums;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
@@ -89,6 +90,29 @@ namespace GoPress.Application.Features.Auth.CommandHndler
             _logger.LogInformation(
                 "Generating tokens for user {UserId}",
                 user.Id);
+
+            //add conditon when shop logging that time
+            //is open is ture and record a time  and also the predefine time also here 
+            //forcolse shop do in the lgout 
+
+            if (user.Role == UserRoleenum.ShopOwner)
+            {
+                var shopownerStatus = await _userRepository.GetShopOwnerProfileByUserIdAsync(user.Id);
+
+                if (shopownerStatus != null)
+                {
+                    shopownerStatus.IsOpen = true;
+
+                    shopownerStatus.LastLoginAt = DateTime.UtcNow;
+
+                    await _userRepository.UpdateShopStatus(shopownerStatus);
+
+                    _logger.LogInformation(
+                                 "Shop {ShopName} marked as Open.",
+                                 shopownerStatus.ShopName);
+                }
+
+            }
 
             var accessToken = _jwtService.GenerateToken(user);
 

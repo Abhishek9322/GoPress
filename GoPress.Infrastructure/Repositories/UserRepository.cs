@@ -97,5 +97,18 @@ namespace GoPress.Infrastructure.Repositories
                 .OrderBy(x => x.ShopOwnerProfile.ShopName)
                 .ToListAsync();
         }
+
+        public Task<ShopOwnerProfile?> GetShopOwnerProfileByUserIdAsync(int userId)
+        {
+           return _context.ShopOwnerProfiles
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+        }
+
+        public Task UpdateShopStatus(ShopOwnerProfile shopOwnerProfile)
+        {
+           _context.ShopOwnerProfiles.Update(shopOwnerProfile);
+
+            return _context.SaveChangesAsync();
+        }
     }
 }
