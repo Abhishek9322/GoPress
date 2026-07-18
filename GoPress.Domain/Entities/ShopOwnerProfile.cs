@@ -30,6 +30,10 @@ namespace GoPress.Domain.Entities
 
         public bool IsOpen { get; set; }
 
+        public DateTime? LastLoginAt { get; set; }
+
+        public DateTime? LastLogoutAt { get; set; }
+
         public int EstimatedDeliveryMinutes { get; set; }
 
         public decimal MinimumOrderAmount { get; set; }

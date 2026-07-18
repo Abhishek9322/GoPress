@@ -22,6 +22,9 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<List<ApplicationUser>> GetAvailableShopsAsync(string City);
         Task UpdateAsync(ApplicationUser user);
+
+        Task UpdateShopStatus(ShopOwnerProfile shopOwnerProfile);
+        Task<ShopOwnerProfile?> GetShopOwnerProfileByUserIdAsync(int userId);
     }
 
 }
