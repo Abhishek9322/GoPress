@@ -22,7 +22,7 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<List<ApplicationUser>> GetAvailableShopsAsync(string City);
         Task UpdateAsync(ApplicationUser user);
-
+        Task<ApplicationUser?> GetCustomerWithProfileAsync(int customerId);
         Task UpdateShopStatus(ShopOwnerProfile shopOwnerProfile);
         Task<ShopOwnerProfile?> GetShopOwnerProfileByUserIdAsync(int userId);
     }
