@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GoPress.Application.Features.Orders.GetAvailableOrders.GetShop.Queries
+namespace GoPress.Application.Features.ShopOpration.GetShop.Queries
 {
     public class GetAvailableShopsQuery:IRequest<Response<List<AvailableShopDto>>>
     {
