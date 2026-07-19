@@ -1,7 +1,7 @@
 ﻿using GoPress.Application.DTOs.Shops;
 using GoPress.Application.Features.DashBoard.Queries;
-using GoPress.Application.Features.Orders.GetAvailableOrders.GetShop.Queries;
 using GoPress.Application.Features.Orders.Responses;
+using GoPress.Application.Features.ShopOpration.GetShop.Queries;
 using GoPress.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
 
-namespace GoPress.Application.Features.Orders.GetAvailableOrders.GetShop.QueriesHandler
+namespace GoPress.Application.Features.ShopOpration.GetShop.QueriesHandler
 {
     public class GetAvailableShopsQueryHandler : IRequestHandler<GetAvailableShopsQuery, Response<List<AvailableShopDto>>>
     {

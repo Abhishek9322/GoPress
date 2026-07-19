@@ -1,6 +1,6 @@
 ﻿using GoPress.Api.Extensions;
-using GoPress.Application.Features.Orders.GetAvailableOrders.GetShop.Queries;
 using GoPress.Application.Features.Orders.GetAvailableOrders.Queries;
+using GoPress.Application.Features.ShopOpration.GetShop.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
