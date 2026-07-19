@@ -14,7 +14,7 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace GoPress.Application.Features.ShopOpration.GetShop.QueriesHandler
 {
-    public class GetAvailableShopsQueryHandler : IRequestHandler<GetAvailableShopsQuery, Response<List<AvailableShopDto>>>
+    public partial class GetAvailableShopsQueryHandler : IRequestHandler<GetAvailableShopsQuery, Response<List<AvailableShopDto>>>
     {
         private readonly ILogger<GetAvailableShopsQueryHandler> _logger;
         private readonly IUserRepository _userRepository;
@@ -59,7 +59,7 @@ namespace GoPress.Application.Features.ShopOpration.GetShop.QueriesHandler
                 city);
 
             var shops = await _userRepository
-                .GetAvailableShopsAsync(city);  //problem in the oping time and the closing time fixing here have to make api for this after thst it will fix 
+                .GetAvailableShopsAsync(city); 
 
             if (!shops.Any())
             {
