@@ -14,6 +14,7 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         {
             _apiService = apiService;
         }
+
         [HttpGet]
         public async Task<IActionResult> AllOrders()
         {
@@ -31,5 +32,44 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
             return View(response.Data);
         }
+
+
+        //---------------------------------------------------
+        // STEP 1
+        // Empty Create page
+        //---------------------------------------------------
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var model = new CreateOrderViewModel();
+
+            return View(model);
+        }
+
+
+        //---------------------------------------------------
+        // STEP 2
+        // Browse Shops
+        //---------------------------------------------------
+
+        [HttpGet]
+        public async Task<IActionResult> Browse()
+        {
+            var response =
+                await _apiService.GetAsync<
+                    Response<List<AvailableShopViewModel>>>(
+                    "api/CustomerShop");
+
+
+            if (response == null || response.Data == null)
+            {
+                return View(new List<AvailableShopViewModel>());
+            }
+
+            return View(response.Data);
+        }
+
+
     }
 }

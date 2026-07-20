@@ -1,0 +1,200 @@
+﻿@model List<GoPress.Mvc.Areas.Customer.Models.AvailableShopViewModel>
+@{
+    ViewData["Title"] = "Browse Shops";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-browse-shop.css"
+          asp-append-version="true" />
+}
+
+
+<div class="browse-container">
+
+    <div class="browse-header">
+
+        <div>
+
+            <h2>
+                Browse Laundry Shops
+            </h2>
+
+            <p>
+                Find the best laundry shop available in your city.
+            </p>
+
+        </div>
+
+        <a asp-area="Customer"
+           asp-controller="Dashboard"
+           asp-action="Dashboard"
+           class="btn btn-outline-secondary">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back
+
+        </a>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <form method="get">
+
+            <div class="input-group">
+
+                <input type="text"
+                       class="form-control"
+                       name="keyword"
+                       placeholder="Search Shop Name..." />
+
+                <button class="btn btn-primary">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    @if (!Model.Any())
+    {
+        <div class="empty-box">
+
+            <i class="fa-solid fa-shop-slash"></i>
+
+            <h4>
+                No Shops Found
+            </h4>
+
+            <p>
+                There are currently no available shops.
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <div class="shop-grid">
+
+            @foreach (var shop in Model)
+            {
+
+                <div class="shop-card">
+
+                    <img src="@shop.ShopImageUrl"
+                         class="shop-image" />
+
+                    <div class="shop-body">
+
+                        <h4>
+                            @shop.ShopName
+                        </h4>
+
+                        <span class="status @(shop.IsOpen ? "open" : "closed")">
+
+                            @(shop.IsOpen ? "Open" : "Closed")
+
+                        </span>
+
+                        <p>
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            @shop.ShopAddress
+
+                        </p>
+
+                        <p>
+
+                            <i class="fa-solid fa-city"></i>
+
+                            @shop.City
+
+                        </p>
+
+                        <p>
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            @shop.OpeningTime -
+
+                            @shop.ClosingTime
+
+                        </p>
+
+                        <p>
+
+                            <i class="fa-solid fa-truck-fast"></i>
+
+                            @shop.EstimatedDeliveryMinutes Minutes
+
+                        </p>
+
+                        <p>
+
+                            <i class="fa-solid fa-money-bill-wave"></i>
+
+                            Minimum ₹@shop.MinimumOrderAmount
+
+                        </p>
+
+                        <p class="description">
+
+                            @shop.Description
+
+                        </p>
+
+                    </div>
+
+                    <div class="shop-footer">
+
+                        <a asp-area="Customer"
+                           asp-controller="Orders"
+                           asp-action="PriceList"
+                           asp-route-shopOwnerId="@shop.ShopOwnerId"
+                           class="btn btn-outline-primary">
+
+                            <i class="fa-solid fa-list"></i>
+
+                            Price List
+
+                        </a>
+
+                        <a asp-area="Customer"
+                           asp-controller="Orders"
+                           asp-action="Create"
+                           asp-route-shopOwnerId="@shop.ShopOwnerId"
+                           class="btn btn-success">
+
+                            <i class="fa-solid fa-cart-plus"></i>
+
+                            Select Shop
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>
