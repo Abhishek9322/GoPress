@@ -70,6 +70,21 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
             return View(response.Data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetNearbyShops()
+        {
+            var response =
+                await _apiService.GetAsync<
+                    Response<List<AvailableShopViewModel>>>(
+                    "api/CustomerShop");
+
+            if (response == null || response.Data == null)
+            {
+                return Json(new List<AvailableShopViewModel>());
+            }
+
+            return Json(response.Data);
+        }
 
     }
 }
