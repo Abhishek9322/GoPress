@@ -1,1 +1,264 @@
-﻿
+﻿/* ==========================================
+   Create Order Page
+========================================== */
+
+.create-order-container {
+    max-width: 1300px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+/* ==========================================
+   Header
+========================================== */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+    .page-header h2 {
+        font-size: 30px;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 8px;
+    }
+
+    .page-header p {
+        color: #666;
+        margin: 0;
+    }
+
+/* ==========================================
+   Sections
+========================================== */
+
+.card-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+    .section-header h4 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #222;
+    }
+
+/* ==========================================
+   Selected Shop
+========================================== */
+
+.selected-shop-card {
+    border: 2px dashed #d6d6d6;
+    border-radius: 12px;
+    text-align: center;
+    padding: 35px;
+    background: #fafafa;
+}
+
+    .selected-shop-card h5 {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .selected-shop-card p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+/* ==========================================
+   Shop Grid
+========================================== */
+
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(320px,1fr));
+    gap: 20px;
+}
+
+/* Shop Card */
+
+.shop-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #ececec;
+    overflow: hidden;
+    transition: .25s;
+    box-shadow: 0 5px 12px rgba(0,0,0,.05);
+}
+
+    .shop-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(0,0,0,.12);
+    }
+
+.shop-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.shop-body {
+    padding: 18px;
+}
+
+.shop-name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.shop-location {
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.shop-description {
+    color: #555;
+    min-height: 50px;
+    margin-bottom: 15px;
+}
+
+.shop-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+    .shop-info span {
+        background: #f4f4f4;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+
+.shop-actions {
+    display: flex;
+    gap: 10px;
+}
+
+    .shop-actions .btn {
+        flex: 1;
+    }
+
+/* ==========================================
+   Empty State
+========================================== */
+
+.empty-box {
+    text-align: center;
+    color: #888;
+    padding: 40px;
+    border: 2px dashed #ddd;
+    border-radius: 12px;
+    background: #fafafa;
+}
+
+/* ==========================================
+   Price List
+========================================== */
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background: #f9f9f9;
+}
+
+    .price-item:last-child {
+        margin-bottom: 0;
+    }
+
+.price-name {
+    font-weight: 600;
+}
+
+.price-value {
+    color: #0d6efd;
+    font-weight: bold;
+}
+
+/* ==========================================
+   Form
+========================================== */
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+/* ==========================================
+   Summary
+========================================== */
+
+.summary-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .summary-card h4 {
+        margin-bottom: 8px;
+    }
+
+    .summary-card h2 {
+        color: #198754;
+        font-size: 34px;
+        margin: 0;
+    }
+
+    .summary-card button {
+        min-width: 220px;
+    }
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:768px) {
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .summary-card {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-actions {
+        flex-direction: column;
+    }
+
+    .summary-card button {
+        width: 100%;
+    }
+}

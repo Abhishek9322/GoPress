@@ -47,9 +47,9 @@
                 Browse nearby shops to continue.
             </p>
 
-            @* <input type="hidden" *@
-            @*        id="SelectedShopOwnerId" *@
-            @*        asp-for="ShopOwnerId" /> *@
+             <input type="hidden" 
+                    id="SelectedShopOwnerId"
+                   asp-for="SelectedShopOwnerId" />
 
             <button type="button"
                     id="btnBrowseShops"
@@ -201,3 +201,8 @@
     </div>
 
 </div>
+@section Scripts
+{
+    <script src="~/js/customer-create-order.js"
+            asp-append-version="true"></script>
+}
