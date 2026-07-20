@@ -1,0 +1,203 @@
+﻿@model GoPress.Mvc.Areas.Customer.Models.CreateOrderViewModel
+
+@{
+    ViewData["Title"] = "Create Order";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-create-order.css"
+          asp-append-version="true" />
+}
+
+<div class="create-order-container">
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Create New Order</h2>
+
+            <p>
+                Select a nearby shop and create your laundry order.
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Selected Shop -->
+
+    <div class="card-section">
+
+        <div class="section-header">
+
+            <h4>Selected Shop</h4>
+
+        </div>
+
+        <div id="selectedShopCard"
+             class="selected-shop-card">
+
+            <h5>No Shop Selected</h5>
+
+            <p>
+                Browse nearby shops to continue.
+            </p>
+
+            @* <input type="hidden" *@
+            @*        id="SelectedShopOwnerId" *@
+            @*        asp-for="ShopOwnerId" /> *@
+
+            <button type="button"
+                    id="btnBrowseShops"
+                    class="btn btn-primary">
+
+                Browse Nearby Shops
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Available Shops -->
+
+    <div class="card-section">
+
+        <div class="section-header">
+
+            <h4>Available Shops</h4>
+
+        </div>
+
+        <div id="shopContainer"
+             class="shop-grid">
+
+            <div class="empty-box">
+
+                Nearby shops will appear here.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Price List -->
+
+    <div class="card-section">
+
+        <div class="section-header">
+
+            <h4>Selected Shop Price List</h4>
+
+        </div>
+
+        <div id="priceListContainer">
+
+            <div class="empty-box">
+
+                Select a shop first.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Order Information -->
+
+    <div class="card-section">
+
+        <div class="section-header">
+
+            <h4>Order Information</h4>
+
+        </div>
+
+        <form>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <label asp-for="PickupAddress"
+                           class="form-label"></label>
+
+                    <input asp-for="PickupAddress"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label asp-for="DeliveryAddress"
+                           class="form-label"></label>
+
+                    <input asp-for="DeliveryAddress"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label asp-for="PickupDate"
+                           class="form-label"></label>
+
+                    <input asp-for="PickupDate"
+                           type="date"
+                           class="form-control" />
+
+                </div>
+
+                <div class="col-md-12 mb-3">
+
+                    <label asp-for="Notes"
+                           class="form-label"></label>
+
+                    <textarea asp-for="Notes"
+                              rows="4"
+                              class="form-control"></textarea>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- Summary -->
+
+    <div class="summary-card">
+
+        <div>
+
+            <h4>Total Amount</h4>
+
+            <h2 id="totalAmount">
+
+                ₹0
+
+            </h2>
+
+        </div>
+
+        <button class="btn btn-success btn-lg"
+                id="btnCreateOrder"
+                disabled>
+
+            Create Order
+
+        </button>
+
+    </div>
+
+</div>
