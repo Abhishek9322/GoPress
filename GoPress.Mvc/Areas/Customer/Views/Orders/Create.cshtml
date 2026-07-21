@@ -38,6 +38,10 @@
 
         </div>
 
+        <input type="hidden"
+               id="SelectedShopOwnerId"
+               asp-for="SelectedShopOwnerId" />
+
         <div id="selectedShopCard"
              class="selected-shop-card">
 
@@ -47,9 +51,6 @@
                 Browse nearby shops to continue.
             </p>
 
-             <input type="hidden" 
-                    id="SelectedShopOwnerId"
-                   asp-for="SelectedShopOwnerId" />
 
             <button type="button"
                     id="btnBrowseShops"
@@ -88,21 +89,45 @@
     </div>
 
 
-    <!-- Price List -->
+    <!-- Price List Modal -->
 
-    <div class="card-section">
+    <div class="modal fade"
+         id="priceListModal"
+         tabindex="-1"
+         aria-hidden="true">
 
-        <div class="section-header">
+        <div class="modal-dialog modal-lg">
 
-            <h4>Selected Shop Price List</h4>
+            <div class="modal-content">
 
-        </div>
+                <div class="modal-header">
 
-        <div id="priceListContainer">
+                    <h5 class="modal-title">
 
-            <div class="empty-box">
+                        Shop Price List
 
-                Select a shop first.
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div id="priceListContainer">
+
+                        <div class="text-center">
+
+                            Loading...
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 

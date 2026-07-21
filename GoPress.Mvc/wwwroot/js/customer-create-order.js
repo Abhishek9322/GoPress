@@ -10,6 +10,11 @@
 
 });
 
+
+// ===============================
+// Browse Nearby Shops
+// ===============================
+
 async function loadNearbyShops() {
 
     const shopContainer =
@@ -25,11 +30,12 @@ async function loadNearbyShops() {
 
         if (!response.ok) {
 
-            throw new Error("Unable to load shops.");
+            throw new Error("Unable to load nearby shops.");
 
         }
 
-        const result = await response.json();
+        const result =
+            await response.json();
 
         renderShopCards(result);
 
@@ -40,13 +46,18 @@ async function loadNearbyShops() {
 
             `<div class="alert alert-danger">
 
-                    ${error.message}
+                ${error.message}
 
-             </div>`;
+            </div>`;
 
     }
 
 }
+
+
+// ===============================
+// Render Shop Cards
+// ===============================
 
 function renderShopCards(shops) {
 
@@ -61,9 +72,9 @@ function renderShopCards(shops) {
 
             `<div class="empty-box">
 
-                    No Nearby Shops Found
+                No Nearby Shops Found
 
-             </div>`;
+            </div>`;
 
         return;
 
@@ -76,7 +87,7 @@ function renderShopCards(shops) {
 <div class="shop-card">
 
     <img class="shop-image"
-         src="${shop.shopImageUrl ?? '/images/no-image.png'}" />
+         src="${shop.shopImageUrl ?? "/images/no-image.png"}" />
 
     <div class="shop-body">
 
@@ -88,8 +99,7 @@ function renderShopCards(shops) {
 
         <div class="shop-location">
 
-            ${shop.city},
-            ${shop.state}
+            ${shop.city}, ${shop.state}
 
         </div>
 
@@ -103,17 +113,13 @@ function renderShopCards(shops) {
 
             <span>
 
-                Delivery
-
-                ${shop.estimatedDeliveryMinutes} mins
+                Delivery ${shop.estimatedDeliveryMinutes} mins
 
             </span>
 
             <span>
 
-                Minimum
-
-                ₹${shop.minimumOrderAmount}
+                Minimum ₹${shop.minimumOrderAmount}
 
             </span>
 
@@ -128,6 +134,7 @@ function renderShopCards(shops) {
         <div class="shop-actions">
 
             <button
+                type="button"
                 class="btn btn-outline-primary btnPriceList"
                 data-shop="${shop.shopOwnerId}">
 
@@ -136,8 +143,10 @@ function renderShopCards(shops) {
             </button>
 
             <button
+                type="button"
                 class="btn btn-success btnSelectShop"
-                data-shop="${shop.shopOwnerId}">
+                data-shop="${shop.shopOwnerId}"
+                data-shopname="${shop.shopName}">
 
                 Select Shop
 
@@ -154,5 +163,171 @@ function renderShopCards(shops) {
         container.insertAdjacentHTML("beforeend", card);
 
     });
+
+}
+
+
+// ===============================
+// Click Events
+// ===============================
+
+document.addEventListener("click", async function (e) {
+
+    //----------------------------------------------------
+    // View Price List
+    //----------------------------------------------------
+
+    if (e.target.classList.contains("btnPriceList")) {
+
+        const shopId =
+            e.target.dataset.shop;
+
+        try {
+
+            const response =
+                await fetch(`/Customer/Orders/GetPriceList?shopOwnerId=${shopId}`);
+
+            if (!response.ok) {
+
+                throw new Error("Unable to load price list.");
+
+            }
+
+            const result =
+                await response.json();
+
+            renderPriceList(result.data);
+
+            const modal =
+                new bootstrap.Modal(
+                    document.getElementById("priceListModal"));
+
+            modal.show();
+
+        }
+        catch (error) {
+
+            alert(error.message);
+
+        }
+
+    }
+
+
+    //----------------------------------------------------
+    // Select Shop
+    //----------------------------------------------------
+
+    if (e.target.classList.contains("btnSelectShop")) {
+
+        const shopId =
+            e.target.dataset.shop;
+
+        const shopName =
+            e.target.dataset.shopname;
+
+        document.getElementById("SelectedShopOwnerId").value =
+            shopId;
+
+        document.getElementById("selectedShopCard").innerHTML =
+
+            `
+            <h5>${shopName}</h5>
+
+            <p>
+
+                Shop Selected Successfully
+
+            </p>
+
+            <button
+                type="button"
+                id="btnBrowseShops"
+                class="btn btn-outline-primary">
+
+                Change Shop
+
+            </button>
+            `;
+
+        const modalElement =
+            document.getElementById("priceListModal");
+
+        const modal =
+            bootstrap.Modal.getInstance(modalElement);
+
+        if (modal) {
+
+            modal.hide();
+
+        }
+
+    }
+
+});
+
+
+// ===============================
+// Render Price List
+// ===============================
+
+function renderPriceList(items) {
+
+    let html = "";
+
+    html += `
+
+<table class="table table-bordered table-hover">
+
+    <thead>
+
+        <tr>
+
+            <th>Cloth</th>
+
+            <th>Price</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+`;
+
+    items.forEach(item => {
+
+        html += `
+
+<tr>
+
+    <td>
+
+        ${item.clothName}
+
+    </td>
+
+    <td>
+
+        ₹${item.price}
+
+    </td>
+
+</tr>
+
+`;
+
+    });
+
+    html += `
+
+    </tbody>
+
+</table>
+
+`;
+
+    document.getElementById("priceListContainer").innerHTML =
+        html;
 
 }
