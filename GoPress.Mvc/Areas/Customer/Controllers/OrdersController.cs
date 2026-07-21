@@ -86,5 +86,20 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
             return Json(response.Data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetPriceList(int shopOwnerId)
+        {
+            var response =
+                await _apiService.GetAsync<
+                    Response<List<ShopPriceViewModel>>>(
+                    $"api/CustomerShop/shop-owner/{shopOwnerId}/price-list");
+
+            if (response == null)
+            {
+                return BadRequest();
+            }
+
+            return Json(response);
+        }
     }
 }
