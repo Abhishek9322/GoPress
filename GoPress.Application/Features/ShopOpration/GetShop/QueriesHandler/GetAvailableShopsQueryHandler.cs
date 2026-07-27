@@ -55,7 +55,7 @@ namespace GoPress.Application.Features.ShopOpration.GetShop.QueriesHandler
             var city = customer.CustomerProfile.City;
 
             _logger.LogInformation(
-                "Searching available shops in city {City}.",
+                "Searching available shops in city {City}.",   
                 city);
 
             var shops = await _userRepository
