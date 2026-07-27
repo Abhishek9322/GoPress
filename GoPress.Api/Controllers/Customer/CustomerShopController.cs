@@ -11,7 +11,7 @@ namespace GoPress.Api.Controllers.Customer
     [Route("api/CustomerShop")]
     [ApiController]
     [Authorize(Roles = "Customer")]
-    public class CustomerShopController : ControllerBase
+    public class CustomerShopController : ControllerBase  //to get the all opration related the customer and the shop
     {
         private readonly IMediator _mediator;
         public CustomerShopController(IMediator mediator)
