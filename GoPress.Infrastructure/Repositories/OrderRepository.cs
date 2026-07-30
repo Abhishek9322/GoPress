@@ -31,6 +31,7 @@ namespace GoPress.Infrastructure.Repositories
         {
             return await _context.Orders
                  .Include(x => x.OrderItems)
+                 .AsNoTracking()
                  .ToListAsync();
         }
 
@@ -40,6 +41,7 @@ namespace GoPress.Infrastructure.Repositories
                 .Include(x => x.Customer)
                 .Include(x => x.ShopOwner)
                 .Include(x => x.OrderItems)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -48,6 +50,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.Orders
                 .Include(x => x.OrderItems)
                 .Where(x => x.CustomerId == customerId)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -56,6 +59,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.Orders
                 .Include(x => x.OrderItems)
                 .Where(x => x.DeliveryBoyId == deliveryBoyId)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -64,6 +68,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.Orders
                .Include(x => x.OrderItems)
                .Where(x => x.ShopOwnerId == shopOwnerId)
+               .AsNoTracking()
                .ToListAsync();
         }
 
@@ -87,6 +92,7 @@ namespace GoPress.Infrastructure.Repositories
                  .Include(o => o.ShopOwner)
                  .ThenInclude(o => o.ShopOwnerProfile)
                  .Where(x =>x.Status == OrderStatusEnum.Accepted && x.DeliveryBoyId == null)
+                 .AsNoTracking()
                  .ToListAsync();
         }
 
@@ -95,20 +101,22 @@ namespace GoPress.Infrastructure.Repositories
            return await _context.Orders
                 .Include(x=>x.Customer)
                 .Where(x => x.Status == OrderStatusEnum.ReadyForDelivery && x.DeliveryBoyId == deliveryBoyId)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
         public async Task<List<Order>> GetDeliveredOrdersByDeliveryBoyAsync(int deliveryBoyId)
         {
             return await _context.Orders
-         .Include(x => x.Customer)
-         .Include(x => x.ShopOwner)
-             .ThenInclude(x => x.ShopOwnerProfile)
-         .Where(x =>
-             x.DeliveryBoyId == deliveryBoyId &&
-             x.Status == OrderStatusEnum.Delivered)
-         .OrderByDescending(x => x.CreatedAt)
-         .ToListAsync();
+                                 .Include(x => x.Customer)
+                                 .Include(x => x.ShopOwner)
+                                 .ThenInclude(x => x.ShopOwnerProfile)
+                                 .Where(x =>
+                                        x.DeliveryBoyId == deliveryBoyId &&
+                                        x.Status == OrderStatusEnum.Delivered)
+                                 .OrderByDescending(x => x.CreatedAt)
+                                 .AsNoTracking()
+                                 .ToListAsync();
         }
 
         public async Task<List<Order>> GetCompletedOrdersByShopOwnerAsync(int shopOwnerId)
@@ -118,6 +126,7 @@ namespace GoPress.Infrastructure.Repositories
                                          .Where(x =>
                                                 x.ShopOwnerId == shopOwnerId &&
                                                 x.Status == OrderStatusEnum.Delivered)
+                                         .AsNoTracking()
                                          .ToListAsync();
         }
 
@@ -128,6 +137,7 @@ namespace GoPress.Infrastructure.Repositories
                                    .Where(x =>
                                    x.ShopOwnerId == shopOwnerId &&
                                       x.Status == OrderStatusEnum.Rejected)
+                                   .AsNoTracking()
                                  .ToListAsync();
         }
 
@@ -138,6 +148,7 @@ namespace GoPress.Infrastructure.Repositories
                                 .Where(x =>
                                 x.ShopOwnerId == shopOwnerId &&
                                  x.Status == OrderStatusEnum.ReadyForDelivery)
+                                .AsNoTracking()
                               .ToListAsync();
         }
 
@@ -151,6 +162,7 @@ namespace GoPress.Infrastructure.Repositories
                 .Include(x=>x.OrderItems)
                 .Where(x=>x.Status == orderStatus)
                 .OrderByDescending(x=>x.CreatedAt)
+                .AsNoTracking()
                 .ToListAsync();
         }
     }

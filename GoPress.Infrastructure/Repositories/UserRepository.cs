@@ -35,13 +35,14 @@ namespace GoPress.Infrastructure.Repositories
 
         public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
         {
-          return await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Email == email);
+          return await _context.ApplicationUsers.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         }
 
         public async Task<ApplicationUser?> GetByIdAsync(int id)
         {
             return await _context.ApplicationUsers
-           .FirstOrDefaultAsync(x => x.Id == id);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public  async Task<List<ApplicationUser>> GetPendingShopOwnersAsync()
@@ -49,6 +50,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.ApplicationUsers
                 .Include(x=>x.ShopOwnerProfile)
                 .Where(x => x.Role == UserRoleenum.ShopOwner && !x.IsApproved)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -57,6 +59,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.ApplicationUsers
                 .Include(x=>x.DeliveryBoyProfile)
                  .Where(x => x.Role == UserRoleenum.DeliveryBoy && !x.IsApproved)
+                 .AsNoTracking()
                  .ToListAsync();
         }
         public async Task<List<ApplicationUser>> GetApprovedShopownerAsync()
@@ -64,6 +67,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.ApplicationUsers
                  .Include(x => x.ShopOwnerProfile)
                  .Where(x => x.Role == UserRoleenum.ShopOwner && x.IsApproved)
+                 .AsNoTracking()
                  .ToListAsync();
         }
 
@@ -72,6 +76,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.ApplicationUsers
                 .Include(x => x.DeliveryBoyProfile)
                 .Where(x => x.Role == UserRoleenum.DeliveryBoy && x.IsApproved)
+                .AsNoTracking()
                 .ToListAsync();
         }
         public async Task UpdateAsync(ApplicationUser user)
@@ -106,6 +111,7 @@ namespace GoPress.Infrastructure.Repositories
         public Task<ShopOwnerProfile?> GetShopOwnerProfileByUserIdAsync(int userId)
         {
            return _context.ShopOwnerProfiles
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.UserId == userId);
         }
 
@@ -120,6 +126,7 @@ namespace GoPress.Infrastructure.Repositories
         {
             return await _context.ApplicationUsers
                  .Include(x => x.CustomerProfile)
+                 .AsNoTracking()
                  .FirstOrDefaultAsync(x => x.Id == customerId);
         }
     }

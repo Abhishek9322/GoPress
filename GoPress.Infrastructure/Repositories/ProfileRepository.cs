@@ -21,18 +21,20 @@ namespace GoPress.Infrastructure.Repositories
         public async Task<ApplicationUser?> GetByIdAsync(int id)
         {
             return await _context.ApplicationUsers
-          .FirstOrDefaultAsync(x => x.Id == id);
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<ApplicationUser?> GetCustomerProfileAsync(int userId)
         {
-           return await _context.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == userId);
+           return await _context.ApplicationUsers.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
         }
 
         public async Task<ApplicationUser?> GetDeliveryBoyProfileAsync(int userId)
         {
             return await _context.ApplicationUsers
                   .Include(x => x.DeliveryBoyProfile)
+                  .AsNoTracking()
                   .FirstOrDefaultAsync(x => x.Id == userId);
         }
 
@@ -40,6 +42,7 @@ namespace GoPress.Infrastructure.Repositories
         {
             return await _context.ApplicationUsers
                 .Include(x => x.ShopOwnerProfile)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == userId);
         }
 
