@@ -30,6 +30,7 @@ namespace GoPress.Infrastructure.Repositories
         {
             return await _context.ShopOwnerClothPrices
                   .Include(x => x.ClothType)
+                  .AsNoTracking()
                   .FirstOrDefaultAsync(x =>
                    x.ShopOwnerId == shopOwnerId &&
                    x.ClothTypeId == clothTypeId);
@@ -40,6 +41,7 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.ShopOwnerClothPrices
                  .Include(x => x.ClothType)
                  .Where(x => x.ShopOwnerId == shopOwnerId)
+                 .AsNoTracking()
                  .ToListAsync();
         }
         public async Task<List<ShopOwnerClothPrice>> GetByShopOwnerIdAsync(int shopOwnerId)
@@ -47,11 +49,12 @@ namespace GoPress.Infrastructure.Repositories
             return await _context.ShopOwnerClothPrices
                  .Include(c => c.ClothType)
                  .Where(x => x.ShopOwnerId == shopOwnerId)
+                 .AsNoTracking()
                  .ToListAsync();
         }
         public async Task<ShopOwnerClothPrice?> GetByIdAsync(int id)
         {
-            return await _context.ShopOwnerClothPrices.FirstOrDefaultAsync(c=>c.Id == id);
+            return await _context.ShopOwnerClothPrices.AsNoTracking().FirstOrDefaultAsync(c=>c.Id == id);
 
         }
         public async Task UpdateAsync(ShopOwnerClothPrice clothPrice)
