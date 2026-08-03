@@ -652,7 +652,6 @@ function calculateTotal() {
 //---------------------------------------------------------
 // Create Order
 //---------------------------------------------------------
-
 async function createOrder() {
 
     if (selectedItems.length === 0) {
@@ -660,6 +659,7 @@ async function createOrder() {
         alert("Please select at least one cloth.");
 
         return;
+
     }
 
     const request = {
@@ -680,17 +680,50 @@ async function createOrder() {
             document.getElementById("Notes").value,
 
         orderItems:
-            selectedItems.map(item => ({
+            selectedItems.map(x => ({
 
-                clothTypeId: item.clothTypeId,
+                clothTypeId: x.clothTypeId,
 
-                quantity: item.quantity
+                quantity: x.quantity
 
             }))
 
     };
 
-    console.log(request);
+    try {
+
+        const response = await fetch("/Customer/Orders/CreateOrder", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type": "application/json"
+
+            },
+
+            body: JSON.stringify(request)
+
+        });
+
+        if (!response.ok) {
+
+            throw new Error("Unable to create order.");
+
+        }
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        window.location.href = "/Customer/Orders/AllOrders";
+
+    }
+    catch (error) {
+
+        alert(error.message);
+
+    }
 
 }
 
