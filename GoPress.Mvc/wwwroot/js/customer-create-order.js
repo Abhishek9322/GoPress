@@ -36,6 +36,10 @@ function registerEvents() {
         }
 
     });
+    const createButton =
+        document.getElementById("btnCreateOrder");
+
+    createButton.addEventListener("click", createOrder);
 
 }
 document.addEventListener("click", function (e) {
@@ -637,6 +641,11 @@ function calculateTotal() {
     document.getElementById("totalAmount").innerText =
         `₹${total}`;
 
+    const createButton =
+        document.getElementById("btnCreateOrder");
+
+    createButton.disabled =
+        selectedItems.length === 0;
 }
 
 
@@ -646,6 +655,42 @@ function calculateTotal() {
 
 async function createOrder() {
 
-}
+    if (selectedItems.length === 0) {
 
+        alert("Please select at least one cloth.");
+
+        return;
+    }
+
+    const request = {
+
+        shopOwnerId:
+            Number(document.getElementById("SelectedShopOwnerId").value),
+
+        pickupAddress:
+            document.getElementById("PickupAddress").value,
+
+        deliveryAddress:
+            document.getElementById("DeliveryAddress").value,
+
+        pickupDate:
+            document.getElementById("PickupDate").value,
+
+        notes:
+            document.getElementById("Notes").value,
+
+        orderItems:
+            selectedItems.map(item => ({
+
+                clothTypeId: item.clothTypeId,
+
+                quantity: item.quantity
+
+            }))
+
+    };
+
+    console.log(request);
+
+}
 
