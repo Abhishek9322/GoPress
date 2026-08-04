@@ -1,6 +1,7 @@
 ﻿//---------------------------------------------------------
 // Global Variables
 //---------------------------------------------------------
+console.log("customer-create-order.js loaded");
 
 let selectedShop = null;
 
@@ -726,4 +727,3 @@ async function createOrder() {
     }
 
 }
-
