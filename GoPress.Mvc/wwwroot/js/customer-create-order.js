@@ -691,6 +691,8 @@ async function createOrder() {
     };
 
     try {
+        console.log("Request Object:", request);
+        console.log("Request JSON:", JSON.stringify(request));
 
         const response = await fetch("/Customer/Orders/CreateOrder", {
 
