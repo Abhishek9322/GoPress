@@ -665,7 +665,7 @@ async function createOrder() {
 
     const request = {
 
-        shopOwnerId:
+        selectedShopOwnerId:
             Number(document.getElementById("SelectedShopOwnerId").value),
 
         pickupAddress:
@@ -688,7 +688,6 @@ async function createOrder() {
                 quantity: x.quantity
 
             }))
-
     };
 
     try {

@@ -3,6 +3,7 @@
     public class OrderItemViewModel
     {
         public int Id { get; set; }
+        public int ClothTypeId { get; set; }
 
         public string ClothName { get; set; } = string.Empty;
 
