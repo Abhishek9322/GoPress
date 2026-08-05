@@ -103,8 +103,14 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(CreateOrderViewModel request)
+        public async Task<IActionResult> CreateOrder([FromQuery]CreateOrderViewModel request)
         {
+
+            if (request == null)
+            {
+                return BadRequest("Request is null ");
+            }
+
             var response =
                 await _apiService.PostAsync<CreateOrderViewModel, Response<int>>(
                     "api/Customers/orders",
