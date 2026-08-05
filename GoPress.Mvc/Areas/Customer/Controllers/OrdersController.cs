@@ -103,25 +103,21 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromQuery]CreateOrderViewModel request)
+        public async Task<IActionResult> CreateOrder([FromBody]CreateOrderViewModel request)
         {
-
-            if (request == null)
+            try
             {
-                return BadRequest("Request is null ");
+                var response =
+                    await _apiService.PostAsync<CreateOrderViewModel, Response<int>>(
+                        "api/Customers/orders",
+                        request);
+
+                return Ok(response);
             }
-
-            var response =
-                await _apiService.PostAsync<CreateOrderViewModel, Response<int>>(
-                    "api/Customers/orders",
-                    request);
-
-            if (response == null || !response.Succeeded)
+            catch (Exception ex)
             {
-                return BadRequest(response?.Message ?? "Unable to create order.");
+                return BadRequest(ex.ToString());
             }
-
-            return Ok(response);
         }
     }
 }
