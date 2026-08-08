@@ -699,26 +699,33 @@ async function createOrder() {
             method: "POST",
 
             headers: {
-
                 "Content-Type": "application/json"
-
             },
 
             body: JSON.stringify(request)
 
         });
 
+        const responseText = await response.text();
+
+        console.log("HTTP Status:", response.status);
+        console.log("Server Response:", responseText);
+
         if (!response.ok) {
 
-            throw new Error("Unable to create order.");
-
+            throw new Error(
+                `Create order failed (${response.status}): ${responseText}`
+            );
         }
 
-        const result = await response.json();
+
+        const result = JSON.parse(responseText);
+
+        console.log("Create Order Result:", result);
 
         alert(result.message);
-
-        window.location.href = "/Customer/Orders/AllOrders";
+        window.location.href =
+            "/Customer/Orders/AllOrders";
 
     }
     catch (error) {
