@@ -93,24 +93,14 @@ namespace GoPress.Mvc.Services
         //            PropertyNameCaseInsensitive = true
         //        });
         //}
-
         public async Task<TResponse> PostAsync<TRequest, TResponse>(
-    string url,
-    TRequest data)
+            string url,
+            TRequest data)
         {
             AddBearerToken();
 
             var json =
-                JsonSerializer.Serialize(
-                    data,
-                    new JsonSerializerOptions
-                    {
-                        PropertyNameCaseInsensitive = true
-                    });
-
-            Console.WriteLine("========== API SERVICE POST ==========");
-            Console.WriteLine($"URL: {url}");
-            Console.WriteLine($"JSON: {json}");
+                JsonSerializer.Serialize(data);
 
             var content =
                 new StringContent(
@@ -123,12 +113,6 @@ namespace GoPress.Mvc.Services
 
             var responseContent =
                 await response.Content.ReadAsStringAsync();
-
-            Console.WriteLine(
-                $"API Status Code: {(int)response.StatusCode}");
-
-            Console.WriteLine(
-                $"API Response: {responseContent}");
 
             if (!response.IsSuccessStatusCode)
             {

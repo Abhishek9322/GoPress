@@ -5,7 +5,7 @@
       
         public List<AvailableShopViewModel> Shops { get; set; } = new();
 
-        public int SelectedShopOwnerId { get; set; }
+        public int ShopOwnerId { get; set; }
 
         public List<ShopPriceViewModel> PriceList { get; set; } = new();
 
