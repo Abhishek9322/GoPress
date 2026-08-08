@@ -1,6 +1,7 @@
 ﻿using GoPress.Mvc.Areas.Customer.Models;
 using GoPress.Mvc.Models.Responses;
 using GoPress.Mvc.Services;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoPress.Mvc.Areas.Customer.Controllers
@@ -102,21 +103,90 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
             return Json(response);
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> CreateOrder([FromBody] CreateOrderViewModel request)
+        //{
+        //    try
+        //    {
+        //        var response =
+        //            await _apiService.PostAsync<CreateOrderViewModel, Response<int>>(
+        //                "api/Customers/orders",
+        //                request);
+
+        //        return Ok(response);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.ToString());
+        //    }
+        //}
+
+        //[HttpPost]
+        //public IActionResult CreateOrder([FromBody] CreateOrderViewModel request)
+        //{
+        //    return Json(request);
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> CreateOrder([FromBody]CreateOrderViewModel request)
+        public async Task<IActionResult> CreateOrder(
+    [FromBody] CreateOrderViewModel request)
         {
             try
             {
+                // STEP 1: Verify MVC received the request
+                Console.WriteLine("========== MVC CREATE ORDER ==========");
+
+                Console.WriteLine(
+                    $"ShopOwnerId: {request.SelectedShopOwnerId}");
+
+                Console.WriteLine(
+                    $"PickupAddress: {request.PickupAddress}");
+
+                Console.WriteLine(
+                    $"DeliveryAddress: {request.DeliveryAddress}");
+
+                Console.WriteLine(
+                    $"OrderItems Count: {request.OrderItems?.Count}");
+
+                foreach (var item in request.OrderItems)
+                {
+                    Console.WriteLine(
+                        $"ClothTypeId: {item.ClothTypeId}, Quantity: {item.Quantity}");
+                }
+
+                // STEP 2: Send request to API
                 var response =
-                    await _apiService.PostAsync<CreateOrderViewModel, Response<int>>(
-                        "api/Customers/orders",
-                        request);
+                    await _apiService.PostAsync<
+                        CreateOrderViewModel,
+                        Response<int>>(
+                            "api/Customers/orders",
+                            request);
+
+                Console.WriteLine("========== API RESPONSE ==========");
+
+                Console.WriteLine(
+                    $"Succeeded: {response?.Succeeded}");
+
+                Console.WriteLine(
+                    $"Message: {response?.Message}");
+
+                Console.WriteLine(
+                    $"Data: {response?.Data}");
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString());
+                Console.WriteLine("========== CREATE ORDER ERROR ==========");
+                Console.WriteLine(ex.ToString());
+
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    new
+                    {
+                        succeeded = false,
+                        message = ex.Message
+                    });
             }
         }
     }

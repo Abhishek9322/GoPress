@@ -60,14 +60,57 @@ namespace GoPress.Mvc.Services
         }
 
 
-        public async Task<TResponse>PostAsync<TRequest, TResponse>(
-                string url,
-                TRequest data)
+        //public async Task<TResponse>PostAsync<TRequest, TResponse>(
+        //        string url,
+        //        TRequest data)
+        //{
+        //    AddBearerToken();
+
+        //    var json =
+        //        JsonSerializer.Serialize(data);
+        //    Console.WriteLine(json);
+
+        //    var content =
+        //        new StringContent(
+        //            json,
+        //            Encoding.UTF8,
+        //            "application/json");
+
+        //    var response =
+        //        await _httpClient
+        //            .PostAsync(url, content);
+
+        //    response.EnsureSuccessStatusCode();
+
+        //    var responseContent =
+        //        await response.Content
+        //            .ReadAsStringAsync();
+
+        //    return JsonSerializer.Deserialize<TResponse>(
+        //        responseContent,
+        //        new JsonSerializerOptions
+        //        {
+        //            PropertyNameCaseInsensitive = true
+        //        });
+        //}
+
+        public async Task<TResponse> PostAsync<TRequest, TResponse>(
+    string url,
+    TRequest data)
         {
             AddBearerToken();
 
             var json =
-                JsonSerializer.Serialize(data);
+                JsonSerializer.Serialize(
+                    data,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+            Console.WriteLine("========== API SERVICE POST ==========");
+            Console.WriteLine($"URL: {url}");
+            Console.WriteLine($"JSON: {json}");
 
             var content =
                 new StringContent(
@@ -76,14 +119,29 @@ namespace GoPress.Mvc.Services
                     "application/json");
 
             var response =
-                await _httpClient
-                    .PostAsync(url, content);
-
-            response.EnsureSuccessStatusCode();
+                await _httpClient.PostAsync(url, content);
 
             var responseContent =
-                await response.Content
-                    .ReadAsStringAsync();
+                await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine(
+                $"API Status Code: {(int)response.StatusCode}");
+
+            Console.WriteLine(
+                $"API Response: {responseContent}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"API returned {(int)response.StatusCode} " +
+                    $"{response.StatusCode}: {responseContent}");
+            }
+
+            if (string.IsNullOrWhiteSpace(responseContent))
+            {
+                throw new Exception(
+                    "API returned an empty response.");
+            }
 
             return JsonSerializer.Deserialize<TResponse>(
                 responseContent,
