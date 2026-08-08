@@ -416,54 +416,57 @@ async function loadPriceList(shopOwnerId) {
 //---------------------------------------------------------
 // Select Shop
 //---------------------------------------------------------
-
 function selectShop(shop) {
 
     selectedShop = shop;
 
-    document.getElementById("SelectedShopOwnerId").value =
+    document.getElementById("ShopOwnerId").value =
         shop.id;
+
+    console.log("Selected Shop:", shop);
+    console.log(
+        "ShopOwnerId:",
+        document.getElementById("ShopOwnerId").value
+    );
 
     document.getElementById("selectedShopCard").innerHTML = `
 
-<div class="selected-shop-info">
+        <div class="selected-shop-info">
 
-    <img
-        src="${shop.image || "/images/no-image.png"}"
-        class="selected-shop-image" />
+            <img
+                src="${shop.image || "/images/no-image.png"}"
+                class="selected-shop-image" />
 
-    <div>
+            <div>
 
-        <h4>${shop.shopName}</h4>
+                <h4>${shop.shopName}</h4>
 
-        <p>${shop.city}, ${shop.state}</p>
+                <p>${shop.city}, ${shop.state}</p>
 
-        <span class="badge bg-success">
+                <span class="badge bg-success">
+                    Shop Selected
+                </span>
 
-            Shop Selected
+            </div>
 
-        </span>
+        </div>
 
-    </div>
+        <div class="mt-3">
 
-</div>
+            <button
+                type="button"
+                id="btnBrowseShops"
+                class="btn btn-outline-primary">
 
-<div class="mt-3">
+                Change Shop
 
-    <button
-        type="button"
-        id="btnBrowseShops"
-        class="btn btn-outline-primary">
+            </button>
 
-        Change Shop
-
-    </button>
-
-</div>
-
-`;
+        </div>
+    `;
 
     document.querySelector(".shop-grid").style.display = "none";
+
     loadAvailableClothes(shop.id);
 }
 function renderAvailableClothes() {
@@ -648,8 +651,6 @@ function calculateTotal() {
     createButton.disabled =
         selectedItems.length === 0;
 }
-
-
 //---------------------------------------------------------
 // Create Order
 //---------------------------------------------------------
@@ -660,13 +661,23 @@ async function createOrder() {
         alert("Please select at least one cloth.");
 
         return;
+    }
 
+    const shopOwnerId =
+        Number(
+            document.getElementById("ShopOwnerId").value
+        );
+
+    if (!shopOwnerId) {
+
+        alert("Please select a shop.");
+
+        return;
     }
 
     const request = {
 
-        selectedShopOwnerId:
-            Number(document.getElementById("SelectedShopOwnerId").value),
+        shopOwnerId: shopOwnerId,
 
         pickupAddress:
             document.getElementById("PickupAddress").value,
@@ -690,48 +701,68 @@ async function createOrder() {
             }))
     };
 
+    console.log(
+        "Request Object:",
+        request
+    );
+
+    console.log(
+        "Request JSON:",
+        JSON.stringify(request)
+    );
+
     try {
-        console.log("Request Object:", request);
-        console.log("Request JSON:", JSON.stringify(request));
 
-        const response = await fetch("/Customer/Orders/CreateOrder", {
+        const response =
+            await fetch(
+                "/Customer/Orders/CreateOrder",
+                {
+                    method: "POST",
 
-            method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-            headers: {
-                "Content-Type": "application/json"
-            },
+                    body: JSON.stringify(request)
+                }
+            );
 
-            body: JSON.stringify(request)
+        const responseText =
+            await response.text();
 
-        });
+        console.log(
+            "MVC Response Status:",
+            response.status
+        );
 
-        const responseText = await response.text();
-
-        console.log("HTTP Status:", response.status);
-        console.log("Server Response:", responseText);
+        console.log(
+            "MVC Response:",
+            responseText
+        );
 
         if (!response.ok) {
 
             throw new Error(
-                `Create order failed (${response.status}): ${responseText}`
+                responseText ||
+                "Unable to create order."
             );
         }
 
-
-        const result = JSON.parse(responseText);
-
-        console.log("Create Order Result:", result);
+        const result =
+            JSON.parse(responseText);
 
         alert(result.message);
+
         window.location.href =
             "/Customer/Orders/AllOrders";
-
     }
     catch (error) {
 
+        console.error(
+            "Create Order Error:",
+            error
+        );
+
         alert(error.message);
-
     }
-
 }
