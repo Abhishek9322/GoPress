@@ -12,75 +12,386 @@
           asp-append-version="true" />
 }
 
-<div class="create-order-container">
+<div class="create-order-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
 
     <div class="page-header">
 
         <div>
-
             <h2>Create New Order</h2>
 
             <p>
-                Select a nearby shop and create your laundry order.
+                Select a nearby shop, choose your clothes and create your order.
             </p>
-
-        </div>
-
-    </div>
-
-    <!-- Selected Shop -->
-
-    <div class="card-section">
-
-        <div class="section-header">
-
-            <h4>Selected Shop</h4>
-
-        </div>
-
-        <input type="hidden"
-               id="ShopOwnerId"
-               asp-for="ShopOwnerId" />
-
-        <div id="selectedShopCard"
-             class="selected-shop-card">
-
-            <h5>No Shop Selected</h5>
-
-            <p>
-                Browse nearby shops to continue.
-            </p>
-
-
-            <button type="button"
-                    id="btnBrowseShops"
-                    class="btn btn-primary">
-
-                Browse Nearby Shops
-
-            </button>
-
         </div>
 
     </div>
 
 
-    <!-- Available Shops -->
+    <!-- =====================================================
+         MAIN LAYOUT
+         ===================================================== -->
 
-    <div class="card-section">
+    <div class="create-order-layout">
 
-        <div class="section-header">
 
-            <h4>Available Shops</h4>
+        <!-- =================================================
+             LEFT PANEL
+             ================================================= -->
+
+        <div class="left-panel">
+
+
+            <!-- =============================================
+                 BROWSE SHOP
+                 ============================================= -->
+
+            <div class="browse-shop-section">
+
+                <button type="button"
+                        id="btnBrowseShops"
+                        class="browse-shop-btn">
+
+                    Browse Nearby Shops
+
+                </button>
+
+            </div>
+
+
+            <!-- =============================================
+                 SELECTED SHOP
+                 ============================================= -->
+
+            <div class="left-card selected-shop-section">
+
+                <div class="left-card-title">
+                    Selected Shop
+                </div>
+
+                <input type="hidden"
+                       id="ShopOwnerId"
+                       asp-for="ShopOwnerId" />
+
+
+                <div id="selectedShopCard"
+                     class="selected-shop-card">
+
+                    <div class="selected-shop-icon">
+                        🏪
+                    </div>
+
+                    <h5>No Shop Selected</h5>
+
+                    <p>
+                        Browse nearby shops to select a shop.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 ORDER INFORMATION
+                 ============================================= -->
+
+            <div class="left-card order-information">
+
+                <div class="left-card-title">
+                    Order Information
+                </div>
+
+
+                <!-- Pickup Address -->
+
+                <div class="input-group-custom">
+
+                    <label asp-for="PickupAddress">
+                        Pickup Address
+                    </label>
+
+                    <input asp-for="PickupAddress"
+                           id="PickupAddress"
+                           class="form-control"
+                           placeholder="Enter pickup address" />
+
+                </div>
+
+
+                <!-- Delivery Address -->
+
+                <div class="input-group-custom">
+
+                    <label asp-for="DeliveryAddress">
+                        Delivery Address
+                    </label>
+
+                    <input asp-for="DeliveryAddress"
+                           id="DeliveryAddress"
+                           class="form-control"
+                           placeholder="Enter delivery address" />
+
+                </div>
+
+
+                <!-- Pickup Date -->
+
+                <div class="input-group-custom">
+
+                    <label asp-for="PickupDate">
+                        Pickup Date
+                    </label>
+
+                    <input asp-for="PickupDate"
+                           id="PickupDate"
+                           type="date"
+                           class="form-control" />
+
+                </div>
+
+
+                <!-- Notes -->
+
+                <div class="input-group-custom notes-group">
+
+                    <label asp-for="Notes">
+                        Notes
+                    </label>
+
+                    <textarea asp-for="Notes"
+                              id="Notes"
+                              rows="5"
+                              class="form-control"
+                              placeholder="Any special instructions..."></textarea>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <div id="shopContainer"
-             class="shop-grid">
 
-            <div class="empty-box">
+        <!-- =================================================
+             RIGHT PANEL
+             ================================================= -->
 
-                Nearby shops will appear here.
+        <div class="right-panel">
+
+
+            <!-- =============================================
+                 AVAILABLE SHOPS
+                 ============================================= -->
+
+            <div class="right-card available-shop-section">
+
+                <div class="right-card-header">
+
+                    <h4>
+                        Available Shop List
+                    </h4>
+
+                    <span class="shop-list-subtitle">
+                        Select a shop to view its prices
+                    </span>
+
+                </div>
+
+
+                <div id="shopContainer"
+                     class="shop-grid">
+
+                    <div class="empty-box">
+
+                        <div class="empty-icon">
+                            🏪
+                        </div>
+
+                        <strong>
+                            Nearby shops will appear here
+                        </strong>
+
+                        <span>
+                            Click "Browse Nearby Shops" to load shops.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 PRICE LIST
+                 ============================================= -->
+
+            <div id="priceListSection"
+                 class="right-card price-section">
+
+                <div class="right-card-header">
+
+                    <div>
+
+                        <h4>
+                            Shop Price List
+                        </h4>
+
+                        <span class="shop-list-subtitle">
+                            Select clothes and add them to your order
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div id="priceListContainer"
+                     class="price-list-container">
+
+                    <div class="empty-box">
+
+                        <div class="empty-icon">
+                            👕
+                        </div>
+
+                        <strong>
+                            Select a shop first
+                        </strong>
+
+                        <span>
+                            The shop's available clothes and prices will appear here.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 AVAILABLE CLOTHES
+                 ============================================= -->
+
+            <div id="availableClothesSection"
+                 class="right-card available-clothes-section"
+                 style="display:none;">
+
+                <div class="right-card-header">
+
+                    <div>
+
+                        <h4>
+                            Available Clothes Categories List
+                        </h4>
+
+                        <span class="shop-list-subtitle">
+                            Choose clothes for your order
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div id="availableClothesContainer"
+                     class="cloth-grid">
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 SELECTED CLOTHES
+                 ============================================= -->
+
+            <div class="right-card selected-clothes-section">
+
+                <div class="right-card-header">
+
+                    <div>
+
+                        <h4>
+                            Selected Clothes Categories List
+                        </h4>
+
+                        <span class="shop-list-subtitle">
+                            Your selected clothes and quantities
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div id="selectedItemsContainer"
+                     class="selected-items-container">
+
+                    <div class="empty-box">
+
+                        <div class="empty-icon">
+                            🛒
+                        </div>
+
+                        <strong>
+                            No clothes selected
+                        </strong>
+
+                        <span>
+                            Select clothes from the price list above.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 SUMMARY
+                 ============================================= -->
+
+            <div class="order-summary">
+
+                <div class="total-section">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong id="totalAmount">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-buttons">
+
+                    <button type="button"
+                            id="btnCancelOrder"
+                            class="cancel-btn">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button type="button"
+                            id="btnCreateOrder"
+                            class="create-order-btn"
+                            disabled>
+
+                        Create Order
+
+                    </button>
+
+                </div>
 
             </div>
 
@@ -88,43 +399,42 @@
 
     </div>
 
+</div>
 
-    <!-- Price List Modal -->
 
-    <div class="modal fade"
-         id="priceListModal"
-         tabindex="-1"
-         aria-hidden="true">
+<!-- =====================================================
+     PRICE LIST MODAL
+     ===================================================== -->
 
-        <div class="modal-dialog modal-lg">
+<div class="modal fade"
+     id="priceListModal"
+     tabindex="-1"
+     aria-hidden="true">
 
-            <div class="modal-content">
+    <div class="modal-dialog modal-lg">
 
-                <div class="modal-header">
+        <div class="modal-content">
 
-                    <h5 class="modal-title">
+            <div class="modal-header">
 
-                        Shop Price List
+                <h5 class="modal-title">
+                    Shop Price List
+                </h5>
 
-                    </h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
 
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal">
-                    </button>
+            </div>
 
-                </div>
 
-                <div class="modal-body">
+            <div class="modal-body">
 
-                    <div id="priceListContainer">
+                <div id="priceListContainerModal">
 
-                        <div class="text-center">
-
-                            Loading...
-
-                        </div>
-
+                    <div class="text-center">
+                        Loading...
                     </div>
 
                 </div>
@@ -135,138 +445,9 @@
 
     </div>
 
-
-    <!-- Order Information -->
-
-    <div class="card-section">
-
-        <div class="section-header">
-
-            <h4>Order Information</h4>
-
-        </div>
-
-        <form>
-
-            <div class="row">
-
-                <div class="col-md-6 mb-3">
-
-                    <label asp-for="PickupAddress"
-                           class="form-label"></label>
-                    <input asp-for="PickupAddress"
-                           id="PickupAddress"
-                           class="form-control" />
-
-                </div>
-
-                <div class="col-md-6 mb-3">
-
-                    <label asp-for="DeliveryAddress"
-                           class="form-label"></label>
-
-                    <input asp-for="DeliveryAddress"
-                           id="DeliveryAddress"
-                           class="form-control" />
-
-                </div>
-
-                <div class="col-md-6 mb-3">
-
-                    <label asp-for="PickupDate"
-                           class="form-label"></label>
-
-                    <input asp-for="PickupDate"
-                           id="PickupDate"
-                           type="date"
-                           class="form-control" />
-
-                </div>
-
-                <div class="col-md-12 mb-3">
-
-                    <label asp-for="Notes"
-                           class="form-label"></label>
-
-                    <textarea asp-for="Notes"
-                              id="Notes"
-                              rows="4"
-                              class="form-control"></textarea>
-
-                </div>
-
-            </div>
-
-        </form>
-
-    </div>
-    <!-- Selected Clothes -->
-
-    <div class="card-section">
-
-        <div class="section-header">
-
-            <h4>Selected Clothes</h4>
-
-        </div>
-
-        <div id="selectedItemsContainer">
-
-            <div class="empty-box">
-
-                No clothes selected.
-
-            </div>
-
-        </div>
-
-    </div>
-    <!-- Available Clothes -->
-
-    <div id="availableClothesSection"
-         class="card-section"
-         style="display:none;">
-
-        <div class="section-header">
-
-            <h4>Available Clothes</h4>
-
-        </div>
-
-        <div id="availableClothesContainer"
-             class="cloth-grid">
-        </div>
-
-    </div>
-
-
-    <!-- Summary -->
-
-    <div class="summary-card">
-
-        <div>
-
-            <h4>Total Amount</h4>
-
-            <h2 id="totalAmount">
-
-                ₹0
-
-            </h2>
-
-        </div>
-
-        <button class="btn btn-success btn-lg"
-                id="btnCreateOrder"
-                disabled>
-
-            Create Order
-
-        </button>
-
-    </div>
-
 </div>
+
+
 @section Scripts
 {
     <script src="~/js/customer-create-order.js"
