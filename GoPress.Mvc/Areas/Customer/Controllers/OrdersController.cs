@@ -35,6 +35,26 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         }
 
 
+        [HttpGet("{id}")]   
+        public async Task<IActionResult>Details(int id)
+        {
+            var response =
+                          await _apiService.GetAsync<
+                           Response<OrderDetailsViewModel>>(
+                          $"api/Customers/orders/{id}");
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load order details.";
+
+                return RedirectToAction(
+                    nameof(AllOrders));
+            }
+
+            return View(response.Data);
+
+        }
+
         //---------------------------------------------------
         // STEP 1
         // Empty Create page

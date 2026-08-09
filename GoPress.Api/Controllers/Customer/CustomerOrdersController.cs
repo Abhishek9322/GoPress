@@ -20,7 +20,7 @@ namespace GoPress.Api.Controllers.Customer
             _mediator = mediator;
         }
 
-       
+
         [HttpGet]
         public async Task<IActionResult> GetCustomerAllOrders()
         {
@@ -35,7 +35,23 @@ namespace GoPress.Api.Controllers.Customer
             return Ok(response);
         }
 
-      
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCustomerOrderById(int id)
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var query = new GetCustomerOrderByIdQuery
+            {
+                CustomerId = currentUser.UserId,
+                OrderId = id
+            };
+
+            var response = await _mediator.Send(query);
+
+            return Ok(response);
+        
+        }
 
 
         [HttpPost]

@@ -1,0 +1,278 @@
+﻿@model GoPress.Mvc.Areas.Customer.Models.OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "_Layout";
+
+}
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-order-details.css"
+          asp-append-version="true" />
+}
+
+<div class="order-details-page">
+
+    <!-- Header -->
+
+    <div class="order-details-header">
+
+        <div>
+            <h2>Order Details</h2>
+
+            <p>
+                View complete information about your order.
+            </p>
+        </div>
+
+        <a asp-area="Customer"
+           asp-controller="Orders"
+           asp-action="AllOrders"
+           class="btn btn-outline-secondary">
+
+            ← Back to Orders
+
+        </a>
+
+    </div>
+
+
+    <!-- Order Summary -->
+
+    <div class="order-details-card">
+
+        <div class="order-card-header">
+
+            <div>
+                <span class="small-label">
+                    Order
+                </span>
+
+                <h3>
+                    #@Model.Id
+                </h3>
+            </div>
+
+
+            <span class="order-status">
+
+                @Model.Status
+
+            </span>
+
+        </div>
+
+
+        <div class="order-info-grid">
+
+
+            <!-- Shop -->
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Shop
+                </span>
+
+                <strong>
+                    Shop #@Model.ShopOwnerId
+                </strong>
+
+            </div>
+
+
+            <!-- Pickup Date -->
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Pickup Date
+                </span>
+
+                <strong>
+                    @Model.PickupDate.ToString("dd MMM yyyy")
+                </strong>
+
+            </div>
+
+
+            <!-- Delivery Date -->
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Delivery Date
+                </span>
+
+                <strong>
+
+                    @(Model.DeliveryDate.HasValue
+                        ? Model.DeliveryDate.Value.ToString("dd MMM yyyy")
+                        : "Not Delivered")
+
+                </strong>
+
+            </div>
+
+
+            <!-- Total -->
+
+            <div class="info-box">
+
+                <span class="info-label">
+                    Total Amount
+                </span>
+
+                <strong class="total-price">
+                    ₹@Model.TotalAmount.ToString("0.00")
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Addresses -->
+
+    <div class="address-grid">
+
+
+        <div class="order-details-card">
+
+            <span class="info-label">
+                Pickup Address
+            </span>
+
+            <p class="address-text">
+                @Model.PickupAddress
+            </p>
+
+        </div>
+
+
+        <div class="order-details-card">
+
+            <span class="info-label">
+                Delivery Address
+            </span>
+
+            <p class="address-text">
+                @Model.DeliveryAddress
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Order Items -->
+
+    <div class="order-details-card">
+
+        <div class="card-title">
+
+            <h4>
+                Order Items
+            </h4>
+
+        </div>
+
+
+        <div class="order-items-table">
+
+            <div class="order-item-row table-header">
+
+                <span>Cloth</span>
+
+                <span>Quantity</span>
+
+                <span>Price</span>
+
+                <span>Total</span>
+
+            </div>
+
+
+            @foreach (var item in Model.OrderItems)
+            {
+                <div class="order-item-row">
+
+                    <span class="cloth-name">
+                        @item.ClothName
+                    </span>
+
+                    <span>
+                        @item.Quantity
+                    </span>
+
+                    <span>
+                        ₹@item.Price.ToString("0.00")
+                    </span>
+
+                    <strong>
+                        ₹@item.TotalPrice.ToString("0.00")
+                    </strong>
+
+                </div>
+            }
+
+        </div>
+
+
+        <!-- Total -->
+
+        <div class="items-total">
+
+            <span>
+                Total
+            </span>
+
+            <strong>
+                ₹@Model.TotalAmount.ToString("0.00")
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- Notes -->
+    @if (!string.IsNullOrWhiteSpace(Model.Notes))
+    {
+        <div class="order-details-card">
+
+            <div class="card-title">
+
+                <h4>
+                    Notes
+                </h4>
+
+            </div>
+
+            <p class="notes-text">
+                @Model.Notes
+            </p>
+
+        </div>
+    }
+
+
+    @* <!-- Bottom Back --> *@
+
+    @* <div class="bottom-actions"> *@
+
+    @*     <a asp-area="Customer" *@
+    @*        asp-controller="Orders" *@
+    @*        asp-action="AllOrders" *@
+    @*        class="btn btn-outline-secondary"> *@
+
+    @*         ← Back to All Orders *@
+
+    @*     </a> *@
+
+    @* </div> *@
+
+</div>
