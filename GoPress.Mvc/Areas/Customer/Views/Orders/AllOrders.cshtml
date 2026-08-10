@@ -1,162 +1,352 @@
 ﻿@model List<GoPress.Mvc.Areas.Customer.Models.OrderViewModel>
+
 @{
     ViewData["Title"] = "All Orders";
     Layout = "_Layout";
 }
+
 @section Styles
 {
     <link rel="stylesheet"
-          href="~/css/customer-orders.css"
+          href="~/css/Customer-AllOrders.css"
           asp-append-version="true" />
 }
 
 <div class="orders-page">
 
-    <div class="page-header">
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
 
-        <div>
+    <div class="orders-header">
 
-            <h2>My Orders</h2>
+        <div class="orders-header-content">
 
-            <p>
-                Track every laundry order from one place.
-            </p>
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+
+            <div>
+
+                <h2>My Orders</h2>
+
+                <p>
+                    Track and manage all your laundry orders in one place.
+                </p>
+
+            </div>
 
         </div>
+
 
         <a asp-area="Customer"
            asp-controller="Orders"
            asp-action="Create"
-           class="btn btn-primary">
+           class="new-order-btn">
 
             <i class="fa-solid fa-plus"></i>
-            New Order
+
+            <span>New Order</span>
 
         </a>
 
     </div>
+
+
     @if (!Model.Any())
     {
-        <div class="empty-box">
+        <!-- =================================================
+             EMPTY STATE
+             ================================================= -->
 
-            <i class="fa-solid fa-box-open"></i>
+        <div class="orders-empty-state">
 
-            <h4>No Orders Found</h4>
+            <div class="empty-icon">
 
-            <p>You haven't placed any orders yet.</p>
+                <i class="fa-solid fa-box-open"></i>
+
+            </div>
+
+            <h3>No Orders Yet</h3>
+
+            <p>
+                You haven't placed any laundry orders yet.
+                Create your first order to get started.
+            </p>
+
+            <a asp-area="Customer"
+               asp-controller="Orders"
+               asp-action="Create"
+               class="empty-order-btn">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Create Your First Order
+
+            </a>
 
         </div>
     }
     else
     {
+        <!-- =================================================
+             ORDER COUNT
+             ================================================= -->
+
+        <div class="orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Total Orders
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                Your recent orders are shown below.
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDERS GRID
+             ================================================= -->
+
         <div class="orders-grid">
 
             @foreach (var order in Model)
             {
+                var statusClass =
+                $"status-{order.Status.ToString().ToLower().Replace("_", "-")}";
+
+
                 <div class="order-card">
+
+                    <!-- =====================================
+                         CARD HEADER
+                         ===================================== -->
 
                     <div class="order-card-header">
 
-                        <div>
+                        <div class="order-number">
 
-                            <h5>Order #@order.Id</h5>
+                            <span>
+                                ORDER
+                            </span>
 
-                            <small>
-                                Pickup :
-                                @order.PickupDate.ToString("dd MMM yyyy")
-                            </small>
+                            <h3>
+                                #@order.Id
+                            </h3>
 
                         </div>
-                        @{
-                            var statusClass = $"status-{order.Status.ToString().ToLower().Replace("_", "-")}";
-                        }
+
 
                         <span class="status-badge @statusClass">
+
                             @order.Status
+
                         </span>
 
-                        @* <span class="status-badge status-@order.Status.Tolower()"> *@
-                        @*     @order.Status *@
-                        @* </span> *@
+                    </div>
+
+
+                    <!-- =====================================
+                         ORDER DATE
+                         ===================================== -->
+
+                    <div class="order-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <span>
+                            Pickup scheduled for
+                        </span>
+
+                        <strong>
+                            @order.PickupDate.ToString("dd MMM yyyy")
+                        </strong>
 
                     </div>
+
+
+                    <!-- =====================================
+                         ORDER DETAILS
+                         ===================================== -->
 
                     <div class="order-details">
 
                         <div class="detail-item">
 
-                            <span>Pickup Date</span>
+                            <div class="detail-icon pickup-icon">
 
-                            <strong>
-                                @order.PickupDate.ToString("dd MMM yyyy")
-                            </strong>
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Pickup
+                                </span>
+
+                                <strong>
+                                    @order.PickupDate.ToString("dd MMM yyyy")
+                                </strong>
+
+                            </div>
 
                         </div>
 
+
                         <div class="detail-item">
 
-                            <span>Delivery Date</span>
+                            <div class="detail-icon delivery-icon">
 
-                            <strong>
-                                @(order.DeliveryDate?.ToString("dd MMM yyyy") ?? "-")
-                            </strong>
+                                <i class="fa-solid fa-truck"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Delivery
+                                </span>
+
+                                <strong>
+                                    @(order.DeliveryDate?.ToString("dd MMM yyyy") ?? "Not scheduled")
+                                </strong>
+
+                            </div>
 
                         </div>
 
-                        <div class="detail-item">
 
-                            <span>Total Amount</span>
+                        <div class="detail-item amount-item">
 
-                            <strong class="price">
+                            <div class="detail-icon amount-icon">
 
-                                ₹@order.TotalAmount
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
 
-                            </strong>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Total Amount
+                                </span>
+
+                                <strong class="price">
+                                    ₹@order.TotalAmount.ToString("N2")
+                                </strong>
+
+                            </div>
 
                         </div>
 
                     </div>
+
+
+                    <!-- =====================================
+                         CLOTHES
+                         ===================================== -->
 
                     <div class="clothes-section">
 
-                        <h6>Clothes</h6>
+                        <div class="clothes-header">
 
-                        <ul>
+                            <h4>
+                                <i class="fa-solid fa-shirt"></i>
+                                Order Items
+                            </h4>
+
+                            <span>
+                                @order.OrderItems.Count item(s)
+                            </span>
+
+                        </div>
+
+
+                        <div class="clothes-list">
 
                             @foreach (var item in order.OrderItems)
                             {
-                                <li>
+                                <div class="cloth-item">
 
-                                    <span>@item.ClothName</span>
+                                    <div class="cloth-info">
 
-                                    <span>
+                                        <div class="cloth-icon">
 
-                                        x @item.Quantity
+                                            <i class="fa-solid fa-shirt"></i>
 
-                                    </span>
+                                        </div>
 
-                                    <strong>
+                                        <div>
 
-                                        ₹@item.TotalPrice
+                                            <strong>
+                                                @item.ClothName
+                                            </strong>
 
-                                    </strong>
+                                            <span>
+                                                Quantity: @item.Quantity
+                                            </span>
 
-                                </li>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="cloth-price">
+
+                                        ₹@item.TotalPrice.ToString("N2")
+
+                                    </div>
+
+                                </div>
                             }
 
-                        </ul>
+                        </div>
 
                     </div>
 
-                    <div class="card-footer">
+
+                    <!-- =====================================
+                         FOOTER
+                         ===================================== -->
+
+                    <div class="order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>
+                                Order Total
+                            </span>
+
+                            <strong>
+                                ₹@order.TotalAmount.ToString("N2")
+                            </strong>
+
+                        </div>
+
 
                         <a asp-area="Customer"
                            asp-controller="Orders"
                            asp-action="Details"
                            asp-route-id="@order.Id"
-                           class="btn btn-outline-primary">
+                           class="details-btn">
 
                             View Details
+
+                            <i class="fa-solid fa-arrow-right"></i>
 
                         </a>
 
