@@ -8,15 +8,15 @@
 @section Styles
 {
     <link rel="stylesheet"
-          href="~/css/Customer-AllOrders.css"
-          asp-append-version="true" />
+    href="~/css/Customer-AllOrders.css"
+    asp-append-version="true" />
 }
 
 <div class="orders-page">
 
     <!-- =====================================================
-         PAGE HEADER
-         ===================================================== -->
+    PAGE HEADER
+    ===================================================== -->
 
     <div class="orders-header">
 
@@ -40,9 +40,9 @@
 
 
         <a asp-area="Customer"
-           asp-controller="Orders"
-           asp-action="Create"
-           class="new-order-btn">
+        asp-controller="Orders"
+        asp-action="Create"
+        class="new-order-btn">
 
             <i class="fa-solid fa-plus"></i>
 
@@ -56,8 +56,8 @@
     @if (!Model.Any())
     {
         <!-- =================================================
-             EMPTY STATE
-             ================================================= -->
+        EMPTY STATE
+        ================================================= -->
 
         <div class="orders-empty-state">
 
@@ -75,9 +75,9 @@
             </p>
 
             <a asp-area="Customer"
-               asp-controller="Orders"
-               asp-action="Create"
-               class="empty-order-btn">
+            asp-controller="Orders"
+            asp-action="Create"
+            class="empty-order-btn">
 
                 <i class="fa-solid fa-plus"></i>
 
@@ -90,8 +90,8 @@
     else
     {
         <!-- =================================================
-             ORDER COUNT
-             ================================================= -->
+        ORDER COUNT
+        ================================================= -->
 
         <div class="orders-summary">
 
@@ -119,8 +119,8 @@
 
 
         <!-- =================================================
-             ORDERS GRID
-             ================================================= -->
+        ORDERS GRID
+        ================================================= -->
 
         <div class="orders-grid">
 
@@ -133,8 +133,8 @@
                 <div class="order-card">
 
                     <!-- =====================================
-                         CARD HEADER
-                         ===================================== -->
+                    CARD HEADER
+                    ===================================== -->
 
                     <div class="order-card-header">
 
@@ -161,8 +161,8 @@
 
 
                     <!-- =====================================
-                         ORDER DATE
-                         ===================================== -->
+                    ORDER DATE
+                    ===================================== -->
 
                     <div class="order-date">
 
@@ -180,8 +180,8 @@
 
 
                     <!-- =====================================
-                         ORDER DETAILS
-                         ===================================== -->
+                    ORDER DETAILS
+                    ===================================== -->
 
                     <div class="order-details">
 
@@ -257,8 +257,8 @@
 
 
                     <!-- =====================================
-                         CLOTHES
-                         ===================================== -->
+                    CLOTHES
+                    ===================================== -->
 
                     <div class="clothes-section">
 
@@ -320,8 +320,8 @@
 
 
                     <!-- =====================================
-                         FOOTER
-                         ===================================== -->
+                    FOOTER
+                    ===================================== -->
 
                     <div class="order-card-footer">
 
@@ -336,6 +336,21 @@
                             </strong>
 
                         </div>
+
+                        @if (order.Status.ToString() == "Pending")
+                        {
+                            <a asp-area="Customer"
+                            asp-controller="Orders"
+                            asp-action="Edit"
+                            asp-route-id="@order.Id"
+                            class="details-btn">
+
+                                Update 
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+                        }
 
 
                         <a asp-area="Customer"

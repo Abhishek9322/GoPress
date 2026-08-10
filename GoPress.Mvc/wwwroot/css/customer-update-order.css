@@ -1,0 +1,237 @@
+﻿/* ==========================================
+   UPDATE ORDER PAGE
+========================================== */
+
+.update-order-page {
+    max-width: 1100px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+    .page-header h2 {
+        margin: 0 0 5px;
+        font-size: 27px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .page-header p {
+        margin: 0;
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+
+/* ==========================================
+   CARD
+========================================== */
+
+.update-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
+}
+
+
+/* ==========================================
+   CARD TITLE
+========================================== */
+
+.card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+    .card-title h4 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .card-title span {
+        font-size: 12px;
+        color: #6b7280;
+        background: #f3f4f6;
+        padding: 5px 9px;
+        border-radius: 20px;
+    }
+
+
+/* ==========================================
+   FORM
+========================================== */
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    border-radius: 7px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+}
+
+    .form-control:focus {
+        border-color: #22c7e8;
+        box-shadow: 0 0 0 3px rgba(34, 199, 232, .12);
+    }
+
+
+/* ==========================================
+   ORDER ITEMS
+========================================== */
+
+.order-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-item {
+    display: grid;
+    grid-template-columns: 1fr 120px 110px;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background: #f9fafb;
+    border: 1px solid #eeeeee;
+    border-radius: 9px;
+}
+
+
+/* ==========================================
+   ITEM INFO
+========================================== */
+
+.item-info h5 {
+    margin: 0 0 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.item-info span {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+
+/* ==========================================
+   QUANTITY
+========================================== */
+
+.quantity-control label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.quantity-input {
+    width: 90px;
+    padding: 6px 8px;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   ITEM TOTAL
+========================================== */
+
+.item-total {
+    text-align: right;
+}
+
+    .item-total span {
+        display: block;
+        font-size: 11px;
+        color: #6b7280;
+        margin-bottom: 3px;
+    }
+
+    .item-total strong {
+        font-size: 14px;
+        color: #16a34a;
+    }
+
+
+/* ==========================================
+   ACTIONS
+========================================== */
+
+.update-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+    .update-actions .btn {
+        min-width: 120px;
+        border-radius: 7px;
+    }
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .update-order-page {
+        padding: 0 15px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+        .page-header h2 {
+            font-size: 23px;
+        }
+
+    .order-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .quantity-input {
+        width: 100%;
+    }
+
+    .item-total {
+        text-align: left;
+    }
+
+    .update-actions {
+        flex-direction: column-reverse;
+    }
+
+        .update-actions .btn {
+            width: 100%;
+        }
+}
