@@ -135,6 +135,48 @@ namespace GoPress.Mvc.Services
                 });
         }
 
+        public async Task<TResponse> PutAsync<TRequest, TResponse>(string url,TRequest data)
+        {
+            AddBearerToken();
+
+            var json =
+                JsonSerializer.Serialize(data);
+
+            var content =
+                new StringContent(
+                    json,
+                    Encoding.UTF8,
+                    "application/json");
+
+            var response =
+                await _httpClient.PutAsync(
+                    url,
+                    content);
+
+            var responseContent =
+                await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"API returned {(int)response.StatusCode} " +
+                    $"{response.StatusCode}: {responseContent}");
+            }
+
+            if (string.IsNullOrWhiteSpace(responseContent))
+            {
+                throw new Exception(
+                    "API returned an empty response.");
+            }
+
+            return JsonSerializer.Deserialize<TResponse>(
+                responseContent,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+        }
+
 
         //add jwt if neede here 
 

@@ -1,0 +1,287 @@
+﻿@model GoPress.Mvc.Areas.Customer.Models.UpdateOrderViewModel
+
+@{
+    ViewData["Title"] = "Update Order";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-update-order.css"
+          asp-append-version="true" />
+}
+
+
+<div class="update-order-page">
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>Update Order #@Model.OrderId</h2>
+
+            <p>
+                Update your pending order details.
+            </p>
+
+        </div>
+
+        <a asp-area="Customer"
+           asp-controller="Orders"
+           asp-action="Details"
+           asp-route-id="@Model.OrderId"
+           class="btn btn-outline-secondary">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back
+
+        </a>
+
+    </div>
+
+
+    <!-- =========================================
+         VALIDATION
+    ========================================== -->
+
+    <div asp-validation-summary="ModelOnly"
+         class="alert alert-danger">
+    </div>
+
+
+    <form asp-area="Customer"
+          asp-controller="Orders"
+          asp-action="Edit"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               asp-for="OrderId" />
+
+
+        <!-- =====================================
+             ORDER INFORMATION
+        ====================================== -->
+
+        <div class="update-card">
+
+            <div class="card-title">
+
+                <h4>Order Information</h4>
+
+            </div>
+
+
+            <div class="row">
+
+                <!-- Pickup Address -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label asp-for="PickupAddress"
+                           class="form-label">
+
+                        Pickup Address
+
+                    </label>
+
+                    <input asp-for="PickupAddress"
+                           class="form-control" />
+
+                    <span asp-validation-for="PickupAddress"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- Delivery Address -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label asp-for="DeliveryAddress"
+                           class="form-label">
+
+                        Delivery Address
+
+                    </label>
+
+                    <input asp-for="DeliveryAddress"
+                           class="form-control" />
+
+                    <span asp-validation-for="DeliveryAddress"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- Pickup Date -->
+
+                <div class="col-md-6 mb-3">
+
+                    <label asp-for="PickupDate"
+                           class="form-label">
+
+                        Pickup Date
+
+                    </label>
+
+                    <input asp-for="PickupDate"
+                           type="date"
+                           class="form-control" />
+
+                    <span asp-validation-for="PickupDate"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- Notes -->
+
+                <div class="col-md-12 mb-3">
+
+                    <label asp-for="Notes"
+                           class="form-label">
+
+                        Notes
+
+                    </label>
+
+                    <textarea asp-for="Notes"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Any special instructions...">
+                    </textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             ORDER ITEMS
+        ====================================== -->
+
+        <div class="update-card">
+
+            <div class="card-title">
+
+                <h4>Order Items</h4>
+
+                <span>
+                    @Model.OrderItems.Count items
+                </span>
+
+            </div>
+
+
+            <div class="order-items">
+
+                @for (int i = 0;
+                i < Model.OrderItems.Count;
+                i++)
+                {
+
+                    <div class="order-item">
+
+                        <!-- Hidden Cloth Type -->
+
+                        <input type="hidden"
+                               asp-for="OrderItems[i].ClothTypeId" />
+
+
+                        @* <div class="item-info"> *@
+
+                        @*     <h5> *@
+                        @*         @Model.OrderItems[i].ClothName *@
+                        @*     </h5> *@
+
+                        @*     <span> *@
+                        @*         ₹@Model.OrderItems[i].Price *@
+                        @*         per item *@
+                        @*     </span> *@
+
+                        @* </div> *@
+
+
+                        <div class="quantity-control">
+
+                            <label>
+                                Quantity
+                            </label>
+
+                            <input asp-for="OrderItems[i].Quantity"
+                                   type="number"
+                                   min="1"
+                                   class="form-control quantity-input" />
+
+                        </div>
+
+
+                        <div class="item-total">
+
+                            <span>Total</span>
+
+                            @* <strong> *@
+                            @*     ₹@Model.OrderItems[i].TotalPrice *@
+                            @* </strong> *@
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             ACTIONS
+        ====================================== -->
+
+        <div class="update-actions">
+
+            <a asp-area="Customer"
+               asp-controller="Orders"
+               asp-action="Details"
+               asp-route-id="@Model.OrderId"
+               class="btn btn-outline-secondary">
+
+                Cancel
+
+            </a>
+
+
+            <button type="submit"
+                    class="btn btn-success">
+
+                <i class="fa-solid fa-check"></i>
+
+                Update Order
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}
+

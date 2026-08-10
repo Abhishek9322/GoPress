@@ -55,19 +55,7 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
         }
 
-        //---------------------------------------------------
-        // STEP 1
-        // Empty Create page
-        //---------------------------------------------------
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            var model = new CreateOrderViewModel();
-
-            return View(model);
-        }
-
+     
 
         //---------------------------------------------------
         // STEP 2
@@ -122,6 +110,19 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
             return Json(response);
         }
+        //---------------------------------------------------
+        // STEP 1
+        // Empty Create page
+        //---------------------------------------------------
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var model = new CreateOrderViewModel();
+
+            return View(model);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderViewModel request)
@@ -146,6 +147,103 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                         succeeded = false,
                         message = ex.Message
                     });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var response =
+                await _apiService.GetAsync<
+                    Response<OrderViewModel>>(
+                        $"api/Customers/orders/{id}");
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load order.";
+
+                return RedirectToAction(nameof(AllOrders));
+            }
+
+            var order = response.Data;
+
+            // Only pending orders can be edited
+            if (order.Status.ToString() != "Pending")
+            {
+                TempData["Error"] =
+                    "Only pending orders can be updated.";
+
+                return RedirectToAction(nameof(Details),
+                    new { id });
+            }
+
+            var model = new UpdateOrderViewModel
+            {
+                OrderId = order.Id,
+                PickupAddress = order.PickupAddress,
+                DeliveryAddress = order.DeliveryAddress,
+                PickupDate = order.PickupDate,
+                Notes = order.Notes,
+                OrderItems = order.OrderItems
+                    .Select(x => new UpdateOrderItemViewModel
+                    {
+                        ClothTypeId = x.ClothTypeId,
+                     
+                        Quantity = x.Quantity,
+                   
+                    }) .ToList()
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UpdateOrderViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var response =
+                    await _apiService.PutAsync<
+                        UpdateOrderViewModel,
+                        Response<string>>(
+                            $"api/Customers/orders/{model.OrderId}",
+                            model);
+
+                if (response == null)
+                {
+                    TempData["Error"] = "Unable to update order.";
+
+                    return View(model);
+                }
+
+                if (!response.Succeeded)
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        response.Message ?? "Unable to update order.");
+
+                    return View(model);
+                }
+
+                TempData["Success"] =
+                    response.Message ?? "Order updated successfully.";
+
+                return RedirectToAction(
+                    nameof(Details),
+                    new { id = model.OrderId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    ex.Message);
+
+                return View(model);
             }
         }
     }
