@@ -188,9 +188,7 @@
 
             <div class="order-items">
 
-                @for (int i = 0;
-                i < Model.OrderItems.Count;
-                i++)
+                @for (int i = 0; i < Model.OrderItems.Count;i++)
                 {
 
                     <div class="order-item">
@@ -201,18 +199,18 @@
                                asp-for="OrderItems[i].ClothTypeId" />
 
 
-                        @* <div class="item-info"> *@
+                      <div class="item-info">
 
-                        @*     <h5> *@
-                        @*         @Model.OrderItems[i].ClothName *@
-                        @*     </h5> *@
+                            <h5> 
+                                @Model.OrderItems[i].ClothName 
+                            </h5> 
 
-                        @*     <span> *@
-                        @*         ₹@Model.OrderItems[i].Price *@
-                        @*         per item *@
-                        @*     </span> *@
+                          <span> 
+                              ₹@Model.OrderItems[i].Price 
+                            per item 
+                             </span> 
 
-                        @* </div> *@
+                       </div> 
 
 
                         <div class="quantity-control">
@@ -233,9 +231,9 @@
 
                             <span>Total</span>
 
-                            @* <strong> *@
-                            @*     ₹@Model.OrderItems[i].TotalPrice *@
-                            @* </strong> *@
+                             <strong> 
+                                ₹@Model.OrderItems[i].TotalPrice 
+                           </strong>
 
                         </div>
 
