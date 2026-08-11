@@ -67,7 +67,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
                 if (clothPrice == null)
                 {
                     return new Response<string>(
-                        "Price Not Configured");
+                        $"Price not configured for ClothTypeId {item.ClothTypeId}.");
                 }
 
                 var totalPrice = clothPrice.Price * item.Quantity;

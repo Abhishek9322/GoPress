@@ -188,8 +188,10 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                     .Select(x => new UpdateOrderItemViewModel
                     {
                         ClothTypeId = x.ClothTypeId,
-                     
+                        ClothName=x.ClothName,
                         Quantity = x.Quantity,
+                        Price=x.Price,
+                        TotalPrice=x.TotalPrice
                    
                     }) .ToList()
             };
