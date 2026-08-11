@@ -64,7 +64,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                  .Select(x => new OrderItemResponseDto
                  {
                      Id = x.Id,
-
+                     ClothTypeId=x.ClothTypeId,
                      ClothName = x.ClothName,
 
                      Quantity = x.Quantity,

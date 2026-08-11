@@ -12,6 +12,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.Command
     public class UpdateCustomerOrderCommand:IRequest<Response<string>>
     {
         public int OrderId { get; set; }
+        public int ClothTypeId { get; set; }
 
         public int CustomerId { get; set; }
 
