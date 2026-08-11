@@ -154,9 +154,8 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var response =
-                await _apiService.GetAsync<
-                    Response<OrderViewModel>>(
-                        $"api/Customers/orders/{id}");
+                await _apiService.GetAsync<Response<OrderViewModel>>(
+                    $"api/Customers/orders/{id}");
 
             if (response == null || response.Data == null)
             {
@@ -167,38 +166,46 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
             var order = response.Data;
 
-            // Only pending orders can be edited
             if (order.Status.ToString() != "Pending")
             {
                 TempData["Error"] =
                     "Only pending orders can be updated.";
 
-                return RedirectToAction(nameof(Details),
+                return RedirectToAction(
+                    nameof(Details),
                     new { id });
             }
 
             var model = new UpdateOrderViewModel
             {
                 OrderId = order.Id,
+
                 PickupAddress = order.PickupAddress,
+
                 DeliveryAddress = order.DeliveryAddress,
+
                 PickupDate = order.PickupDate,
+
                 Notes = order.Notes,
+
                 OrderItems = order.OrderItems
-                    .Select(x => new UpdateOrderItemViewModel
+                    .Select(item => new UpdateOrderItemViewModel
                     {
-                        ClothTypeId = x.ClothTypeId,
-                        ClothName=x.ClothName,
-                        Quantity = x.Quantity,
-                        Price=x.Price,
-                        TotalPrice=x.TotalPrice
-                   
-                    }) .ToList()
+                        ClothTypeId = item.ClothTypeId,
+
+                        ClothName = item.ClothName,
+
+                        Quantity = item.Quantity,
+
+                        Price = item.Price,
+
+                        TotalPrice = item.TotalPrice
+                    })
+                    .ToList()
             };
+
             return View(model);
         }
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdateOrderViewModel model)
@@ -207,18 +214,45 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
             {
                 return View(model);
             }
+
             try
             {
+                var request = new UpdateOrderRequestModel
+                {
+                    PickupAddress = model.PickupAddress,
+
+                    DeliveryAddress = model.DeliveryAddress,
+
+                    PickupDate = model.PickupDate,
+
+                    Notes = model.Notes,
+
+                    OrderItems = model.OrderItems
+                        .Select(item => new UpdateOrderItemRequestModel
+                        {
+                            ClothTypeId = item.ClothTypeId,
+                            Quantity = item.Quantity
+                        })
+                        .ToList()
+                };
+
                 var response =
                     await _apiService.PutAsync<
-                        UpdateOrderViewModel,
+                        UpdateOrderRequestModel,
                         Response<string>>(
                             $"api/Customers/orders/{model.OrderId}",
-                            model);
+                            request);
+
+                Console.WriteLine("========== UPDATE ORDER RESPONSE ==========");
+                Console.WriteLine($"Succeeded: {response?.Succeeded}");
+                Console.WriteLine($"Message: {response?.Message}");
+                Console.WriteLine($"Data: {response?.Data}");
 
                 if (response == null)
                 {
-                    TempData["Error"] = "Unable to update order.";
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "No response received from API.");
 
                     return View(model);
                 }
@@ -241,6 +275,8 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.ToString());
+
                 ModelState.AddModelError(
                     string.Empty,
                     ex.Message);

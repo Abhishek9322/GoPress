@@ -1,34 +1,19 @@
 ﻿@model GoPress.Mvc.Areas.Customer.Models.UpdateOrderViewModel
 
 @{
-    ViewData["Title"] = "Update Order";
+    ViewData["Title"] = "Edit Order";
     Layout = "_Layout";
 }
 
-@section Styles
-{
-    <link rel="stylesheet"
-          href="~/css/customer-update-order.css"
-          asp-append-version="true" />
-}
+<div class="container mt-4">
 
-
-<div class="update-order-page">
-
-    <!-- =========================================
-         HEADER
-    ========================================== -->
-
-    <div class="page-header">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
-
-            <h2>Update Order #@Model.OrderId</h2>
-
-            <p>
-                Update your pending order details.
+            <h2>Edit Order</h2>
+            <p class="text-muted">
+                Update your pending order.
             </p>
-
         </div>
 
         <a asp-area="Customer"
@@ -38,20 +23,10 @@
            class="btn btn-outline-secondary">
 
             <i class="fa-solid fa-arrow-left"></i>
-
             Back
 
         </a>
 
-    </div>
-
-
-    <!-- =========================================
-         VALIDATION
-    ========================================== -->
-
-    <div asp-validation-summary="ModelOnly"
-         class="alert alert-danger">
     </div>
 
 
@@ -66,101 +41,83 @@
                asp-for="OrderId" />
 
 
-        <!-- =====================================
+        <!-- ============================
              ORDER INFORMATION
-        ====================================== -->
+        ============================= -->
 
-        <div class="update-card">
+        <div class="card mb-4">
 
-            <div class="card-title">
-
-                <h4>Order Information</h4>
-
+            <div class="card-header">
+                <h5 class="mb-0">
+                    Order Information
+                </h5>
             </div>
 
+            <div class="card-body">
 
-            <div class="row">
+                <div class="row">
 
-                <!-- Pickup Address -->
+                    <div class="col-md-6 mb-3">
 
-                <div class="col-md-6 mb-3">
+                        <label asp-for="PickupAddress"
+                               class="form-label">
+                        </label>
 
-                    <label asp-for="PickupAddress"
-                           class="form-label">
+                        <input asp-for="PickupAddress"
+                               class="form-control" />
 
-                        Pickup Address
+                        <span asp-validation-for="PickupAddress"
+                              class="text-danger">
+                        </span>
 
-                    </label>
-
-                    <input asp-for="PickupAddress"
-                           class="form-control" />
-
-                    <span asp-validation-for="PickupAddress"
-                          class="text-danger">
-                    </span>
-
-                </div>
+                    </div>
 
 
-                <!-- Delivery Address -->
+                    <div class="col-md-6 mb-3">
 
-                <div class="col-md-6 mb-3">
+                        <label asp-for="DeliveryAddress"
+                               class="form-label">
+                        </label>
 
-                    <label asp-for="DeliveryAddress"
-                           class="form-label">
+                        <input asp-for="DeliveryAddress"
+                               class="form-control" />
 
-                        Delivery Address
+                        <span asp-validation-for="DeliveryAddress"
+                              class="text-danger">
+                        </span>
 
-                    </label>
-
-                    <input asp-for="DeliveryAddress"
-                           class="form-control" />
-
-                    <span asp-validation-for="DeliveryAddress"
-                          class="text-danger">
-                    </span>
-
-                </div>
+                    </div>
 
 
-                <!-- Pickup Date -->
+                    <div class="col-md-6 mb-3">
 
-                <div class="col-md-6 mb-3">
+                        <label asp-for="PickupDate"
+                               class="form-label">
+                        </label>
 
-                    <label asp-for="PickupDate"
-                           class="form-label">
+                        <input asp-for="PickupDate"
+                               type="date"
+                               class="form-control" />
 
-                        Pickup Date
+                        <span asp-validation-for="PickupDate"
+                              class="text-danger">
+                        </span>
 
-                    </label>
-
-                    <input asp-for="PickupDate"
-                           type="date"
-                           class="form-control" />
-
-                    <span asp-validation-for="PickupDate"
-                          class="text-danger">
-                    </span>
-
-                </div>
+                    </div>
 
 
-                <!-- Notes -->
+                    <div class="col-md-12 mb-3">
 
-                <div class="col-md-12 mb-3">
+                        <label asp-for="Notes"
+                               class="form-label">
+                        </label>
 
-                    <label asp-for="Notes"
-                           class="form-label">
+                        <textarea asp-for="Notes"
+                                  rows="4"
+                                  class="form-control">
+                        </textarea>
 
-                        Notes
-
-                    </label>
-
-                    <textarea asp-for="Notes"
-                              class="form-control"
-                              rows="3"
-                              placeholder="Any special instructions...">
-                    </textarea>
+                    </div>
 
                 </div>
 
@@ -169,71 +126,92 @@
         </div>
 
 
-        <!-- =====================================
+        <!-- ============================
              ORDER ITEMS
-        ====================================== -->
+        ============================= -->
 
-        <div class="update-card">
+        <div class="card mb-4">
 
-            <div class="card-title">
+            <div class="card-header">
 
-                <h4>Order Items</h4>
-
-                <span>
-                    @Model.OrderItems.Count items
-                </span>
+                <h5 class="mb-0">
+                    Clothes
+                </h5>
 
             </div>
 
 
-            <div class="order-items">
+            <div class="card-body">
 
-                @for (int i = 0; i < Model.OrderItems.Count;i++)
+                @for (int i = 0; i < Model.OrderItems.Count; i++)
                 {
 
-                    <div class="order-item">
+                    <div class="row align-items-center mb-3 p-3 border rounded">
 
-                        <!-- Hidden Cloth Type -->
+
+                        <!-- VERY IMPORTANT -->
 
                         <input type="hidden"
                                asp-for="OrderItems[i].ClothTypeId" />
 
 
-                      <div class="item-info">
+                        <!-- Cloth Name -->
 
-                            <h5> 
-                                @Model.OrderItems[i].ClothName 
-                            </h5> 
+                        <div class="col-md-4">
 
-                          <span> 
-                              ₹@Model.OrderItems[i].Price 
-                            per item 
-                             </span> 
+                            <label class="form-label">
+                                Cloth
+                            </label>
 
-                       </div> 
+                            <input asp-for="OrderItems[i].ClothName"
+                                   class="form-control"
+                                   readonly />
+
+                        </div>
 
 
-                        <div class="quantity-control">
+                        <!-- Price -->
 
-                            <label>
+                        <div class="col-md-3">
+
+                            <label class="form-label">
+                                Price
+                            </label>
+
+                            <input asp-for="OrderItems[i].Price"
+                                   class="form-control"
+                                   readonly />
+
+                        </div>
+
+
+                        <!-- Quantity -->
+
+                        <div class="col-md-2">
+
+                            <label class="form-label">
                                 Quantity
                             </label>
 
                             <input asp-for="OrderItems[i].Quantity"
                                    type="number"
                                    min="1"
-                                   class="form-control quantity-input" />
+                                   class="form-control" />
 
                         </div>
 
 
-                        <div class="item-total">
+                        <!-- Total -->
 
-                            <span>Total</span>
+                        <div class="col-md-3">
 
-                             <strong> 
-                                ₹@Model.OrderItems[i].TotalPrice 
-                           </strong>
+                            <label class="form-label">
+                                Total
+                            </label>
+
+                            <input asp-for="OrderItems[i].TotalPrice"
+                                   class="form-control"
+                                   readonly />
 
                         </div>
 
@@ -245,11 +223,11 @@
         </div>
 
 
-        <!-- =====================================
-             ACTIONS
-        ====================================== -->
+        <!-- ============================
+             BUTTONS
+        ============================= -->
 
-        <div class="update-actions">
+        <div class="d-flex justify-content-end gap-2">
 
             <a asp-area="Customer"
                asp-controller="Orders"
@@ -263,9 +241,9 @@
 
 
             <button type="submit"
-                    class="btn btn-success">
+                    class="btn btn-primary">
 
-                <i class="fa-solid fa-check"></i>
+                <i class="fa-solid fa-floppy-disk"></i>
 
                 Update Order
 
@@ -276,10 +254,3 @@
     </form>
 
 </div>
-
-
-@section Scripts
-{
-    <partial name="_ValidationScriptsPartial" />
-}
-
