@@ -279,5 +279,46 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                 return View(model);
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var response =
+                    await _apiService.DeleteAsync<Response<string>>(
+                        $"api/Customers/orders/{id}");
+
+                if (response == null)
+                {
+                    TempData["Error"] = "Unable to delete order.";
+                    return RedirectToAction(nameof(AllOrders));
+                }
+
+                if (!response.Succeeded)
+                {
+                    TempData["Error"] =
+                        response.Message ?? "Unable to delete order.";
+
+                    return RedirectToAction(
+                        nameof(Details),
+                        new { id });
+                }
+
+                TempData["Success"] =
+                    response.Message ?? "Order deleted successfully.";
+
+                return RedirectToAction(nameof(AllOrders));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+
+                return RedirectToAction(
+                    nameof(Details),
+                    new { id });
+            }
+        }
     }
 }
