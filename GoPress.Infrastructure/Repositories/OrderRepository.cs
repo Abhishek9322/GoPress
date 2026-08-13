@@ -165,5 +165,18 @@ namespace GoPress.Infrastructure.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<Order?> GetByIdForUpdateOrder(int id)
+        {
+            return await _context.Orders
+                 .Include(x => x.OrderItems)
+                 .FirstOrDefaultAsync(x => x.Id == id);
+                
+        }
+
+        public void RemoveOrderItems(IEnumerable<OrderItem> orderItems)
+        {
+            _context.OrderItems.RemoveRange(orderItems);
+        }
     }
 }

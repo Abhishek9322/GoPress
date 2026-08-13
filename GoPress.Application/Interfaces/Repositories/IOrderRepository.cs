@@ -33,6 +33,9 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<List<Order>> GetOrdersByStatusAsync(OrderStatusEnum orderStatus);
 
+        Task<Order?> GetByIdForUpdateOrder(int id);
+
+        void RemoveOrderItems(IEnumerable<OrderItem> orderItems);
         Task UpdateAsync(Order order);
         Task DeleteAsync(Order order);
     }
