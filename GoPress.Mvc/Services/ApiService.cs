@@ -177,6 +177,35 @@ namespace GoPress.Mvc.Services
                 });
         }
 
+        public async Task<TResponse> DeleteAsync<TResponse>(string url)
+        {
+            AddBearerToken();
+
+            var response =
+                await _httpClient.DeleteAsync(url);
+
+            var responseContent =
+                await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"API returned {(int)response.StatusCode} " +
+                    $"{response.StatusCode}: {responseContent}");
+            }
+
+            if (string.IsNullOrWhiteSpace(responseContent))
+            {
+                throw new Exception("API returned an empty response.");
+            }
+
+            return JsonSerializer.Deserialize<TResponse>(
+                responseContent,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+        }
 
         //add jwt if neede here 
 
