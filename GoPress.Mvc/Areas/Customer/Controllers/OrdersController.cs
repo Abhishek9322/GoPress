@@ -243,11 +243,6 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                             $"api/Customers/orders/{model.OrderId}",
                             request);
 
-                Console.WriteLine("========== UPDATE ORDER RESPONSE ==========");
-                Console.WriteLine($"Succeeded: {response?.Succeeded}");
-                Console.WriteLine($"Message: {response?.Message}");
-                Console.WriteLine($"Data: {response?.Data}");
-
                 if (response == null)
                 {
                     ModelState.AddModelError(
@@ -257,14 +252,14 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                     return View(model);
                 }
 
-                if (!response.Succeeded)
-                {
-                    ModelState.AddModelError(
-                        string.Empty,
-                        response.Message ?? "Unable to update order.");
+                //if (!response.Succeeded)
+                //{
+                //    ModelState.AddModelError(
+                //        string.Empty,
+                //        response.Message ?? "Unable to update order.");
 
-                    return View(model);
-                }
+                //    return View(model);
+              //  }
 
                 TempData["Success"] =
                     response.Message ?? "Order updated successfully.";
