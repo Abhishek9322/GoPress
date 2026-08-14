@@ -15,7 +15,7 @@
                         => ("ShopOwner", "Dashboard", "Dashboard"),
 
                     "DeliveryBoy"
-                        => ("DeliveryBoy", "Dashboard", "Dashboard"),
+                        => ("DeliveryBoy", "Dashboard", "DeliveryBoy"),
 
                     "Admin"
                         => ("Admin", "Dashboard", "Dashboard"),
