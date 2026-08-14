@@ -9,7 +9,7 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
     [Area("Customer")]
     public class DashboardController : Controller
     {
-        private readonly ApiService _apiService;
+        private readonly ApiService _apiService; 
         public DashboardController(ApiService apiService)
         {
             _apiService = apiService;   
