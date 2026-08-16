@@ -18,7 +18,7 @@ namespace GoPress.Api.Controllers.Admin
             _mediator = mediator;
         }
        
-        [HttpGet("Get-dashboard")]
+        [HttpGet]
         public async Task<IActionResult> GetDashboard()
         {
             var response =

@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controller\" />
-    <Folder Include="Areas\Admin\Views\" />
     <Folder Include="wwwroot\images\default\" />
     <Folder Include="wwwroot\images\shops\" />
     <Folder Include="wwwroot\images\products\" />
