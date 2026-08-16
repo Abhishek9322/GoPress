@@ -12,10 +12,10 @@
                         => ("Dashboard", "Dashboard", "Customer"),
 
                     "ShopOwner"
-                        => ("ShopOwner", "Dashboard", "Dashboard"),
+                        => ("Dashboard", "Dashboard", "ShopOwner"),
 
                     "DeliveryBoy"
-                        => ("DeliveryBoy", "Dashboard", "DeliveryBoy"),
+                        => ("Dashboard", "Dashboard", "DeliveryBoy"),
 
                     "Admin"
                         => ("Admin", "Dashboard", "Dashboard"),

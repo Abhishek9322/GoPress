@@ -1,4 +1,5 @@
-﻿@model GoPress.Mvc.Areas.DeliveryBoy.Models.DeliveryBoyDashboardViewModel
+﻿@model GoPress.Mvc.Areas.ShopOwner.Models.ShopOwnerDashboardViewModel
+
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "_Layout";
@@ -6,11 +7,10 @@
 
 @section Styles
 {
-     <link rel="stylesheet"
-           href="~/css/DeliveryBoy-Dashboard.css"
-           asp-append-version="true" />
+    <link rel="stylesheet"
+          href="~/css/ShopOwner-Dashboard.css"
+          asp-append-version="true" />
 }
-
 
 
 <div class="dashboard-container">
@@ -45,25 +45,25 @@
 
         <div class="dashboard-card">
 
-            <h5>Today Deliveries Orders</h5>
+            <h5>Total Orders</h5>
 
-            <h2>@Model.TodayDeliveries</h2>
+            <h2>@Model.TotalOrders</h2>
 
         </div>
 
         <div class="dashboard-card">
 
-            <h5>Available Orders</h5>
+            <h5>ReadyForPickup Orders</h5>
 
-            <h2>@Model.AvailableOrders</h2>
+            <h2>@Model.ReadyForPickupOrders</h2>
 
         </div>
 
         <div class="dashboard-card pending">
 
-            <h5>Pending PickupOrders</h5>
+            <h5>Pending Orders</h5>
 
-            <h2>@Model.PendingPickupOrders</h2>
+            <h2>@Model.PendingOrders</h2>
 
         </div>
 
@@ -85,9 +85,9 @@
 
         <div class="dashboard-card OutForDeliveryOrders">
 
-            <h5>Out For Delivery Orders</h5>
+            <h5>Rejected Orders</h5>
 
-            <h2>@Model.OutForDeliveryOrders</h2>
+            <h2>@Model.RejectedOrders</h2>
 
         </div>
 
@@ -99,19 +99,27 @@
 
         </div>
 
-        <div class="dashboard-card ReadyForDeliveryOrders">
+        <div class="dashboard-card TotalRevenue">
 
-            <h5>ReadyFor Delivery Orders</h5>
+            <h5>TotalRevenue</h5>
 
-            <h2>@Model.ReadyForDeliveryOrders</h2>
+            <h2>@Model.TotalRevenue</h2>
 
         </div>
 
-        <div class="dashboard-card ThisMonthDeliveries">
+        <div class="dashboard-card TodayOrders">
 
-            <h5>ThisMonth Deliveries</h5>
+            <h5>Today Orders</h5>
 
-            <h2>@Model.ThisMonthDeliveries</h2>
+            <h2>@Model.TodayOrders</h2>
+
+        </div>
+
+        <div class="dashboard-card ThisMonthOrders">
+
+            <h5>ThisMonth Orders</h5>
+
+            <h2>@Model.ThisMonthOrders</h2>
 
         </div>
 
@@ -125,7 +133,7 @@
             Quick Actions
         </h3>
 
-        @* <div class="action-buttons"> *@ 
+        @* <div class="action-buttons"> *@
 
         @*     <a asp-area="Customer" *@
         @*        asp-controller="Orders" *@
@@ -136,26 +144,25 @@
 
         @*     </a> *@
 
-            <a asp-area="Customer"
-               asp-controller="Orders"
-               asp-action="AllOrders"
-               class="action-btn">
+        <a asp-area="Customer"
+           asp-controller="Orders"
+           asp-action="AllOrders"
+           class="action-btn">
 
-                My Orders
+            My Orders
 
-            </a>
+        </a>
 
-            <a asp-area="Customer"
-               asp-controller="Profile"
-               asp-action="Index"
-               class="action-btn secondary">
+        <a asp-area="Customer"
+           asp-controller="Profile"
+           asp-action="Index"
+           class="action-btn secondary">
 
-                Profile
+            Profile
 
-            </a>
-
-        </div>
+        </a>
 
     </div>
 
 </div>
+

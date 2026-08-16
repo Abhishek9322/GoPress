@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
 {
-    [Area("DeliveryBoy")]
+    [Area("DeliveryBoy")] 
     public class DashboardController : Controller
     {
         private readonly ApiService _apiService;
