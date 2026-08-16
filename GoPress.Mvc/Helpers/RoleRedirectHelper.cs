@@ -18,7 +18,7 @@
                         => ("Dashboard", "Dashboard", "DeliveryBoy"),
 
                     "Admin"
-                        => ("Admin", "Dashboard", "Dashboard"),
+                        => ("Dashboard", "Dashboard", "Admin"),
 
                     _
                         => ("Index", "Home", "")
