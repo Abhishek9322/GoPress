@@ -21,7 +21,7 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         {
             var response=await _apiService.GetAsync<Response<List<AllOrderViewModel>>>
                 (
-                   "api/ShopOwner/orders"
+                   "api/ShopOwner/Orders/all-orders"
                 );
 
             if(response == null || response.Data == null)
