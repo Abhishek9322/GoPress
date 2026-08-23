@@ -80,7 +80,7 @@ namespace GoPress.Api.Controllers.ShopOwner
             return Ok(response);
         }
 
-
+        //
         [HttpGet("all-orders")]
         public async Task<IActionResult> GetShopOrders()
         {
