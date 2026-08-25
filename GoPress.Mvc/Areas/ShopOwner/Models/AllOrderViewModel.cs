@@ -28,5 +28,4 @@ namespace GoPress.Mvc.Areas.ShopOwner.Models
 
         public List<OrderItemResponseDto> OrderItems { get; set; }
     }
-
 }
