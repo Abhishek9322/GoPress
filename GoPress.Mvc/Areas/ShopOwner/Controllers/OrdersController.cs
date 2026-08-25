@@ -44,7 +44,7 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             if (response == null || response.Data == null)
             {
                 TempData["Error"] = "Unable to load rejected orders.";
-                return View(new List<AllRejectedOrderShopOwnerViewModel>()); 
+                return View(new List<AllRejectedOrderShopOwnerViewModel>());
             }
 
             return View(response.Data);
@@ -54,16 +54,34 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         [HttpGet]
         public async Task<IActionResult> CompletedOrder()
         {
-            var response=await _apiService.GetAsync<Response<List<AllCompletedOrdersViewModel>>>
+            var response = await _apiService.GetAsync<Response<List<AllCompletedOrdersViewModel>>>
                 (
                    "api/ShopOwner/Orders/completed-orders"
                 );
 
-            if(response == null || response.Data == null)
+            if (response == null || response.Data == null)
             {
                 TempData["Error"] = "Unable to load completed orders.";
                 return View(new List<AllCompletedOrdersViewModel>());
             }
+            return View(response.Data);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetReadyForDelivery()
+        {
+            var response = await _apiService.GetAsync<Response<List<ShopOwnerGetReadyForDelivery>>>
+                (
+                  "api/ShopOwner/Orders/All-ReadyforDelivery-Order"
+                );
+
+            if(response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To Load GetReady For Delivery Orders";
+                return View(new List<ShopOwnerGetReadyForDelivery>());
+            }
+
             return View(response.Data);
         }
     }
