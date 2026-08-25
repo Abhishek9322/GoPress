@@ -36,7 +36,7 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         [HttpGet]
         public async Task<IActionResult> RejectedOrders()
         {
-            var response = await _apiService.GetAsync<Response<List<AllRejectedOrderShopOwner>>>
+            var response = await _apiService.GetAsync<Response<List<AllRejectedOrderShopOwnerViewModel>>>
                 (
                    "api/ShopOwner/Orders/all-rejected-orders"
                 );
@@ -44,9 +44,26 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             if (response == null || response.Data == null)
             {
                 TempData["Error"] = "Unable to load rejected orders.";
-                return View(new List<AllRejectedOrderShopOwner>()); 
+                return View(new List<AllRejectedOrderShopOwnerViewModel>()); 
             }
 
+            return View(response.Data);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> CompletedOrder()
+        {
+            var response=await _apiService.GetAsync<Response<List<AllCompletedOrdersViewModel>>>
+                (
+                   "api/ShopOwner/Orders/completed-orders"
+                );
+
+            if(response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load completed orders.";
+                return View(new List<AllCompletedOrdersViewModel>());
+            }
             return View(response.Data);
         }
     }

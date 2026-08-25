@@ -1,6 +1,6 @@
 ﻿namespace GoPress.Mvc.Areas.ShopOwner.Models
 {
-    public class AllRejectedOrderShopOwner
+    public class AllRejectedOrderShopOwnerViewModel
     {
         public int OrderId { get; set; }
 
