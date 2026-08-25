@@ -10,7 +10,7 @@
 
         public string PickupAddress { get; set; }
 
-        public string DeliveryAddress { get; set; }
+        public string DeliveryAddress { get; set; }    
 
         public decimal TotalAmount { get; set; }
 
