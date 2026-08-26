@@ -34,6 +34,21 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AcceptedOrders()
+        {
+            var response = await _apiService.GetAsync<Response<List<AllAcceptedOrdersViewModel>>>
+                (
+                   "api/ShopOwner/Orders/Accepted-orders"
+                );
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load accepted orders.";
+                return View(new List<AllAcceptedOrdersViewModel>());
+            }
+            return View(response.Data);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> RejectedOrders()
         {
             var response = await _apiService.GetAsync<Response<List<AllRejectedOrderShopOwnerViewModel>>>

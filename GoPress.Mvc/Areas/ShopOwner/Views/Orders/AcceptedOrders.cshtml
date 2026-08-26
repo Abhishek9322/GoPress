@@ -1,0 +1,237 @@
+﻿@model List<GoPress.Mvc.Areas.ShopOwner.Models.AllAcceptedOrdersViewModel>
+
+@{
+    ViewData["Title"] = "Accepted Orders";
+    Layout = "_Layout";
+}
+
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/ShopOwner-AcceptOrders.css"
+          asp-append-version="true" />
+}
+
+
+<div class="orders-page">
+
+    <!-- HEADER -->
+
+    <div class="orders-header">
+
+        <div class="orders-header-content">
+
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-ban"></i>
+            </div>
+
+            <div>
+
+                <h2>All Ready For Delivery Orders</h2>
+
+                <p>
+                    View all orders Ready For Devlivery by your shop.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMPTY STATE -->
+    @if (!Model.Any())
+    {
+        <div class="orders-empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <h3>No Ready For Delivery Orders </h3>
+
+            <p>
+                There are currently no Ready For Delivery Orders.
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <!-- SUMMARY -->
+
+        <div class="orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Total Ready For Delivery Orders
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-ban"></i>
+
+                Ready For Delivery Orders are shown below.
+
+            </div>
+
+        </div>
+
+
+        <!-- ORDERS -->
+
+        <div class="orders-grid">
+
+            @foreach (var order in Model)
+            {
+                <div class="order-card">
+
+                    <!-- HEADER -->
+
+                    <div class="order-card-header">
+
+                        <div class="order-number">
+
+                            <span>
+                                ORDER
+                            </span>
+
+                            <h3>
+                                #@order.OrderId
+                            </h3>
+
+                        </div>
+
+                        <span class="status-badge status-rejected">
+
+                            @order.Status
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- CUSTOMER -->
+
+                    <div class="customer-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+                                <i class="fa-solid fa-user"></i>
+                                Customer
+                            </h4>
+
+                        </div>
+
+                        <div class="customer-info">
+
+                            <div>
+                                <span>Name</span>
+
+                                <strong>
+                                    @order.CustomerName
+                                </strong>
+                            </div>
+
+                            <div>
+                                <span>Phone</span>
+
+                                <strong>
+                                    @order.CustomerPhone
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDRESSES -->
+
+                    <div class="order-details">
+
+                        <div class="detail-item">
+
+                            <div class="detail-icon pickup-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Pickup Address
+                                </span>
+
+                                <strong>
+                                    @order.PickupAddress
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="detail-item">
+
+                            <div class="detail-icon delivery-icon">
+
+                                <i class="fa-solid fa-truck"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Delivery Address
+                                </span>
+
+                                <strong>
+                                    @order.DeliveryAddress
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOOTER -->
+
+                    <div class="order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>
+                                Order Total
+                            </span>
+
+                            <strong>
+                                ₹@order.TotalAmount.ToString("N2")
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
