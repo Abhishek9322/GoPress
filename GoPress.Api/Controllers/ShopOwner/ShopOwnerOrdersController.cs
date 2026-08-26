@@ -44,8 +44,22 @@ namespace GoPress.Api.Controllers.ShopOwner
 
         }
 
+        [HttpGet("Accepted-orders")]
+        public async Task<IActionResult> GetAcceptedOrders()
+        {
+            var currentuser = User.GetCurrentUser();
 
-  
+            var Query=new GetAcceptedOrdersByShopOwnerQuery
+            {
+                ShopownerId = currentuser.UserId
+            };
+
+            var response= await _mediator.Send(Query);
+
+            return Ok(response);    
+        }
+
+
         [HttpPut("{orderId}/reject-order")]
         public async Task<IActionResult> RejectOrder(int orderId)
         {

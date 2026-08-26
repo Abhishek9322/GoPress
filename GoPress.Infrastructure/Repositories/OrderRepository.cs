@@ -130,6 +130,17 @@ namespace GoPress.Infrastructure.Repositories
                                          .ToListAsync();
         }
 
+        public async Task<List<Order>> GetAllAcceptedOrderByShopowner(int ShopOwnerId)
+        {
+            return await _context.Orders
+                                 .Include(x => x.Customer)
+                                 .Where(x =>
+                                         x.ShopOwnerId == ShopOwnerId &&
+                                         x.Status == OrderStatusEnum.Accepted)
+                                 .AsNoTracking()
+                                 .ToListAsync();
+        }
+
         public async Task<List<Order>> GetRejectedOrdersByShopOwnerAsync(int shopOwnerId)
         {
             return await _context.Orders
@@ -178,5 +189,7 @@ namespace GoPress.Infrastructure.Repositories
         {
             _context.OrderItems.RemoveRange(orderItems);
         }
+
+     
     }
 }
