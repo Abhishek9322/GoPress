@@ -48,6 +48,39 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             return View(response.Data);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptOrders(int id)
+        {
+            try
+            {
+                var response =
+                    await _apiService.PutAsync<Response<int>>(
+                        $"api/ShopOwner/Orders/{id}/accept-order");
+
+                if (response == null || !response.Succeeded)
+                {
+                    TempData["Error"] =
+                        response?.Message ?? "Unable to accept this order.";
+
+                    return RedirectToAction(nameof(AllOrders));
+                }
+
+                TempData["Success"] =
+                    response.Message ?? "Order accepted successfully.";
+
+                return RedirectToAction(nameof(AcceptedOrders));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+
+                return RedirectToAction(nameof(AllOrders));
+            }
+        }
+
+
+
         [HttpGet]
         public async Task<IActionResult> RejectedOrders()
         {
@@ -63,6 +96,13 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             }
 
             return View(response.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RejectOrders(int id)
+        {
+          
+            return View();
         }
 
 
@@ -99,5 +139,9 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
 
             return View(response.Data);
         }
+
+
+
+
     }
 }

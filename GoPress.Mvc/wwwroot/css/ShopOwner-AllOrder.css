@@ -510,10 +510,10 @@
     }
 
 /* =========================================================
-   Update BUTTON
+   ACCEPT BUTTON
 ========================================================= */
 
-.Update-btn {
+.accept-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -522,48 +522,45 @@
     border-radius: 9px;
     background: #111827;
     color: #fff;
+    border: 1px solid #111827;
     text-decoration: none;
     font-size: 12px;
     font-weight: 600;
+    cursor: pointer;
     transition: all .2s ease;
 }
 
-    .Update-btn:hover {
-        background: #FFFBEB;
-        color: #111827;
-        transform: translateX(2px);
+    .accept-btn:hover {
+        background: #16a34a;
+        border-color: #16a34a;
+        color: #fff;
+        transform: translateY(-1px);
     }
 
-    .Update-btn i {
+    .accept-btn i {
         font-size: 10px;
     }
 
 
-
-/* ==========================================
-   DELETE BUTTON
-========================================== */
+/* =========================================================
+   REJECT BUTTON
+========================================================= */
 
 .delete-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 10px 18px;
-    background: #000;
+    padding: 9px 14px;
+    border-radius: 9px;
+    background: #111827;
     color: #fff;
-    border: 1px solid #000;
-    border-radius: 8px;
-    font-size: 14px;
+    border: 1px solid #111827;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all .2s ease;
 }
-
-
-    /* ==========================================
-   DELETE BUTTON HOVER
-========================================== */
 
     .delete-btn:hover {
         background: #dc2626;
@@ -572,6 +569,19 @@
         transform: translateY(-1px);
     }
 
+    .delete-btn i {
+        font-size: 10px;
+    }
+
+
+/* =========================================================
+   FORM ALIGNMENT
+========================================================= */
+
+.order-action-form {
+    display: inline-flex;
+    margin: 0;
+}
 
     /* ==========================================
    DELETE ICON
