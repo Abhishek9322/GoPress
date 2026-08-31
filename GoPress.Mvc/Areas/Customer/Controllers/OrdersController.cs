@@ -129,12 +129,10 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         {
             try
             {
-                var response =
-                    await _apiService.PostAsync<
-                        CreateOrderViewModel,
-                        Response<int>>(
-                            "api/Customers/orders",
-                            request);
+                var response =await _apiService.PostAsync<CreateOrderViewModel,Response<int>>
+                    (
+                     "api/Customers/orders",request
+                    );
 
                 return Ok(response);
             }
@@ -206,6 +204,7 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(UpdateOrderViewModel model)

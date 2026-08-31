@@ -135,6 +135,25 @@ namespace GoPress.Mvc.Services
                 });
         }
 
+        public async Task<TResponse> PutAsync<TResponse>(string url)
+        {
+            AddBearerToken();
+
+            var response = await _httpClient.PutAsync(url, null);
+
+            var responseContent =
+                await response.Content.ReadAsStringAsync();
+
+            response.EnsureSuccessStatusCode();
+
+            return JsonSerializer.Deserialize<TResponse>(
+                responseContent,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+        }
+
         public async Task<TResponse> PutAsync<TRequest, TResponse>(string url,TRequest data)
         {
             AddBearerToken();
