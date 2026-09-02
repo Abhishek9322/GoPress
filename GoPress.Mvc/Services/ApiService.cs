@@ -135,7 +135,7 @@ namespace GoPress.Mvc.Services
                 });
         }
 
-        public async Task<TResponse> PutAsync<TResponse>(string url)
+        public async Task<TResponse?> PutAsync<TResponse>(string url)
         {
             AddBearerToken();
 
@@ -144,7 +144,17 @@ namespace GoPress.Mvc.Services
             var responseContent =
                 await response.Content.ReadAsStringAsync();
 
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"API returned {(int)response.StatusCode} " +
+                    $"{response.StatusCode}: {responseContent}");
+            }
+
+            if (string.IsNullOrWhiteSpace(responseContent))
+            {
+                throw new Exception("API returned an empty response.");
+            }
 
             return JsonSerializer.Deserialize<TResponse>(
                 responseContent,

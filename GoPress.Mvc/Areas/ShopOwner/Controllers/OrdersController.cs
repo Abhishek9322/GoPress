@@ -80,7 +80,6 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
 
-
         [HttpGet]
         public async Task<IActionResult> RejectedOrders()
         {
