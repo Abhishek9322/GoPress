@@ -366,16 +366,16 @@
                             <!-- Reject -->
                             <form asp-area="ShopOwner"
                                   asp-controller="Orders"
-                                  asp-action="RejectOrder"
+                                  asp-action="RejectOrders"
                                   asp-route-id="@order.Id"
                                   method="post"
-                                  class="order-action-form"
-                                  onsubmit="return confirm('Are you sure you want to reject this order?');">
+                                  class="order-action-form">
 
                                 @Html.AntiForgeryToken()
 
                                 <button type="submit"
-                                        class="delete-btn">
+                                        class="delete-btn"
+                                        onclick="return confirm('Are you sure you want to reject this order?');">
 
                                     Reject
                                     <i class="fa-solid fa-xmark"></i>
@@ -384,7 +384,6 @@
 
                             </form>
                         }
-
 
 
                         <!-- Details -->
