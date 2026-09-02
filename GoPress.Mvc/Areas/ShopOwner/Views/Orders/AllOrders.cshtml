@@ -341,43 +341,44 @@
 
                         @if (order.Status.ToString() == "Pending")
                         {
-                            <!-- Accept -->
+                            <!-- ACCEPT ORDER -->
+
                             <form asp-area="ShopOwner"
                                   asp-controller="Orders"
                                   asp-action="AcceptOrders"
-                                  asp-route-id="@order.Id"
                                   method="post"
-                                  class="order-action-form">
+                                  class="order-action-form"
+                                  onsubmit="return confirm('Are you sure you want to accept this order?');">
 
                                 @Html.AntiForgeryToken()
 
-                                <button type="submit"
-                                        class="accept-btn"
-                                        onclick="return confirm('Are you sure you want to accept this order?');">
+                                <input type="hidden" name="id" value="@order.Id" />
 
+                                <button type="submit" class="accept-btn">
                                     Accept
                                     <i class="fa-solid fa-check"></i>
-
                                 </button>
 
                             </form>
 
 
-                            <!-- Reject -->
+                            <!-- REJECT ORDER -->
+
                             <form asp-area="ShopOwner"
                                   asp-controller="Orders"
-                                  asp-action="RejectOrders"
+                                  asp-action="RejectOrder"
                                   asp-route-id="@order.Id"
                                   method="post"
-                                  class="order-action-form">
+                                  class="order-action-form"
+                                  onsubmit="return confirm('Are you sure you want to reject this order?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <button type="submit"
-                                        class="delete-btn"
-                                        onclick="return confirm('Are you sure you want to reject this order?');">
+                                        class="reject-btn">
 
                                     Reject
+
                                     <i class="fa-solid fa-xmark"></i>
 
                                 </button>

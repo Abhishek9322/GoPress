@@ -521,9 +521,8 @@
     padding: 9px 14px;
     border-radius: 9px;
     background: #111827;
-    color: #fff;
+    color: #ffffff;
     border: 1px solid #111827;
-    text-decoration: none;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
@@ -531,22 +530,21 @@
 }
 
     .accept-btn:hover {
-        background: #16a34a;
-        border-color: #16a34a;
-        color: #fff;
-        transform: translateY(-1px);
+        background: #dcfce7;
+        color: #166534;
+        border-color: #dcfce7;
+        transform: translateX(2px);
     }
 
     .accept-btn i {
-        font-size: 10px;
+        font-size: 11px;
     }
-
 
 /* =========================================================
    REJECT BUTTON
 ========================================================= */
 
-.delete-btn {
+.reject-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -554,7 +552,7 @@
     padding: 9px 14px;
     border-radius: 9px;
     background: #111827;
-    color: #fff;
+    color: #ffffff;
     border: 1px solid #111827;
     font-size: 12px;
     font-weight: 600;
@@ -562,17 +560,16 @@
     transition: all .2s ease;
 }
 
-    .delete-btn:hover {
-        background: #dc2626;
-        border-color: #dc2626;
-        color: #fff;
-        transform: translateY(-1px);
+    .reject-btn:hover {
+        background: #fef2f2;
+        color: #dc2626;
+        border-color: #fef2f2;
+        transform: translateX(2px);
     }
 
-    .delete-btn i {
-        font-size: 10px;
+    .reject-btn i {
+        font-size: 11px;
     }
-
 
 /* =========================================================
    FORM ALIGNMENT
@@ -720,6 +717,17 @@
 
     .details-btn {
         padding: 8px 12px;
+    }
+
+    .order-card-footer {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .order-action-form {
+        margin: 0;
     }
 
 
