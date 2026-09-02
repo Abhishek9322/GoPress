@@ -68,8 +68,7 @@ namespace GoPress.Application.Features.Orders.RejectOrder.CommandHandler
               request.OrderId);
 
 
-            return new Response<string>(
-                "Order Rejected Successfully");
+            return new Response<string>("Success", "Order Rejected Successfully");
         }
     }
 }

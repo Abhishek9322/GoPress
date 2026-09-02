@@ -135,35 +135,7 @@ namespace GoPress.Mvc.Services
                 });
         }
 
-        public async Task<TResponse?> PutAsync<TResponse>(string url)
-        {
-            AddBearerToken();
-
-            var response = await _httpClient.PutAsync(url, null);
-
-            var responseContent =
-                await response.Content.ReadAsStringAsync();
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception(
-                    $"API returned {(int)response.StatusCode} " +
-                    $"{response.StatusCode}: {responseContent}");
-            }
-
-            if (string.IsNullOrWhiteSpace(responseContent))
-            {
-                throw new Exception("API returned an empty response.");
-            }
-
-            return JsonSerializer.Deserialize<TResponse>(
-                responseContent,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-        }
-
+      
         public async Task<TResponse> PutAsync<TRequest, TResponse>(string url,TRequest data)
         {
             AddBearerToken();
@@ -236,6 +208,35 @@ namespace GoPress.Mvc.Services
                 });
         }
 
+
+        public async Task<TResponse> PutAsync<TResponse>(string url)
+        {
+            AddBearerToken();
+
+            var response = await _httpClient.PutAsync(url, null);
+
+            var responseContent =
+                await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception(
+                    $"API returned {(int)response.StatusCode} " +
+                    $"{response.StatusCode}: {responseContent}");
+            }
+
+            if (string.IsNullOrWhiteSpace(responseContent))
+            {
+                return default;
+            }
+
+            return JsonSerializer.Deserialize<TResponse>(
+                responseContent,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+        }
         //add jwt if neede here 
 
         private void AddBearerToken()

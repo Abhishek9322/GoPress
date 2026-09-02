@@ -67,7 +67,7 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
               request.OrderId);
 
 
-            return new Response<string>("Order Accepted Successfully");
+            return new Response<string>("Success", "Order Accepted Successfully");
         }
     }
 }

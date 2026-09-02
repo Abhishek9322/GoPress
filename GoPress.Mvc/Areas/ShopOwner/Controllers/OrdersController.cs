@@ -55,8 +55,9 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             try
             {
                 var response =
-                    await _apiService.PutAsync<Response<int>>(
-                        $"api/ShopOwner/Orders/{id}/accept-order");
+                    await _apiService.PutAsync<Response<string>>(
+                        $"api/ShopOwner/Orders/{id}/accept-order"
+                    );
 
                 if (response == null || !response.Succeeded)
                 {
@@ -80,6 +81,7 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
 
+
         [HttpGet]
         public async Task<IActionResult> RejectedOrders()
         {
@@ -97,13 +99,38 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             return View(response.Data);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> RejectOrders(int id)
-        {
-          
-            return View();
-        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectOrder(int id)
+        {
+            try
+            {
+                var response =
+                    await _apiService.PutAsync<Response<string>>(
+                        $"api/ShopOwner/Orders/{id}/reject-order"
+                    );
+
+                if (response == null || !response.Succeeded)
+                {
+                    TempData["Error"] =
+                        response?.Message ?? "Unable to reject this order.";
+
+                    return RedirectToAction(nameof(AllOrders));
+                }
+
+                TempData["Success"] =
+                    response.Message ?? "Order rejected successfully.";
+
+                return RedirectToAction(nameof(RejectedOrders));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+
+                return RedirectToAction(nameof(AllOrders));
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult> CompletedOrder()
