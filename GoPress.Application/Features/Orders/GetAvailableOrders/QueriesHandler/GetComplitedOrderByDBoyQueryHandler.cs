@@ -29,8 +29,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                     OrderId = order.Id,
                     CustomerName = order.Customer.FullName,
                     CustomerPhone = order.Customer.PhoneNumber,
-                    ShopName =
-                        order.ShopOwner.ShopOwnerProfile.ShopName,
+                    ShopName =order.ShopOwner.ShopOwnerProfile.ShopName,
                     DeliveryAddress = order.DeliveryAddress,
                     TotalAmount = order.TotalAmount,
                     DeliveryDate = order.DeliveryDate

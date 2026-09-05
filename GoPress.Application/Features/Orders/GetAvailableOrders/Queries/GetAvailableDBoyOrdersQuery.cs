@@ -11,5 +11,6 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.Queries
 {
     public class GetAvailableDBoyOrdersQuery:IRequest<Response<List<AvailableOrderDto>>>
     {
+
     }
 }
