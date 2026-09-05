@@ -1,0 +1,293 @@
+﻿@model List<GoPress.Mvc.Areas.DeliveryBoy.Models.AllReadyFordeliveryOrders>
+
+@{
+    TempData["Title"] = "All Ready For Delivery Orders";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/DeliveryBoy-ReadyForDeliveryOrders.css"
+          asp-append-version="true" />
+}
+
+
+
+<div class="delivery-orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="delivery-orders-header">
+
+        <div class="delivery-header-content">
+
+            <div class="delivery-header-icon">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+
+            <div>
+                <h2>Ready for Delivery</h2>
+
+                <p>
+                    View all orders that are ready to be delivered to customers.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="delivery-empty-state">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+
+            <h3>No Orders Ready for Delivery</h3>
+
+            <p>
+                There are currently no orders available for delivery.
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <!-- ==========================================
+             ORDER SUMMARY
+        =========================================== -->
+
+        <div class="delivery-orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Ready Orders
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-truck"></i>
+
+                Orders waiting to be delivered.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDERS GRID
+        =========================================== -->
+
+        <div class="delivery-orders-grid">
+
+            @foreach (var order in Model)
+            {
+                <div class="delivery-order-card">
+
+
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
+
+                    <div class="delivery-order-card-header">
+
+                        <div class="order-number">
+
+                            <span>ORDER</span>
+
+                            <h3>#@order.OrderId</h3>
+
+                        </div>
+
+
+                        <span class="ready-badge">
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Ready for Delivery
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CUSTOMER DETAILS
+                    =========================================== -->
+
+                    <div class="delivery-order-details">
+
+
+                        <!-- Customer Name -->
+
+                        <div class="delivery-detail-item">
+
+                            <div class="delivery-detail-icon customer-icon">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>Customer Name</span>
+
+                                <strong>
+                                    @order.CustomerName
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Customer Phone -->
+
+                        <div class="delivery-detail-item">
+
+                            <div class="delivery-detail-icon phone-icon">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>Phone Number</span>
+
+                                <strong>
+                                    @order.CustomerPhone
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Total Amount -->
+
+                        <div class="delivery-detail-item">
+
+                            <div class="delivery-detail-icon amount-icon">
+
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>Total Amount</span>
+
+                                <strong class="price">
+
+                                    ₹@order.TotalAmount.ToString("N2")
+
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         DELIVERY ADDRESS
+                    =========================================== -->
+
+                    <div class="delivery-address-section">
+
+                        <div class="address-header">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                            <span>Delivery Address</span>
+
+                        </div>
+
+
+                        <p>
+                            @order.DeliveryAddress
+                        </p>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CARD FOOTER
+                    =========================================== -->
+
+                    <div class="delivery-order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>Order Amount</span>
+
+                            <strong>
+                                ₹@order.TotalAmount.ToString("N2")
+                            </strong>
+
+                        </div>
+
+
+                        <div class="delivery-actions">
+
+                            <!-- CALL CUSTOMER -->
+
+                            <a href="tel:@order.CustomerPhone"
+                               class="call-customer-btn">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                Call
+
+                            </a>
+
+
+                            <!-- DELIVERY DETAILS -->
+
+                            <a asp-area="DeliveryBoy"
+                               asp-controller="Orders"
+                               asp-action="Details"
+                               asp-route-id="@order.OrderId"
+                               class="delivery-details-btn">
+
+                                Details
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
