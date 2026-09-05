@@ -174,6 +174,13 @@ namespace GoPress.Api.Controllers.ShopOwner
         }
 
 
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> GetOrderDetails(int orderId)
+        {
+            return Ok();
+        }
+
+
       
 
     }

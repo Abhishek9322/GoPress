@@ -1,0 +1,519 @@
+﻿/* =========================================================
+   READY FOR DELIVERY ORDERS PAGE
+========================================================= */
+
+.delivery-orders-page {
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.delivery-orders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.delivery-header-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.delivery-header-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
+    color: #ffffff;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(34, 199, 232, 0.25);
+}
+
+.delivery-orders-header h2 {
+    margin: 0 0 5px;
+    font-size: 30px;
+    font-weight: 750;
+    color: #111827;
+}
+
+.delivery-orders-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ORDER SUMMARY
+========================================================= */
+
+.delivery-orders-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.summary-label {
+    display: block;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.delivery-orders-summary strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 24px;
+    color: #111827;
+}
+
+.summary-description {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+    .summary-description i {
+        color: #22c7e8;
+    }
+
+
+/* =========================================================
+   ORDERS GRID
+========================================================= */
+
+.delivery-orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+}
+
+
+/* =========================================================
+   ORDER CARD
+========================================================= */
+
+.delivery-order-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .delivery-order-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.10);
+    }
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.delivery-order-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px;
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
+    color: #ffffff;
+}
+
+.order-number span {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    opacity: 0.8;
+}
+
+.order-number h3 {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   READY BADGE
+========================================================= */
+
+.ready-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    background: #dcfce7;
+    color: #166534;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CUSTOMER DETAILS
+========================================================= */
+
+.delivery-order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.delivery-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.delivery-detail-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+
+/* Customer Icon */
+
+.customer-icon {
+    background: #ecfeff;
+    color: #0891b2;
+}
+
+
+/* Phone Icon */
+
+.phone-icon {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+
+/* Amount Icon */
+
+.amount-icon {
+    background: #ecfdf5;
+    color: #16a34a;
+}
+
+
+.delivery-detail-item span {
+    display: block;
+    margin-bottom: 3px;
+    color: #9ca3af;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.delivery-detail-item strong {
+    display: block;
+    color: #1f2937;
+    font-size: 13px;
+}
+
+.delivery-detail-item .price {
+    color: #16a34a;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DELIVERY ADDRESS
+========================================================= */
+
+.delivery-address-section {
+    padding: 18px 22px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.address-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+    .address-header i {
+        color: #22c7e8;
+    }
+
+.delivery-address-section p {
+    margin: 0;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 10px;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+========================================================= */
+
+.delivery-order-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: auto;
+    padding: 16px 22px;
+    background: #fafafa;
+}
+
+.footer-total span {
+    display: block;
+    color: #9ca3af;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-total strong {
+    display: block;
+    margin-top: 3px;
+    color: #111827;
+    font-size: 17px;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.delivery-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.call-customer-btn,
+.delivery-details-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+
+/* CALL BUTTON */
+
+.call-customer-btn {
+    background: #ffffff;
+    color: #1597d0;
+    border: 1px solid #bae6fd;
+}
+
+    .call-customer-btn:hover {
+        background: #e0f7fc;
+        color: #0891b2;
+    }
+
+
+/* DETAILS BUTTON */
+
+.delivery-details-btn {
+    background: #111827;
+    color: #ffffff;
+}
+
+    .delivery-details-btn:hover {
+        background: #22c7e8;
+        color: #ffffff;
+        transform: translateX(2px);
+    }
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.delivery-empty-state {
+    max-width: 500px;
+    margin: 70px auto;
+    padding: 50px 30px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #ecfeff;
+    color: #22c7e8;
+    font-size: 25px;
+}
+
+.delivery-empty-state h3 {
+    margin-bottom: 10px;
+    color: #111827;
+}
+
+.delivery-empty-state p {
+    margin: 0;
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .delivery-orders-grid {
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .delivery-orders-page {
+        padding: 20px 15px 40px;
+    }
+
+
+    .delivery-orders-header {
+        margin-bottom: 25px;
+    }
+
+
+    .delivery-header-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+
+    .delivery-orders-header h2 {
+        font-size: 24px;
+    }
+
+
+    .delivery-orders-header p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+
+    .delivery-orders-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+
+    .delivery-orders-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+
+    .delivery-order-card-header {
+        padding: 17px;
+    }
+
+
+    .delivery-order-details,
+    .delivery-address-section {
+        padding: 16px 17px;
+    }
+
+
+    .delivery-order-card-footer {
+        padding: 15px 17px;
+        flex-wrap: wrap;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .delivery-order-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+
+    .delivery-actions {
+        width: 100%;
+    }
+
+
+    .call-customer-btn,
+    .delivery-details-btn {
+        flex: 1;
+    }
+
+
+    .delivery-order-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+
+    .footer-total {
+        text-align: center;
+    }
+}
