@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GoPress.Api.Controllers.DeliveryBoy
 {
@@ -30,6 +31,22 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             return Ok(response);
         }
 
+        [HttpGet("PickUpOrdersDBoy")]
+        public async Task<IActionResult> GetAllAcceptPickUpOrders()
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var command = new GetAllAcceptPickUpOrdersQuery
+            {
+                deliveryBoyId = currentUser.UserId
+            };
+
+            var response=await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+
         [HttpPut("{orderId}/accept")]
         public async Task<IActionResult> AcceptPickup(int orderId)
         {
@@ -45,6 +62,8 @@ namespace GoPress.Api.Controllers.DeliveryBoy
 
             return Ok(response);
         }
+
+
 
         
         [HttpGet]     //Extra thing will mpdify  to see order histry of the dboy here

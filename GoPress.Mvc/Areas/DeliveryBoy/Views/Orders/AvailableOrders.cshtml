@@ -1,0 +1,364 @@
+﻿@model List<GoPress.Mvc.Areas.DeliveryBoy.Models.AvailableOrderViewModel>
+
+@{
+    ViewData["Title"]="Available Orders For Delivery Boy";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/DeliveryBoy-AvailableOrders.css"
+          asp-append-version="true" />
+}
+
+
+
+<div class="available-orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="available-orders-header">
+
+        <div class="available-header-content">
+
+            <div class="available-header-icon">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+
+            <div>
+                <h2>Available Orders</h2>
+
+                <p>
+                    View and accept orders available for pickup.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="available-empty-state">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-box-open"></i>
+            </div>
+
+            <h3>No Orders Available</h3>
+
+            <p>
+                There are currently no orders available for pickup.
+            </p>
+
+        </div>
+    }
+    else
+    {
+        <!-- ==========================================
+             ORDER SUMMARY
+        =========================================== -->
+
+        <div class="available-orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Available Orders
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-truck"></i>
+
+                Orders waiting for pickup.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDERS GRID
+        =========================================== -->
+
+        <div class="available-orders-grid">
+
+            @foreach (var order in Model)
+            {
+                <div class="available-order-card">
+
+
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
+
+                    <div class="available-order-card-header">
+
+                        <div class="order-number">
+
+                            <span>ORDER</span>
+
+                            <h3>#@order.OrderId</h3>
+
+                        </div>
+
+
+                        <span class="available-badge">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Available
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         PICKUP DATE
+                    =========================================== -->
+
+                    <div class="pickup-date">
+
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <span>Pickup Date</span>
+
+                        <strong>
+                            @order.PickupDate.ToString("dd MMM yyyy")
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CUSTOMER DETAILS
+                    =========================================== -->
+
+                    <div class="available-order-details">
+
+
+                        <!-- CUSTOMER -->
+
+                        <div class="available-detail-item">
+
+                            <div class="available-detail-icon customer-icon">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Customer</span>
+
+                                <strong>
+                                    @order.CustomerName
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="available-detail-item">
+
+                            <div class="available-detail-icon phone-icon">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Phone</span>
+
+                                <strong>
+                                    @order.CustomerPhone
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AMOUNT -->
+
+                        <div class="available-detail-item">
+
+                            <div class="available-detail-icon amount-icon">
+
+                                <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Total Amount</span>
+
+                                <strong class="price">
+                                    ₹@order.TotalAmount.ToString("N2")
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         PICKUP ADDRESS
+                    =========================================== -->
+
+                    <div class="location-section">
+
+                        <div class="location-header">
+
+                            <div class="location-icon pickup-location-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Pickup From</span>
+
+                                <strong>
+                                    @order.CustomerName
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <p>
+                            @order.PickupAddress
+                        </p>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         SHOP DETAILS
+                    =========================================== -->
+
+                    <div class="location-section shop-section">
+
+                        <div class="location-header">
+
+                            <div class="location-icon shop-location-icon">
+
+                                <i class="fa-solid fa-shop"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>Deliver To Shop</span>
+
+                                <strong>
+                                    @order.ShopName
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <p>
+                            @order.ShopAddress
+                        </p>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CARD FOOTER
+                    =========================================== -->
+
+                    <div class="available-order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>Order Amount</span>
+
+                            <strong>
+                                ₹@order.TotalAmount.ToString("N2")
+                            </strong>
+
+                        </div>
+
+
+                        <div class="available-actions">
+
+
+                            <!-- CALL CUSTOMER -->
+
+                            <a href="tel:@order.CustomerPhone"
+                               class="call-customer-btn">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                Call
+
+                            </a>
+
+
+                            <!-- ACCEPT ORDER -->
+
+                            <form asp-area="DeliveryBoy"
+                                  asp-controller="Orders"
+                                  asp-action="AcceptOrder"
+                                  method="post"
+                                  class="available-order-form"
+                                  onsubmit="return confirm('Are you sure you want to accept this order?');">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@order.OrderId" />
+
+                                <button type="submit"
+                                        class="accept-order-btn">
+
+                                    AcceptPickup
+
+                                    <i class="fa-solid fa-check"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>

@@ -86,7 +86,7 @@ namespace GoPress.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Order>> GetAvailableOrdersAsync()   //
+        public async Task<List<Order>> GetAvailableOrdersAsync()   //Acceptd By shopowner too see the d boy 
         {
             return await _context.Orders
                  .Include(o => o.Customer)
@@ -96,6 +96,8 @@ namespace GoPress.Infrastructure.Repositories
                  .AsNoTracking()
                  .ToListAsync();
         }
+
+      
 
         public async Task<List<Order>> GetReadyForDeliveryOrdersAsync(int deliveryBoyId)
         {
@@ -191,6 +193,16 @@ namespace GoPress.Infrastructure.Repositories
             _context.OrderItems.RemoveRange(orderItems);
         }
 
-     
+        public async Task<List<Order>> GetAllAcceptedPickUpOrdersByDeliveryBoy(int deliveryBoyId)
+        {
+            return await _context.Orders
+                 .Include(c => c.Customer)
+                 .Include(c => c.ShopOwner)
+                 .ThenInclude(c => c.ShopOwnerProfile)
+                 .Where(c => c.Status == OrderStatusEnum.PickupAssigned && c.DeliveryBoyId == deliveryBoyId)
+                 .AsNoTracking()
+                 .ToListAsync();
+                
+        }
     }
 }
