@@ -14,6 +14,9 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
             _apiService = apiService;
         }
 
+
+
+
         [HttpGet]
         public async Task<IActionResult> AllReadyFordeliveryOrders()
         {
@@ -45,6 +48,22 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
             }
 
 
+            return View(orders.Data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllAcceptPickUpOrders()
+        {
+            var orders = await _apiService.GetAsync<Response<List<GetAllAcceptPickUpOrdersViewModel>>>
+                (
+                  "api/delivery-boys/orders/PickUpOrdersDBoy"
+                );
+
+            if(orders==null || orders.Data==null)
+            {
+                TempData["Error"] = "Unable To Load Orders.";
+                return View(new List<GetAllAcceptPickUpOrdersViewModel>());
+            }
             return View(orders.Data);
         }
 

@@ -29,18 +29,13 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
             {
                 OrderId = order.Id,
                 CustomerName = order.Customer.FullName,
-
                 CustomerPhone = order.Customer.PhoneNumber,
-
                 PickupAddress = order.PickupAddress,
-
                 ShopName = order.ShopOwner.ShopOwnerProfile.ShopName,
-
                 ShopAddress = order.ShopOwner.ShopOwnerProfile.ShopAddress,
-
                 PickupDate = order.PickupDate,
-
-                TotalAmount = order.TotalAmount
+                TotalAmount = order.TotalAmount,
+                status = order.Status.ToString()
             }).ToList();
 
             return new Response<List<AcceptPickupOrdersDto>>(

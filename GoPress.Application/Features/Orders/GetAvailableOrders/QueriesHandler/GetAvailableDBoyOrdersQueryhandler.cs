@@ -39,7 +39,9 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
 
                    PickupDate = orders.PickupDate,
 
-                   TotalAmount = orders.TotalAmount
+                   TotalAmount = orders.TotalAmount,
+                   Status=orders.Status.ToString()
+                   
                }).ToList();
 
             return new Response<List<AvailableOrderDto>>(result, "Available Orders");
