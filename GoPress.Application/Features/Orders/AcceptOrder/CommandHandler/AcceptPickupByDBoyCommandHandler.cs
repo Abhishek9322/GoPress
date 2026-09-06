@@ -69,7 +69,7 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommanHand
                request.DeliveryBoyId,
                request.OrderId);
 
-            return new Response<string>("Pickup Accepted Successfully");
+            return new Response<string>("successfully","Pickup Accepted Successfully");
         }
     }
 }

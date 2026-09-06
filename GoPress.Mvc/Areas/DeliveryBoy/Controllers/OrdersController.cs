@@ -46,9 +46,36 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
                 TempData["Error"] = "Unable To Load Orders.";
                 return View(new List<AvailableOrderViewModel>());
             }
-
-
             return View(orders.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptPickup(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>(
+                    $"api/delivery-boys/orders/{id}/accept"
+                    );
+
+                if(response==null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Unable To Accept Pickup order.";
+                    return RedirectToAction(nameof(AvailableOrders));
+                }
+                TempData["Success"] = response.Message ?? "Orders accepted Successfully.";
+                return RedirectToAction(nameof(GetAllAcceptPickUpOrders));
+
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+
+                return RedirectToAction(nameof(AvailableOrders));
+            }
+
+            
         }
 
         [HttpGet]
@@ -65,6 +92,33 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
                 return View(new List<GetAllAcceptPickUpOrdersViewModel>());
             }
             return View(orders.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AcceptPickUpCompeleted(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>(
+                    $"api/delivery-boys/orders/{id}/pickup-completed"
+                    );
+
+                if(response==null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Uable To make Pickup Comleted For This Order.";
+                    return RedirectToAction(nameof(GetAllAcceptPickUpOrders));
+
+                }
+
+                TempData["Success"] = response.Message ?? "Pickup Comleted Successfully.";
+                return RedirectToAction(nameof(AllReadyFordeliveryOrders));
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(AllReadyFordeliveryOrders));
+            }
         }
 
 
