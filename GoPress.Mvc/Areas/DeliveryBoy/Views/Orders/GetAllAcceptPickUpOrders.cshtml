@@ -1,14 +1,14 @@
-﻿@model List<GoPress.Mvc.Areas.DeliveryBoy.Models.AvailableOrderViewModel>
+﻿@model List<GoPress.Mvc.Areas.DeliveryBoy.Models.GetAllAcceptPickUpOrdersViewModel>
 
 @{
-    ViewData["Title"]="Available Orders For Delivery Boy";
+    ViewData["Title"]=" All Accept Pickup Orders. ";
     Layout = "_Layout";
 }
 
-@section Styles
+@section styles
 {
     <link rel="stylesheet"
-          href="~/css/DeliveryBoy-AvailableOrders.css"
+          href="~/css/DeliveryBoy-AcceptPickUpOrders.css"
           asp-append-version="true" />
 }
 
@@ -29,10 +29,10 @@
             </div>
 
             <div>
-                <h2>Available Orders</h2>
+                <h2>All Accept PickUp Orders</h2>
 
                 <p>
-                    View and accept orders available for pickup.
+                    View and accept PickUp orders .
                 </p>
             </div>
 
@@ -55,7 +55,7 @@
             <h3>No Orders Available</h3>
 
             <p>
-                There are currently no orders available for pickup.
+                There are currently no orders for Accept Pickup.
             </p>
 
         </div>
@@ -71,7 +71,7 @@
             <div>
 
                 <span class="summary-label">
-                    Available Orders
+                    All AcceptPickUp Orders
                 </span>
 
                 <strong>
@@ -85,7 +85,7 @@
 
                 <i class="fa-solid fa-truck"></i>
 
-                Orders waiting for pickup.
+                Orders waiting for pickup Completed.
 
             </div>
 
@@ -120,9 +120,9 @@
 
                         <span class="available-badge">
 
-                            <i class="fa-solid fa-clock"></i>
+                             <i class="fa-solid fa-clock"></i> 
 
-                         Pending
+                           @order.Status
 
                         </span>
 
@@ -342,7 +342,7 @@
                                 <button type="submit"
                                         class="accept-order-btn">
 
-                                    AcceptPickup
+                                    Pickup Completed
 
                                     <i class="fa-solid fa-check"></i>
 

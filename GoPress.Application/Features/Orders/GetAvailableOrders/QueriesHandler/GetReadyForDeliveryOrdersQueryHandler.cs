@@ -34,7 +34,10 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                          DeliveryAddress =
                              orders.DeliveryAddress,
                          TotalAmount =
-                             orders.TotalAmount
+                             orders.TotalAmount,
+                         Status=
+                             orders.Status.ToString()
+                             
                      })
                  .ToList();
 

@@ -1,6 +1,6 @@
 ﻿namespace GoPress.Mvc.Areas.DeliveryBoy.Models
 {
-    public class AvailableOrderViewModel
+    public class GetAllAcceptPickUpOrdersViewModel
     {
         public int OrderId { get; set; }
 
@@ -19,5 +19,6 @@
         public decimal TotalAmount { get; set; }
 
         public string Status { get; set; }
+
     }
 }

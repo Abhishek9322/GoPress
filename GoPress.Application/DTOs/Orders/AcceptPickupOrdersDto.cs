@@ -19,5 +19,6 @@ namespace GoPress.Application.DTOs.Orders
         public DateTime PickupDate { get; set; }
 
         public decimal TotalAmount { get; set; }
+        public string status { get; set; }
     }
 }
