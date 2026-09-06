@@ -51,7 +51,7 @@ namespace GoPress.Application.Features.Orders.AcceptOrder.CommandHandler
             await _cacheService.RemoveAsync(CacheKeys.DeliveryBoyDashboard);
             await _cacheService.RemoveAsync(CacheKeys.CustomerDashboard);
 
-            return new Response<string>("Clothes Picked Up Successfully");
+            return new Response<string>("Successfully", "Clothes Picked Up Successfully");
 
 
 
