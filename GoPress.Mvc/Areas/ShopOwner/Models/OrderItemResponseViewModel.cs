@@ -1,6 +1,6 @@
 ﻿namespace GoPress.Mvc.Areas.ShopOwner.Models
 {
-    public class OrderItemResponseDto
+    public class OrderItemResponseViewModel
     {
         public int Id { get; set; }
 
@@ -12,6 +12,6 @@
         public decimal Price { get; set; }
 
         public decimal TotalPrice { get; set; }
-    }
 
+    }
 }
