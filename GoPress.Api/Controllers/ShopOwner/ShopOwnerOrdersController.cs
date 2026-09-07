@@ -94,6 +94,25 @@ namespace GoPress.Api.Controllers.ShopOwner
             return Ok(response);
         }
 
+        [HttpGet("Pickup-Completed-Orders")]
+        public async Task<IActionResult> GetPickuComletedOrders()
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var result = new GetShopOwnerPickUpComletedOrdersQuery
+            {
+                shopOwnerID = currentUser.UserId
+            };
+
+            var response = await _mediator.Send(result);
+
+            return Ok(response);
+        }
+
+
+
+
+
         //
         [HttpGet("all-orders")]
         public async Task<IActionResult> GetShopOrders()
@@ -172,6 +191,7 @@ namespace GoPress.Api.Controllers.ShopOwner
 
             return Ok(result);
         }
+
 
 
         [HttpGet("{orderId}")]
