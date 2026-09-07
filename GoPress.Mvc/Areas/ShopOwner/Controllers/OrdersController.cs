@@ -133,6 +133,43 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetCompletePickedUpOrders()
+        {
+            var response=await _apiService.GetAsync<Response<List<AllPickUpCompletedOrdersViewModel>>>
+           (
+             "api/ShopOwner/Orders/Pickup-Completed-Orders"
+            );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load completed pickup orders.";
+                return View(new List<AllPickUpCompletedOrdersViewModel>());
+            }
+            return View(response.Data);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetReadyForDelivery()
+        {
+            var response = await _apiService.GetAsync<Response<List<ShopOwnerGetReadyForDelivery>>>
+                (
+                  "api/ShopOwner/Orders/All-ReadyforDelivery-Order"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To Load GetReady For Delivery Orders";
+                return View(new List<ShopOwnerGetReadyForDelivery>());
+            }
+
+            return View(response.Data);
+        }
+
+
+
+
+        [HttpGet]
         public async Task<IActionResult> CompletedOrder()
         {
             var response = await _apiService.GetAsync<Response<List<AllCompletedOrdersViewModel>>>
@@ -149,22 +186,6 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<IActionResult> GetReadyForDelivery()
-        {
-            var response = await _apiService.GetAsync<Response<List<ShopOwnerGetReadyForDelivery>>>
-                (
-                  "api/ShopOwner/Orders/All-ReadyforDelivery-Order"
-                );
-
-            if(response == null || response.Data == null)
-            {
-                TempData["Error"] = "Unable To Load GetReady For Delivery Orders";
-                return View(new List<ShopOwnerGetReadyForDelivery>());
-            }
-
-            return View(response.Data);
-        }
 
 
 

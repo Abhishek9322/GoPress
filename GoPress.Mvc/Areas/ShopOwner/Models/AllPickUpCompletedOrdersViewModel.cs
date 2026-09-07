@@ -2,7 +2,7 @@
 
 namespace GoPress.Mvc.Areas.ShopOwner.Models
 {
-    public class AllOrderViewModel 
+    public class AllPickUpCompletedOrdersViewModel
     {
         public int Id { get; set; }
 
@@ -26,6 +26,6 @@ namespace GoPress.Mvc.Areas.ShopOwner.Models
 
         public OrderStatusEnum Status { get; set; }
 
-        public List<OrderItemResponseViewModel> OrderItems { get; set; }
+        public List<AllPickupCompletedOrderItemViewModel> OrderItems { get; set; }
     }
 }
