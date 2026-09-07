@@ -7,5 +7,5 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.Queries
     public class GetAllAcceptPickUpOrdersQuery:IRequest<Response<List<AcceptPickupOrdersDto>>>
     {
         public int deliveryBoyId { get; set; }
-    }
+    } 
 }

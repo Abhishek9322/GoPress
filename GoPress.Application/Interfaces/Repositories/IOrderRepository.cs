@@ -34,6 +34,8 @@ namespace GoPress.Application.Interfaces.Repositories
         
         Task<List<Order>> GetAllAcceptedPickUpOrdersByDeliveryBoy(int deliveryBoyId);
 
+        Task<List<Order>> GetAllPickUpComletedOrderByShopowner(int shopOwnerId);
+
         Task<List<Order>> GetOrdersByStatusAsync(OrderStatusEnum orderStatus);
 
         Task<Order?> GetByIdForUpdateOrder(int id);

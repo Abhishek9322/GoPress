@@ -26,7 +26,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
-                ShopOwnerId = order.ShopOwnerId,
+                ShopOwnerId = order.ShopOwnerId,  
                 DeliveryBoyId = order.DeliveryBoyId,
 
                 PickupAddress = order.PickupAddress,

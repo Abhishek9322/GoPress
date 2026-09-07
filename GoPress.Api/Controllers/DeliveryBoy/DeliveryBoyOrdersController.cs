@@ -120,9 +120,8 @@ namespace GoPress.Api.Controllers.DeliveryBoy
 
             var command = new StartDeliveryCommand
             {
-                OrderId = orderId,
-                DeliveryBoyId =
-                        currentUser.UserId
+                OrderId = orderId, 
+                DeliveryBoyId =currentUser.UserId
             };
 
             var response = await _mediator.Send(command);
