@@ -55,7 +55,7 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
             await _cacheService.RemoveAsync(CacheKeys.DeliveryBoyDashboard);
             await _cacheService.RemoveAsync(CacheKeys.CustomerDashboard);
 
-            return new Response<string>("Order Processing Started");
+            return new Response<string>("Sucess", "Order Processing Started");
         }
     }
 }

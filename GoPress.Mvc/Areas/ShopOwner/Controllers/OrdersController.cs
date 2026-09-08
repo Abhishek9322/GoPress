@@ -132,10 +132,50 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             }
         }
 
+      
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> StartProcessingOrders(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>
+               (
+                 $"api/ShopOwner/Orders/{id}/start-processing"
+               );
+                if(response==null && !response.Succeeded)
+                {
+                    TempData["Error"] =response?.Message ?? "Unable to Start Processing this order.";
+
+                    return RedirectToAction(nameof(GetCompletePickedUpOrders));
+                }
+
+
+                TempData["Success"] =
+                   response.Message ?? "Order Started Processing successfully.";
+
+                return RedirectToAction(nameof(GetCompletePickedUpOrders));
+
+
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+
+                return RedirectToAction(nameof(GetCompletePickedUpOrders));
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProcessingOrders()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetCompletePickedUpOrders()
         {
-            var response=await _apiService.GetAsync<Response<List<AllPickUpCompletedOrdersViewModel>>>
+            var response = await _apiService.GetAsync<Response<List<AllPickUpCompletedOrdersViewModel>>>
            (
              "api/ShopOwner/Orders/Pickup-Completed-Orders"
             );
