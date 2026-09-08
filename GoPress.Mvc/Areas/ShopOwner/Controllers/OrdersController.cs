@@ -154,7 +154,7 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
                 TempData["Success"] =
                    response.Message ?? "Order Started Processing successfully.";
 
-                return RedirectToAction(nameof(GetCompletePickedUpOrders));
+                return RedirectToAction(nameof(GetProcessingOrders));
 
 
             }
@@ -169,7 +169,17 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProcessingOrders()
         {
-            return View();
+            var response = await _apiService.GetAsync<Response<List<AllStartProcessingOrdersViewModel>>>
+                (
+                 "api/ShopOwner/Orders/Start-Processing"
+                );
+            if(response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load processing orders.";
+                return View(new List<AllStartProcessingOrdersViewModel>());
+            }
+
+            return View(response.Data);
         }
 
         [HttpGet]

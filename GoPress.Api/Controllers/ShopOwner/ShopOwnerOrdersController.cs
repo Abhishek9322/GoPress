@@ -145,6 +145,22 @@ namespace GoPress.Api.Controllers.ShopOwner
             return Ok(response);
         }
 
+        [HttpGet("Start-Processing")]
+        public async Task<IActionResult> GetProcessingOrders()
+        {
+            var shopOwnerId = User.GetCurrentUser();
+
+            var query = new GetStartProcessingOrdersbyShopOwnerQuery
+            {
+                shopOwnerID = shopOwnerId.UserId
+            };
+
+            var response = await _mediator.Send(query);
+
+            return Ok(response);
+        }
+
+
         [HttpPut("{orderId}/ready-for-delivery")]
         public async Task<IActionResult> ReadyForDelivery(int orderId)
         {
