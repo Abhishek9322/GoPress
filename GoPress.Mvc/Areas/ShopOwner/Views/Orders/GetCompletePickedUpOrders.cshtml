@@ -338,23 +338,23 @@
 
                         </div>
 
-                        @if (order.Status.ToString() == "Pending")
+                        @if (order.Status.ToString() == "PickedUp")
                         {
                             <!-- ACCEPT ORDER -->
 
                             <form asp-area="ShopOwner"
                                   asp-controller="Orders"
-                                  asp-action="AcceptOrders"
+                                  asp-action="StartProcessingOrders"
                                   method="post"
                                   class="order-action-form"
-                                  onsubmit="return confirm('Are you sure you want to accept this order?');">
+                                  onsubmit="return confirm('Are you sure you want to Start Processsing this order?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden" name="id" value="@order.Id" />
 
                                 <button type="submit" class="accept-btn">
-                                    Accept
+                                    Start Process
                                     <i class="fa-solid fa-check"></i>
                                 </button>
 
@@ -376,7 +376,7 @@
                                 <button type="submit"
                                         class="reject-btn">
 
-                                    Reject
+                                   Return Order
 
                                     <i class="fa-solid fa-xmark"></i>
 
