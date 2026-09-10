@@ -4,8 +4,8 @@ using MediatR;
 
 namespace GoPress.Application.Features.Orders.GetAvailableOrders.Queries
 {
-    public class GetAllAcceptPickUpOrdersQuery:IRequest<Response<List<AcceptPickupOrdersDto>>>
+    public class GetAllPickupCompletedOrdersByDeliveryBoyQuery:IRequest<Response<List<OrderResponseDto>>>
     {
         public int deliveryBoyId { get; set; }
-    } 
+    }
 }
