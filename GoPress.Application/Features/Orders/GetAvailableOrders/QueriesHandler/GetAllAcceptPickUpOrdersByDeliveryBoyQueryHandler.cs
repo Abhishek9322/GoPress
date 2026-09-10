@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
 {
-    public class GetAllAcceptPickUpOrdersQueryHandler : IRequestHandler<GetAllAcceptPickUpOrdersQuery, Response<List<AcceptPickupOrdersDto>>>
+    public class GetAllAcceptPickUpOrdersByDeliveryBoyQueryHandler : IRequestHandler<GetAllAcceptPickUpOrdersByDeliveryBoyQuery, Response<List<AcceptPickupOrdersDto>>>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly ILogger<GetAllAcceptPickUpOrdersQueryHandler> _logger;
-        public GetAllAcceptPickUpOrdersQueryHandler(IOrderRepository orderRepository,ILogger<GetAllAcceptPickUpOrdersQueryHandler> logger)
+        private readonly ILogger<GetAllAcceptPickUpOrdersByDeliveryBoyQueryHandler> _logger;
+        public GetAllAcceptPickUpOrdersByDeliveryBoyQueryHandler(IOrderRepository orderRepository,ILogger<GetAllAcceptPickUpOrdersByDeliveryBoyQueryHandler> logger)
         {
             _orderRepository = orderRepository;
             _logger = logger;
         }
-        public async Task<Response<List<AcceptPickupOrdersDto>>> Handle(GetAllAcceptPickUpOrdersQuery request, CancellationToken cancellationToken)
+        public async Task<Response<List<AcceptPickupOrdersDto>>> Handle(GetAllAcceptPickUpOrdersByDeliveryBoyQuery request, CancellationToken cancellationToken)
         {
             var orders = await _orderRepository.GetAllAcceptedPickUpOrdersByDeliveryBoy(request.deliveryBoyId);
 

@@ -36,7 +36,7 @@ namespace GoPress.Api.Controllers.DeliveryBoy
         {
             var currentUser = User.GetCurrentUser();
 
-            var command = new GetAllAcceptPickUpOrdersQuery
+            var command = new GetAllAcceptPickUpOrdersByDeliveryBoyQuery
             {
                 deliveryBoyId = currentUser.UserId
             };
@@ -97,6 +97,22 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             return Ok(response);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetPickupCompletedOrders()
+        {
+            var currentUser= User.GetCurrentUser();
+
+            var query = new GetAllPickupCompletedOrdersByDeliveryBoyQuery
+            {
+                deliveryBoyId = currentUser.UserId
+            };
+
+            var response=await _mediator.Send(query);
+
+            return Ok(response);
+        }
+
+
         [HttpGet("ready-for-delivery")]
         public async Task<IActionResult> GetReadyForDeliveryOrders()
         {
@@ -104,8 +120,7 @@ namespace GoPress.Api.Controllers.DeliveryBoy
 
             var query = new GetReadyForDeliveryOrdersQuery
             {
-                DeliveryBoyId =
-                        currentUser.UserId
+                DeliveryBoyId = currentUser.UserId
             };
 
             var response = await _mediator.Send(query);
@@ -160,5 +175,7 @@ namespace GoPress.Api.Controllers.DeliveryBoy
 
             return Ok(response);
         }
+
+
     }
 }

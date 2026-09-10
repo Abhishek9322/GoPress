@@ -228,5 +228,17 @@ namespace GoPress.Infrastructure.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+        public async Task<List<Order>> GetAllPickeUpCompletedOrderByDeliveryBoy(int deliveryBoyid)
+        {
+            return await _context.Orders
+                .Include(x => x.Customer)
+                .Include(x => x.OrderItems)
+                .Include(x => x.DeliveryBoy)
+                .ThenInclude(x => x.DeliveryBoyProfile)
+                .Where(x => x.Status == OrderStatusEnum.PickedUp && deliveryBoyid == deliveryBoyid)
+                .AsNoTracking()
+                .ToListAsync();
+        }
     }
 }
