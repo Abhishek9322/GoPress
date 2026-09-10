@@ -121,6 +121,24 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAcceptPickUpCompeletedOrders()
+        {
+            var response = await _apiService.GetAsync<Response<List<AllPickUpCompletedOrdersByDeliveryBoyViewModel>>>
+                (
+                  "api/delivery-boys/orders/PickUpCompleteOrder"
+                );
+
+            if( response==null ||response.Data==null)
+            {
+                TempData["Error"] = "Get Pickup Comleted Successfully .";
+
+                return View(new List<AllPickUpCompletedOrdersByDeliveryBoyViewModel>());
+            }
+
+            return View(response.Data);
+        }
+
 
 
     }

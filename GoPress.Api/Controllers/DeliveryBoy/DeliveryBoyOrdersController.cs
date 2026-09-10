@@ -97,7 +97,7 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             return Ok(response);
         }
 
-        [HttpGet]
+        [HttpGet("PickUpCompleteOrder")]
         public async Task<IActionResult> GetPickupCompletedOrders()
         {
             var currentUser= User.GetCurrentUser();
