@@ -1,8 +1,11 @@
 ﻿@model List<GoPress.Mvc.Areas.DeliveryBoy.Models.AllPickUpCompletedOrdersByDeliveryBoyViewModel>
+
 @{
-    ViewData["Title"] = "All Pickupt Completed Orders .";
-    Layout = "_layout";
+    ViewData["Title"] = "All Pickup Completed Order ";
+    Layout = "_Layout";
 }
+
+
 
 @section Styles
 {
@@ -341,7 +344,7 @@
                         {
                             <!-- ACCEPT ORDER -->
 
-                            <form asp-area="ShopOwner"
+                            @*<form asp-area="ShopOwner"
                                   asp-controller="Orders"
                                   asp-action="StartProcessingOrders"
                                   method="post"
@@ -357,7 +360,7 @@
                                     <i class="fa-solid fa-check"></i>
                                 </button>
 
-                            </form>
+                            </form>*@
 
 
                             <!-- REJECT ORDER -->
