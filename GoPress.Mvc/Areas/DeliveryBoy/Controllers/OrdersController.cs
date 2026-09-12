@@ -93,6 +93,7 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
             }
             return View(orders.Data);
         }
+      
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -121,6 +122,7 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
             }
         }
 
+
         [HttpGet]
         public async Task<IActionResult> GetAllAcceptPickUpCompeletedOrders()
         {
@@ -129,7 +131,7 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
                   "api/delivery-boys/orders/PickUpCompleteOrder"
                 );
 
-            if( response==null ||response.Data==null)
+            if (response == null || response.Data == null)
             {
                 TempData["Error"] = "Get Pickup Comleted Successfully .";
 
