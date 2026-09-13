@@ -30,9 +30,12 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                     CustomerName = order.Customer.FullName,
                     CustomerPhone = order.Customer.PhoneNumber,
                     ShopName =order.ShopOwner.ShopOwnerProfile.ShopName,
+                    PickupAddress=order.PickupAddress,
                     DeliveryAddress = order.DeliveryAddress,
                     TotalAmount = order.TotalAmount,
-                    DeliveryDate = order.DeliveryDate
+                    DeliveryDate = order.DeliveryDate,
+                    Status=order.Status.ToString()
+                    
                 }).ToList();  
 
             return new Response<List<DeliveredOrderDto>>(result, "Delivered Order ");
