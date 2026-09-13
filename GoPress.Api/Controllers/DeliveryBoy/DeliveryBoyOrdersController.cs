@@ -169,7 +169,7 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             var query =new GetComplitedOrderByDBoyQuery
             {
                     DeliveryBoyId = currentUser.UserId
-                };
+            };
 
             var response =await _mediator.Send(query);
 
