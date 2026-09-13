@@ -337,23 +337,23 @@
 
                         </div>
 
-                        @if (order.Status.ToString() == "PickedUp")
+                        @if (order.Status.ToString() == "Processing")
                         {
                             <!-- ACCEPT ORDER -->
 
                             <form asp-area="ShopOwner"
                                   asp-controller="Orders"
-                                  asp-action="StartProcessingOrders"
+                                  asp-action="ReadyForDevleryOrders"
                                   method="post"
                                   class="order-action-form"
-                                  onsubmit="return confirm('Are you sure you want to Start Processsing this order?');">
+                                  onsubmit="return confirm('Are you sure you want to Ready For Delivery this order?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden" name="id" value="@order.Id" />
 
                                 <button type="submit" class="accept-btn">
-                                    Start Process
+                                    Ready For Delivery
                                     <i class="fa-solid fa-check"></i>
                                 </button>
 
@@ -386,16 +386,16 @@
 
 
                         <!-- Details -->
-                        <a asp-area="Customer"
-                           asp-controller="Orders"
-                           asp-action="Details"
-                           asp-route-id="@order.Id"
-                           class="details-btn">
+                        @* <a asp-area="Customer" *@
+                        @*    asp-controller="Orders" *@
+                        @*    asp-action="Details" *@
+                        @*    asp-route-id="@order.Id" *@
+                        @*    class="details-btn"> *@
 
-                            Details
-                            <i class="fa-solid fa-arrow-right"></i>
+                        @*     Details *@
+                        @*     <i class="fa-solid fa-arrow-right"></i> *@
 
-                        </a>
+                        @* </a> *@
                     </div>
 
                 </div>

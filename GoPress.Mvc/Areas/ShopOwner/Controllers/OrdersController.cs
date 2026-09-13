@@ -166,6 +166,33 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ReadyForDevleryOrders(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<String>>
+                    (
+                      $"api/ShopOwner/Orders/{id}/ready-for-delivery"
+                    );
+
+                if(response==null && !response.Succeeded)
+                {
+                    TempData["Error"] = response?.Message ?? "Unable to Ready For Delivery Orders .";
+                    return RedirectToAction(nameof(GetProcessingOrders));
+                }
+                return RedirectToAction(nameof(GetReadyForDelivery));
+
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetProcessingOrders));
+            }
+          
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetProcessingOrders()
         {
@@ -197,6 +224,11 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
             }
             return View(response.Data);
         }
+
+     /// <summary>
+     /// 
+     /// </summary>
+     /// <returns></returns>
 
 
         [HttpGet]
