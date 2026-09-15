@@ -245,6 +245,36 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OutForDeliveryOrders(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>
+                    (
+                      $"api/ShopOwner/Orders/{id}/Out-For-Delivery"
+                    );
+                if (response == null && !response.Succeeded)
+                {
+                    TempData["Error"] = response?.Message ?? "Unable to Out For Delivery Orders .";
+                    return RedirectToAction(nameof(GetReadyForDelivery));
+                }
+                return RedirectToAction(nameof(GetAllOutForDeliveryOrders));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetReadyForDelivery));
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllOutForDeliveryOrders()
+        {
+            return View();
+        }
+
 
 
         [HttpGet]

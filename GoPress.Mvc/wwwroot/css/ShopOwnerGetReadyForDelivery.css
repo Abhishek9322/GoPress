@@ -1,5 +1,5 @@
 ﻿/* =========================================================
-   SHOP OWNER - REJECTED ORDERS PAGE
+    SHOP OWNER - READY FOR DELIVERY ORDERS PAGE
 ========================================================= */
 
 .orders-page {
@@ -34,7 +34,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 14px;
-    background: linear-gradient( 135deg, #22c7e8, #1597d0 );
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
     color: #fff;
     font-size: 22px;
     box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
@@ -52,6 +52,42 @@
     color: #6b7280;
     font-size: 14px;
 }
+
+
+/* =========================================================
+   SUCCESS / ERROR ALERT
+========================================================= */
+
+.alert-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 17px;
+    margin-bottom: 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.success-message {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+}
+
+    .success-message i {
+        color: #10b981;
+    }
+
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+    .error-message i {
+        color: #dc2626;
+    }
 
 
 /* =========================================================
@@ -94,7 +130,7 @@
 }
 
     .summary-description i {
-        color: #dc2626;
+        color: #22c7e8;
     }
 
 
@@ -104,7 +140,7 @@
 
 .orders-grid {
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(360px, 1fr) );
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     gap: 24px;
 }
 
@@ -139,7 +175,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px 22px;
-    background: linear-gradient( 135deg, #22c7e8, #1597d0 );
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
     color: #fff;
 }
 
@@ -167,20 +203,36 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     padding: 7px 13px;
     border-radius: 30px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: capitalize;
-    background: #fff;
 }
 
 
-/* Rejected */
+/* READY */
 
-.status-rejected {
-    background: #fee2e2;
-    color: #b91c1c;
+.status-ready {
+    background: #dcfce7;
+    color: #166534;
+}
+
+
+/* OUT FOR DELIVERY */
+
+.status-out {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+
+/* OTHER */
+
+.status-other {
+    background: #f3f4f6;
+    color: #4b5563;
 }
 
 
@@ -270,7 +322,7 @@
 }
 
 
-/* Pickup */
+/* PICKUP */
 
 .pickup-icon {
     background: #ecfeff;
@@ -278,7 +330,7 @@
 }
 
 
-/* Delivery */
+/* DELIVERY */
 
 .delivery-icon {
     background: #eef2ff;
@@ -335,8 +387,94 @@
 .footer-total strong {
     display: block;
     margin-top: 2px;
-    color: #dc2626;
+    color: #111827;
     font-size: 17px;
+}
+
+
+/* =========================================================
+   ORDER ACTIONS
+========================================================= */
+
+.order-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.out-for-delivery-form {
+    margin: 0;
+}
+
+
+/* =========================================================
+   OUT FOR DELIVERY BUTTON
+========================================================= */
+
+.out-for-delivery-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+    .out-for-delivery-btn:hover {
+        background: #22c7e8;
+        color: #ffffff;
+        transform: translateX(2px);
+    }
+
+    .out-for-delivery-btn:active {
+        transform: translateX(0);
+    }
+
+    .out-for-delivery-btn:focus {
+        outline: 3px solid rgba(34, 199, 232, .25);
+        outline-offset: 2px;
+    }
+
+
+/* =========================================================
+   ALREADY OUT LABEL
+========================================================= */
+
+.already-out-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 13px;
+    border-radius: 9px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ACTION DISABLED
+========================================================= */
+
+.action-disabled-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 13px;
+    border-radius: 9px;
+    background: #f3f4f6;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 600;
 }
 
 
@@ -363,8 +501,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #fee2e2;
-    color: #dc2626;
+    background: #ecfeff;
+    color: #22c7e8;
     font-size: 25px;
 }
 
@@ -388,7 +526,7 @@
 @media (max-width: 1000px) {
 
     .orders-grid {
-        grid-template-columns: repeat( 2, minmax(300px, 1fr) );
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
     }
 
     .customer-info {
@@ -468,11 +606,6 @@
         font-size: 18px;
     }
 
-    .status-badge {
-        padding: 6px 10px;
-        font-size: 10px;
-    }
-
 
     /* Customer */
 
@@ -496,6 +629,11 @@
 
     .order-card-footer {
         padding: 15px 17px;
+        flex-wrap: wrap;
+    }
+
+    .order-actions {
+        margin-left: auto;
     }
 }
 
@@ -516,6 +654,7 @@
         align-self: flex-start;
     }
 
+
     .order-card-footer {
         align-items: stretch;
         flex-direction: column;
@@ -523,5 +662,27 @@
 
     .footer-total {
         text-align: center;
+    }
+
+
+    .order-actions {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .out-for-delivery-form {
+        width: 100%;
+    }
+
+    .out-for-delivery-btn {
+        width: 100%;
+        min-height: 42px;
+    }
+
+    .already-out-label,
+    .action-disabled-label {
+        width: 100%;
+        justify-content: center;
+        min-height: 42px;
     }
 }

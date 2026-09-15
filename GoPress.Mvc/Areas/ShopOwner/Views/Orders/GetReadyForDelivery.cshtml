@@ -1,10 +1,9 @@
 ﻿@model List<GoPress.Mvc.Areas.ShopOwner.Models.ShopOwnerGetReadyForDelivery>
 
 @{
-    TempData["Title"] = "GetReady For Delivery Orders";
+    TempData["Title"] = "Ready For Delivery Orders";
     Layout = "_Layout";
 }
-
 
 @section Styles
 {
@@ -13,16 +12,19 @@
           asp-append-version="true" />
 }
 
+
 <div class="orders-page">
 
-    <!-- HEADER -->
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
 
     <div class="orders-header">
 
         <div class="orders-header-content">
 
             <div class="orders-header-icon">
-                <i class="fa-solid fa-ban"></i>
+                <i class="fa-solid fa-truck-fast"></i>
             </div>
 
             <div>
@@ -30,7 +32,7 @@
                 <h2>All Ready For Delivery Orders</h2>
 
                 <p>
-                    View all orders Ready For Devlivery by your shop.
+                    View all orders ready for delivery by your shop.
                 </p>
 
             </div>
@@ -40,8 +42,41 @@
     </div>
 
 
-    <!-- EMPTY STATE -->
-    @if (!Model.Any())
+    <!-- ==========================================
+         SUCCESS / ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
     {
         <div class="orders-empty-state">
 
@@ -51,7 +86,9 @@
 
             </div>
 
-            <h3>No Ready For Delivery Orders </h3>
+            <h3>
+                No Ready For Delivery Orders
+            </h3>
 
             <p>
                 There are currently no Ready For Delivery Orders.
@@ -61,7 +98,10 @@
     }
     else
     {
-        <!-- SUMMARY -->
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
 
         <div class="orders-summary">
 
@@ -77,9 +117,10 @@
 
             </div>
 
+
             <div class="summary-description">
 
-                <i class="fa-solid fa-ban"></i>
+                <i class="fa-solid fa-truck-fast"></i>
 
                 Ready For Delivery Orders are shown below.
 
@@ -88,7 +129,9 @@
         </div>
 
 
-        <!-- ORDERS -->
+        <!-- ==========================================
+             ORDERS GRID
+        =========================================== -->
 
         <div class="orders-grid">
 
@@ -96,7 +139,9 @@
             {
                 <div class="order-card">
 
-                    <!-- HEADER -->
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
 
                     <div class="order-card-header">
 
@@ -112,44 +157,88 @@
 
                         </div>
 
-                        <span class="status-badge status-rejected">
 
-                            @order.Status
+                        <!-- STATUS -->
+                        @if (order.Status.ToString() == "ReadyForDelivery")
+                        {
+                            <span class="status-badge status-ready">
 
-                        </span>
+                                <i class="fa-solid fa-check"></i>
+
+                                Ready For Delivery
+
+                            </span>
+                        }
+                        else if (order.Status.ToString() == "OutForDelivery")
+                        {
+                            <span class="status-badge status-out">
+
+                                <i class="fa-solid fa-truck-fast"></i>
+
+                                Out For Delivery
+
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status-badge status-other">
+
+                                @order.Status
+
+                            </span>
+                        }
 
                     </div>
 
 
-                    <!-- CUSTOMER -->
+                    <!-- ==========================================
+                         CUSTOMER SECTION
+                    =========================================== -->
 
                     <div class="customer-section">
 
                         <div class="customer-header">
 
                             <h4>
+
                                 <i class="fa-solid fa-user"></i>
+
                                 Customer
+
                             </h4>
 
                         </div>
 
+
                         <div class="customer-info">
 
+                            <!-- CUSTOMER NAME -->
+
                             <div>
-                                <span>Name</span>
+
+                                <span>
+                                    Name
+                                </span>
 
                                 <strong>
                                     @order.CustomerName
                                 </strong>
+
                             </div>
 
+
+                            <!-- CUSTOMER PHONE -->
+
                             <div>
-                                <span>Phone</span>
+
+                                <span>
+                                    Phone
+                                </span>
 
                                 <strong>
                                     @order.CustomerPhone
                                 </strong>
+
                             </div>
 
                         </div>
@@ -157,9 +246,13 @@
                     </div>
 
 
-                    <!-- ADDRESSES -->
+                    <!-- ==========================================
+                         ORDER DETAILS
+                    =========================================== -->
 
                     <div class="order-details">
+
+                        <!-- PICKUP ADDRESS -->
 
                         <div class="detail-item">
 
@@ -183,6 +276,8 @@
 
                         </div>
 
+
+                        <!-- DELIVERY ADDRESS -->
 
                         <div class="detail-item">
 
@@ -209,7 +304,9 @@
                     </div>
 
 
-                    <!-- FOOTER -->
+                    <!-- ==========================================
+                         CARD FOOTER
+                    =========================================== -->
 
                     <div class="order-card-footer">
 
@@ -222,6 +319,64 @@
                             <strong>
                                 ₹@order.TotalAmount.ToString("N2")
                             </strong>
+
+                        </div>
+
+
+                        <!-- ==========================================
+                             OUT FOR DELIVERY ACTION
+                        =========================================== -->
+
+                        <div class="order-actions">
+
+                            @if (order.Status.ToString() == "ReadyForDelivery")
+                            {
+                                <form asp-area="ShopOwner"
+                                      asp-controller="Orders"
+                                      asp-action="OutForDeliveryOrders"
+                                      method="post"
+                                      class="out-for-delivery-form"
+                                      onsubmit="return confirm('Are you sure you want to mark Order #@order.OrderId as Out For Delivery?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@order.OrderId" />
+
+                                    <button type="submit"
+                                            class="out-for-delivery-btn">
+
+                                        <i class="fa-solid fa-truck-fast"></i>
+
+                                        Out For Delivery
+
+                                        <i class="fa-solid fa-arrow-right"></i>
+
+                                    </button>
+
+                                </form>
+                            }
+                            else if (order.Status.ToString() == "OutForDelivery")
+                            {
+                                <span class="already-out-label">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Already Out For Delivery
+
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="action-disabled-label">
+
+                                    <i class="fa-solid fa-ban"></i>
+
+                                    Action Not Available
+
+                                </span>
+                            }
 
                         </div>
 
