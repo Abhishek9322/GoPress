@@ -192,6 +192,32 @@ namespace GoPress.Api.Controllers.ShopOwner
 
             return Ok(response);
         }
+
+        [HttpPut("{orderId}/Out-For-Delivery")]
+        public async Task<IActionResult> OutForDeliveryOrders(int orderId)
+        {
+            var currentUser = User.GetCurrentUser();
+
+            var response=new OutForDeliveryOrdersQuery
+            {
+                OrderId = orderId,
+                ShopOwnerId = currentUser.UserId
+            };
+
+            var result=await _mediator.Send(response);
+
+            return Ok(result);
+        }
+
+
+        [HttpGet("Out-For-Delivery-Orders")]
+        public async Task<IActionResult> GetAllOutForDeliveryOrders()
+        {
+            return Ok();
+        }
+
+
+
         //
         [HttpGet("completed-orders")]
          public async Task<IActionResult> GetCompletedOrders()
