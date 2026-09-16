@@ -128,21 +128,23 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             return Ok(response);
         }
 
-        [HttpPut("{orderId}/Out-For-delivery")]
-        public async Task<IActionResult> OutForDelivery(int orderId)
-        {
-            var currentUser = User.GetCurrentUser();
+        //for this Don From ShopOwner Side 
 
-            var command = new StartDeliveryCommand
-            {
-                OrderId = orderId, 
-                DeliveryBoyId =currentUser.UserId
-            };
+        //[HttpPut("{orderId}/Out-For-delivery")]
+        //public async Task<IActionResult> OutForDelivery(int orderId)
+        //{
+        //    var currentUser = User.GetCurrentUser();
 
-            var response = await _mediator.Send(command);
+        //    var command = new StartDeliveryCommand
+        //    {
+        //        OrderId = orderId, 
+        //        DeliveryBoyId =currentUser.UserId
+        //    };
 
-            return Ok(response);
-        }
+        //    var response = await _mediator.Send(command);
+
+        //    return Ok(response);
+        //}
 
         [HttpGet("Out-For-Delivery-Orders")]
         public async Task<IActionResult> GetAllOutForDeliveryOrders()
@@ -165,8 +167,7 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             var command = new DeliverOrderCommand
             {
                 OrderId = orderId,
-                DeliveryBoyId =
-                        currentUser.UserId
+                DeliveryBoyId =currentUser.UserId
             };
 
             var response = await _mediator.Send(command);

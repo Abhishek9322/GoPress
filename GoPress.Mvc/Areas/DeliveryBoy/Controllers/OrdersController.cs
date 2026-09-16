@@ -32,6 +32,34 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
 
             return View(orders.Data);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OutForDeliveryOrders(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>
+                    (
+                      $"api/delivery-boys/orders/{id}/deliver"
+                    );
+
+                if(response==null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Unable To Make Order Out For Delivery.";
+                    return RedirectToAction(nameof(GetOutForDeliveryOrders));
+                }
+                return RedirectToAction(nameof(GetAllDeliveryCompetedOrders));
+            }
+            catch(Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetOutForDeliveryOrders));
+            }
+
+
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetOutForDeliveryOrders()
         {
