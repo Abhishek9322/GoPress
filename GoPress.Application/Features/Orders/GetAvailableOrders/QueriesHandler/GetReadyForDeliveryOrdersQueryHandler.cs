@@ -31,6 +31,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                              orders.Customer.FullName,
                          CustomerPhone =
                              orders.Customer.PhoneNumber,
+                       
                          DeliveryAddress =
                              orders.DeliveryAddress,
                          TotalAmount =

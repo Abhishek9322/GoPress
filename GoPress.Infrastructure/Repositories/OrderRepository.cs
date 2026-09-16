@@ -173,6 +173,15 @@ namespace GoPress.Infrastructure.Repositories
                  .ToListAsync();
         }
 
+        public async Task<List<Order>> GetAllOutForDeliveryOrdersByDeliveryBoy(int deliveryBoyId)
+        {
+          return await _context.Orders
+                .Include(x => x.Customer)
+                .Where(x => x.DeliveryBoyId == deliveryBoyId && x.Status == OrderStatusEnum.OutForDelivery)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         //Admin order manage by status at one point 
         public async Task<List<Order>> GetOrdersByStatusAsync(OrderStatusEnum orderStatus)
         {
@@ -248,6 +257,6 @@ namespace GoPress.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-    
+      
     }
 }

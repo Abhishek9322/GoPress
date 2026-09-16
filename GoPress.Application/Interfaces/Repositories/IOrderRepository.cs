@@ -32,6 +32,8 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<List<Order>> GetReadyForDeliveryByShopOwnerAsync(int shopOwnerId);
         Task<List<Order>> GetAllOutForDeliveryOrdersByShopOwner(int shopOwnerId);
+
+        Task<List<Order>>GetAllOutForDeliveryOrdersByDeliveryBoy(int deliveryBoyId);
         Task<List<Order>> GetAllStartProcessingOrdersByShopOwner(int shopOwnerId);
         Task<List<Order>> GetAllAcceptedPickUpOrdersByDeliveryBoy(int deliveryBoyId);
 
