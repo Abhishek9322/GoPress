@@ -158,12 +158,19 @@ namespace GoPress.Infrastructure.Repositories
         public async Task<List<Order>> GetReadyForDeliveryByShopOwnerAsync(int shopOwnerId)
         {
             return await _context.Orders
-                                 .Include(x => x.Customer)
-                                .Where(x =>
-                                x.ShopOwnerId == shopOwnerId &&
-                                 x.Status == OrderStatusEnum.ReadyForDelivery)
-                                .AsNoTracking()
-                              .ToListAsync();
+                   .Include(x => x.Customer)
+                   .Where(x =>x.ShopOwnerId == shopOwnerId &&x.Status == OrderStatusEnum.ReadyForDelivery)
+                   .AsNoTracking()
+                   .ToListAsync();
+        }
+
+        public async Task<List<Order>> GetAllOutForDeliveryOrdersByShopOwner(int shopOwnerId)
+        {
+            return await _context.Orders
+                 .Include(x => x.Customer)
+                 .Where(x => x.ShopOwnerId == shopOwnerId && x.Status == OrderStatusEnum.OutForDelivery)
+                 .AsNoTracking()
+                 .ToListAsync();
         }
 
         //Admin order manage by status at one point 
@@ -240,5 +247,7 @@ namespace GoPress.Infrastructure.Repositories
                 .AsNoTracking()
                 .ToListAsync();
         }
+
+    
     }
 }
