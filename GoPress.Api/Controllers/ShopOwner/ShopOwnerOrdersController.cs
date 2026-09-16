@@ -213,7 +213,15 @@ namespace GoPress.Api.Controllers.ShopOwner
         [HttpGet("Out-For-Delivery-Orders")]
         public async Task<IActionResult> GetAllOutForDeliveryOrders()
         {
-            return Ok();
+            var currentuser=User.GetCurrentUser();
+
+            var response = new GetAllOutForDeliveryOrdersQuery
+            {
+                ShopOwnerId = currentuser.UserId
+            }; 
+
+            var result=await _mediator.Send(response);
+            return Ok(result);
         }
 
 
