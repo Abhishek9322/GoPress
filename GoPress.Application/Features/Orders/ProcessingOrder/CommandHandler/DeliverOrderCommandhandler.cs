@@ -67,8 +67,7 @@ namespace GoPress.Application.Features.Orders.ProcessingOrder.CommandHandler
                 "Order {OrderId} updated to Delivered successfully",
                 request.OrderId);
 
-            return new Response<string>(
-                "Order Delivered Successfully");
+            return new Response<string>("Message","Order Delivered Successfully");
 
         }
     }

@@ -331,19 +331,19 @@
 
                         <div class="order-actions">
 
-                            @if (order.Status.ToString() == "ReadyForDelivery")
+                            @if (order.Status.ToString() == "OutForDelivery")
                             {
-                                <form asp-area="ShopOwner"
+                                <form asp-area="DeliveryBoy"
                                       asp-controller="Orders"
                                       asp-action="OutForDeliveryOrders"
                                       method="post"
                                       class="out-for-delivery-form"
-                                      onsubmit="return confirm('Are you sure you want to mark Order #@order.OrderId as Out For Delivery?');">
+                                      onsubmit="return confirm('Are you sure you want to mark Order #@order.OrderId as Delivered?');">
 
                                     @Html.AntiForgeryToken()
 
                                     <input type="hidden"
-                                           name="id"
+                                           name="id" 
                                            value="@order.OrderId" />
 
                                     <button type="submit"
@@ -351,7 +351,7 @@
 
                                         <i class="fa-solid fa-truck-fast"></i>
 
-                                        Out For Delivery
+                                        Delivered
 
                                         <i class="fa-solid fa-arrow-right"></i>
 
@@ -359,13 +359,13 @@
 
                                 </form>
                             }
-                            else if (order.Status.ToString() == "OutForDelivery")
+                            else if (order.Status.ToString() == "ReadyForDelivery")
                             {
                                 <span class="already-out-label">
 
                                     <i class="fa-solid fa-circle-check"></i>
 
-                                    Already Out For Delivery
+                                    Not Ready For Out For Delivery
 
                                 </span>
                             }
