@@ -32,6 +32,22 @@ namespace GoPress.Mvc.Areas.DeliveryBoy.Controllers
 
             return View(orders.Data);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetOutForDeliveryOrders()
+        {
+            var orders = await _apiService.GetAsync<Response<List<GetOutForDeliveryOrdersViewModel>>>
+           (
+                "api/delivery-boys/orders/Out-For-Delivery-Orders"
+           );
+
+            if (orders == null || orders.Data == null)
+            {
+                TempData["Error"] = "Unable to load orders.";
+                return View(new List<GetOutForDeliveryOrdersViewModel>());
+            }
+            return View(orders.Data);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> AvailableOrders()
