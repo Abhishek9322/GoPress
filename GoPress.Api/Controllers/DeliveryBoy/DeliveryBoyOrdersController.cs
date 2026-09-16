@@ -128,8 +128,8 @@ namespace GoPress.Api.Controllers.DeliveryBoy
             return Ok(response);
         }
 
-        [HttpPut("{orderId}/start-delivery")]
-        public async Task<IActionResult> StartDelivery(int orderId)
+        [HttpPut("{orderId}/Out-For-delivery")]
+        public async Task<IActionResult> OutForDelivery(int orderId)
         {
             var currentUser = User.GetCurrentUser();
 
@@ -143,6 +143,19 @@ namespace GoPress.Api.Controllers.DeliveryBoy
 
             return Ok(response);
         }
+
+        [HttpGet("Out-For-Delivery-Orders")]
+        public async Task<IActionResult> GetAllOutForDeliveryOrders()
+        {
+            var currentUser = User.GetCurrentUser();
+            var query = new GetAllOutForDeliveryOrdersByDBoyQuery
+            {
+                deliveryBoyId = currentUser.UserId
+            };
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+
 
         [HttpPut("{orderId}/deliver")]
         public async Task<IActionResult> DeliverOrder(int orderId)
