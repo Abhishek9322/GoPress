@@ -272,7 +272,18 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllOutForDeliveryOrders()
         {
-            return View();
+            var response = await _apiService.GetAsync<Response<List<AllOutForDeliveryOrdersViewModel>>>
+                (
+                  "api/ShopOwner/Orders/Out-For-Delivery-Orders"
+                );
+
+            if (response == null && response.Data == null)
+            {
+                TempData["Error"] = "Unable to Load Out For Delivery orders";
+                return View(new List<AllOutForDeliveryOrdersViewModel>());
+            }
+
+            return View(response.Data);
         }
 
 

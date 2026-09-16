@@ -1,0 +1,392 @@
+﻿@model List<GoPress.Mvc.Areas.ShopOwner.Models.AllOutForDeliveryOrdersViewModel>
+@{
+    ViewData["Title"] = "All Out For Delivery Orders";
+    Layout = "_Layout";
+}
+
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/ShopOwnerOutForDeliveryOrders.css"
+          asp-append-version="true" />
+}
+
+
+
+<div class="orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="orders-header">
+
+        <div class="orders-header-content">
+
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+
+            <div>
+
+                <h2>All Out For Delivery Orders</h2>
+
+                <p>
+                    View all orders Out For delivery by your shop.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUCCESS / ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="orders-empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+            </div>
+
+            <h3>
+                No Ready For Delivery Orders
+            </h3>
+
+            <p>
+                There are currently no Out For Delivery Orders.
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
+
+        <div class="orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Total Out For Delivery Orders
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-truck-fast"></i>
+
+               Out For Delivery Orders are shown below.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDERS GRID
+        =========================================== -->
+
+        <div class="orders-grid">
+
+            @foreach (var order in Model)
+            {
+                <div class="order-card">
+
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
+
+                    <div class="order-card-header">
+
+                        <div class="order-number">
+
+                            <span>
+                                ORDER
+                            </span>
+
+                            <h3>
+                                #@order.OrderId
+                            </h3>
+
+                        </div>
+
+
+                        <!-- STATUS -->
+                        @if (order.Status.ToString() == "ReadyForDelivery")
+                        {
+                            <span class="status-badge status-ready">
+
+                                <i class="fa-solid fa-check"></i>
+
+                                Ready For Delivery
+
+                            </span>
+                        }
+                        else if (order.Status.ToString() == "OutForDelivery")
+                        {
+                            <span class="status-badge status-out">
+
+                                <i class="fa-solid fa-truck-fast"></i>
+
+                                Out For Delivery
+
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="status-badge status-other">
+
+                                @order.Status
+
+                            </span>
+                        }
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CUSTOMER SECTION
+                    =========================================== -->
+
+                    <div class="customer-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-user"></i>
+
+                                Customer
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="customer-info">
+
+                            <!-- CUSTOMER NAME -->
+
+                            <div>
+
+                                <span>
+                                    Name
+                                </span>
+
+                                <strong>
+                                    @order.CustomerName
+                                </strong>
+
+                            </div>
+
+
+                            <!-- CUSTOMER PHONE -->
+
+                            <div>
+
+                                <span>
+                                    Phone
+                                </span>
+
+                                <strong>
+                                    @order.CustomerPhone
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         ORDER DETAILS
+                    =========================================== -->
+
+                    <div class="order-details">
+
+                        <!-- PICKUP ADDRESS -->
+
+                        <div class="detail-item">
+
+                            <div class="detail-icon pickup-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Pickup Address
+                                </span>
+
+                                <strong>
+                                    @order.PickupAddress
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DELIVERY ADDRESS -->
+
+                        <div class="detail-item">
+
+                            <div class="detail-icon delivery-icon">
+
+                                <i class="fa-solid fa-truck"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Delivery Address
+                                </span>
+
+                                <strong>
+                                    @order.DeliveryAddress
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CARD FOOTER
+                    =========================================== -->
+
+                    <div class="order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>
+                                Order Total
+                            </span>
+
+                            <strong>
+                                ₹@order.TotalAmount.ToString("N2")
+                            </strong>
+
+                        </div>
+
+
+                        <!-- ==========================================
+                             OUT FOR DELIVERY ACTION
+                        =========================================== -->
+
+                        <div class="order-actions">
+
+                            @if (order.Status.ToString() == "ReadyForDelivery")
+                            {
+                                <form asp-area="ShopOwner"
+                                      asp-controller="Orders"
+                                      asp-action="OutForDeliveryOrders"
+                                      method="post"
+                                      class="out-for-delivery-form"
+                                      onsubmit="return confirm('Are you sure you want to mark Order #@order.OrderId as Out For Delivery?');">
+
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@order.OrderId" />
+
+                                    <button type="submit"
+                                            class="out-for-delivery-btn">
+
+                                        <i class="fa-solid fa-truck-fast"></i>
+
+                                        Out For Delivery
+
+                                        <i class="fa-solid fa-arrow-right"></i>
+
+                                    </button>
+
+                                </form>
+                            }
+                            else if (order.Status.ToString() == "OutForDelivery")
+                            {
+                                <span class="already-out-label">
+
+                                    <i class="fa-solid fa-circle-check"></i>
+
+                                    Already Out For Delivery
+
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="action-disabled-label">
+
+                                    <i class="fa-solid fa-ban"></i>
+
+                                    Action Not Available
+
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
