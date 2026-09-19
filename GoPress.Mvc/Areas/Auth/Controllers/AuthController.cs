@@ -25,48 +25,7 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public async Task<IActionResult>Login(LoginViewModel login)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(login);
-        //    }
-
-        //    var response =
-        //        await _apiService.PostAsync<
-        //            LoginViewModel,
-        //            AuthResponseViewModel>(
-        //            "api/auth/All-Login",
-        //            login);
-
-        //    if (!response.Success)
-        //    {
-        //        ViewBag.Error = response.Message;
-        //        return View(login);
-        //    }
-
-        //    if (string.IsNullOrWhiteSpace(response.AccessToken))
-        //    {
-        //        ViewBag.Error = "Access token was not returned from the API.";
-        //        return View(login);
-        //    }
-
-        //    _tokenService.SaveToken(response.AccessToken);
-
-        //    var redirect =
-        //        RoleRedirectHelper.GetRedirect(response.Role);
-
-        //    return RedirectToAction(
-        //        redirect.Action,
-        //        redirect.Controller,
-        //        new
-        //        {
-        //            area = redirect.Area
-        //        });
-
-        //}
+       
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel login)
@@ -97,21 +56,21 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
             }
 
             // ==========================================
-            // 1. Save JWT for API communication
+            //  Save JWT for API communication
             // ==========================================
 
             _tokenService.SaveToken(response.AccessToken);
 
 
             // ==========================================
-            // 2. Create MVC authentication claims
+            // Create MVC authentication claims
             // ==========================================
 
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, login.Email),
                 new Claim(ClaimTypes.Email, login.Email),
-                  new Claim(ClaimTypes.Role, response.Role)
+                new Claim(ClaimTypes.Role, response.Role)
              };
 
 
@@ -122,7 +81,7 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
 
 
             // ==========================================
-            // 3. Sign user into MVC
+            //  Sign user into MVC
             // ==========================================
 
             await HttpContext.SignInAsync(
@@ -137,7 +96,7 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
 
 
             // ==========================================
-            // 4. Redirect based on role
+            //  Redirect based on role
             // ==========================================
 
             var redirect =
@@ -152,16 +111,6 @@ namespace GoPress.Mvc.Areas.Auth.Controllers
                 });
         }
 
-        //Logout
-        //public IActionResult Logout()
-        //{
-        //    _tokenService.RemoveToken();
-
-        //    return RedirectToAction(
-        //        "Login",
-        //        "Auth",
-        //        new { area = "Auth" });
-        //}
 
         [HttpPost]
         public async Task<IActionResult> Logout()
