@@ -1,0 +1,470 @@
+﻿@model List<GoPress.Mvc.Areas.Admin.Models.PendingShopOwnerViewModel>
+@{
+    ViewData["Title"] = "Pending Shop Owners";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin-PendingShopOwner.css"
+          asp-append-version="true" />
+}
+
+<div class="orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="orders-header">
+
+        <div class="orders-header-content">
+
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-store"></i>
+            </div>
+
+            <div>
+
+                <h2>Pending Shop Owners</h2>
+
+                <p>
+                    Review and manage shop owner registration requests.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUCCESS / ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="orders-empty-state">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-store-circle-check"></i>
+            </div>
+
+            <h3>
+                No Pending Shop Owners
+            </h3>
+
+            <p>
+                There are currently no shop owner registrations waiting for approval.
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
+
+        <div class="orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Pending Shop Owners
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-clock"></i>
+
+                Shop owners waiting for admin approval.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             SHOP OWNERS GRID
+        =========================================== -->
+
+        <div class="orders-grid">
+
+            @foreach (var shop in Model)
+            {
+
+                <div class="order-card">
+
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
+
+                    <div class="order-card-header">
+
+                        <div class="order-number">
+
+                            <span>
+                                SHOP OWNER
+                            </span>
+
+                            <h3>
+                                @shop.FullName
+                            </h3>
+
+                        </div>
+
+
+                        <span class="status-badge status-pending">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Pending
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         OWNER INFORMATION
+                    =========================================== -->
+
+                    <div class="customer-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-user"></i>
+
+                                Owner Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="customer-info">
+
+                            <div>
+
+                                <span>
+                                    Full Name
+                                </span>
+
+                                <strong>
+                                    @shop.FullName
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Phone
+                                </span>
+
+                                <strong>
+                                    @shop.PhoneNumber
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Email
+                                </span>
+
+                                <strong>
+                                    @shop.Email
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         SHOP INFORMATION
+                    =========================================== -->
+
+                    <div class="shop-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-store"></i>
+
+                                Shop Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="shop-name">
+
+                            <span>
+                                Shop Name
+                            </span>
+
+                            <strong>
+                                @shop.ShopName
+                            </strong>
+
+                        </div>
+
+
+                        <div class="shop-address">
+
+                            <div class="detail-icon pickup-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Shop Address
+                                </span>
+
+                                <strong>
+                                    @shop.ShopAddress
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="location-grid">
+
+                            <div>
+
+                                <span>
+                                    City
+                                </span>
+
+                                <strong>
+                                    @shop.City
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    State
+                                </span>
+
+                                <strong>
+                                    @shop.State
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Pincode
+                                </span>
+
+                                <strong>
+                                    @shop.Pincode
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         DOCUMENT INFORMATION
+                    =========================================== -->
+
+                    <div class="documents-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-file-lines"></i>
+
+                                Business Documents
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="document-grid">
+
+                            <div class="document-item">
+
+                                <span>
+                                    Shop License
+                                </span>
+
+                                <strong>
+                                    @shop.ShopLicenseNumber
+                                </strong>
+
+                            </div>
+
+
+                            <div class="document-item">
+
+                                <span>
+                                    GST Number
+                                </span>
+
+                                <strong>
+                                    @(string.IsNullOrWhiteSpace(shop.GSTNumber)
+                                        ? "Not Provided"
+                                        : shop.GSTNumber)
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CARD FOOTER / ACTIONS
+                    =========================================== -->
+
+                    <div class="order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>
+                                Request Status
+                            </span>
+
+                            <strong class="pending-text">
+                                Pending Approval
+                            </strong>
+
+                        </div>
+
+
+                        <div class="shop-actions">
+
+                            <!-- APPROVE -->
+
+                            <form asp-area="Admin"
+                                  asp-controller="ShopOwner"
+                                  asp-action="ApproveShopOwner"
+                                  method="post"
+                                  onsubmit="return confirm('Are you sure you want to approve @shop.ShopName?');">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="userId"
+                                       value="@shop.UserId" />
+
+                                <button type="submit"
+                                        class="approve-btn">
+
+                                    <i class="fa-solid fa-check"></i>
+
+                                    Approve
+
+                                </button>
+
+                            </form>
+
+
+                            <!-- REJECT -->
+
+                            <form asp-area="Admin"
+                                  asp-controller="ShopOwner"
+                                  asp-action="RejectShopOwner"
+                                  method="post"
+                                  onsubmit="return confirm('Are you sure you want to reject @shop.ShopName?');">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="userId"
+                                       value="@shop.UserId" />
+
+                                <button type="submit"
+                                        class="reject-btn">
+
+                                    <i class="fa-solid fa-xmark"></i>
+
+                                    Reject
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>
