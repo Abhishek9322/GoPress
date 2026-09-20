@@ -72,7 +72,7 @@ namespace GoPress.Api.Controllers.Admin
 
             return Ok(responce);
         }
-
+         
         [HttpGet("Approved-DeliveryBoy")]
         public async Task<IActionResult> GetAllApprovedDeliveryBoy()
         {

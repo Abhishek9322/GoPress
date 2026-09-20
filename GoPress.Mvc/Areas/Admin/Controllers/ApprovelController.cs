@@ -40,12 +40,47 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
 
             if (response == null || response.Data == null)
             {
-                TempData["Error"] = "Unable to load pending shop owners.";
+                TempData["Error"] = "Unable to load pending Delivery Boy.";
                 return View(new List<PendingDeliveryBoyViewModel>());
             }
                 return View(response.Data);
         }
 
+        //Approve or reject here and make cancel approval of the user
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllApprovedShopOwner()
+        {
+            var response = await _apiService.GetAsync<Response<List<GetAllApprovedShopOwnerViewModel>>>
+                (
+                "api/AdminApprovel/Approed-shopowner"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load Approved shop owners.";
+                return View(new List<GetAllApprovedShopOwnerViewModel>());
+            }
+
+            return View(response.Data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllApprovedDeliveryBoy()
+        {
+            var response = await _apiService.GetAsync<Response<List<GetAllApprovedDeliveryBoyViewModel>>>
+                (
+                "api/AdminApprovel/Approved-DeliveryBoy"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load Approved Delivery Boy.";
+                return View(new List<GetAllApprovedDeliveryBoyViewModel>());
+            }
+
+            return View(response.Data);
+        }
     }
 }

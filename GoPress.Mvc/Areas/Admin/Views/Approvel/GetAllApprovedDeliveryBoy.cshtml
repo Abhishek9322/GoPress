@@ -1,0 +1,498 @@
+﻿@model List<GoPress.Mvc.Areas.Admin.Models.GetAllApprovedDeliveryBoyViewModel>
+@{
+
+    ViewData["Title"] = "All Approved Shop Owners";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin-ApprovedDeliveryBoy.css"
+          asp-append-version="true" />
+}
+
+
+<div class="orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="orders-header">
+
+        <div class="orders-header-content">
+
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-motorcycle"></i>
+            </div>
+
+            <div>
+
+                <h2>Approved Delivery Boys</h2>
+
+                <p>
+                    Review and manage delivery boy registration .
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUCCESS / ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="orders-empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-motorcycle"></i>
+
+            </div>
+
+            <h3>
+                No Approved Delivery Boys
+            </h3>
+
+            <p>
+                There are currently no delivery boy registrations .
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
+
+        <div class="orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Approved Delivery Boys
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-clock"></i>
+
+                Delivery boys got admin approval.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             DELIVERY BOYS GRID
+        =========================================== -->
+
+        <div class="orders-grid">
+
+            @foreach (var deliveryBoy in Model)
+            {
+
+                <div class="order-card">
+
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
+
+                    <div class="order-card-header">
+
+                        <div class="order-number">
+
+                            <span>
+                                DELIVERY BOY
+                            </span>
+
+                            <h3>
+                                @deliveryBoy.FullName
+                            </h3>
+
+                        </div>
+
+
+                        <span class="status-badge status-pending">
+
+                            <i class="fa-solid fa-clock"></i>
+
+                            Approved
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         PERSONAL INFORMATION
+                    =========================================== -->
+
+                    <div class="customer-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-user"></i>
+
+                                Personal Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="customer-info">
+
+                            <div>
+
+                                <span>
+                                    Full Name
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.FullName
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Phone
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.PhoneNumber
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Email
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.Email
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         ADDRESS INFORMATION
+                    =========================================== -->
+
+                    <div class="shop-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                Address Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="shop-address">
+
+                            <div class="detail-icon pickup-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    Address
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.Address
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="location-grid">
+
+                            <div>
+
+                                <span>
+                                    City
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.City
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    State
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.State
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>
+                                    Pincode
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.Pincode
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         VEHICLE INFORMATION
+                    =========================================== -->
+
+                    <div class="documents-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-motorcycle"></i>
+
+                                Vehicle Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="document-grid">
+
+                            <div class="document-item">
+
+                                <span>
+                                    Bike Number
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.BikeNumber
+                                </strong>
+
+                            </div>
+
+
+                            <div class="document-item">
+
+                                <span>
+                                    License Number
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.LicenseNumber
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         IDENTITY INFORMATION
+                    =========================================== -->
+
+                    <div class="documents-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-id-card"></i>
+
+                                Identity Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="document-grid">
+
+                            <div class="document-item">
+
+                                <span>
+                                    Aadhaar Number
+                                </span>
+
+                                <strong>
+                                    @deliveryBoy.AadhaarNumber
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CARD FOOTER / ACTIONS
+                    =========================================== -->
+
+                    <div class="order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>
+                                Request Status
+                            </span>
+
+                            <strong class="pending-text">
+                                Approved Users
+                            </strong>
+
+                        </div>
+
+
+                        @* <div class="shop-actions"> *@
+
+                        @*     <!-- APPROVE --> *@
+
+                        @*     <form asp-area="Admin" *@
+                        @*           asp-controller="DeliveryBoy" *@
+                        @*           asp-action="ApproveDeliveryBoy" *@
+                        @*           method="post" *@
+                        @*           onsubmit="return confirm('Are you sure you want to approve @deliveryBoy.FullName?');"> *@
+
+                        @*         @Html.AntiForgeryToken() *@
+
+                        @*         <input type="hidden" *@
+                        @*                name="userId" *@
+                        @*                value="@deliveryBoy.UserId" /> *@
+
+                        @*         <button type="submit" *@
+                        @*                 class="approve-btn"> *@
+
+                        @*             <i class="fa-solid fa-check"></i> *@
+
+                        @*             Approve *@
+
+                        @*         </button> *@
+
+                        @*     </form> *@
+
+
+                        @*     <!-- REJECT --> *@
+
+                        @*     <form asp-area="Admin" *@
+                        @*           asp-controller="DeliveryBoy" *@
+                        @*           asp-action="RejectDeliveryBoy" *@
+                        @*           method="post" *@
+                        @*           onsubmit="return confirm('Are you sure you want to reject @deliveryBoy.FullName?');"> *@
+
+                        @*         @Html.AntiForgeryToken() *@
+
+                        @*         <input type="hidden" *@
+                        @*                name="userId" *@
+                        @*                value="@deliveryBoy.UserId" /> *@
+
+                        @*         <button type="submit" *@
+                        @*                 class="reject-btn"> *@
+
+                        @*             <i class="fa-solid fa-xmark"></i> *@
+
+                        @*             Reject *@
+
+                        @*         </button> *@
+
+                        @*     </form> *@
+
+                        @* </div> *@
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>
+
