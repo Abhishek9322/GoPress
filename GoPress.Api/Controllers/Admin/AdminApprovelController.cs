@@ -21,7 +21,7 @@ namespace GoPress.Api.Controllers.Admin
             _mediator = mediator;
         }
 
-        [Authorize(Roles = "Admin")]
+        
         [HttpGet("pending-shopowners")]
         public async Task<IActionResult> GetPendingShopOwners()
         {

@@ -26,8 +26,7 @@ namespace GoPress.Application.Features.AdminApproval.GetApprovedUsers.QueriesHan
            
             var approvedShopOwners =await _userRepository.GetApprovedShopownerAsync();
 
-            var response =
-               approvedShopOwners.Select(user => new PendingShopOwnerDto
+            var response =approvedShopOwners.Select(user => new PendingShopOwnerDto
                {
                    UserId = user.Id,
                    FullName = user.FullName,
