@@ -1,6 +1,7 @@
 ﻿using GoPress.Mvc.Areas.Admin.Models;
 using GoPress.Mvc.Models.Responses;
 using GoPress.Mvc.Services;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoPress.Mvc.Areas.Admin.Controllers
@@ -28,7 +29,7 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 return View(new List<PendingShopOwnerViewModel>());
             }
             return View(response.Data);
-        }
+        } 
 
         [HttpGet]
         public async Task<IActionResult> GetAllPendingDeliveryBoy()
@@ -47,6 +48,30 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
         }
 
         //Approve or reject here and make cancel approval of the user
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveUser(int id)
+        {
+            return RedirectToAction();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult>GetAllApprovedUsers()
+        {
+            var response = await _apiService.GetAsync<Response<List<AllApprovedUsersViewModel>>>
+               (
+               "api/AdminApprovel/All-Approvedusers"
+               );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load All Approved Users.";
+                return View(new List<AllApprovedUsersViewModel>());
+            }
+
+            return View(response.Data);
+        }
 
 
         [HttpGet]

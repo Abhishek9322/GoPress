@@ -62,6 +62,16 @@ namespace GoPress.Infrastructure.Repositories
                  .AsNoTracking()
                  .ToListAsync();
         }
+
+        public async Task<List<ApplicationUser>> GetAllApprovedUsers()
+        {
+            return await _context.ApplicationUsers
+                .Include(x=>x.DeliveryBoyProfile)
+                .Include(x=>x.ShopOwnerProfile)
+                .Where(x=>x.IsApproved)
+                .AsNoTracking()
+                .ToListAsync();
+        }
         public async Task<List<ApplicationUser>> GetApprovedShopownerAsync()
         {
             return await _context.ApplicationUsers
@@ -129,5 +139,7 @@ namespace GoPress.Infrastructure.Repositories
                  .AsNoTracking()
                  .FirstOrDefaultAsync(x => x.Id == customerId);
         }
+
+      
     }
 }
