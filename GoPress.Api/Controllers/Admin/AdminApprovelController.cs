@@ -1,4 +1,5 @@
-﻿using GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.Command;
+﻿using GoPress.Application.DTOs.Admin;
+using GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.Command;
 using GoPress.Application.Features.AdminApproval.Approved.Command;
 using GoPress.Application.Features.AdminApproval.GetApprovedUsers.Queries;
 using GoPress.Application.Features.AdminApproval.GetPendingApproval.Queries;
@@ -7,6 +8,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace GoPress.Api.Controllers.Admin
 {
@@ -63,6 +66,13 @@ namespace GoPress.Api.Controllers.Admin
                 await _mediator.Send(command);
 
             return Ok(response);
+        }
+
+        [HttpGet("All-Approvedusers")]
+        public async Task<IActionResult> GetAllApprovedUsers()
+        {
+            var response = await _mediator.Send(new GetAllApprovedusersByAdminQuery());
+            return Ok(response);   
         }
 
         [HttpGet("Approed-shopowner")]

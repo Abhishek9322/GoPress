@@ -1,0 +1,311 @@
+﻿@model List<GoPress.Mvc.Areas.Admin.Models.AllApprovedUsersViewModel>
+
+@{
+    ViewData["Title"] = "All Approved Users";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin-AllApprovedUsers.css"
+          asp-append-version="true" />
+}
+
+<div class="orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="orders-header">
+
+        <div class="orders-header-content">
+
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+
+                <h2>Approved Users</h2>
+
+                <p>
+                    View and manage all approved users.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUCCESS MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="orders-empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-users"></i>
+
+            </div>
+
+            <h3>
+                No Approved Users
+            </h3>
+
+            <p>
+                There are currently no approved users.
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
+
+        <div class="orders-summary">
+
+            <div>
+
+                <span class="summary-label">
+                    Approved Users
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-user-check"></i>
+
+                Users approved by admin.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             USERS GRID
+        =========================================== -->
+
+        <div class="orders-grid">
+
+            @foreach (var user in Model)
+            {
+
+                <div class="order-card">
+
+                    <!-- ==========================================
+                         CARD HEADER
+                    =========================================== -->
+
+                    <div class="order-card-header">
+
+                        <div class="order-number">
+
+                            <span>
+                                USER
+                            </span>
+
+                            <h3>
+                                @user.FullName
+                            </h3>
+
+                        </div>
+
+
+                        <span class="status-badge status-approved">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Approved
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         USER INFORMATION
+                    =========================================== -->
+
+                    <div class="customer-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-user"></i>
+
+                                User Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="customer-info">
+
+                            <!-- FULL NAME -->
+
+                            <div>
+
+                                <span>
+                                    Full Name
+                                </span>
+
+                                <strong>
+                                    @user.FullName
+                                </strong>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div>
+
+                                <span>
+                                    Phone
+                                </span>
+
+                                <strong>
+                                    @user.PhoneNumber
+                                </strong>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div>
+
+                                <span>
+                                    Email
+                                </span>
+
+                                <strong>
+                                    @user.Email
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         USER ID
+                    =========================================== -->
+
+                    <div class="documents-section">
+
+                        <div class="customer-header">
+
+                            <h4>
+
+                                <i class="fa-solid fa-id-card"></i>
+
+                                Account Information
+
+                            </h4>
+
+                        </div>
+
+
+                        <div class="document-grid">
+
+                            <div class="document-item">
+
+                                <span>
+                                    User ID
+                                </span>
+
+                                <strong>
+                                    @user.UserId
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==========================================
+                         CARD FOOTER
+                    =========================================== -->
+
+                    <div class="order-card-footer">
+
+                        <div class="footer-total">
+
+                            <span>
+                                Account Status
+                            </span>
+
+                            <strong class="approved-text">
+                                Approved User
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>
