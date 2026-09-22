@@ -24,10 +24,11 @@ namespace GoPress.Application.Features.AdminApproval.GetApprovedUsers.QueriesHan
 
             var users = approvedusers.Select(user => new ApprovedUsersDto
             {
-                UserId=user.Id,
-                FullName=user.FullName,
-                Email=user.Email,
-                PhoneNumber=user.PhoneNumber             
+                UserId = user.Id,
+                FullName = user.FullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Role = user.Role.ToString()
 
             }).ToList();
 

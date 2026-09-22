@@ -69,6 +69,9 @@
     font-weight: 600;
 }
 
+
+/* SUCCESS */
+
 .success-message {
     background: #ecfdf5;
     border: 1px solid #a7f3d0;
@@ -78,6 +81,9 @@
     .success-message i {
         color: #10b981;
     }
+
+
+/* ERROR */
 
 .error-message {
     background: #fef2f2;
@@ -218,7 +224,7 @@
 
 
 /* =========================================================
-   SECTION
+   USER INFORMATION SECTION
 ========================================================= */
 
 .customer-section,
@@ -226,6 +232,9 @@
     padding: 20px 22px;
     border-bottom: 1px solid #f0f0f0;
 }
+
+
+/* SECTION HEADER */
 
 .customer-header {
     margin-bottom: 14px;
@@ -247,7 +256,7 @@
 
 
 /* =========================================================
-   USER INFORMATION
+   USER DETAILS
 ========================================================= */
 
 .customer-info {
@@ -255,6 +264,11 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
+
+
+    /*
+   Email takes full width
+*/
 
     .customer-info div:last-child {
         grid-column: 1 / -1;
@@ -286,7 +300,7 @@
 
 
 /* =========================================================
-   USER ID
+   ACCOUNT INFORMATION
 ========================================================= */
 
 .document-grid {

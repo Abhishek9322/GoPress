@@ -66,11 +66,14 @@ namespace GoPress.Infrastructure.Repositories
         public async Task<List<ApplicationUser>> GetAllApprovedUsers()
         {
             return await _context.ApplicationUsers
-                .Include(x=>x.DeliveryBoyProfile)
-                .Include(x=>x.ShopOwnerProfile)
-                .Where(x=>x.IsApproved)
-                .AsNoTracking()
-                .ToListAsync();
+                .Include(x => x.DeliveryBoyProfile)
+                .Include(x => x.ShopOwnerProfile)
+                 .Where(x =>
+                       (x.Role == UserRoleenum.DeliveryBoy ||
+                        x.Role == UserRoleenum.ShopOwner)
+                        && x.IsApproved)
+                  .AsNoTracking()
+                  .ToListAsync();
         }
         public async Task<List<ApplicationUser>> GetApprovedShopownerAsync()
         {
