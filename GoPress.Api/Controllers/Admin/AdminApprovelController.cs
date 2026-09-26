@@ -43,6 +43,14 @@ namespace GoPress.Api.Controllers.Admin
             return Ok(response);
         }
 
+        [HttpGet("All-Pending-Users")]
+        public async Task<IActionResult> GetAllPendingUsers()
+        {
+            var response = await _mediator.Send(new GetAllpendingUsersByAdminQuery());
+
+            return Ok(response);
+        }
+
 
         [HttpPut("{userId}/approve")]
         public async Task<IActionResult> ApproveUser(int userId)

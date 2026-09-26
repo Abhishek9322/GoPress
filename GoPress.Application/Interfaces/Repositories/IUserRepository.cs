@@ -16,6 +16,8 @@ namespace GoPress.Application.Interfaces.Repositories
         Task<ApplicationUser?> GetByIdAsync(int id);
         Task<List<ApplicationUser>> GetPendingShopOwnersAsync();
         Task<List<ApplicationUser>> GetPendingDeliveryBoysAsync();
+        Task<List<ApplicationUser>> GetAllPendingUsers();
+
 
         Task<List<ApplicationUser>> GetAllApprovedUsers();
         Task<List<ApplicationUser>> GetApprovedShopownerAsync();
