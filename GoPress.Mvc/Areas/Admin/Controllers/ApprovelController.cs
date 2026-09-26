@@ -47,13 +47,29 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 return View(response.Data);  
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllPendingUsers()
+        {
 
+            var response = await _apiService.GetAsync<Response<List<AllPendingUsersPendingViewModel>>>
+                (
+                   "api/AdminApprovel/All-Pending-Users"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load All pending Users.";
+                return View(new List<AllPendingUsersPendingViewModel>());
+            }
+            return View(response.Data);
+           
+        }
         
 
         //Approve or reject here and make cancel approval of the user
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ApproveUser(int id)
+        public async Task<IActionResult> ApproveUserRequest(int id)
         {
             try
             {
@@ -69,6 +85,33 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 }
 
                 TempData["Success"] = response.Message ?? "All Approved Users";
+                return RedirectToAction(nameof(GetAllApprovedUsers));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetAllPendingDeliveryBoy));
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectUserRequest(int id) //not working not need to make right now 
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>(
+                    $"api/AdminApprovel/{id}/reject"
+                    );
+
+                if (response == null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Uable Get All Rejected users. ";
+                    return RedirectToAction(nameof(GetAllPendingDeliveryBoy));
+
+                }
+
+                TempData["Success"] = response.Message ?? "All Rejected Users";
                 return RedirectToAction(nameof(GetAllApprovedUsers));
             }
             catch (Exception ex)
@@ -95,6 +138,8 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
 
             return View(response.Data);
         }
+
+        
 
 
         [HttpGet]

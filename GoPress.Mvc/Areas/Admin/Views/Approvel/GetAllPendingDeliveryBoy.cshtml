@@ -435,7 +435,7 @@
 
                             <form asp-area="Admin"
                                   asp-controller="Approvel"
-                                  asp-action="ApproveUser"
+                                  asp-action="ApproveUserRequest"
                                   method="post"
                                   onsubmit="return confirm('Are you sure you want to approve @deliveryBoy.FullName?');">
 
@@ -460,15 +460,15 @@
                             <!-- REJECT -->
 
                             <form asp-area="Admin"
-                                  asp-controller="DeliveryBoy"
-                                  asp-action="RejectDeliveryBoy"
+                                  asp-controller="Approvel"
+                                  asp-action="RejectUserRequest"
                                   method="post"
                                   onsubmit="return confirm('Are you sure you want to reject @deliveryBoy.FullName?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden"
-                                       name="userId"
+                                       name="id"
                                        value="@deliveryBoy.UserId" />
 
                                 <button type="submit"

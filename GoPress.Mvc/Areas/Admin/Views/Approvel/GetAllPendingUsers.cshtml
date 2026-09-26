@@ -1,13 +1,14 @@
-﻿@model List<GoPress.Mvc.Areas.Admin.Models.PendingShopOwnerViewModel>
+﻿@model List<GoPress.Mvc.Areas.Admin.Models.AllPendingUsersPendingViewModel>
+
 @{
-    ViewData["Title"] = "Pending Shop Owners";
+    ViewData["Title"] = "Pending Users";
     Layout = "_Layout";
 }
 
 @section Styles
 {
     <link rel="stylesheet"
-          href="~/css/Admin-PendingShopOwner.css"
+          href="~/css/Admin-PendingUsers.css"
           asp-append-version="true" />
 }
 
@@ -22,15 +23,15 @@
         <div class="orders-header-content">
 
             <div class="orders-header-icon">
-                <i class="fa-solid fa-store"></i>
+                <i class="fa-solid fa-users"></i>
             </div>
 
             <div>
 
-                <h2>Pending Shop Owners</h2>
+                <h2>Pending Users</h2>
 
                 <p>
-                    Review and manage shop owner registration requests.
+                    Review and manage users waiting for approval.
                 </p>
 
             </div>
@@ -79,15 +80,17 @@
         <div class="orders-empty-state">
 
             <div class="empty-icon">
-                <i class="fa-solid fa-store-circle-check"></i>
+
+                <i class="fa-solid fa-users"></i>
+
             </div>
 
             <h3>
-                No Pending Shop Owners
+                No Pending Users
             </h3>
 
             <p>
-                There are currently no shop owner registrations waiting for approval.
+                There are currently no users waiting for approval.
             </p>
 
         </div>
@@ -104,7 +107,7 @@
             <div>
 
                 <span class="summary-label">
-                    Pending Shop Owners
+                    Pending Users
                 </span>
 
                 <strong>
@@ -113,12 +116,11 @@
 
             </div>
 
-
             <div class="summary-description">
 
                 <i class="fa-solid fa-clock"></i>
 
-                Shop owners waiting for admin approval.
+                Users waiting for admin approval.
 
             </div>
 
@@ -126,12 +128,12 @@
 
 
         <!-- ==========================================
-             SHOP OWNERS GRID
+             USERS GRID
         =========================================== -->
 
         <div class="orders-grid">
 
-            @foreach (var shop in Model)
+            @foreach (var user in Model)
             {
 
                 <div class="order-card">
@@ -145,15 +147,14 @@
                         <div class="order-number">
 
                             <span>
-                                SHOP OWNER
+                                @user.Role
                             </span>
 
                             <h3>
-                                @shop.FullName
+                                @user.FullName
                             </h3>
 
                         </div>
-
 
                         <span class="status-badge status-pending">
 
@@ -167,7 +168,7 @@
 
 
                     <!-- ==========================================
-                         OWNER INFORMATION
+                         PERSONAL INFORMATION
                     =========================================== -->
 
                     <div class="customer-section">
@@ -178,7 +179,7 @@
 
                                 <i class="fa-solid fa-user"></i>
 
-                                Owner Information
+                                User Information
 
                             </h4>
 
@@ -194,7 +195,7 @@
                                 </span>
 
                                 <strong>
-                                    @shop.FullName
+                                    @user.FullName
                                 </strong>
 
                             </div>
@@ -207,7 +208,7 @@
                                 </span>
 
                                 <strong>
-                                    @shop.PhoneNumber
+                                    @user.PhoneNumber
                                 </strong>
 
                             </div>
@@ -220,81 +221,7 @@
                                 </span>
 
                                 <strong>
-                                    @shop.Email
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- ==========================================
-                         SHOP INFORMATION
-                    =========================================== -->
-
-                    <div class="shop-section">
-
-                        <div class="customer-header">
-
-                            <h4>
-
-                                <i class="fa-solid fa-store"></i>
-
-                                Shop Information
-
-                            </h4>
-
-                        </div>
-
-
-                        <div class="shop-name">
-
-                            <span>
-                                Shop Name
-                            </span>
-
-                            <strong>
-                                @shop.ShopName
-                            </strong>
-
-                        </div>
-
-
-                        <div class="shop-address">
-
-                            <div class="detail-icon pickup-icon">
-
-                                <i class="fa-solid fa-location-dot"></i>
-
-                            </div>
-
-                            <div>
-
-                                <span>
-                                    Shop Address
-                                </span>
-
-                                <strong>
-                                    @shop.ShopAddress
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="location-grid">
-
-                            <div>
-
-                                <span>
-                                    City
-                                </span>
-
-                                <strong>
-                                    @shop.City
+                                    @user.Email
                                 </strong>
 
                             </div>
@@ -303,77 +230,11 @@
                             <div>
 
                                 <span>
-                                    State
+                                    Role
                                 </span>
 
                                 <strong>
-                                    @shop.State
-                                </strong>
-
-                            </div>
-
-
-                            <div>
-
-                                <span>
-                                    Pincode
-                                </span>
-
-                                <strong>
-                                    @shop.Pincode
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- ==========================================
-                         DOCUMENT INFORMATION
-                    =========================================== -->
-
-                    <div class="documents-section">
-
-                        <div class="customer-header">
-
-                            <h4>
-
-                                <i class="fa-solid fa-file-lines"></i>
-
-                                Business Documents
-
-                            </h4>
-
-                        </div>
-
-
-                        <div class="document-grid">
-
-                            <div class="document-item">
-
-                                <span>
-                                    Shop License
-                                </span>
-
-                                <strong>
-                                    @shop.ShopLicenseNumber
-                                </strong>
-
-                            </div>
-
-
-                            <div class="document-item">
-
-                                <span>
-                                    GST Number
-                                </span>
-
-                                <strong>
-                                    @(string.IsNullOrWhiteSpace(shop.GSTNumber)
-                                        ? "Not Provided"
-                                        : shop.GSTNumber)
+                                    @user.Role
                                 </strong>
 
                             </div>
@@ -408,15 +269,15 @@
 
                             <form asp-area="Admin"
                                   asp-controller="Approvel"
-                                  asp-action="ApproveUserRequest"
+                                  asp-action="ApproveUser"
                                   method="post"
-                                  onsubmit="return confirm('Are you sure you want to approve @shop.ShopName?');">
+                                  onsubmit="return confirm('Are you sure you want to approve @user.FullName?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden"
                                        name="id"
-                                       value="@shop.UserId" />
+                                       value="@user.UserId" />
 
                                 <button type="submit"
                                         class="approve-btn">
@@ -434,15 +295,15 @@
 
                             <form asp-area="Admin"
                                   asp-controller="Approvel"
-                                  asp-action="RejectUserRequest"
+                                  asp-action="RejectUser"
                                   method="post"
-                                  onsubmit="return confirm('Are you sure you want to reject @shop.ShopName?');">
+                                  onsubmit="return confirm('Are you sure you want to reject @user.FullName?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden"
                                        name="id"
-                                       value="@shop.UserId" />
+                                       value="@user.UserId" />
 
                                 <button type="submit"
                                         class="reject-btn">
