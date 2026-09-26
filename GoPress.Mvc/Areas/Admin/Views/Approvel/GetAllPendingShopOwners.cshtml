@@ -407,15 +407,15 @@
                             <!-- APPROVE -->
 
                             <form asp-area="Admin"
-                                  asp-controller="ShopOwner"
-                                  asp-action="ApproveShopOwner"
+                                  asp-controller="Approvel"
+                                  asp-action="ApproveUser"
                                   method="post"
                                   onsubmit="return confirm('Are you sure you want to approve @shop.ShopName?');">
 
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden"
-                                       name="userId"
+                                       name="id"
                                        value="@shop.UserId" />
 
                                 <button type="submit"
@@ -441,7 +441,7 @@
                                 @Html.AntiForgeryToken()
 
                                 <input type="hidden"
-                                       name="userId"
+                                       name="id"
                                        value="@shop.UserId" />
 
                                 <button type="submit"
