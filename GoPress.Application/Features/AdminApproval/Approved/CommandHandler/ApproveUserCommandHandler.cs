@@ -62,8 +62,7 @@ namespace GoPress.Application.Features.AdminApproval.Approved.CommandHandler
                 "User {UserId} approved successfully.",
                 user.Id);
 
-            return new Response<string>(
-                "User approved successfully.");
+            return new Response<string>("Message","User approved successfully.");
         }
     }
 }

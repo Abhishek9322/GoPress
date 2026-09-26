@@ -44,15 +44,38 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 TempData["Error"] = "Unable to load pending Delivery Boy.";
                 return View(new List<PendingDeliveryBoyViewModel>());
             }
-                return View(response.Data);
+                return View(response.Data);  
         }
+
+
+        
 
         //Approve or reject here and make cancel approval of the user
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ApproveUser(int id)
         {
-            return RedirectToAction();
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>(
+                    $"api/AdminApprovel/{id}/approve"
+                    );
+
+                if (response == null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Uable Get All Approved users. ";
+                    return RedirectToAction(nameof(GetAllApprovedUsers));
+
+                }
+
+                TempData["Success"] = response.Message ?? "All Approved Users";
+                return RedirectToAction(nameof(GetAllApprovedUsers));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetAllPendingDeliveryBoy));
+            }
         }
 
 
