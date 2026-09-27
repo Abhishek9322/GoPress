@@ -98,10 +98,14 @@ namespace GoPress.Api.Controllers.Admin
             return Ok(response);
         }
 
-        [HttpPut("{userId}/status")]
-        public async Task<IActionResult> ChangeUserStatus(int userId,ActivateDeactivateUserCommand command)
+        [HttpPut("{userId}/Cancel-Licence")]
+        public async Task<IActionResult> ChangeUserStatus(int userId)
         {
-            command.UserId = userId;
+            var command = new ActivateDeactivateUserCommand
+            {
+                UserId = userId,
+                IsActive = false
+            };
 
             var response =await _mediator.Send(command);
 

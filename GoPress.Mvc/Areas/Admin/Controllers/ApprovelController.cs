@@ -3,6 +3,7 @@ using GoPress.Mvc.Models.Responses;
 using GoPress.Mvc.Services;
 using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GoPress.Mvc.Areas.Admin.Controllers
 {
@@ -118,6 +119,35 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
             {
                 TempData["Error"] = ex.Message;
                 return RedirectToAction(nameof(GetAllPendingDeliveryBoy));
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelLicence(int id)
+        {
+            try
+            {
+
+               
+                var response = await _apiService.PutAsync<Response<string>>(
+                    $"api/AdminApprovel/{id}/Cancel-Licence"
+                    );
+
+                if (response == null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Uable Get All Pending users. ";
+                    return RedirectToAction(nameof(GetAllPendingUsers));
+
+                }
+
+                TempData["Success"] = response.Message ?? "All Pending Users";
+                return RedirectToAction(nameof(GetAllPendingUsers));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetAllPendingUsers));
             }
         }
 
