@@ -12,9 +12,9 @@
           asp-append-version="true" />
 }
 
-
 <div class="orders-page">
 
+    ```
     <!-- ==========================================
          PAGE HEADER
     =========================================== -->
@@ -301,6 +301,32 @@
 
                         </div>
 
+
+                        <!-- CANCEL LICENCE -->
+
+                        <form asp-area ="Admin"
+                              asp-controller="Approvel"
+                              asp-action="CancelLicence"
+                              method="post"
+                              onsubmit="return confirm('Are you sure you want to cancel the licence for this user?');">
+
+                            @Html.AntiForgeryToken()
+
+                            <input type="hidden"
+                                   name="id"
+                                   value="@user.UserId" />
+
+                            <button type="submit"
+                                    class="cancel-licence-btn">
+
+                                <i class="fa-solid fa-ban"></i>
+
+                                Cancel Licences
+
+                            </button>
+
+                        </form>
+
                     </div>
 
                 </div>
@@ -310,5 +336,6 @@
         </div>
 
     }
+    ```
 
 </div>
