@@ -24,7 +24,7 @@ namespace GoPress.Application.Features.AdminApproval.GetPendingApproval.QueriesH
 
             var response = users.Select(user => new PendingUserDto
             {
-                Id=user.Id,
+                UserId=user.Id,
                 FullName=user.FullName,
                 Email=user.Email,
                 PhoneNumber=user.PhoneNumber,
