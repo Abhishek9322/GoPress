@@ -1,4 +1,4 @@
-﻿
+﻿css
 /* =========================================================
    PRESS & GO - MODERN NAVBAR
    ========================================================= */
@@ -47,7 +47,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 11px;
-    background: linear-gradient( 135deg, #4f46e5, #6366f1 );
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
     color: #ffffff;
     font-size: 17px;
     box-shadow: 0 6px 14px rgba(79, 70, 229, 0.22);
@@ -105,7 +105,7 @@
 
 
 /* =========================================================
-   DROPDOWN
+   ROLE DROPDOWN
    ========================================================= */
 
 .role-dropdown {
@@ -416,6 +416,63 @@
 
 
 /* =========================================================
+   PROFILE DROPDOWN ITEMS
+   ========================================================= */
+
+.profile-dropdown-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 12px;
+    margin: 2px 0;
+    border-radius: 9px;
+    color: #4b5563;
+    background: transparent;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+
+    .profile-dropdown-item i {
+        width: 18px;
+        color: #737b8c;
+        font-size: 13px;
+        text-align: center;
+        transition: color 0.2s ease;
+    }
+
+
+    .profile-dropdown-item:hover {
+        background: #f4f6ff;
+        color: #4f46e5;
+        padding-left: 16px;
+        text-decoration: none;
+    }
+
+
+        .profile-dropdown-item:hover i {
+            color: #4f46e5;
+        }
+
+
+    /* =========================================================
+   ADMIN PROFILE ITEMS
+   ========================================================= */
+
+    .profile-dropdown-item.admin-item {
+        color: #4f46e5;
+    }
+
+
+        .profile-dropdown-item.admin-item i {
+            color: #4f46e5;
+        }
+
+
+/* =========================================================
    LOGOUT
    ========================================================= */
 
@@ -483,18 +540,22 @@
         gap: 2px;
     }
 
+
         .main-nav .nav-link {
             padding-left: 9px !important;
             padding-right: 9px !important;
         }
 
+
     .navbar-right {
         margin-left: 8px;
     }
 
+
     .user-details {
         display: none;
     }
+
 
     .user-chevron {
         display: none;
@@ -584,6 +645,11 @@
         position: static !important;
         transform: none !important;
     }
+
+
+    .profile-dropdown-item {
+        padding: 11px 12px;
+    }
 }
 
 
@@ -614,6 +680,11 @@
         padding: 9px 13px;
         font-size: 12.5px;
     }
+
+
+    .profile-dropdown {
+        min-width: 100%;
+    }
 }
 
-```
+
