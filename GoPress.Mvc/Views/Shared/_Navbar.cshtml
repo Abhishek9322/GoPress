@@ -2,7 +2,10 @@
 
     <div class="container">
 
-        <!-- BRAND -->
+        <!-- =========================================================
+             BRAND
+        ========================================================== -->
+
         <a class="navbar-brand logo-text"
            asp-controller="Home"
            asp-action="Index">
@@ -16,7 +19,10 @@
         </a>
 
 
-        <!-- MOBILE BUTTON -->
+        <!-- =========================================================
+             MOBILE BUTTON
+        ========================================================== -->
+
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -30,16 +36,25 @@
         </button>
 
 
-        <!-- NAVIGATION -->
+        <!-- =========================================================
+             NAVIGATION
+        ========================================================== -->
+
         <div class="collapse navbar-collapse"
              id="mainNavbar">
 
 
-            <!-- LEFT / CENTER NAVIGATION -->
+            <!-- =====================================================
+                 LEFT / CENTER NAVIGATION
+            ====================================================== -->
+
             <ul class="navbar-nav mx-auto main-nav">
 
 
-                <!-- HOME -->
+                <!-- =================================================
+                     HOME
+                ================================================== -->
+
                 <li class="nav-item">
 
                     <a class="nav-link"
@@ -58,9 +73,9 @@
                 @if (User.Identity?.IsAuthenticated == true)
                 {
 
-                    <!-- ========================================= -->
-                    <!-- CUSTOMER NAVIGATION -->
-                    <!-- ========================================= -->
+                    <!-- =================================================
+                         CUSTOMER NAVIGATION
+                    ================================================== -->
                     @if (User.IsInRole("Customer"))
                     {
                         <li class="nav-item dropdown">
@@ -80,8 +95,8 @@
 
                             <ul class="dropdown-menu role-dropdown">
 
-
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="Customer"
                                        asp-controller="Orders"
@@ -92,10 +107,12 @@
                                         My Orders
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="Customer"
                                        asp-controller="Orders"
@@ -106,10 +123,12 @@
                                         Browse Shops
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="Customer"
                                        asp-controller="Orders"
@@ -120,8 +139,8 @@
                                         Create Order
 
                                     </a>
-                                </li>
 
+                                </li>
 
                             </ul>
 
@@ -129,10 +148,9 @@
                     }
 
 
-
-                    <!-- ========================================= -->
-                    <!-- DELIVERY BOY NAVIGATION -->
-                    <!-- ========================================= -->
+                    <!-- =================================================
+                         DELIVERY BOY NAVIGATION
+                    ================================================== -->
                     @if (User.IsInRole("DeliveryBoy"))
                     {
                         <li class="nav-item dropdown">
@@ -151,7 +169,6 @@
 
 
                             <ul class="dropdown-menu role-dropdown">
-
 
                                 <li>
                                     <a class="dropdown-item"
@@ -236,17 +253,15 @@
                                     </a>
                                 </li>
 
-
                             </ul>
 
                         </li>
                     }
 
 
-
-                    <!-- ========================================= -->
-                    <!-- SHOP OWNER NAVIGATION -->
-                    <!-- ========================================= -->
+                    <!-- =================================================
+                         SHOP OWNER NAVIGATION
+                    ================================================== -->
                     @if (User.IsInRole("ShopOwner"))
                     {
                         <li class="nav-item dropdown">
@@ -265,7 +280,6 @@
 
 
                             <ul class="dropdown-menu role-dropdown">
-
 
                                 <li>
                                     <a class="dropdown-item"
@@ -309,7 +323,9 @@
                                 </li>
 
 
-                                <li class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
 
 
                                 <li>
@@ -381,17 +397,15 @@
                                     </a>
                                 </li>
 
-
                             </ul>
 
                         </li>
                     }
 
 
-
-                    <!-- ========================================= -->
-                    <!-- ADMIN NAVIGATION -->
-                    <!-- ========================================= -->
+                    <!-- =================================================
+                         ADMIN NAVIGATION
+                    ================================================== -->
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item dropdown">
@@ -411,19 +425,35 @@
 
                             <ul class="dropdown-menu role-dropdown">
 
-                                <!--
-                                    Add your Admin controller routes here
-                                    after you provide the Admin controllers.
-                                -->
+                                <li>
+
+                                    <a class="dropdown-item"
+                                       asp-area="Admin"
+                                       asp-controller="Approvel"
+                                       asp-action="GetAllPendingUsers">
+
+                                        <i class="fa-solid fa-user-clock"></i>
+
+                                        Pending Approvals
+
+                                    </a>
+
+                                </li>
+
 
                                 <li>
-                                    <span class="dropdown-item-text admin-placeholder">
 
-                                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                                    <a class="dropdown-item"
+                                       asp-area="Admin"
+                                       asp-controller="Approvel"
+                                       asp-action="GetAllApprovedUsers">
 
-                                        Admin Panel
+                                        <i class="fa-solid fa-user-check"></i>
 
-                                    </span>
+                                        Approved Users
+
+                                    </a>
+
                                 </li>
 
                             </ul>
@@ -434,10 +464,9 @@
                 }
 
 
-
-                <!-- ========================================= -->
-                <!-- LOCATIONS -->
-                <!-- ========================================= -->
+                <!-- =====================================================
+                     LOCATIONS
+                ====================================================== -->
 
                 <li class="nav-item">
 
@@ -453,9 +482,9 @@
                 </li>
 
 
-                <!-- ========================================= -->
-                <!-- HOW IT WORKS -->
-                <!-- ========================================= -->
+                <!-- =====================================================
+                     HOW IT WORKS
+                ====================================================== -->
 
                 <li class="nav-item">
 
@@ -470,29 +499,28 @@
 
                 </li>
 
-
             </ul>
 
 
-
-            <!-- ========================================= -->
-            <!-- RIGHT SIDE -->
-            <!-- ========================================= -->
+            <!-- =====================================================
+                 RIGHT SIDE
+            ====================================================== -->
 
             <div class="navbar-right">
-
 
                 @if (User.Identity?.IsAuthenticated == true)
                 {
 
-                    <!-- USER PROFILE -->
+                    <!-- =================================================
+                         USER PROFILE DROPDOWN
+                    ================================================== -->
+
                     <div class="user-dropdown dropdown">
 
                         <button class="user-profile-btn dropdown-toggle"
                                 type="button"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false">
-
 
                             <span class="user-avatar">
 
@@ -543,9 +571,16 @@
                         </button>
 
 
+                        <!-- =================================================
+                             PROFILE DROPDOWN
+                        ================================================== -->
 
                         <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
 
+
+                            <!-- =================================================
+                                 PROFILE HEADER
+                            ================================================== -->
 
                             <li class="profile-header">
 
@@ -555,6 +590,7 @@
 
                                 </div>
 
+
                                 <div>
 
                                     <div class="profile-name">
@@ -562,6 +598,7 @@
                                         @User.Identity.Name
 
                                     </div>
+
 
                                     <div class="profile-role">
 
@@ -594,17 +631,99 @@
 
 
                             <li>
+
                                 <hr class="dropdown-divider" />
+
                             </li>
 
 
-                            <!-- LOGOUT - UNCHANGED -->
+                            <!-- =================================================
+                                 PROFILE
+                            ================================================== -->
+
+                            <li>
+
+                                <a class="profile-dropdown-item"
+                                   asp-area="Admin"
+                                   asp-controller="Profile"
+                                   asp-action="Index">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                    <span>Profile</span>
+
+                                </a>
+
+                            </li>
+
+
+                            <!-- =================================================
+                                 ADMIN ONLY OPTIONS
+                            ================================================== -->
+                            @if (User.IsInRole("Admin"))
+                            {
+
+                                <!-- APPROVALS -->
+
+                                <li>
+
+                                    <a class="profile-dropdown-item"
+                                       asp-area="Admin"
+                                       asp-controller="Approvel"
+                                       asp-action="GetAllPendingUsers">
+
+                                        <i class="fa-solid fa-user-check"></i>
+
+                                        <span>Approvals</span>
+
+                                    </a>
+
+                                </li>
+
+
+                                <!-- ORDERS MANAGEMENT -->
+
+                                <li>
+
+                                    <a class="profile-dropdown-item"
+                                       asp-area="Admin"
+                                       asp-controller="Orders"
+                                       asp-action="AllOrders">
+
+                                        <i class="fa-solid fa-clipboard-list"></i>
+
+                                        <span>Orders Management</span>
+
+                                    </a>
+
+                                </li>
+
+                            }
+
+
+                            <!-- =================================================
+                                 DIVIDER BEFORE LOGOUT
+                            ================================================== -->
+
+                            <li>
+
+                                <hr class="dropdown-divider" />
+
+                            </li>
+
+
+                            <!-- =================================================
+                                 LOGOUT
+                            ================================================== -->
+
                             <li>
 
                                 <form asp-area="Auth"
                                       asp-controller="Auth"
                                       asp-action="Logout"
                                       method="post">
+
+                                    @Html.AntiForgeryToken()
 
                                     <button type="submit"
                                             class="dropdown-logout">
@@ -628,7 +747,10 @@
                 else
                 {
 
-                    <!-- SIGN IN -->
+                    <!-- =================================================
+                         SIGN IN
+                    ================================================== -->
+
                     <a asp-area="Auth"
                        asp-controller="Auth"
                        asp-action="Login"
@@ -641,7 +763,10 @@
                     </a>
 
 
-                    <!-- REGISTER -->
+                    <!-- =================================================
+                         REGISTER
+                    ================================================== -->
+
                     <a asp-area="Auth"
                        asp-controller="Auth"
                        asp-action="RegisterCustomer"
@@ -662,3 +787,4 @@
     </div>
 
 </nav>
+
