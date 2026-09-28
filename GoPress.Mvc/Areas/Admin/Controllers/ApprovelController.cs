@@ -128,8 +128,6 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
         {
             try
             {
-
-               
                 var response = await _apiService.PutAsync<Response<string>>(
                     $"api/AdminApprovel/{id}/Cancel-Licence"
                     );

@@ -28,6 +28,7 @@ namespace GoPress.Application.Features.AdminApproval.GetApprovedUsers.QueriesHan
                 FullName = user.FullName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
+                IsActive=user.IsActive,
                 Role = user.Role.ToString()
 
             }).ToList();
