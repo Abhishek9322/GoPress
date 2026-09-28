@@ -54,9 +54,10 @@ namespace GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.CommandH
                 request.IsActive);
 
             return new Response<string>(
-                request.IsActive
-                    ? "User activated successfully."
-                    : "User deactivated successfully.");
+         ActiveDeactiveuser.Id.ToString(),
+         request.IsActive
+             ? "User activated successfully."
+             : "User deactivated successfully.");
         }
     }
 }

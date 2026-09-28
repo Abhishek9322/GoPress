@@ -81,7 +81,7 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 if (response == null || !response.Succeeded)
                 {
                     TempData["Error"] = "Uable Get All Approved users. ";
-                    return RedirectToAction(nameof(GetAllApprovedUsers));
+                    return RedirectToAction(nameof(GetAllPendingUsers));
 
                 }
 

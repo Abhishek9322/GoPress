@@ -145,6 +145,10 @@
                     <div class="order-card-header">
 
                         <div class="order-number">
+                            <div>
+                                User ID: @user.UserId
+                            </div>
+
 
                             <span>
                                 @user.Role
@@ -269,7 +273,7 @@
 
                             <form asp-area="Admin"
                                   asp-controller="Approvel"
-                                  asp-action="ApproveUser"
+                                  asp-action="ApproveUserRequest"
                                   method="post"
                                   onsubmit="return confirm('Are you sure you want to approve @user.FullName?');">
 
