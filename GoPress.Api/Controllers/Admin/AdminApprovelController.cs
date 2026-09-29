@@ -2,6 +2,7 @@
 using GoPress.Application.Features.AdminApproval.ActiveDeactiveUser.Command;
 using GoPress.Application.Features.AdminApproval.Approved.Command;
 using GoPress.Application.Features.AdminApproval.GetApprovedUsers.Queries;
+using GoPress.Application.Features.AdminApproval.GetPendingApproval.DeActiveUsers.Queries;
 using GoPress.Application.Features.AdminApproval.GetPendingApproval.Queries;
 using GoPress.Application.Features.AdminApproval.Rejectuser.Command;
 using MediatR;
@@ -24,7 +25,7 @@ namespace GoPress.Api.Controllers.Admin
             _mediator = mediator;
         }
 
-        
+
         [HttpGet("pending-shopowners")]
         public async Task<IActionResult> GetPendingShopOwners()
         {
@@ -66,7 +67,7 @@ namespace GoPress.Api.Controllers.Admin
         }
 
         [HttpPut("{userId}/reject")]
-        public async Task<IActionResult> RejectUser(int userId,RejectUserCommand command)
+        public async Task<IActionResult> RejectUser(int userId, RejectUserCommand command)
         {
             command.UserId = userId;
 
@@ -80,7 +81,7 @@ namespace GoPress.Api.Controllers.Admin
         public async Task<IActionResult> GetAllApprovedUsers()
         {
             var response = await _mediator.Send(new GetAllApprovedusersByAdminQuery());
-            return Ok(response);   
+            return Ok(response);
         }
 
         [HttpGet("Approed-shopowner")]
@@ -90,11 +91,11 @@ namespace GoPress.Api.Controllers.Admin
 
             return Ok(responce);
         }
-         
+
         [HttpGet("Approved-DeliveryBoy")]
         public async Task<IActionResult> GetAllApprovedDeliveryBoy()
         {
-            var response=await _mediator.Send(new GetApprovedDeliveryBoyQuery());
+            var response = await _mediator.Send(new GetApprovedDeliveryBoyQuery());
             return Ok(response);
         }
 
@@ -107,7 +108,15 @@ namespace GoPress.Api.Controllers.Admin
                 IsActive = false
             };
 
-            var response =await _mediator.Send(command);
+            var response = await _mediator.Send(command);
+
+            return Ok(response);
+        }
+
+        [HttpGet("DeActive-Users")]
+        public async Task<IActionResult> AllDeActiveUsers()
+        {
+            var response = await _mediator.Send(new GetAllDeActiveUsersQuery());
 
             return Ok(response);
         }

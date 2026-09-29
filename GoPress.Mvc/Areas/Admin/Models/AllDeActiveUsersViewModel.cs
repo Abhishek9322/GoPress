@@ -1,6 +1,6 @@
-﻿namespace GoPress.Application.DTOs.Admin
+﻿namespace GoPress.Mvc.Areas.Admin.Models
 {
-    public class PendingUsersDto
+    public class AllDeActiveUsersViewModel
     {
         public int UserId { get; set; }
 
@@ -11,6 +11,6 @@
         public string PhoneNumber { get; set; }
 
         public string Role { get; set; }
-
+        public bool IsActive { get; set; }
     }
 }

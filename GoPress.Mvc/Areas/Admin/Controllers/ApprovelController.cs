@@ -151,6 +151,24 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
 
 
         [HttpGet]
+        public async Task<IActionResult>GetAllDeActiveUsers()
+        {
+            var response = await _apiService.GetAsync<Response<List<AllDeActiveUsersViewModel>>>
+                (
+                "api/AdminApprovel/DeActive-Users"
+                );
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load All DeActive Users.";
+                return View(new List<AllDeActiveUsersViewModel>());
+            }
+
+
+            return View(response.Data);
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult>GetAllApprovedUsers()
         {
             var response = await _apiService.GetAsync<Response<List<AllApprovedUsersViewModel>>>
