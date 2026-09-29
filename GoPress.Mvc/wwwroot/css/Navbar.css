@@ -1,7 +1,7 @@
-﻿css
-/* =========================================================
+﻿/* =========================================================
    PRESS & GO - MODERN NAVBAR
    ========================================================= */
+
 .custom-navbar {
     width: 100%;
     min-height: 76px;
@@ -14,13 +14,13 @@
 }
 
 
-/* =========================================================
+    /* =========================================================
    CONTAINER
    ========================================================= */
 
-.custom-navbar .container {
-    min-height: 76px;
-}
+    .custom-navbar .container {
+        min-height: 76px;
+    }
 
 
 /* =========================================================
@@ -185,6 +185,158 @@
     gap: 10px;
     color: #8a91a0;
     font-size: 13px;
+}
+
+
+/* =========================================================
+   ADMIN NESTED APPROVALS DROPDOWN
+   ========================================================= */
+
+.dropdown-submenu {
+    position: relative;
+}
+
+
+/* =========================================================
+   APPROVALS TOGGLE
+   ========================================================= */
+
+.dropdown-submenu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+    .dropdown-submenu-toggle span {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+
+        .dropdown-submenu-toggle span i {
+            width: 18px;
+            color: #737b8c;
+            font-size: 13px;
+            text-align: center;
+            transition: color 0.2s ease;
+        }
+
+
+.submenu-arrow {
+    width: auto !important;
+    margin-left: auto;
+    color: #9aa1af;
+    font-size: 10px !important;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+
+/* =========================================================
+   APPROVALS SUBMENU
+   ========================================================= */
+
+.approval-submenu {
+    position: absolute;
+    top: -8px;
+    left: 100%;
+    min-width: 255px;
+    padding: 8px;
+    margin-left: 6px;
+    border: 1px solid #edf0f5;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+    animation: dropdownShow 0.18s ease;
+    display: none;
+}
+
+
+/* =========================================================
+   SHOW APPROVAL SUBMENU
+   ========================================================= */
+
+.dropdown-submenu:hover > .approval-submenu {
+    display: block;
+}
+
+
+.dropdown-submenu.show > .approval-submenu {
+    display: block;
+}
+
+
+/* =========================================================
+   APPROVALS TOGGLE HOVER
+   ========================================================= */
+
+.dropdown-submenu:hover > .dropdown-submenu-toggle {
+    background: #f4f6ff;
+    color: #4f46e5;
+    padding-left: 16px;
+}
+
+
+    .dropdown-submenu:hover > .dropdown-submenu-toggle span i {
+        color: #4f46e5;
+    }
+
+
+    .dropdown-submenu:hover > .dropdown-submenu-toggle .submenu-arrow {
+        color: #4f46e5;
+        transform: translateX(2px);
+    }
+
+
+/* =========================================================
+   APPROVAL SUBMENU ITEMS
+   ========================================================= */
+
+.approval-submenu .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 12px;
+    margin: 2px 0;
+    border-radius: 9px;
+    color: #4b5563;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+
+    .approval-submenu .dropdown-item i {
+        width: 18px;
+        color: #737b8c;
+        font-size: 13px;
+        text-align: center;
+        transition: color 0.2s ease;
+    }
+
+
+    .approval-submenu .dropdown-item:hover {
+        background: #f4f6ff;
+        color: #4f46e5;
+        padding-left: 16px;
+    }
+
+
+        .approval-submenu .dropdown-item:hover i {
+            color: #4f46e5;
+        }
+
+
+/* =========================================================
+   APPROVAL SUBMENU DIVIDER
+   ========================================================= */
+
+.approval-submenu .dropdown-divider {
+    margin: 7px 4px;
+    border-color: #edf0f5;
 }
 
 
@@ -610,6 +762,70 @@
     }
 
 
+    /* =====================================================
+       MOBILE APPROVALS SUBMENU
+    ====================================================== */
+
+    .dropdown-submenu {
+        position: relative;
+    }
+
+
+    .approval-submenu {
+        position: static;
+        width: 100%;
+        min-width: 100%;
+        margin: 2px 0 4px 0;
+        padding: 6px 8px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: none;
+        background: #f1f3f8;
+        animation: none;
+    }
+
+
+    /*
+       On mobile, JavaScript controls the submenu.
+       This prevents hover from opening it accidentally.
+    */
+
+    .dropdown-submenu:hover > .approval-submenu {
+        display: none;
+    }
+
+
+    .dropdown-submenu.show > .approval-submenu {
+        display: block;
+    }
+
+
+    .dropdown-submenu-toggle {
+        padding: 11px 12px !important;
+    }
+
+
+    .approval-submenu .dropdown-item {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+
+    .submenu-arrow {
+        transition: transform 0.2s ease;
+    }
+
+
+    .dropdown-submenu.show
+    .submenu-arrow {
+        transform: rotate(90deg);
+    }
+
+
+    /* =====================================================
+       RIGHT SIDE
+    ====================================================== */
+
     .navbar-right {
         width: 100%;
         margin: 12px 0 0;
@@ -685,6 +901,10 @@
     .profile-dropdown {
         min-width: 100%;
     }
+
+
+    .approval-submenu {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
 }
-
-

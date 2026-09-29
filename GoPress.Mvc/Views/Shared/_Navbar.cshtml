@@ -171,6 +171,7 @@
                             <ul class="dropdown-menu role-dropdown">
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="DeliveryBoy"
                                        asp-controller="Orders"
@@ -181,10 +182,12 @@
                                         Available Orders
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="DeliveryBoy"
                                        asp-controller="Orders"
@@ -195,10 +198,12 @@
                                         Accepted Pickups
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="DeliveryBoy"
                                        asp-controller="Orders"
@@ -209,10 +214,12 @@
                                         Pickup Completed
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="DeliveryBoy"
                                        asp-controller="Orders"
@@ -223,10 +230,12 @@
                                         Ready For Delivery
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="DeliveryBoy"
                                        asp-controller="Orders"
@@ -237,10 +246,12 @@
                                         Out For Delivery
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="DeliveryBoy"
                                        asp-controller="Orders"
@@ -251,6 +262,7 @@
                                         Completed Orders
 
                                     </a>
+
                                 </li>
 
                             </ul>
@@ -282,6 +294,7 @@
                             <ul class="dropdown-menu role-dropdown">
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -292,10 +305,12 @@
                                         All Orders
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -306,10 +321,12 @@
                                         Accepted Orders
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -320,15 +337,19 @@
                                         Rejected Orders
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <hr class="dropdown-divider">
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -339,10 +360,12 @@
                                         Pickup Completed
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -353,10 +376,12 @@
                                         Processing
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -367,10 +392,12 @@
                                         Ready For Delivery
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -381,10 +408,12 @@
                                         Out For Delivery
 
                                     </a>
+
                                 </li>
 
 
                                 <li>
+
                                     <a class="dropdown-item"
                                        asp-area="ShopOwner"
                                        asp-controller="Orders"
@@ -395,6 +424,7 @@
                                         Completed Orders
 
                                     </a>
+
                                 </li>
 
                             </ul>
@@ -410,6 +440,8 @@
                     {
                         <li class="nav-item dropdown">
 
+                            <!-- ADMIN -->
+
                             <a class="nav-link dropdown-toggle"
                                href="#"
                                role="button"
@@ -423,38 +455,201 @@
                             </a>
 
 
+                            <!-- =================================================
+                                 ADMIN DROPDOWN
+                            ================================================== -->
+
                             <ul class="dropdown-menu role-dropdown">
 
+
+                                <!-- =================================================
+                                     APPROVALS NESTED DROPDOWN
+                                ================================================== -->
+
+                                <li class="dropdown-submenu">
+
+                                    <a class="dropdown-item dropdown-submenu-toggle"
+                                       href="#"
+                                       role="button">
+
+                                        <span>
+
+                                            <i class="fa-solid fa-user-check"></i>
+
+                                            Approvals
+
+                                        </span>
+
+                                        <i class="fa-solid fa-chevron-right submenu-arrow"></i>
+
+                                    </a>
+
+
+                                    <!-- =================================================
+                                         APPROVALS SUBMENU
+                                    ================================================== -->
+
+                                    <ul class="dropdown-menu approval-submenu">
+
+
+                                        <!-- ALL PENDING USERS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllPendingUsers">
+
+                                                <i class="fa-solid fa-user-clock"></i>
+
+                                                All Pending Users
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <!-- PENDING SHOP OWNERS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllPendingShopOwners">
+
+                                                <i class="fa-solid fa-shop"></i>
+
+                                                Pending Shop Owners
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <!-- PENDING DELIVERY BOYS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllPendingDeliveryBoy">
+
+                                                <i class="fa-solid fa-truck"></i>
+
+                                                Pending Delivery Boys
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <!-- DEACTIVE USERS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllDeActiveUsers">
+
+                                                <i class="fa-solid fa-user-slash"></i>
+
+                                                Deactive Users
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <!-- DIVIDER -->
+
+                                        <li>
+
+                                            <hr class="dropdown-divider">
+
+                                        </li>
+
+
+                                        <!-- ALL APPROVED USERS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllApprovedUsers">
+
+                                                <i class="fa-solid fa-users"></i>
+
+                                                All Approved Users
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <!-- APPROVED SHOP OWNERS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllApprovedShopOwner">
+
+                                                <i class="fa-solid fa-shop"></i>
+
+                                                Approved Shop Owners
+
+                                            </a>
+
+                                        </li>
+
+
+                                        <!-- APPROVED DELIVERY BOYS -->
+
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Approvel"
+                                               asp-action="GetAllApprovedDeliveryBoy">
+
+                                                <i class="fa-solid fa-truck-fast"></i>
+
+                                                Approved Delivery Boys
+
+                                            </a>
+
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+
+
+                                <!-- =================================================
+                                     ORDERS MANAGEMENT
+                                ================================================== -->
+
                                 <li>
 
                                     <a class="dropdown-item"
                                        asp-area="Admin"
-                                       asp-controller="Approvel"
-                                       asp-action="GetAllPendingUsers">
+                                       asp-controller="Orders"
+                                       asp-action="AllOrders">
 
-                                        <i class="fa-solid fa-user-clock"></i>
+                                        <i class="fa-solid fa-clipboard-list"></i>
 
-                                        Pending Approvals
+                                        Orders Management
 
                                     </a>
 
                                 </li>
 
-
-                                <li>
-
-                                    <a class="dropdown-item"
-                                       asp-area="Admin"
-                                       asp-controller="Approvel"
-                                       asp-action="GetAllApprovedUsers">
-
-                                        <i class="fa-solid fa-user-check"></i>
-
-                                        Approved Users
-
-                                    </a>
-
-                                </li>
 
                             </ul>
 
@@ -630,6 +825,8 @@
                             </li>
 
 
+                            <!-- DIVIDER -->
+
                             <li>
 
                                 <hr class="dropdown-divider" />
@@ -662,24 +859,6 @@
                             ================================================== -->
                             @if (User.IsInRole("Admin"))
                             {
-
-                                <!-- APPROVALS -->
-
-                                <li>
-
-                                    <a class="profile-dropdown-item"
-                                       asp-area="Admin"
-                                       asp-controller="Approvel"
-                                       asp-action="GetAllPendingUsers">
-
-                                        <i class="fa-solid fa-user-check"></i>
-
-                                        <span>Approvals</span>
-
-                                    </a>
-
-                                </li>
-
 
                                 <!-- ORDERS MANAGEMENT -->
 
@@ -788,3 +967,85 @@
 
 </nav>
 
+
+<!-- =========================================================
+     NESTED DROPDOWN JAVASCRIPT
+========================================================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const submenuToggles =
+            document.querySelectorAll(".dropdown-submenu-toggle");
+
+
+        submenuToggles.forEach(function (toggle) {
+
+            toggle.addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                e.stopPropagation();
+
+
+                const parent =
+                    toggle.closest(".dropdown-submenu");
+
+
+                // Close other submenus
+
+                document
+                    .querySelectorAll(".dropdown-submenu.show")
+                    .forEach(function (submenu) {
+
+                        if (submenu !== parent) {
+
+                            submenu.classList.remove("show");
+
+                        }
+
+                    });
+
+
+                // Toggle current submenu
+
+                parent.classList.toggle("show");
+
+            });
+
+        });
+
+
+        // Close nested dropdown when clicking outside
+
+        document.addEventListener("click", function () {
+
+            document
+                .querySelectorAll(".dropdown-submenu.show")
+                .forEach(function (submenu) {
+
+                    submenu.classList.remove("show");
+
+                });
+
+        });
+
+
+        // Prevent submenu click from closing Admin dropdown
+
+        document
+            .querySelectorAll(".approval-submenu")
+            .forEach(function (submenu) {
+
+                submenu.addEventListener("click", function (e) {
+
+                    e.stopPropagation();
+
+                });
+
+            });
+
+    });
+
+</script>
