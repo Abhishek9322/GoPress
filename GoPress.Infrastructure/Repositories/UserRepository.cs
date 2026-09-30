@@ -93,8 +93,7 @@ namespace GoPress.Infrastructure.Repositories
                 .Include(x => x.ShopOwnerProfile)
                  .Where(x =>
                        (x.Role == UserRoleenum.DeliveryBoy ||
-                        x.Role == UserRoleenum.ShopOwner)
-                        && x.IsApproved)
+                        x.Role == UserRoleenum.ShopOwner) && x.IsApproved && x.IsActive)
                   .AsNoTracking()
                   .ToListAsync();
         }

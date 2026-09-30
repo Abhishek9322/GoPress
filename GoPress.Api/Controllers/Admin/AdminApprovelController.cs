@@ -120,5 +120,17 @@ namespace GoPress.Api.Controllers.Admin
 
             return Ok(response);
         }
+
+        [HttpPut("{userId}Resume-Licence")]
+        public async Task<IActionResult> ResumeLicenceOfUsers(int userId)
+        {
+            var command = new ResumeLicenceOfUsersQuery
+            {
+                userId=userId,
+                IsActive=true
+            };
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
     }
 }
