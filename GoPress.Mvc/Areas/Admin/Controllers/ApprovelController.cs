@@ -140,7 +140,7 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 }
 
                 TempData["Success"] = response.Message ?? "All Pending Users";
-                return RedirectToAction(nameof(GetAllPendingUsers));
+                return RedirectToAction(nameof(GetAllDeActiveUsers));
             }
             catch (Exception ex)
             {
@@ -149,6 +149,29 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResumeLicence(int id)
+        {
+            try
+            {
+                var response = await _apiService.PutAsync<Response<string>>(
+                    $"api/AdminApprovel/{id}/Resume-Licence"
+                    );
+                if (response == null || !response.Succeeded)
+                {
+                    TempData["Error"] = "Uable Get All Deactive users. ";
+                    return RedirectToAction(nameof(GetAllDeActiveUsers));
+                }
+                TempData["Success"] = response.Message ?? "All Approved Users";
+                return RedirectToAction(nameof(GetAllApprovedUsers));
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction(nameof(GetAllDeActiveUsers));
+            }
+        }
 
         [HttpGet]
         public async Task<IActionResult>GetAllDeActiveUsers()
