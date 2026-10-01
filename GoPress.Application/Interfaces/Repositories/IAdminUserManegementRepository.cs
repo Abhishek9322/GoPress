@@ -1,5 +1,5 @@
 ﻿using GoPress.Application.DTOs.Admin.UserManegment;
-using GoPress.Application.DTOs.Dashboard;
+using GoPress.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Interfaces.Repositories
 {
-    public interface IAdminRepository
+    public interface IAdminUserManegementRepository
     {
-        Task<AdminDashboardDto> GetDashboardAsync();
-
-       
+        Task<List<ApplicationUser>> GetAllCustomerProfile();
     }
 }

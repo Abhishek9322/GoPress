@@ -33,8 +33,7 @@ namespace GoPress.Domain.Entities
         public string? Notes { get; set; }
 
         // ORDER STATUS
-        public OrderStatusEnum Status { get; set; }
-            = OrderStatusEnum.Pending;
+        public OrderStatusEnum Status { get; set; } = OrderStatusEnum.Pending;
 
         // NAVIGATION PROPERTIES
 
