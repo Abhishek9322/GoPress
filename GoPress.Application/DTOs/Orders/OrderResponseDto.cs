@@ -12,7 +12,7 @@ namespace GoPress.Application.DTOs.Orders
 
         public int? DeliveryBoyId { get; set; }
 
-        public string PickupAddress { get; set; }
+        public string PickupAddress { get; set; } 
 
         public string DeliveryAddress { get; set; }
 
