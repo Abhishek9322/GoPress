@@ -8,7 +8,7 @@ namespace GoPress.Application.DTOs.Admin.UserManegment
 {
     public class AllCutomerProfileDto
     {
-        public int UserId { get; set; }
+        public int UserId { get; set; } 
 
         public string? Address { get; set; }
 
