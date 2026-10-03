@@ -20,6 +20,15 @@ namespace GoPress.Infrastructure.Repositories
             _context = context;
         }
 
+        public async Task<List<ApplicationUser>> GetAllCustomerDetails(int userId)
+        {
+            return await _context.ApplicationUsers
+                 .Include(x => x.CustomerProfile)
+                 .Where(x => x.Role == UserRoleenum.Customer && x.Id == userId)
+                 .AsNoTracking()
+                 .ToListAsync();
+        }
+
         public async Task<List<ApplicationUser>> GetAllCustomerProfile()
         {
             return await _context.ApplicationUsers

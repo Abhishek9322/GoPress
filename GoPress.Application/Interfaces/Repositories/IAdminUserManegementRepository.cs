@@ -11,5 +11,6 @@ namespace GoPress.Application.Interfaces.Repositories
     public interface IAdminUserManegementRepository
     {
         Task<List<ApplicationUser>> GetAllCustomerProfile();
+        Task<List<ApplicationUser>> GetAllCustomerDetails(int userId);
     }
 }
