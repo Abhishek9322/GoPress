@@ -1,0 +1,327 @@
+﻿@model List<GoPress.Mvc.Areas.Admin.Models.AllCutomerProfileViewModel>
+
+@{
+    ViewData["Title"] = "All Customers";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin-AllCustomerProfiles.css"
+          asp-append-version="true" />
+}
+
+<div class="customers-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="customers-header">
+
+        <div class="customers-header-content">
+
+            <div class="customers-header-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <div>
+                <h2>Customers</h2>
+
+                <p>
+                    View and manage all registered customer profiles.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUCCESS MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="customers-empty-state">
+
+            <div class="empty-icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+            <h3>
+                No Customers Found
+            </h3>
+
+            <p>
+                There are currently no registered customers.
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
+
+        <div class="customers-summary">
+
+            <div class="summary-left">
+
+                <span class="summary-label">
+                    Total Customers
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-user-group"></i>
+
+                Registered customer accounts
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             CUSTOMER TABLE
+        =========================================== -->
+
+        <div class="customers-table-container">
+
+            <table class="customers-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            Contact
+                        </th>
+
+                        <th>
+                            Location
+                        </th>
+
+                        <th>
+                            Role
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @foreach (var customer in Model)
+                    {
+                        <tr>
+
+                            <!-- ==================================
+                                 CUSTOMER ID
+                            =================================== -->
+
+                            <td>
+
+                                <div class="customer-id">
+                                    #@customer.UserId
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 CUSTOMER
+                            =================================== -->
+
+                            <td>
+
+                                <div class="customer-profile">
+
+                                    <div class="customer-avatar">
+
+                                        <i class="fa-solid fa-user"></i>
+
+                                    </div>
+
+                                    <div class="customer-name">
+
+                                        <strong>
+                                            @(customer.AllApplicationUserProfileViewModel?.FullName ?? "N/A")
+                                        </strong>
+
+                                        <span>
+                                            Customer
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 CONTACT
+                            =================================== -->
+
+                            <td>
+
+                                <div class="contact-info">
+
+                                    <div class="contact-item">
+
+                                        <i class="fa-solid fa-envelope"></i>
+
+                                        <span>
+                                            @(customer.AllApplicationUserProfileViewModel?.Email ?? "N/A")
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="contact-item">
+
+                                        <i class="fa-solid fa-phone"></i>
+
+                                        <span>
+                                            @(customer.AllApplicationUserProfileViewModel?.PhoneNumber ?? "N/A")
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 LOCATION
+                            =================================== -->
+
+                            <td>
+
+                                <div class="location-info">
+
+                                    <strong>
+                                        @(customer.City ?? "N/A")
+                                    </strong>
+
+                                    <span>
+                                        @(customer.State ?? "N/A")
+                                    </span>
+
+                                    <small>
+                                        @(customer.Pincode ?? "N/A")
+                                    </small>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 ROLE
+                            =================================== -->
+
+                            <td>
+
+                                <span class="role-badge">
+
+                                    <i class="fa-solid fa-user-tag"></i>
+
+                                    @(customer.AllApplicationUserProfileViewModel?.Role ?? "Customer")
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 VIEW BUTTON
+                            =================================== -->
+
+                            <td>
+
+                                <a asp-area="Admin"
+                                   asp-controller="Customer"
+                                   asp-action="GetCustomerProfile"
+                                   asp-route-id="@customer.UserId"
+                                   class="view-customer-btn">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    }
+
+</div>

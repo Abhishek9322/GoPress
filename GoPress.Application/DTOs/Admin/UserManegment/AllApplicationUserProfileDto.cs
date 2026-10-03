@@ -8,7 +8,7 @@ namespace GoPress.Application.DTOs.Admin.UserManegment
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
     
-        public UserRoleenum Role { get; set; }
+        public string? Role { get; set; }
       
     }
 }

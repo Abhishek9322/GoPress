@@ -36,7 +36,7 @@ namespace GoPress.Application.Features.AdminApproval.AdminUserManagement.Queries
                     FullName = customer.FullName,
                     Email = customer.Email,
                     PhoneNumber = customer.PhoneNumber, 
-                    Role = customer.Role
+                    Role = customer.Role.ToString()
                 }
 
 

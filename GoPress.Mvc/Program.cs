@@ -50,7 +50,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// IMPORTANT
 app.UseAuthentication();
 
 app.UseAuthorization();

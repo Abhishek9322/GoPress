@@ -1,0 +1,526 @@
+﻿/* =========================================================
+   ADMIN - ALL CUSTOMER PROFILES
+========================================================= */
+
+.customers-page {
+    max-width: 1350px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.customers-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.customers-header-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.customers-header-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient( 135deg, #22c7e8, #1597d0 );
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
+}
+
+.customers-header h2 {
+    margin: 0 0 5px;
+    font-size: 30px;
+    font-weight: 750;
+    color: #111827;
+}
+
+.customers-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 17px;
+    margin-bottom: 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* SUCCESS */
+
+.success-message {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+}
+
+    .success-message i {
+        color: #10b981;
+    }
+
+
+/* ERROR */
+
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+    .error-message i {
+        color: #dc2626;
+    }
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.customers-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .04);
+}
+
+.summary-label {
+    display: block;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.customers-summary strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 24px;
+    color: #111827;
+}
+
+.summary-description {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+    .summary-description i {
+        color: #22c7e8;
+    }
+
+
+/* =========================================================
+   TABLE CONTAINER
+========================================================= */
+
+.customers-table-container {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow-x: auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.customers-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+}
+
+
+    /* =========================================================
+   TABLE HEADER
+========================================================= */
+
+    .customers-table thead {
+        background: #f8fafc;
+    }
+
+    .customers-table th {
+        padding: 16px 20px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        color: #6b7280;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+   TABLE BODY
+========================================================= */
+
+    .customers-table tbody tr {
+        transition: background .2s ease;
+    }
+
+        .customers-table tbody tr:hover {
+            background: #f8fdff;
+        }
+
+    .customers-table td {
+        padding: 17px 20px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+    }
+
+    .customers-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+/* =========================================================
+   CUSTOMER ID
+========================================================= */
+
+.customer-id {
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CUSTOMER PROFILE
+========================================================= */
+
+.customer-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 190px;
+}
+
+.customer-avatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient( 135deg, #ecfeff, #cffafe );
+    color: #1597d0;
+    font-size: 15px;
+}
+
+.customer-name {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+    .customer-name strong {
+        color: #1f2937;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .customer-name span {
+        color: #9ca3af;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+    }
+
+
+/* =========================================================
+   CONTACT INFORMATION
+========================================================= */
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 210px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .contact-item i {
+        width: 14px;
+        color: #22c7e8;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .contact-item span {
+        color: #4b5563;
+        font-size: 12px;
+        word-break: break-word;
+    }
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 120px;
+}
+
+    .location-info strong {
+        color: #374151;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .location-info span {
+        color: #6b7280;
+        font-size: 11px;
+    }
+
+    .location-info small {
+        color: #9ca3af;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: .4px;
+    }
+
+
+/* =========================================================
+   ROLE BADGE
+========================================================= */
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: #ecfeff;
+    border: 1px solid #cffafe;
+    color: #087ea4;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+    .role-badge i {
+        font-size: 10px;
+    }
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.view-customer-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+    .view-customer-btn:hover {
+        background: #1597d0;
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 12px rgba(21, 151, 208, .25);
+    }
+
+    .view-customer-btn i {
+        font-size: 10px;
+    }
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.customers-empty-state {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 50px 25px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ecfeff;
+    color: #22c7e8;
+    font-size: 25px;
+}
+
+.customers-empty-state h3 {
+    margin-bottom: 8px;
+    color: #1f2937;
+    font-size: 20px;
+}
+
+.customers-empty-state p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .customers-page {
+        padding: 30px 20px 50px;
+    }
+
+    .customers-table {
+        min-width: 850px;
+    }
+
+        .customers-table th,
+        .customers-table td {
+            padding: 14px 15px;
+        }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .customers-page {
+        padding: 20px 15px 40px;
+    }
+
+    .customers-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+    }
+
+    .customers-header-content {
+        align-items: flex-start;
+    }
+
+    .customers-header-icon {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+        font-size: 18px;
+    }
+
+    .customers-header h2 {
+        font-size: 24px;
+    }
+
+    .customers-header p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .customers-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .customers-table-container {
+        border-radius: 12px;
+    }
+
+    .customers-table {
+        min-width: 900px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .customers-page {
+        padding: 18px 12px 35px;
+    }
+
+    .customers-header-content {
+        gap: 12px;
+    }
+
+    .customers-header h2 {
+        font-size: 21px;
+    }
+
+    .customers-summary {
+        padding: 16px;
+    }
+
+    .summary-description {
+        font-size: 12px;
+    }
+}
