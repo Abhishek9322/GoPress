@@ -1,4 +1,5 @@
 using GoPress.Mvc.Configurations;
+using GoPress.Mvc.Mapping;
 using GoPress.Mvc.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -15,6 +16,8 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
+builder.Services.AddAutoMapper(typeof(AdminMappingProfile));
 
 // MVC Cookie Authentication
 builder.Services.AddAuthentication(
