@@ -1,0 +1,501 @@
+﻿/* =========================================================
+   ADMIN - CUSTOMER DETAILS PAGE
+========================================================= */
+
+.customer-details-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.customer-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.customer-details-header-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.customer-details-header-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
+}
+
+.customer-details-header h2 {
+    margin: 0 0 5px;
+    font-size: 30px;
+    font-weight: 750;
+    color: #111827;
+}
+
+.customer-details-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.back-customers-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid #dbeafe;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+    .back-customers-btn:hover {
+        background: #2563eb;
+        color: #fff;
+        transform: translateX(-2px);
+    }
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 17px;
+    margin-bottom: 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+    .error-message i {
+        color: #dc2626;
+    }
+
+
+/* =========================================================
+   MAIN CUSTOMER CARD
+========================================================= */
+
+.customer-details-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+========================================================= */
+
+.customer-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 28px;
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
+    color: #fff;
+}
+
+.customer-profile-avatar {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .20);
+    border: 2px solid rgba(255, 255, 255, .40);
+    font-size: 28px;
+}
+
+.customer-profile-title {
+    flex: 1;
+}
+
+    .customer-profile-title h3 {
+        margin: 0 0 5px;
+        font-size: 24px;
+        font-weight: 750;
+    }
+
+    .customer-profile-title p {
+        margin: 0;
+        font-size: 13px;
+        opacity: .9;
+    }
+
+.customer-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, .18);
+    border: 1px solid rgba(255, 255, 255, .30);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DETAILS SECTION
+========================================================= */
+
+.customer-details-section {
+    padding: 25px 28px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 18px;
+}
+
+    .section-title i {
+        color: #22c7e8;
+        font-size: 16px;
+    }
+
+    .section-title h4 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+
+/* =========================================================
+   DETAILS GRID
+========================================================= */
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.detail-item {
+    min-width: 0;
+    padding: 15px;
+    background: #f9fafb;
+    border: 1px solid #eef0f2;
+    border-radius: 10px;
+    transition: all .2s ease;
+}
+
+    .detail-item:hover {
+        border-color: #bae6fd;
+        background: #f0f9ff;
+    }
+
+.detail-item-full {
+    grid-column: 1 / -1;
+}
+
+.detail-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #9ca3af;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    font-weight: 700;
+}
+
+.detail-item strong {
+    display: block;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   ACCOUNT INFORMATION
+========================================================= */
+
+.account-info-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.account-info-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 15px;
+    background: #f9fafb;
+    border: 1px solid #eef0f2;
+    border-radius: 10px;
+}
+
+.account-info-icon {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #ecfeff;
+    color: #0891b2;
+    font-size: 16px;
+}
+
+.account-info-item span {
+    display: block;
+    margin-bottom: 3px;
+    color: #9ca3af;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+}
+
+.account-info-item strong {
+    color: #1f2937;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.customer-details-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px 28px;
+    background: #fafafa;
+    border-top: 1px solid #f0f0f0;
+}
+
+.footer-customer-id span {
+    display: block;
+    margin-bottom: 3px;
+    color: #9ca3af;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.footer-customer-id strong {
+    color: #111827;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.customer-empty-state {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 50px 25px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ecfeff;
+    color: #22c7e8;
+    font-size: 25px;
+}
+
+.customer-empty-state h3 {
+    margin: 0 0 8px;
+    color: #1f2937;
+    font-size: 20px;
+}
+
+.customer-empty-state p {
+    margin: 0 0 20px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .customer-details-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .customer-profile-header {
+        flex-wrap: wrap;
+    }
+
+    .customer-role-badge {
+        margin-left: 88px;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-item-full {
+        grid-column: auto;
+    }
+
+    .account-info-box {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .customer-details-page {
+        padding: 20px 15px 40px;
+    }
+
+    .customer-details-header-content {
+        align-items: flex-start;
+    }
+
+    .customer-details-header-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .customer-details-header h2 {
+        font-size: 24px;
+    }
+
+    .customer-details-header p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .customer-profile-header {
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .customer-profile-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .customer-profile-title h3 {
+        font-size: 20px;
+    }
+
+    .customer-role-badge {
+        margin-left: 0;
+    }
+
+    .customer-details-section {
+        padding: 20px;
+    }
+
+    .customer-details-footer {
+        padding: 16px 20px;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .footer-customer-id {
+        text-align: center;
+    }
+
+    .back-customers-btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .customer-details-header-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .customer-details-header h2 {
+        font-size: 21px;
+    }
+
+    .customer-profile-title h3 {
+        font-size: 18px;
+    }
+
+    .detail-item {
+        padding: 13px;
+    }
+
+    .account-info-item {
+        padding: 13px;
+    }
+}
