@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.AdminApproval.AdminUserManagement.Queries
 {
-    public class GetCustomerDetailsQuery:IRequest<Response<List<AllCutomerProfileDto>>>
+    public class GetCustomerDetailsQuery:IRequest<Response<AllCutomerProfileDto>>
     {
         public int CustomerId { get; set; }
     }

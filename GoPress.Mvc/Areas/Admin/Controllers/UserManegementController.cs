@@ -2,6 +2,7 @@
 using GoPress.Mvc.Areas.Admin.Models;
 using GoPress.Mvc.Models.Responses;
 using GoPress.Mvc.Services;
+using Microsoft.AspNetCore.DataProtection.KeyManagement.Internal;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -33,6 +34,25 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 return View(new List<AllCutomerProfileViewModel>());
             }
             var model =_mapper.Map<List<AllCutomerProfileViewModel>>(response.Data);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCustomerDetails(int customerId)
+        {
+            var response = await _apiService.GetAsync<Response<AllCustomerProfileApiModel>>
+               (
+                   $"api/Admin/UserManagment/{customerId}/Customer"
+               );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To Load Customer.";
+
+                return View(new AllCutomerProfileViewModel());
+            }
+            var model = _mapper.Map<AllCutomerProfileViewModel>(response.Data);
 
             return View(model);
         }

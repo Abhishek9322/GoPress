@@ -11,37 +11,43 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.AdminApproval.AdminUserManagement.QueriesHandler
 {
-    public class GetCustomerDetailsQueryHandler : IRequestHandler<GetCustomerDetailsQuery, Response<List<AllCutomerProfileDto>>>
+    public class GetCustomerDetailsQueryHandler : IRequestHandler<GetCustomerDetailsQuery, Response<AllCutomerProfileDto>>
     {
         private readonly IAdminUserManegementRepository _adminUserManegementRepository;
         public GetCustomerDetailsQueryHandler(IAdminUserManegementRepository adminUserManegementRepository)
         {
             _adminUserManegementRepository = adminUserManegementRepository;
-            
+
         }
-        public async Task<Response<List<AllCutomerProfileDto>>> Handle(GetCustomerDetailsQuery request, CancellationToken cancellationToken)
+
+        public async Task<Response<AllCutomerProfileDto>> Handle(GetCustomerDetailsQuery request, CancellationToken cancellationToken)
         {
-            var customerDetails = await _adminUserManegementRepository.GetAllCustomerDetails(request.CustomerId);
-
-            var response = customerDetails.Select(customer => new AllCutomerProfileDto
+            var customer = await _adminUserManegementRepository.GetCustomerDetails(request.CustomerId);
+              
+            if (customer == null)
             {
-                UserId= customer.Id,
-                Address=customer.CustomerProfile?.Address,
-                City=customer.CustomerProfile?.City,
-                State=customer.CustomerProfile?.State,
-                Pincode=customer.CustomerProfile?.Pincode,
+                return new Response<AllCutomerProfileDto>(null,"Customer not found.");
+            }
 
-                AllApplicationUserProfileDto=new AllApplicationUserProfileDto
-                {
-                    FullName=customer.FullName,
-                    Email=customer.Email,
-                    PhoneNumber=customer.PhoneNumber,
-                    Role=customer.Role.ToString()
-                }
+            var response = new AllCutomerProfileDto
+            {
+                UserId = customer.Id,
+                Address = customer.CustomerProfile?.Address,
+                City = customer.CustomerProfile?.City,
+                State = customer.CustomerProfile?.State,
+                Pincode = customer.CustomerProfile?.Pincode,
+                AllApplicationUserProfileDto =new AllApplicationUserProfileDto
+                    {
+                        FullName = customer.FullName,
+                        Email = customer.Email,
+                        PhoneNumber = customer.PhoneNumber,
+                        Role = customer.Role.ToString()
+                    }
+            };
 
-            }).ToList();
-
-            return new Response<List<AllCutomerProfileDto>>(response, "Get Customer Details Successfullyy .");
+            return new Response<AllCutomerProfileDto>(response,"Get Customer Details Successfully.");
         }
     }
+
+    
 }
