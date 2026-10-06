@@ -1,0 +1,499 @@
+﻿@model List<GoPress.Mvc.Areas.Admin.Models.OrdersResponseViewModel>
+
+@{
+    ViewData["Title"] = "All Orders";
+    Layout = "_Layout";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin-AllOrders.css"
+          asp-append-version="true" />
+}
+
+<div class="orders-page">
+
+    <!-- ==========================================
+         PAGE HEADER
+    =========================================== -->
+
+    <div class="orders-header">
+
+        <div class="orders-header-content">
+
+            <div class="orders-header-icon">
+                <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+
+            <div>
+
+                <h2>Orders</h2>
+
+                <p>
+                    View and monitor all customer orders.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         SUCCESS MESSAGE
+    =========================================== -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span>
+                @TempData["Success"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         ERROR MESSAGE
+    =========================================== -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span>
+                @TempData["Error"]
+            </span>
+
+        </div>
+    }
+
+
+    <!-- ==========================================
+         EMPTY STATE
+    =========================================== -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="orders-empty-state">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-box-open"></i>
+
+            </div>
+
+            <h3>
+                No Orders Found
+            </h3>
+
+            <p>
+                There are currently no orders available.
+            </p>
+
+        </div>
+    }
+    else
+    {
+
+        <!-- ==========================================
+             SUMMARY
+        =========================================== -->
+
+        <div class="orders-summary">
+
+            <div class="summary-left">
+
+                <span class="summary-label">
+                    Total Orders
+                </span>
+
+                <strong>
+                    @Model.Count
+                </strong>
+
+            </div>
+
+            <div class="summary-description">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Customer orders
+
+            </div>
+
+        </div>
+
+
+        <!-- ==========================================
+             ORDER TABLE
+        =========================================== -->
+
+        <div class="orders-table-container">
+
+            <table class="orders-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Order
+                        </th>
+
+                        <th>
+                            Customer
+                        </th>
+
+                        <th>
+                            Shop Owner
+                        </th>
+
+                        <th>
+                            Delivery Boy
+                        </th>
+
+                        <th>
+                            Amount
+                        </th>
+
+                        <th>
+                            Pickup Date
+                        </th>
+
+                        <th>
+                            Delivery Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Items
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+
+                            <!-- ==================================
+                                 ORDER ID
+                            =================================== -->
+
+                            <td>
+
+                                <div class="order-id">
+
+                                    <span>
+                                        #
+                                    </span>
+
+                                    @order.Id
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 CUSTOMER
+                            =================================== -->
+
+                            <td>
+
+                                <div class="user-info">
+
+                                    <div class="user-avatar customer-avatar">
+
+                                        <i class="fa-solid fa-user"></i>
+
+                                    </div>
+
+                                    <div class="user-details">
+
+                                        <strong>
+                                            Customer #@order.CustomerId
+                                        </strong>
+
+                                        <span>
+                                            Customer
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 SHOP OWNER
+                            =================================== -->
+
+                            <td>
+
+                                <div class="user-info">
+
+                                    <div class="user-avatar shop-avatar">
+
+                                        <i class="fa-solid fa-store"></i>
+
+                                    </div>
+
+                                    <div class="user-details">
+
+                                        <strong>
+                                            Shop #@order.ShopOwnerId
+                                        </strong>
+
+                                        <span>
+                                            Shop Owner
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 DELIVERY BOY
+                            =================================== -->
+
+                            <td>
+
+                                @if (order.DeliveryBoyId.HasValue)
+                                {
+                                    <div class="user-info">
+
+                                        <div class="user-avatar delivery-avatar">
+
+                                            <i class="fa-solid fa-motorcycle"></i>
+
+                                        </div>
+
+                                        <div class="user-details">
+
+                                            <strong>
+                                                Delivery #@order.DeliveryBoyId
+                                            </strong>
+
+                                            <span>
+                                                Delivery Boy
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="not-assigned">
+
+                                        <i class="fa-solid fa-minus"></i>
+
+                                        Not Assigned
+
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 AMOUNT
+                            =================================== -->
+
+                            <td>
+
+                                <div class="amount-info">
+
+                                    <span>
+                                        ₹
+                                    </span>
+
+                                    <strong>
+                                        @order.TotalAmount.ToString("N2")
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 PICKUP DATE
+                            =================================== -->
+
+                            <td>
+
+                                <div class="date-info">
+
+                                    <strong>
+                                        @order.PickupDate.ToString("dd MMM yyyy")
+                                    </strong>
+
+                                    <span>
+                                        @order.PickupDate.ToString("hh:mm tt")
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 DELIVERY DATE
+                            =================================== -->
+
+                            <td>
+
+                                @if (order.DeliveryDate.HasValue)
+                                {
+                                    <div class="date-info">
+
+                                        <strong>
+                                            @order.DeliveryDate.Value.ToString("dd MMM yyyy")
+                                        </strong>
+
+                                        <span>
+                                            @order.DeliveryDate.Value.ToString("hh:mm tt")
+                                        </span>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span class="not-completed">
+
+                                        <i class="fa-regular fa-clock"></i>
+
+                                        Pending
+
+                                    </span>
+                                }
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 STATUS
+                            =================================== -->
+
+                            <td>
+
+                                @{
+                                    var statusClass = order.Status
+                                    .ToString()
+                                    .ToLower()
+                                    .Replace(" ", "-");
+                                }
+
+                                <span class="status-badge @statusClass">
+
+                                    @if (order.Status.ToString().ToLower().Contains("pending"))
+                                    {
+                                        <i class="fa-regular fa-clock"></i>
+                                    }
+                                    else if (order.Status.ToString().ToLower().Contains("complete") ||
+                                    order.Status.ToString().ToLower().Contains("deliver"))
+                                    {
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    }
+                                    else if (order.Status.ToString().ToLower().Contains("cancel"))
+                                    {
+                                        <i class="fa-solid fa-circle-xmark"></i>
+                                    }
+                                    else if (order.Status.ToString().ToLower().Contains("pickup"))
+                                    {
+                                        <i class="fa-solid fa-truck"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    }
+
+                                    @order.Status
+
+                                </span>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 ORDER ITEMS
+                            =================================== -->
+
+                            <td>
+
+                                <div class="items-info">
+
+                                    <span class="items-count">
+
+                                        <i class="fa-solid fa-shirt"></i>
+
+                                        @(
+                                            order.OrderItemsViewModel?.Count ?? 0
+                                            )
+
+                                    </span>
+
+                                    <span class="items-label">
+                                        Items
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- ==================================
+                                 ACTION
+                            =================================== -->
+
+                            <td>
+
+                                <a asp-area="Admin"
+                                   asp-controller="OrderManegement"
+                                   asp-action="GetOrderDetails"
+                                   asp-route-orderId="@order.Id"
+                                   class="view-order-btn">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                    View
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    }
+
+</div>

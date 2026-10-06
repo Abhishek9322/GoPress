@@ -1,0 +1,671 @@
+﻿/* =========================================================
+   ADMIN - ALL ORDERS
+========================================================= */
+
+.orders-page {
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.orders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.orders-header-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.orders-header-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient( 135deg, #22c7e8, #1597d0 );
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
+}
+
+.orders-header h2 {
+    margin: 0 0 5px;
+    font-size: 30px;
+    font-weight: 750;
+    color: #111827;
+}
+
+.orders-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 17px;
+    margin-bottom: 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* SUCCESS */
+
+.success-message {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+}
+
+    .success-message i {
+        color: #10b981;
+    }
+
+
+/* ERROR */
+
+.error-message {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+    .error-message i {
+        color: #dc2626;
+    }
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.orders-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .04);
+}
+
+.summary-label {
+    display: block;
+    color: #6b7280;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.orders-summary strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 24px;
+    color: #111827;
+}
+
+.summary-description {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+    .summary-description i {
+        color: #22c7e8;
+    }
+
+
+/* =========================================================
+   TABLE CONTAINER
+========================================================= */
+
+.orders-table-container {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    overflow-x: auto;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1250px;
+}
+
+
+    /* =========================================================
+   TABLE HEADER
+========================================================= */
+
+    .orders-table thead {
+        background: #f8fafc;
+    }
+
+    .orders-table th {
+        padding: 16px 18px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        color: #6b7280;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+   TABLE BODY
+========================================================= */
+
+    .orders-table tbody tr {
+        transition: background .2s ease;
+    }
+
+        .orders-table tbody tr:hover {
+            background: #f8fdff;
+        }
+
+    .orders-table td {
+        padding: 17px 18px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+    }
+
+    .orders-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+
+/* =========================================================
+   ORDER ID
+========================================================= */
+
+.order-id {
+    display: inline-flex;
+    align-items: center;
+    color: #1597d0;
+    font-size: 13px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+    .order-id span {
+        color: #9ca3af;
+        font-size: 11px;
+        margin-right: 1px;
+    }
+
+
+/* =========================================================
+   USER INFORMATION
+========================================================= */
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 150px;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+
+/* CUSTOMER */
+
+.customer-avatar {
+    background: linear-gradient( 135deg, #ecfeff, #cffafe );
+    color: #1597d0;
+}
+
+
+/* SHOP */
+
+.shop-avatar {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+
+/* DELIVERY */
+
+.delivery-avatar {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+    .user-details strong {
+        color: #1f2937;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .user-details span {
+        color: #9ca3af;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+        white-space: nowrap;
+    }
+
+
+/* =========================================================
+   NOT ASSIGNED
+========================================================= */
+
+.not-assigned {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   AMOUNT
+========================================================= */
+
+.amount-info {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    color: #111827;
+    white-space: nowrap;
+}
+
+    .amount-info span {
+        color: #1597d0;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .amount-info strong {
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+
+/* =========================================================
+   DATE INFORMATION
+========================================================= */
+
+.date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 115px;
+}
+
+    .date-info strong {
+        color: #374151;
+        font-size: 12px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .date-info span {
+        color: #9ca3af;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+
+/* =========================================================
+   DELIVERY PENDING
+========================================================= */
+
+.not-completed {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    border: 1px solid transparent;
+}
+
+    .status-badge i {
+        font-size: 9px;
+    }
+
+
+    /* PENDING */
+
+    .status-badge.pending {
+        background: #fffbeb;
+        border-color: #fde68a;
+        color: #b45309;
+    }
+
+
+    /* ACCEPTED */
+
+    .status-badge.accepted {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #2563eb;
+    }
+
+
+    /* READY */
+
+    .status-badge.ready {
+        background: #f5f3ff;
+        border-color: #ddd6fe;
+        color: #7c3aed;
+    }
+
+
+    /* PICKUP */
+
+    .status-badge.pickup {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        color: #c2410c;
+    }
+
+
+    /* DELIVERED */
+
+    .status-badge.delivered {
+        background: #ecfdf5;
+        border-color: #a7f3d0;
+        color: #047857;
+    }
+
+
+    /* COMPLETED */
+
+    .status-badge.completed {
+        background: #ecfdf5;
+        border-color: #a7f3d0;
+        color: #047857;
+    }
+
+
+    /* CANCELLED */
+
+    .status-badge.cancelled {
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #b91c1c;
+    }
+
+
+/* =========================================================
+   ITEMS
+========================================================= */
+
+.items-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.items-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    background: #ecfeff;
+    border: 1px solid #cffafe;
+    color: #087ea4;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+    .items-count i {
+        font-size: 10px;
+    }
+
+.items-label {
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.view-order-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+    .view-order-btn:hover {
+        background: #1597d0;
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 12px rgba(21, 151, 208, .25);
+    }
+
+    .view-order-btn i {
+        font-size: 10px;
+    }
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.orders-empty-state {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 50px 25px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+}
+
+.empty-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ecfeff;
+    color: #22c7e8;
+    font-size: 25px;
+}
+
+.orders-empty-state h3 {
+    margin-bottom: 8px;
+    color: #1f2937;
+    font-size: 20px;
+}
+
+.orders-empty-state p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .orders-page {
+        padding: 30px 20px 50px;
+    }
+
+    .orders-table {
+        min-width: 1200px;
+    }
+
+        .orders-table th,
+        .orders-table td {
+            padding: 14px 15px;
+        }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .orders-page {
+        padding: 20px 15px 40px;
+    }
+
+    .orders-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+    }
+
+    .orders-header-content {
+        align-items: flex-start;
+    }
+
+    .orders-header-icon {
+        width: 45px;
+        height: 45px;
+        flex-shrink: 0;
+        font-size: 18px;
+    }
+
+    .orders-header h2 {
+        font-size: 24px;
+    }
+
+    .orders-header p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .orders-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .orders-table-container {
+        border-radius: 12px;
+    }
+
+    .orders-table {
+        min-width: 1200px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .orders-page {
+        padding: 18px 12px 35px;
+    }
+
+    .orders-header-content {
+        gap: 12px;
+    }
+
+    .orders-header h2 {
+        font-size: 21px;
+    }
+
+    .orders-summary {
+        padding: 16px;
+    }
+
+    .summary-description {
+        font-size: 12px;
+    }
+}

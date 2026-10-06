@@ -26,8 +26,7 @@ namespace GoPress.Api.Controllers.Admin
 
             var query = new GetAllOrdersQuery();
 
-            var response =
-                await _mediator.Send(query);
+            var response =await _mediator.Send(query);
             return Ok(response);
 
         }
