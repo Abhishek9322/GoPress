@@ -8,10 +8,14 @@ namespace GoPress.Application.DTOs.Orders
 
         public int CustomerId { get; set; }
 
+        public string? CustomerName { get; set; }
+
         public int ShopOwnerId { get; set; }
 
+        public string? ShopOwnerName { get; set; }
         public int? DeliveryBoyId { get; set; }
 
+        public string? DeliveryBoyName { get; set; }
         public string PickupAddress { get; set; } 
 
         public string DeliveryAddress { get; set; }
@@ -26,6 +30,6 @@ namespace GoPress.Application.DTOs.Orders
 
         public OrderStatusEnum Status { get; set; }
 
-        public List<OrderItemResponseDto> OrderItems { get; set; }
+        public List<OrderItemResponseDto> OrderItems { get; set; } = new();
     }
 }

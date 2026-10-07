@@ -41,7 +41,7 @@ namespace GoPress.Domain.Entities
 
         public ApplicationUser ShopOwner { get; set; }
 
-        public ApplicationUser? DeliveryBoy { get; set; }
+        public ApplicationUser DeliveryBoy { get; set; }
 
         public ICollection<OrderItem> OrderItems { get; set; }
     }

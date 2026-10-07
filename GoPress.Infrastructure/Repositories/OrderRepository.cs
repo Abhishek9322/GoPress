@@ -30,6 +30,9 @@ namespace GoPress.Infrastructure.Repositories
         public async Task<List<Order>> GetAllOrdersAsync()
         {
             return await _context.Orders
+                .Include(x=>x.ShopOwner)
+                .Include(x=>x.DeliveryBoy)
+                .Include(x=>x.Customer)
                  .Include(x => x.OrderItems)
                  .AsNoTracking()
                  .ToListAsync();
