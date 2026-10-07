@@ -29,7 +29,7 @@ namespace GoPress.Mvc.Areas.Admin.Models
 
         public OrderStatusEnum Status { get; set; }
 
-        public List<OrderItemResponseViewModel> OrderItemsViewModel { get; set; }= new();
+        public List<OrderItemResponseViewModel> OrderItems { get; set; }= new List<OrderItemResponseViewModel>();
 
     }
 }
