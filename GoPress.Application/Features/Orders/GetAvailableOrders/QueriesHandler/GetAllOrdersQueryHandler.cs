@@ -26,8 +26,13 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
+                CustomerName=order.Customer?.FullName,
+
                 ShopOwnerId = order.ShopOwnerId,  
+                ShopOwnerName=order.ShopOwner?.FullName,
+
                 DeliveryBoyId = order.DeliveryBoyId,
+                DeliveryBoyName=order.DeliveryBoy?.FullName,
 
                 PickupAddress = order.PickupAddress,
                 DeliveryAddress = order.DeliveryAddress,
@@ -46,6 +51,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                    ClothName = x.ClothName,
                    Quantity = x.Quantity,
                    Price = x.Price,
+                   ClothTypeId = x.ClothTypeId,
                    TotalPrice = x.TotalPrice
                }).ToList()
             }).ToList();

@@ -1,17 +1,9 @@
-﻿/* =========================================================
-   ADMIN - ALL ORDERS
-========================================================= */
-
-.orders-page {
+﻿/*========================================================= ADMIN - ALL ORDERS ========================================================= */ .orders-page {
     max-width: 1450px;
     margin: 0 auto;
     padding: 35px 25px 60px;
 }
-
-
-/* =========================================================
-   PAGE HEADER
-========================================================= */
+/* ========================================================= PAGE HEADER ========================================================= */
 
 .orders-header {
     display: flex;
@@ -34,7 +26,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 14px;
-    background: linear-gradient( 135deg, #22c7e8, #1597d0 );
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
     color: #fff;
     font-size: 22px;
     box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
@@ -52,11 +44,7 @@
     color: #6b7280;
     font-size: 14px;
 }
-
-
-/* =========================================================
-   ALERT
-========================================================= */
+/* ========================================================= ALERT ========================================================= */
 
 .alert-message {
     display: flex;
@@ -68,8 +56,6 @@
     font-size: 13px;
     font-weight: 600;
 }
-
-
 /* SUCCESS */
 
 .success-message {
@@ -81,8 +67,6 @@
     .success-message i {
         color: #10b981;
     }
-
-
 /* ERROR */
 
 .error-message {
@@ -94,11 +78,7 @@
     .error-message i {
         color: #dc2626;
     }
-
-
-/* =========================================================
-   SUMMARY
-========================================================= */
+/* ========================================================= SUMMARY ========================================================= */
 
 .orders-summary {
     display: flex;
@@ -138,11 +118,7 @@
     .summary-description i {
         color: #22c7e8;
     }
-
-
-/* =========================================================
-   TABLE CONTAINER
-========================================================= */
+/* ========================================================= TABLE CONTAINER ========================================================= */
 
 .orders-table-container {
     width: 100%;
@@ -152,22 +128,14 @@
     overflow-x: auto;
     box-shadow: 0 8px 25px rgba(0, 0, 0, .06);
 }
-
-
-/* =========================================================
-   TABLE
-========================================================= */
+/* ========================================================= TABLE ========================================================= */
 
 .orders-table {
     width: 100%;
     border-collapse: collapse;
     min-width: 1250px;
 }
-
-
-    /* =========================================================
-   TABLE HEADER
-========================================================= */
+    /* ========================================================= TABLE HEADER ========================================================= */
 
     .orders-table thead {
         background: #f8fafc;
@@ -184,11 +152,7 @@
         letter-spacing: .6px;
         white-space: nowrap;
     }
-
-
-    /* =========================================================
-   TABLE BODY
-========================================================= */
+    /* ========================================================= TABLE BODY ========================================================= */
 
     .orders-table tbody tr {
         transition: background .2s ease;
@@ -207,11 +171,7 @@
     .orders-table tbody tr:last-child td {
         border-bottom: none;
     }
-
-
-/* =========================================================
-   ORDER ID
-========================================================= */
+/* ========================================================= ORDER ID ========================================================= */
 
 .order-id {
     display: inline-flex;
@@ -227,17 +187,13 @@
         font-size: 11px;
         margin-right: 1px;
     }
-
-
-/* =========================================================
-   USER INFORMATION
-========================================================= */
+/* ========================================================= USER INFORMATION ========================================================= */
 
 .user-info {
     display: flex;
     align-items: center;
     gap: 10px;
-    min-width: 150px;
+    min-width: 160px;
 }
 
 .user-avatar {
@@ -250,24 +206,18 @@
     border-radius: 50%;
     font-size: 14px;
 }
-
-
 /* CUSTOMER */
 
 .customer-avatar {
-    background: linear-gradient( 135deg, #ecfeff, #cffafe );
+    background: linear-gradient(135deg, #ecfeff, #cffafe);
     color: #1597d0;
 }
-
-
 /* SHOP */
 
 .shop-avatar {
     background: #f0fdf4;
     color: #16a34a;
 }
-
-
 /* DELIVERY */
 
 .delivery-avatar {
@@ -275,11 +225,11 @@
     color: #ea580c;
 }
 
-
 .user-details {
     display: flex;
     flex-direction: column;
     gap: 3px;
+    min-width: 0;
 }
 
     .user-details strong {
@@ -287,6 +237,9 @@
         font-size: 12px;
         font-weight: 700;
         white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 160px;
     }
 
     .user-details span {
@@ -296,11 +249,7 @@
         letter-spacing: .4px;
         white-space: nowrap;
     }
-
-
-/* =========================================================
-   NOT ASSIGNED
-========================================================= */
+/* ========================================================= NOT ASSIGNED ========================================================= */
 
 .not-assigned {
     display: inline-flex;
@@ -311,11 +260,7 @@
     font-weight: 600;
     white-space: nowrap;
 }
-
-
-/* =========================================================
-   AMOUNT
-========================================================= */
+/* ========================================================= AMOUNT ========================================================= */
 
 .amount-info {
     display: flex;
@@ -335,11 +280,7 @@
         font-size: 13px;
         font-weight: 750;
     }
-
-
-/* =========================================================
-   DATE INFORMATION
-========================================================= */
+/* ========================================================= DATE INFORMATION ========================================================= */
 
 .date-info {
     display: flex;
@@ -360,11 +301,7 @@
         font-size: 10px;
         white-space: nowrap;
     }
-
-
-/* =========================================================
-   DELIVERY PENDING
-========================================================= */
+/* ========================================================= DELIVERY PENDING ========================================================= */
 
 .not-completed {
     display: inline-flex;
@@ -375,11 +312,7 @@
     font-weight: 600;
     white-space: nowrap;
 }
-
-
-/* =========================================================
-   STATUS BADGES
-========================================================= */
+/* ========================================================= STATUS BADGES ========================================================= */
 
 .status-badge {
     display: inline-flex;
@@ -397,8 +330,6 @@
     .status-badge i {
         font-size: 9px;
     }
-
-
     /* PENDING */
 
     .status-badge.pending {
@@ -406,8 +337,6 @@
         border-color: #fde68a;
         color: #b45309;
     }
-
-
     /* ACCEPTED */
 
     .status-badge.accepted {
@@ -415,8 +344,13 @@
         border-color: #bfdbfe;
         color: #2563eb;
     }
+    /* SHOP OWNER ACCEPTED */
 
-
+    .status-badge.shopowneraccepted {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #2563eb;
+    }
     /* READY */
 
     .status-badge.ready {
@@ -424,8 +358,20 @@
         border-color: #ddd6fe;
         color: #7c3aed;
     }
+    /* READY FOR PICKUP */
 
+    .status-badge.readyforpickup {
+        background: #f5f3ff;
+        border-color: #ddd6fe;
+        color: #7c3aed;
+    }
+    /* DELIVERY BOY ASSIGNED */
 
+    .status-badge.deliveryboyassigned {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #2563eb;
+    }
     /* PICKUP */
 
     .status-badge.pickup {
@@ -433,8 +379,34 @@
         border-color: #fed7aa;
         color: #c2410c;
     }
+    /* PICKED UP */
 
+    .status-badge.pickedup {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        color: #c2410c;
+    }
+    /* PROCESSING */
 
+    .status-badge.processing {
+        background: #fefce8;
+        border-color: #fde68a;
+        color: #a16207;
+    }
+    /* READY FOR DELIVERY */
+
+    .status-badge.readyfordelivery {
+        background: #f5f3ff;
+        border-color: #ddd6fe;
+        color: #7c3aed;
+    }
+    /* OUT FOR DELIVERY */
+
+    .status-badge.outfordelivery {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        color: #c2410c;
+    }
     /* DELIVERED */
 
     .status-badge.delivered {
@@ -442,8 +414,6 @@
         border-color: #a7f3d0;
         color: #047857;
     }
-
-
     /* COMPLETED */
 
     .status-badge.completed {
@@ -451,8 +421,6 @@
         border-color: #a7f3d0;
         color: #047857;
     }
-
-
     /* CANCELLED */
 
     .status-badge.cancelled {
@@ -460,11 +428,14 @@
         border-color: #fecaca;
         color: #b91c1c;
     }
+    /* REJECTED */
 
-
-/* =========================================================
-   ITEMS
-========================================================= */
+    .status-badge.rejected {
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #b91c1c;
+    }
+/* ========================================================= ITEMS ========================================================= */
 
 .items-info {
     display: flex;
@@ -494,11 +465,7 @@
     font-size: 10px;
     font-weight: 600;
 }
-
-
-/* =========================================================
-   VIEW BUTTON
-========================================================= */
+/* ========================================================= VIEW BUTTON ========================================================= */
 
 .view-order-btn {
     display: inline-flex;
@@ -527,11 +494,7 @@
     .view-order-btn i {
         font-size: 10px;
     }
-
-
-/* =========================================================
-   EMPTY STATE
-========================================================= */
+/* ========================================================= EMPTY STATE ========================================================= */
 
 .orders-empty-state {
     max-width: 650px;
@@ -568,35 +531,24 @@
     color: #6b7280;
     font-size: 13px;
 }
-
-
-/* =========================================================
-   TABLET
-========================================================= */
+/* ========================================================= TABLET ========================================================= */
 
 @media (max-width: 1100px) {
-
     .orders-page {
         padding: 30px 20px 50px;
     }
 
     .orders-table {
-        min-width: 1200px;
+        min-width: 1250px;
     }
 
-        .orders-table th,
-        .orders-table td {
+        .orders-table th, .orders-table td {
             padding: 14px 15px;
         }
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
+/* ========================================================= MOBILE ========================================================= */
 
 @media (max-width: 700px) {
-
     .orders-page {
         padding: 20px 15px 40px;
     }
@@ -638,17 +590,12 @@
     }
 
     .orders-table {
-        min-width: 1200px;
+        min-width: 1250px;
     }
 }
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
+/* ========================================================= SMALL MOBILE ========================================================= */
 
 @media (max-width: 420px) {
-
     .orders-page {
         padding: 18px 12px 35px;
     }

@@ -1,4 +1,5 @@
-﻿@model List<GoPress.Mvc.Areas.Admin.Models.OrdersResponseViewModel>
+﻿```cshtml
+@model List<GoPress.Mvc.Areas.Admin.Models.OrdersResponseViewModel>
 
 @{
     ViewData["Title"] = "All Orders";
@@ -83,9 +84,7 @@
         <div class="orders-empty-state">
 
             <div class="empty-icon">
-
                 <i class="fa-solid fa-box-open"></i>
-
             </div>
 
             <h3>
@@ -229,7 +228,11 @@
                                     <div class="user-details">
 
                                         <strong>
-                                            Customer #@order.CustomerId
+
+                                            @(string.IsNullOrWhiteSpace(order.CustomerName)
+                                                ? $"Customer #{order.CustomerId}"
+                                                : order.CustomerName)
+
                                         </strong>
 
                                         <span>
@@ -260,7 +263,11 @@
                                     <div class="user-details">
 
                                         <strong>
-                                            Shop #@order.ShopOwnerId
+
+                                            @(string.IsNullOrWhiteSpace(order.ShopOwnerName)
+                                                ? $"Shop #{order.ShopOwnerId}"
+                                                : order.ShopOwnerName)
+
                                         </strong>
 
                                         <span>
@@ -293,7 +300,11 @@
                                         <div class="user-details">
 
                                             <strong>
-                                                Delivery #@order.DeliveryBoyId
+
+                                                @(string.IsNullOrWhiteSpace(order.DeliveryBoyName)
+                                                    ? $"Delivery #{order.DeliveryBoyId}"
+                                                    : order.DeliveryBoyName)
+
                                             </strong>
 
                                             <span>
@@ -401,37 +412,51 @@
                             <td>
 
                                 @{
-                                    var statusClass = order.Status
-                                    .ToString()
+                                    var statusText = order.Status.ToString();
+
+                                    var statusClass = statusText
                                     .ToLower()
                                     .Replace(" ", "-");
                                 }
 
                                 <span class="status-badge @statusClass">
 
-                                    @if (order.Status.ToString().ToLower().Contains("pending"))
+                                    @if (statusText.ToLower().Contains("pending"))
                                     {
                                         <i class="fa-regular fa-clock"></i>
                                     }
-                                    else if (order.Status.ToString().ToLower().Contains("complete") ||
-                                    order.Status.ToString().ToLower().Contains("deliver"))
+                                    else if (
+                                    statusText.ToLower().Contains("complete") ||
+                                    statusText.ToLower().Contains("deliver"))
                                     {
                                         <i class="fa-solid fa-circle-check"></i>
                                     }
-                                    else if (order.Status.ToString().ToLower().Contains("cancel"))
+                                    else if (statusText.ToLower().Contains("cancel"))
                                     {
                                         <i class="fa-solid fa-circle-xmark"></i>
                                     }
-                                    else if (order.Status.ToString().ToLower().Contains("pickup"))
+                                    else if (
+                                    statusText.ToLower().Contains("pickup") ||
+                                    statusText.ToLower().Contains("pick"))
                                     {
                                         <i class="fa-solid fa-truck"></i>
+                                    }
+                                    else if (
+                                    statusText.ToLower().Contains("ready"))
+                                    {
+                                        <i class="fa-solid fa-box"></i>
+                                    }
+                                    else if (
+                                    statusText.ToLower().Contains("accept"))
+                                    {
+                                        <i class="fa-solid fa-check"></i>
                                     }
                                     else
                                     {
                                         <i class="fa-solid fa-circle-info"></i>
                                     }
 
-                                    @order.Status
+                                    @statusText
 
                                 </span>
 
@@ -450,14 +475,12 @@
 
                                         <i class="fa-solid fa-shirt"></i>
 
-                                        @(
-                                            order.OrderItemsViewModel?.Count ?? 0
-                                            )
+                                        @(order.OrderItemsViewModel?.Sum(x => x.Quantity) ?? 0)
 
                                     </span>
 
                                     <span class="items-label">
-                                        Items
+                                        Clothes
                                     </span>
 
                                 </div>

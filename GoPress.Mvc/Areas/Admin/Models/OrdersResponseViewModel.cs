@@ -7,10 +7,13 @@ namespace GoPress.Mvc.Areas.Admin.Models
         public int Id { get; set; }
 
         public int CustomerId { get; set; }
+        public string? CustomerName { get; set; }
 
         public int ShopOwnerId { get; set; }
+        public string? ShopOwnerName { get; set; }
 
         public int? DeliveryBoyId { get; set; }
+        public string? DeliveryBoyName { get; set; }
 
         public string PickupAddress { get; set; }
 
@@ -25,7 +28,8 @@ namespace GoPress.Mvc.Areas.Admin.Models
         public string? Notes { get; set; }
 
         public OrderStatusEnum Status { get; set; }
-        public List<OrderItemResponseViewModel> OrderItemsViewModel { get; set; }
+
+        public List<OrderItemResponseViewModel> OrderItemsViewModel { get; set; }= new();
 
     }
 }
