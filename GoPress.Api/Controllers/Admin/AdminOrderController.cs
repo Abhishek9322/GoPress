@@ -22,26 +22,20 @@ namespace GoPress.Api.Controllers.Admin
         [HttpGet("All-Orders")]
         public async Task<IActionResult> GetAllOrders()
         {
-            // var currentCustomer = User.GetCurrentUser();
-
-            var query = new GetAllOrdersQuery();
-
-            var response =await _mediator.Send(query);
+            var response =await _mediator.Send(new GetAllOrdersQuery());
             return Ok(response);
 
         }
         ////Get Opration here
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOrderById(int id)
+        [HttpGet("{orderId}/OrderDetails")]
+        public async Task<IActionResult> GetOrderDetails(int orderId)
         {
             var query = new GetOrderByIdQuery
             {
-                OrderId = id
+                OrderId = orderId
             };
 
-            var response =
-                await _mediator.Send(query);
-
+            var response =await _mediator.Send(query);
             return Ok(response);
         }
 

@@ -21,7 +21,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
         }
         public async Task<Response<OrderResponseDto>> Handle(GetOrderByIdQuery request, CancellationToken cancellationToken)
         {
-            var order =await _orderRepository.GetByIdAsync(request.OrderId);
+            var order =await _orderRepository.GetOrderDetailsbyAdmin(request.OrderId);
 
             if (order == null)
             {
@@ -31,8 +31,11 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
+                CustomerName=order.Customer?.FullName,
                 ShopOwnerId = order.ShopOwnerId,
+                ShopOwnerName=order.ShopOwner?.FullName,
                 DeliveryBoyId = order.DeliveryBoyId,
+                DeliveryBoyName=order.DeliveryBoy?.FullName,
                 PickupAddress = order.PickupAddress,
                 DeliveryAddress = order.DeliveryAddress,
                 PickupDate = order.PickupDate,
@@ -45,6 +48,7 @@ namespace GoPress.Application.Features.Orders.GetAvailableOrders.QueriesHandler
                {
                    Id = x.Id,
                    ClothName = x.ClothName,
+                   ClothTypeId=x.ClothTypeId,
                    Quantity = x.Quantity,
                    Price = x.Price,
                    TotalPrice = x.TotalPrice
