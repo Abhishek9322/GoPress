@@ -14,6 +14,7 @@ namespace GoPress.Application.Interfaces.Repositories
 
         Task<Order?> GetByIdAsync(int id);
 
+        Task<Order?> GetOrderDetailsbyAdmin(int orderId);
         Task<List<Order>> GetCustomerOrdersAsync(int customerId);
 
         Task<List<Order>> GetShopOrdersAsync(int shopOwnerId);

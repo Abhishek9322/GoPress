@@ -38,16 +38,27 @@ namespace GoPress.Infrastructure.Repositories
                  .ToListAsync();
         }
 
-        public async Task<Order?> GetByIdAsync(int id)
+        public async Task<Order?> GetByIdAsync(int orderId)
         {
             return await _context.Orders
                 .Include(x => x.Customer)
                 .Include(x => x.ShopOwner)
+                .Include(x=>x.DeliveryBoy)
                 .Include(x => x.OrderItems)
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == orderId);
         }
 
+        public async Task<Order?> GetOrderDetailsbyAdmin(int orderId)
+        {
+            return await _context.Orders
+                  .Include(x => x.Customer)
+                  .Include(x => x.ShopOwner)
+                  .Include(x => x.DeliveryBoy)
+                  .Include(x => x.OrderItems)
+                  .AsNoTracking()
+                  .FirstOrDefaultAsync(x => x.Id == orderId);
+        }
         public async Task<List<Order>> GetCustomerOrdersAsync(int customerId)
         {
             return await _context.Orders
@@ -260,6 +271,6 @@ namespace GoPress.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-      
+       
     }
 }

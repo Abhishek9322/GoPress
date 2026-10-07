@@ -29,5 +29,22 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
 
                 return View(response.Data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetOrderDetailsByAdmin(int orderId)
+        {
+            var response = await _apiService.GetAsync<Response<List<OrdersResponseViewModel>>>
+              (
+                  $"api/Admin/Orders/{orderId}/OrderDetails"
+              );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load orders.";
+                return View(new List<OrdersResponseViewModel>());
+            }
+
+            return View(response.Data);
+        }
     }
 }
