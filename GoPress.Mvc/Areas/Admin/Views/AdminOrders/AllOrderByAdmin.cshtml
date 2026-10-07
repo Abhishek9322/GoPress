@@ -475,7 +475,7 @@
 
                                         <i class="fa-solid fa-shirt"></i>
 
-                                        @(order.OrderItemsViewModel?.Sum(x => x.Quantity) ?? 0)
+                                        @(order.OrderItems?.Sum(x => x.Quantity) ?? 0)
 
                                     </span>
 
