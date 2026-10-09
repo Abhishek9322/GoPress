@@ -33,7 +33,7 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrderDetailsByAdmin(int orderId)
         {
-            var response = await _apiService.GetAsync<Response<List<OrdersResponseViewModel>>>
+            var response = await _apiService.GetAsync<Response<OrdersResponseViewModel>>
               (
                   $"api/Admin/Orders/{orderId}/OrderDetails"
               );
@@ -41,7 +41,7 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
             if (response == null || response.Data == null)
             {
                 TempData["Error"] = "Unable to load orders.";
-                return View(new List<OrdersResponseViewModel>());
+                return View(new OrdersResponseViewModel());
             }
 
             return View(response.Data);

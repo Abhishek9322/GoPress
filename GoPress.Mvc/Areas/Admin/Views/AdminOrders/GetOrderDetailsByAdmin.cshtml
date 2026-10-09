@@ -1,1 +1,638 @@
-﻿
+﻿@model GoPress.Mvc.Areas.Admin.Models.OrdersResponseViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "_Layout";
+
+    var statusClass = Model.Status.ToString()
+        .Replace(" ", "")
+        .ToLowerInvariant();
+
+    var customerInitial = !string.IsNullOrWhiteSpace(Model.CustomerName)
+        ? Model.CustomerName.Substring(0, 1).ToUpper()
+        : "C";
+
+    var shopInitial = !string.IsNullOrWhiteSpace(Model.ShopOwnerName)
+        ? Model.ShopOwnerName.Substring(0, 1).ToUpper()
+        : "S";
+
+    var deliveryInitial = !string.IsNullOrWhiteSpace(Model.DeliveryBoyName)
+        ? Model.DeliveryBoyName.Substring(0, 1).ToUpper()
+        : "D";
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin-OrderDetails.css"
+          asp-append-version="true" />
+}
+
+<div class="order-details-page">
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="details-header">
+
+        <div class="details-header-content">
+
+            <div class="details-header-icon">
+                <i class="fa-solid fa-file-invoice"></i>
+            </div>
+
+            <div>
+                <h2>Order Details</h2>
+                <p>Complete information about order #@Model.Id</p>
+            </div>
+
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminOrders"
+           asp-action="AllOrderByAdmin"
+           class="back-orders-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Orders
+
+        </a>
+
+    </div>
+
+
+    <!-- =====================================================
+         ORDER TOP SUMMARY
+    ====================================================== -->
+
+    <div class="order-summary-card">
+
+        <div class="summary-left">
+
+            <div class="order-number">
+                <span>ORDER</span>
+                <strong>#@Model.Id</strong>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-date">
+
+                <span>Pickup Date</span>
+
+                <strong>
+                    @Model.PickupDate.ToString("dd MMM yyyy")
+                </strong>
+
+                <small>
+                    @Model.PickupDate.ToString("hh:mm tt")
+                </small>
+
+            </div>
+
+        </div>
+
+        <div class="summary-right">
+
+            <div class="total-amount">
+
+                <span>Total Amount</span>
+
+                <strong>
+                    <small>₹</small>@Model.TotalAmount.ToString("N2")
+                </strong>
+
+            </div>
+
+            <span class="status-badge @statusClass">
+
+                <i class="fa-solid fa-circle"></i>
+
+                @Model.Status
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN GRID
+    ====================================================== -->
+
+    <div class="details-grid">
+
+        <!-- =================================================
+             CUSTOMER INFORMATION
+        ================================================== -->
+
+        <div class="details-card">
+
+            <div class="card-header">
+
+                <div class="card-header-icon customer-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div>
+                    <h3>Customer Information</h3>
+                    <p>Customer associated with this order</p>
+                </div>
+
+            </div>
+
+            <div class="person-info">
+
+                <div class="person-avatar customer-avatar">
+                    @customerInitial
+                </div>
+
+                <div class="person-content">
+
+                    <strong>
+                        @(Model.CustomerName ?? "N/A")
+                    </strong>
+
+                    <span>
+                        Customer ID: @Model.CustomerId
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SHOP OWNER INFORMATION
+        ================================================== -->
+
+        <div class="details-card">
+
+            <div class="card-header">
+
+                <div class="card-header-icon shop-icon">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+
+                <div>
+                    <h3>Shop Owner</h3>
+                    <p>Shop handling this order</p>
+                </div>
+
+            </div>
+
+            <div class="person-info">
+
+                <div class="person-avatar shop-avatar">
+                    @shopInitial
+                </div>
+
+                <div class="person-content">
+
+                    <strong>
+                        @(Model.ShopOwnerName ?? "N/A")
+                    </strong>
+
+                    <span>
+                        Shop Owner ID: @Model.ShopOwnerId
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             DELIVERY BOY INFORMATION
+        ================================================== -->
+
+        <div class="details-card">
+
+            <div class="card-header">
+
+                <div class="card-header-icon delivery-icon">
+                    <i class="fa-solid fa-motorcycle"></i>
+                </div>
+
+                <div>
+                    <h3>Delivery Partner</h3>
+                    <p>Assigned delivery partner</p>
+                </div>
+
+            </div>
+
+            @if (Model.DeliveryBoyId.HasValue)
+            {
+                <div class="person-info">
+
+                    <div class="person-avatar delivery-avatar">
+                        @deliveryInitial
+                    </div>
+
+                    <div class="person-content">
+
+                        <strong>
+                            @(Model.DeliveryBoyName ?? "N/A")
+                        </strong>
+
+                        <span>
+                            Delivery Boy ID: @Model.DeliveryBoyId
+                        </span>
+
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                <div class="not-assigned-box">
+
+                    <i class="fa-solid fa-user-slash"></i>
+
+                    <div>
+                        <strong>Not Assigned</strong>
+                        <span>No delivery partner assigned yet.</span>
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+
+        <!-- =================================================
+             PICKUP / DELIVERY INFORMATION
+        ================================================== -->
+
+        <div class="details-card address-card">
+
+            <div class="card-header">
+
+                <div class="card-header-icon address-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                </div>
+
+                <div>
+                    <h3>Order Locations</h3>
+                    <p>Pickup and delivery addresses</p>
+                </div>
+
+            </div>
+
+            <div class="address-container">
+
+                <div class="address-block">
+
+                    <div class="address-title pickup-title">
+
+                        <span class="address-dot"></span>
+
+                        <strong>Pickup Address</strong>
+
+                    </div>
+
+                    <p>
+                        @(string.IsNullOrWhiteSpace(Model.PickupAddress)
+                            ? "Address not available"
+                            : Model.PickupAddress)
+                    </p>
+
+                </div>
+
+
+                <div class="address-line"></div>
+
+
+                <div class="address-block">
+
+                    <div class="address-title delivery-title">
+
+                        <span class="address-dot"></span>
+
+                        <strong>Delivery Address</strong>
+
+                    </div>
+
+                    <p>
+                        @(string.IsNullOrWhiteSpace(Model.DeliveryAddress)
+                            ? "Address not available"
+                            : Model.DeliveryAddress)
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER ITEMS
+        ================================================== -->
+
+        <div class="details-card order-items-card">
+
+            <div class="card-header items-card-header">
+
+                <div class="card-header-content">
+
+                    <div class="card-header-icon items-icon">
+                        <i class="fa-solid fa-shirt"></i>
+                    </div>
+
+                    <div>
+                        <h3>Order Items</h3>
+                        <p>
+                            @Model.OrderItems.Count item(s) in this order
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="item-count-badge">
+
+                    <i class="fa-solid fa-box"></i>
+
+                    @Model.OrderItems.Count
+
+                </div>
+
+            </div>
+
+
+            @if (Model.OrderItems != null && Model.OrderItems.Any())
+            {
+                <div class="items-table-container">
+
+                    <table class="items-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Cloth</th>
+
+                                <th>Quantity</th>
+
+                                <th>Price</th>
+
+                                <th>Total</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @{
+                                var itemNumber = 1;
+                            }
+
+                            @foreach (var item in Model.OrderItems)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <span class="item-number">
+                                            @itemNumber
+                                        </span>
+                                    </td>
+
+                                    <td>
+
+                                        <div class="cloth-info">
+
+                                            <div class="cloth-icon">
+                                                <i class="fa-solid fa-shirt"></i>
+                                            </div>
+
+                                            <div>
+
+                                                <strong>
+                                                    @(item.ClothName ?? "Unknown Cloth")
+                                                </strong>
+
+                                                <span>
+                                                    Cloth ID: @item.ClothTypeId
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+                                    <td>
+
+                                        <span class="quantity-badge">
+                                            @item.Quantity
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <span class="price-value">
+                                            ₹@item.Price.ToString("N2")
+                                        </span>
+
+                                    </td>
+
+                                    <td>
+
+                                        <strong class="item-total">
+                                            ₹@item.TotalPrice.ToString("N2")
+                                        </strong>
+
+                                    </td>
+
+                                </tr>
+
+                                itemNumber++;
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="empty-items">
+
+                    <div class="empty-items-icon">
+                        <i class="fa-solid fa-box-open"></i>
+                    </div>
+
+                    <h4>No Items Found</h4>
+
+                    <p>
+                        No order items are available for this order.
+                    </p>
+
+                </div>
+            }
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER NOTES
+        ================================================== -->
+
+        <div class="details-card notes-card">
+
+            <div class="card-header">
+
+                <div class="card-header-icon notes-icon">
+                    <i class="fa-solid fa-note-sticky"></i>
+                </div>
+
+                <div>
+                    <h3>Order Notes</h3>
+                    <p>Additional instructions from customer</p>
+                </div>
+
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Notes))
+            {
+                <div class="notes-content">
+
+                    <i class="fa-solid fa-quote-left"></i>
+
+                    <p>
+                        @Model.Notes
+                    </p>
+
+                </div>
+            }
+            else
+            {
+                <div class="no-notes">
+
+                    <i class="fa-regular fa-note-sticky"></i>
+
+                    <span>No additional notes provided.</span>
+
+                </div>
+            }
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER TIMELINE
+        ================================================== -->
+
+        <div class="details-card timeline-card">
+
+            <div class="card-header">
+
+                <div class="card-header-icon timeline-icon">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+
+                <div>
+                    <h3>Order Timeline</h3>
+                    <p>Important order dates</p>
+                </div>
+
+            </div>
+
+            <div class="timeline">
+
+                <div class="timeline-item active">
+
+                    <div class="timeline-marker">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>Pickup Scheduled</strong>
+
+                        <span>
+                            @Model.PickupDate.ToString("dd MMM yyyy, hh:mm tt")
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="timeline-item @(Model.DeliveryDate.HasValue ? "active" : "")">
+
+                    <div class="timeline-marker">
+
+                        @if (Model.DeliveryDate.HasValue)
+                        {
+                            <i class="fa-solid fa-check"></i>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-clock"></i>
+                        }
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <strong>Delivery</strong>
+
+                        @if (Model.DeliveryDate.HasValue)
+                        {
+                            <span>
+                                @Model.DeliveryDate.Value.ToString("dd MMM yyyy, hh:mm tt")
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                Delivery not completed yet
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOTAL SUMMARY
+    ====================================================== -->
+
+    <div class="final-summary-card">
+
+        <div>
+
+            <span>Total Order Amount</span>
+
+            <small>
+                @Model.OrderItems.Count item(s)
+            </small>
+
+        </div>
+
+        <strong>
+            <span>₹</span>@Model.TotalAmount.ToString("N2")
+        </strong>
+
+    </div>
+
+</div>
