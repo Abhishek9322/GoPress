@@ -4,21 +4,24 @@
     ViewData["Title"] = "Order Details";
     Layout = "_Layout";
 
-    var statusClass = Model.Status.ToString()
+    var statusClass = (Model.Status.ToString() ?? "pending")
         .Replace(" ", "")
         .ToLowerInvariant();
 
     var customerInitial = !string.IsNullOrWhiteSpace(Model.CustomerName)
-        ? Model.CustomerName.Substring(0, 1).ToUpper()
+        ? Model.CustomerName.Substring(0, 1).ToUpperInvariant()
         : "C";
 
     var shopInitial = !string.IsNullOrWhiteSpace(Model.ShopOwnerName)
-        ? Model.ShopOwnerName.Substring(0, 1).ToUpper()
+        ? Model.ShopOwnerName.Substring(0, 1).ToUpperInvariant()
         : "S";
 
     var deliveryInitial = !string.IsNullOrWhiteSpace(Model.DeliveryBoyName)
-        ? Model.DeliveryBoyName.Substring(0, 1).ToUpper()
+        ? Model.DeliveryBoyName.Substring(0, 1).ToUpperInvariant()
         : "D";
+
+    var orderItems = Model.OrderItems;
+    var itemCount = orderItems?.Count ?? 0;
 }
 
 @section Styles
@@ -28,23 +31,31 @@
           asp-append-version="true" />
 }
 
-<div class="order-details-page">
+<div class="od-page">
 
-    <!-- =====================================================
-         PAGE HEADER
-    ====================================================== -->
+    <!-- PAGE HEADER -->
 
-    <div class="details-header">
+    <header class="od-topbar">
 
-        <div class="details-header-content">
+        <div class="od-heading">
 
-            <div class="details-header-icon">
+            <div class="od-heading-icon">
                 <i class="fa-solid fa-file-invoice"></i>
             </div>
 
             <div>
-                <h2>Order Details</h2>
-                <p>Complete information about order #@Model.Id</p>
+                <div class="od-eyebrow">
+                    GOPRESS / ADMIN / ORDERS
+                </div>
+
+                <h1>
+                    Order Overview
+                    <span>#@Model.Id</span>
+                </h1>
+
+                <p>
+                    Review order details, assigned people, items and delivery information.
+                </p>
             </div>
 
         </div>
@@ -52,34 +63,42 @@
         <a asp-area="Admin"
            asp-controller="AdminOrders"
            asp-action="AllOrderByAdmin"
-           class="back-orders-btn">
+           class="od-back">
 
             <i class="fa-solid fa-arrow-left"></i>
-            Back to Orders
+            Back to orders
 
         </a>
 
-    </div>
+    </header>
 
 
-    <!-- =====================================================
-         ORDER TOP SUMMARY
-    ====================================================== -->
+    <!-- ORDER SUMMARY -->
 
-    <div class="order-summary-card">
+    <section class="od-summary">
 
-        <div class="summary-left">
+        <div class="od-summary-main">
 
-            <div class="order-number">
-                <span>ORDER</span>
-                <strong>#@Model.Id</strong>
+            <div class="od-order-mark">
+                <i class="fa-solid fa-bag-shopping"></i>
             </div>
 
-            <div class="summary-divider"></div>
+            <div class="od-summary-number">
 
-            <div class="summary-date">
+                <span>ORDER NUMBER</span>
 
-                <span>Pickup Date</span>
+                <strong>#@Model.Id</strong>
+
+            </div>
+
+            <div class="od-summary-separator"></div>
+
+            <div class="od-summary-date">
+
+                <span>
+                    <i class="fa-regular fa-calendar"></i>
+                    PICKUP SCHEDULE
+                </span>
 
                 <strong>
                     @Model.PickupDate.ToString("dd MMM yyyy")
@@ -93,545 +112,528 @@
 
         </div>
 
-        <div class="summary-right">
 
-            <div class="total-amount">
+        <div class="od-summary-total">
 
-                <span>Total Amount</span>
+            <span>ORDER TOTAL</span>
+
+            <strong>
+                <small>₹</small>@Model.TotalAmount.ToString("N2")
+            </strong>
+
+            <span class="od-status @statusClass">
+                <i class="fa-solid fa-circle"></i>
+                @Model.Status
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN LAYOUT -->
+
+    <div class="od-layout">
+
+        <!-- LEFT COLUMN -->
+
+        <main class="od-main-column">
+
+
+            <!-- CUSTOMER, SHOP OWNER AND DELIVERY PARTNER -->
+
+            <section class="od-panel">
+
+                <div class="od-panel-heading">
+
+                    <div class="od-panel-icon od-cyan">
+                        <i class="fa-solid fa-people-arrows-left-right"></i>
+                    </div>
+
+                    <div>
+                        <h2>People & Assignment</h2>
+                        <p>Customer, shop and delivery partner</p>
+                    </div>
+
+                </div>
+
+
+                <div class="od-people-grid">
+
+                    <!-- CUSTOMER -->
+
+                    <div class="od-person">
+
+                        <div class="od-avatar od-avatar-customer">
+                            @customerInitial
+                        </div>
+
+                        <div class="od-person-details">
+
+                            <span class="od-label">
+                                CUSTOMER
+                            </span>
+
+                            <strong>
+                                @(Model.CustomerName ?? "N/A")
+                            </strong>
+
+                            <small>
+                                Customer ID: @Model.CustomerId
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SHOP OWNER -->
+
+                    <div class="od-person">
+
+                        <div class="od-avatar od-avatar-shop">
+                            @shopInitial
+                        </div>
+
+                        <div class="od-person-details">
+
+                            <span class="od-label">
+                                SHOP OWNER
+                            </span>
+
+                            <strong>
+                                @(Model.ShopOwnerName ?? "N/A")
+                            </strong>
+
+                            <small>
+                                Shop Owner ID: @Model.ShopOwnerId
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DELIVERY PARTNER -->
+
+                    <div class="od-person">
+
+                        @if (Model.DeliveryBoyId.HasValue)
+                        {
+                            <div class="od-avatar od-avatar-delivery">
+                                @deliveryInitial
+                            </div>
+
+                            <div class="od-person-details">
+
+                                <span class="od-label">
+                                    DELIVERY PARTNER
+                                </span>
+
+                                <strong>
+                                    @(Model.DeliveryBoyName ?? "N/A")
+                                </strong>
+
+                                <small>
+                                    Delivery Boy ID: @Model.DeliveryBoyId
+                                </small>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="od-avatar od-avatar-unassigned">
+                                <i class="fa-solid fa-user-clock"></i>
+                            </div>
+
+                            <div class="od-person-details">
+
+                                <span class="od-label">
+                                    DELIVERY PARTNER
+                                </span>
+
+                                <strong>
+                                    Not assigned
+                                </strong>
+
+                                <small>
+                                    Waiting for a delivery partner
+                                </small>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ORDER ITEMS -->
+
+            <section class="od-panel od-items-panel">
+
+                <div class="od-panel-heading od-items-heading">
+
+                    <div class="od-panel-heading-left">
+
+                        <div class="od-panel-icon od-purple">
+                            <i class="fa-solid fa-shirt"></i>
+                        </div>
+
+                        <div>
+                            <h2>Items in This Order</h2>
+                            <p>Cloth details and item pricing</p>
+                        </div>
+
+                    </div>
+
+                    <span class="od-count">
+                        <i class="fa-solid fa-box"></i>
+                        @itemCount items
+                    </span>
+
+                </div>
+
+
+                @if (orderItems != null && orderItems.Any())
+                {
+                    <div class="od-table-wrap">
+
+                        <table class="od-table">
+
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ITEM / CLOTH</th>
+                                    <th>QTY</th>
+                                    <th>UNIT PRICE</th>
+                                    <th class="od-align-right">TOTAL</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @{
+                                    var itemNumber = 1;
+                                }
+
+                                @foreach (var item in orderItems)
+                                {
+                                    <tr>
+
+                                        <td>
+                                            <span class="od-row-number">
+                                                @itemNumber
+                                            </span>
+                                        </td>
+
+                                        <td>
+
+                                            <div class="od-cloth">
+
+                                                <span class="od-cloth-icon">
+                                                    <i class="fa-solid fa-shirt"></i>
+                                                </span>
+
+                                                <span>
+
+                                                    <strong>
+                                                        @(item.ClothName ?? "Unknown cloth")
+                                                    </strong>
+
+                                                    <small>
+                                                        Cloth ID: @item.ClothTypeId
+                                                    </small>
+
+                                                </span>
+
+                                            </div>
+
+                                        </td>
+
+                                        <td>
+                                            <span class="od-quantity">
+                                                @item.Quantity
+                                            </span>
+                                        </td>
+
+                                        <td class="od-unit-price">
+                                            ₹@item.Price.ToString("N2")
+                                        </td>
+
+                                        <td class="od-align-right">
+
+                                            <strong class="od-line-total">
+                                                ₹@item.TotalPrice.ToString("N2")
+                                            </strong>
+
+                                        </td>
+
+                                    </tr>
+
+                                    itemNumber++;
+                                }
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="od-empty">
+
+                        <i class="fa-solid fa-box-open"></i>
+
+                        <strong>No items found</strong>
+
+                        <span>
+                            No order items are available for this order.
+                        </span>
+
+                    </div>
+                }
+
+            </section>
+
+
+            <!-- PICKUP AND DELIVERY ADDRESSES -->
+
+            <section class="od-panel od-address-panel">
+
+                <div class="od-panel-heading">
+
+                    <div class="od-panel-icon od-blue">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <h2>Pickup & Delivery</h2>
+                        <p>Order collection and drop-off addresses</p>
+                    </div>
+
+                </div>
+
+
+                <div class="od-address-grid">
+
+                    <!-- PICKUP ADDRESS -->
+
+                    <div class="od-address">
+
+                        <div class="od-address-label">
+
+                            <span class="od-address-dot od-pickup-dot"></span>
+
+                            PICKUP ADDRESS
+
+                        </div>
+
+                        <p>
+                            @(string.IsNullOrWhiteSpace(Model.PickupAddress)
+                                ? "Address not available"
+                                : Model.PickupAddress)
+                        </p>
+
+                    </div>
+
+
+                    <!-- DELIVERY ADDRESS -->
+
+                    <div class="od-address">
+
+                        <div class="od-address-label">
+
+                            <span class="od-address-dot od-delivery-dot"></span>
+
+                            DELIVERY ADDRESS
+
+                        </div>
+
+                        <p>
+                            @(string.IsNullOrWhiteSpace(Model.DeliveryAddress)
+                                ? "Address not available"
+                                : Model.DeliveryAddress)
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- RIGHT COLUMN -->
+
+        <aside class="od-side-column">
+
+
+            <!-- ORDER PROGRESS -->
+
+            <section class="od-panel od-progress-panel">
+
+                <div class="od-panel-heading">
+
+                    <div class="od-panel-icon od-cyan">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+
+                    <div>
+                        <h2>Order Progress</h2>
+                        <p>Key schedule milestones</p>
+                    </div>
+
+                </div>
+
+
+                <div class="od-progress">
+
+                    <!-- PICKUP -->
+
+                    <div class="od-progress-item is-active">
+
+                        <span class="od-progress-marker">
+                            <i class="fa-solid fa-calendar-check"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Pickup scheduled
+                            </strong>
+
+                            <span>
+                                @Model.PickupDate.ToString("dd MMM yyyy, hh:mm tt")
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- DELIVERY -->
+
+                    <div class="od-progress-item @(Model.DeliveryDate.HasValue ? "is-active" : "")">
+
+                        <span class="od-progress-marker">
+
+                            @if (Model.DeliveryDate.HasValue)
+                            {
+                                <i class="fa-solid fa-check"></i>
+                            }
+                            else
+                            {
+                                <i class="fa-solid fa-clock"></i>
+                            }
+
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Delivery
+                            </strong>
+
+                            @if (Model.DeliveryDate.HasValue)
+                            {
+                                <span>
+                                    @Model.DeliveryDate.Value.ToString("dd MMM yyyy, hh:mm tt")
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    Delivery not completed yet
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- CUSTOMER NOTES -->
+
+            <section class="od-panel od-notes-panel">
+
+                <div class="od-panel-heading">
+
+                    <div class="od-panel-icon od-amber">
+                        <i class="fa-solid fa-note-sticky"></i>
+                    </div>
+
+                    <div>
+                        <h2>Customer Notes</h2>
+                        <p>Special instructions for this order</p>
+                    </div>
+
+                </div>
+
+
+                @if (!string.IsNullOrWhiteSpace(Model.Notes))
+                {
+                    <div class="od-notes">
+
+                        <i class="fa-solid fa-quote-left"></i>
+
+                        <p>
+                            @Model.Notes
+                        </p>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="od-no-notes">
+
+                        <i class="fa-regular fa-note-sticky"></i>
+
+                        <span>
+                            No additional notes provided.
+                        </span>
+
+                    </div>
+                }
+
+            </section>
+
+
+            <!-- TOTAL AMOUNT -->
+
+            <section class="od-total-panel">
+
+                <div class="od-total-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+
+                <div class="od-total-copy">
+
+                    <span>
+                        AMOUNT TO COLLECT
+                    </span>
+
+                    <small>
+                        @itemCount item(s) in this order
+                    </small>
+
+                </div>
 
                 <strong>
                     <small>₹</small>@Model.TotalAmount.ToString("N2")
                 </strong>
 
-            </div>
+            </section>
 
-            <span class="status-badge @statusClass">
-
-                <i class="fa-solid fa-circle"></i>
-
-                @Model.Status
-
-            </span>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         MAIN GRID
-    ====================================================== -->
-
-    <div class="details-grid">
-
-        <!-- =================================================
-             CUSTOMER INFORMATION
-        ================================================== -->
-
-        <div class="details-card">
-
-            <div class="card-header">
-
-                <div class="card-header-icon customer-icon">
-                    <i class="fa-solid fa-user"></i>
-                </div>
-
-                <div>
-                    <h3>Customer Information</h3>
-                    <p>Customer associated with this order</p>
-                </div>
-
-            </div>
-
-            <div class="person-info">
-
-                <div class="person-avatar customer-avatar">
-                    @customerInitial
-                </div>
-
-                <div class="person-content">
-
-                    <strong>
-                        @(Model.CustomerName ?? "N/A")
-                    </strong>
-
-                    <span>
-                        Customer ID: @Model.CustomerId
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             SHOP OWNER INFORMATION
-        ================================================== -->
-
-        <div class="details-card">
-
-            <div class="card-header">
-
-                <div class="card-header-icon shop-icon">
-                    <i class="fa-solid fa-store"></i>
-                </div>
-
-                <div>
-                    <h3>Shop Owner</h3>
-                    <p>Shop handling this order</p>
-                </div>
-
-            </div>
-
-            <div class="person-info">
-
-                <div class="person-avatar shop-avatar">
-                    @shopInitial
-                </div>
-
-                <div class="person-content">
-
-                    <strong>
-                        @(Model.ShopOwnerName ?? "N/A")
-                    </strong>
-
-                    <span>
-                        Shop Owner ID: @Model.ShopOwnerId
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             DELIVERY BOY INFORMATION
-        ================================================== -->
-
-        <div class="details-card">
-
-            <div class="card-header">
-
-                <div class="card-header-icon delivery-icon">
-                    <i class="fa-solid fa-motorcycle"></i>
-                </div>
-
-                <div>
-                    <h3>Delivery Partner</h3>
-                    <p>Assigned delivery partner</p>
-                </div>
-
-            </div>
-
-            @if (Model.DeliveryBoyId.HasValue)
-            {
-                <div class="person-info">
-
-                    <div class="person-avatar delivery-avatar">
-                        @deliveryInitial
-                    </div>
-
-                    <div class="person-content">
-
-                        <strong>
-                            @(Model.DeliveryBoyName ?? "N/A")
-                        </strong>
-
-                        <span>
-                            Delivery Boy ID: @Model.DeliveryBoyId
-                        </span>
-
-                    </div>
-
-                </div>
-            }
-            else
-            {
-                <div class="not-assigned-box">
-
-                    <i class="fa-solid fa-user-slash"></i>
-
-                    <div>
-                        <strong>Not Assigned</strong>
-                        <span>No delivery partner assigned yet.</span>
-                    </div>
-
-                </div>
-            }
-
-        </div>
-
-
-        <!-- =================================================
-             PICKUP / DELIVERY INFORMATION
-        ================================================== -->
-
-        <div class="details-card address-card">
-
-            <div class="card-header">
-
-                <div class="card-header-icon address-icon">
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
-
-                <div>
-                    <h3>Order Locations</h3>
-                    <p>Pickup and delivery addresses</p>
-                </div>
-
-            </div>
-
-            <div class="address-container">
-
-                <div class="address-block">
-
-                    <div class="address-title pickup-title">
-
-                        <span class="address-dot"></span>
-
-                        <strong>Pickup Address</strong>
-
-                    </div>
-
-                    <p>
-                        @(string.IsNullOrWhiteSpace(Model.PickupAddress)
-                            ? "Address not available"
-                            : Model.PickupAddress)
-                    </p>
-
-                </div>
-
-
-                <div class="address-line"></div>
-
-
-                <div class="address-block">
-
-                    <div class="address-title delivery-title">
-
-                        <span class="address-dot"></span>
-
-                        <strong>Delivery Address</strong>
-
-                    </div>
-
-                    <p>
-                        @(string.IsNullOrWhiteSpace(Model.DeliveryAddress)
-                            ? "Address not available"
-                            : Model.DeliveryAddress)
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             ORDER ITEMS
-        ================================================== -->
-
-        <div class="details-card order-items-card">
-
-            <div class="card-header items-card-header">
-
-                <div class="card-header-content">
-
-                    <div class="card-header-icon items-icon">
-                        <i class="fa-solid fa-shirt"></i>
-                    </div>
-
-                    <div>
-                        <h3>Order Items</h3>
-                        <p>
-                            @Model.OrderItems.Count item(s) in this order
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="item-count-badge">
-
-                    <i class="fa-solid fa-box"></i>
-
-                    @Model.OrderItems.Count
-
-                </div>
-
-            </div>
-
-
-            @if (Model.OrderItems != null && Model.OrderItems.Any())
-            {
-                <div class="items-table-container">
-
-                    <table class="items-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>#</th>
-
-                                <th>Cloth</th>
-
-                                <th>Quantity</th>
-
-                                <th>Price</th>
-
-                                <th>Total</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            @{
-                                var itemNumber = 1;
-                            }
-
-                            @foreach (var item in Model.OrderItems)
-                            {
-                                <tr>
-
-                                    <td>
-                                        <span class="item-number">
-                                            @itemNumber
-                                        </span>
-                                    </td>
-
-                                    <td>
-
-                                        <div class="cloth-info">
-
-                                            <div class="cloth-icon">
-                                                <i class="fa-solid fa-shirt"></i>
-                                            </div>
-
-                                            <div>
-
-                                                <strong>
-                                                    @(item.ClothName ?? "Unknown Cloth")
-                                                </strong>
-
-                                                <span>
-                                                    Cloth ID: @item.ClothTypeId
-                                                </span>
-
-                                            </div>
-
-                                        </div>
-
-                                    </td>
-
-                                    <td>
-
-                                        <span class="quantity-badge">
-                                            @item.Quantity
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-
-                                        <span class="price-value">
-                                            ₹@item.Price.ToString("N2")
-                                        </span>
-
-                                    </td>
-
-                                    <td>
-
-                                        <strong class="item-total">
-                                            ₹@item.TotalPrice.ToString("N2")
-                                        </strong>
-
-                                    </td>
-
-                                </tr>
-
-                                itemNumber++;
-                            }
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-            }
-            else
-            {
-                <div class="empty-items">
-
-                    <div class="empty-items-icon">
-                        <i class="fa-solid fa-box-open"></i>
-                    </div>
-
-                    <h4>No Items Found</h4>
-
-                    <p>
-                        No order items are available for this order.
-                    </p>
-
-                </div>
-            }
-
-        </div>
-
-
-        <!-- =================================================
-             ORDER NOTES
-        ================================================== -->
-
-        <div class="details-card notes-card">
-
-            <div class="card-header">
-
-                <div class="card-header-icon notes-icon">
-                    <i class="fa-solid fa-note-sticky"></i>
-                </div>
-
-                <div>
-                    <h3>Order Notes</h3>
-                    <p>Additional instructions from customer</p>
-                </div>
-
-            </div>
-
-            @if (!string.IsNullOrWhiteSpace(Model.Notes))
-            {
-                <div class="notes-content">
-
-                    <i class="fa-solid fa-quote-left"></i>
-
-                    <p>
-                        @Model.Notes
-                    </p>
-
-                </div>
-            }
-            else
-            {
-                <div class="no-notes">
-
-                    <i class="fa-regular fa-note-sticky"></i>
-
-                    <span>No additional notes provided.</span>
-
-                </div>
-            }
-
-        </div>
-
-
-        <!-- =================================================
-             ORDER TIMELINE
-        ================================================== -->
-
-        <div class="details-card timeline-card">
-
-            <div class="card-header">
-
-                <div class="card-header-icon timeline-icon">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                </div>
-
-                <div>
-                    <h3>Order Timeline</h3>
-                    <p>Important order dates</p>
-                </div>
-
-            </div>
-
-            <div class="timeline">
-
-                <div class="timeline-item active">
-
-                    <div class="timeline-marker">
-                        <i class="fa-solid fa-calendar-check"></i>
-                    </div>
-
-                    <div class="timeline-content">
-
-                        <strong>Pickup Scheduled</strong>
-
-                        <span>
-                            @Model.PickupDate.ToString("dd MMM yyyy, hh:mm tt")
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="timeline-item @(Model.DeliveryDate.HasValue ? "active" : "")">
-
-                    <div class="timeline-marker">
-
-                        @if (Model.DeliveryDate.HasValue)
-                        {
-                            <i class="fa-solid fa-check"></i>
-                        }
-                        else
-                        {
-                            <i class="fa-solid fa-clock"></i>
-                        }
-
-                    </div>
-
-                    <div class="timeline-content">
-
-                        <strong>Delivery</strong>
-
-                        @if (Model.DeliveryDate.HasValue)
-                        {
-                            <span>
-                                @Model.DeliveryDate.Value.ToString("dd MMM yyyy, hh:mm tt")
-                            </span>
-                        }
-                        else
-                        {
-                            <span>
-                                Delivery not completed yet
-                            </span>
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         TOTAL SUMMARY
-    ====================================================== -->
-
-    <div class="final-summary-card">
-
-        <div>
-
-            <span>Total Order Amount</span>
-
-            <small>
-                @Model.OrderItems.Count item(s)
-            </small>
-
-        </div>
-
-        <strong>
-            <span>₹</span>@Model.TotalAmount.ToString("N2")
-        </strong>
+        </aside>
 
     </div>
 
