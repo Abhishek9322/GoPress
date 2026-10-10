@@ -1,0 +1,344 @@
+﻿```cshtml
+@model List<GoPress.Mvc.Areas.Admin.Models.AdminOrderViewModel>
+
+@{
+    ViewData["Title"] = "Pending Orders";
+    Layout = "_Layout";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/Admin-PendingOrders.css"
+          asp-append-version="true" />
+}
+
+<div class="pending-orders-page">
+
+    <!-- PAGE HEADER -->
+    <div class="pending-orders-header">
+
+        <div class="pending-orders-header-content">
+
+            <div class="pending-orders-header-icon">
+                <i class="fa-solid fa-clock"></i>
+            </div>
+
+            <div>
+                <h2>Pending Orders</h2>
+                <p>Monitor and manage all orders awaiting processing.</p>
+            </div>
+
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="AdminOrders"
+           asp-action="GetAllOrders"
+           class="back-orders-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            All Orders
+
+        </a>
+
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="pending-alert pending-alert-success">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>@TempData["Success"]</span>
+        </div>
+    }
+
+    <!-- ERROR MESSAGE -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="pending-alert pending-alert-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <!-- EMPTY STATE -->
+        <div class="pending-empty-state">
+
+            <div class="pending-empty-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <h3>No Pending Orders</h3>
+
+            <p>
+                Great! There are currently no pending orders.
+            </p>
+
+            <a asp-area="Admin"
+               asp-controller="AdminOrders"
+               asp-action="GetAllOrders"
+               class="pending-empty-btn">
+
+                <i class="fa-solid fa-boxes-stacked"></i>
+                View All Orders
+
+            </a>
+
+        </div>
+    }
+    else
+    {
+        <!-- SUMMARY -->
+        <div class="pending-summary">
+
+            <div class="pending-summary-left">
+
+                <div class="pending-summary-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+
+                <div>
+                    <span class="pending-summary-label">
+                        Total Pending Orders
+                    </span>
+
+                    <strong>@Model.Count</strong>
+                </div>
+
+            </div>
+
+            <div class="pending-summary-description">
+                <span class="pending-pulse"></span>
+                Awaiting processing
+            </div>
+
+        </div>
+
+        <!-- ORDERS TABLE -->
+        <div class="pending-table-card">
+
+            <div class="pending-table-heading">
+
+                <div>
+                    <h3>Pending Orders List</h3>
+                    <p>All orders currently awaiting processing.</p>
+                </div>
+
+                <span class="pending-count-badge">
+                    @Model.Count Orders
+                </span>
+
+            </div>
+
+            <div class="pending-table-container">
+
+                <table class="pending-orders-table">
+
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Shop Owner</th>
+                            <th>Delivery Boy</th>
+                            <th>Amount</th>
+                            <th>Pickup Date</th>
+                            <th>Delivery Date</th>
+                            <th>Status</th>
+                            <th>Items</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                            var statusText = order.Status.ToString();
+
+                            var statusClass = statusText
+                            .ToLowerInvariant()
+                            .Replace(" ", "")
+                            .Replace("_", "")
+                            .Replace("-", "");
+
+                            <tr>
+
+                                <!-- ORDER ID -->
+                                <td>
+                                    <div class="pending-order-id">
+                                        <span>#</span>
+                                        @order.OrderId
+                                    </div>
+                                </td>
+
+                                <!-- CUSTOMER -->
+                                <td>
+                                    <div class="pending-user-info">
+
+                                        <div class="pending-user-avatar customer-avatar">
+                                            <i class="fa-solid fa-user"></i>
+                                        </div>
+
+                                        <div class="pending-user-details">
+                                            <strong>
+                                                @(string.IsNullOrWhiteSpace(order.CustomerName)
+                                                    ? "Customer"
+                                                    : order.CustomerName)
+                                            </strong>
+
+                                            <span>Customer</span>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <!-- SHOP OWNER -->
+                                <td>
+                                    <div class="pending-user-info">
+
+                                        <div class="pending-user-avatar shop-avatar">
+                                            <i class="fa-solid fa-store"></i>
+                                        </div>
+
+                                        <div class="pending-user-details">
+                                            <strong>
+                                                @(string.IsNullOrWhiteSpace(order.ShopOwnerName)
+                                                    ? "Shop owner"
+                                                    : order.ShopOwnerName)
+                                            </strong>
+
+                                            <span>Shop Owner</span>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                <!-- DELIVERY BOY -->
+                                <td>
+                                    @if (!string.IsNullOrWhiteSpace(order.DeliveryBoyName))
+                                    {
+                                        <div class="pending-user-info">
+
+                                            <div class="pending-user-avatar delivery-avatar">
+                                                <i class="fa-solid fa-motorcycle"></i>
+                                            </div>
+
+                                            <div class="pending-user-details">
+                                                <strong>@order.DeliveryBoyName</strong>
+                                                <span>Delivery Boy</span>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="pending-not-assigned">
+                                            <i class="fa-solid fa-minus"></i>
+                                            Not Assigned
+                                        </span>
+                                    }
+                                </td>
+
+                                <!-- AMOUNT -->
+                                <td>
+                                    <div class="pending-amount">
+                                        <span>₹</span>
+                                        <strong>@order.TotalAmount.ToString("N2")</strong>
+                                    </div>
+                                </td>
+
+                                <!-- PICKUP DATE -->
+                                <td>
+                                    <div class="pending-date-info">
+                                        <strong>
+                                            @order.PickupDate.ToString("dd MMM yyyy")
+                                        </strong>
+
+                                        <span>
+                                            @order.PickupDate.ToString("hh:mm tt")
+                                        </span>
+                                    </div>
+                                </td>
+
+                                <!-- DELIVERY DATE -->
+                                <td>
+                                    @if (order.DeliveryDate.HasValue)
+                                    {
+                                        <div class="pending-date-info">
+                                            <strong>
+                                                @order.DeliveryDate.Value.ToString("dd MMM yyyy")
+                                            </strong>
+
+                                            <span>
+                                                @order.DeliveryDate.Value.ToString("hh:mm tt")
+                                            </span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <span class="pending-date-missing">
+                                            <i class="fa-regular fa-clock"></i>
+                                            Not Scheduled
+                                        </span>
+                                    }
+                                </td>
+
+                                <!-- STATUS -->
+                                <td>
+                                    <span class="pending-status-badge @statusClass">
+
+                                        <i class="fa-regular fa-clock"></i>
+
+                                        @statusText
+
+                                    </span>
+                                </td>
+
+                                <!-- ITEMS -->
+                                <td>
+                                    <div class="pending-items-info">
+
+                                        <span class="pending-items-count">
+                                            <i class="fa-solid fa-shirt"></i>
+
+                                            @(order.OrderItems?.Sum(x => x.Quantity) ?? 0)
+                                        </span>
+
+                                        <span class="pending-items-label">
+                                            Clothes
+                                        </span>
+
+                                    </div>
+                                </td>
+
+                                <!-- ACTION -->
+                                <td>
+                                    <a asp-area="Admin"
+                                       asp-controller="AdminOrders"
+                                       asp-action="GetOrderDetailsByAdmin"
+                                       asp-route-orderId="@order.OrderId"
+                                       class="pending-view-btn">
+
+                                        <i class="fa-solid fa-eye"></i>
+                                        View
+
+                                    </a>
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="pending-table-footer">
+                <i class="fa-solid fa-circle-info"></i>
+                Showing @Model.Count pending orders.
+            </div>
+
+        </div>
+    }
+</div>
+```

@@ -1,0 +1,744 @@
+﻿
+/* =========================================================
+   GOPRESS ADMIN - PENDING ORDERS
+   Theme: Cyan Blue / White / Slate
+========================================================= */
+.pending-orders-page {
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 35px 25px 60px;
+    color: #111827;
+}
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.pending-orders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.pending-orders-header-content {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.pending-orders-header-icon {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
+    color: #fff;
+    font-size: 22px;
+    box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
+}
+
+.pending-orders-header h2 {
+    margin: 0 0 5px;
+    color: #111827;
+    font-size: 30px;
+    font-weight: 750;
+}
+
+.pending-orders-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.back-orders-btn,
+.pending-empty-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    background: #fff;
+    color: #374151;
+    font-size: 12px;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .2s ease;
+}
+
+    .back-orders-btn:hover {
+        background: #1597d0;
+        border-color: #1597d0;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+.pending-empty-btn {
+    margin-top: 18px;
+    background: #1597d0;
+    border-color: #1597d0;
+    color: #fff;
+}
+
+    .pending-empty-btn:hover {
+        background: #087ea4;
+        border-color: #087ea4;
+        color: #fff;
+    }
+
+/* =========================================================
+   ALERT MESSAGES
+========================================================= */
+
+.pending-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 17px;
+    margin-bottom: 22px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pending-alert-success {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    color: #047857;
+}
+
+.pending-alert-error {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #b91c1c;
+}
+
+/* =========================================================
+   SUMMARY CARD
+========================================================= */
+
+.pending-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, .04);
+}
+
+.pending-summary-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pending-summary-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #ecfeff;
+    color: #1597d0;
+    font-size: 20px;
+}
+
+.pending-summary-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #6b7280;
+    font-size: 11px;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.pending-summary-left strong {
+    display: block;
+    color: #111827;
+    font-size: 26px;
+    font-weight: 800;
+}
+
+.pending-summary-description {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #92400e;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.pending-pulse {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 0 4px #fef3c7;
+}
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.pending-table-card {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+}
+
+.pending-table-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 23px 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+    .pending-table-heading h3 {
+        margin: 0 0 5px;
+        color: #111827;
+        font-size: 17px;
+        font-weight: 750;
+    }
+
+    .pending-table-heading p {
+        margin: 0;
+        color: #9ca3af;
+        font-size: 12px;
+    }
+
+.pending-count-badge {
+    padding: 8px 12px;
+    border: 1px solid #cffafe;
+    border-radius: 20px;
+    background: #ecfeff;
+    color: #087ea4;
+    font-size: 11px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   TABLE CONTAINER
+========================================================= */
+
+.pending-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.pending-orders-table {
+    width: 100%;
+    min-width: 1250px;
+    border-collapse: collapse;
+}
+
+    /* TABLE HEADER */
+
+    .pending-orders-table thead {
+        background: #f8fafc;
+    }
+
+    .pending-orders-table th {
+        padding: 16px 18px;
+        border-bottom: 1px solid #e5e7eb;
+        color: #6b7280;
+        font-size: 10px;
+        font-weight: 750;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: .6px;
+        white-space: nowrap;
+    }
+
+    /* TABLE BODY */
+
+    .pending-orders-table tbody tr {
+        transition: background .2s ease;
+    }
+
+        .pending-orders-table tbody tr:hover {
+            background: #f8fdff;
+        }
+
+    .pending-orders-table td {
+        padding: 17px 18px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: middle;
+    }
+
+    .pending-orders-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+/* =========================================================
+   ORDER ID
+========================================================= */
+
+.pending-order-id {
+    display: inline-flex;
+    align-items: center;
+    color: #1597d0;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+    .pending-order-id span {
+        margin-right: 2px;
+        color: #9ca3af;
+        font-size: 11px;
+    }
+
+/* =========================================================
+   USER INFORMATION
+========================================================= */
+
+.pending-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 155px;
+}
+
+.pending-user-avatar {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+.customer-avatar {
+    background: linear-gradient(135deg, #ecfeff, #cffafe);
+    color: #1597d0;
+}
+
+.shop-avatar {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.delivery-avatar {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.pending-user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+    .pending-user-details strong {
+        max-width: 165px;
+        overflow: hidden;
+        color: #1f2937;
+        font-size: 12px;
+        font-weight: 750;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .pending-user-details span {
+        color: #9ca3af;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+    }
+
+/* =========================================================
+   NOT ASSIGNED
+========================================================= */
+
+.pending-not-assigned {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   AMOUNT
+========================================================= */
+
+.pending-amount {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: #111827;
+    white-space: nowrap;
+}
+
+    .pending-amount span {
+        color: #1597d0;
+        font-size: 12px;
+        font-weight: 750;
+    }
+
+    .pending-amount strong {
+        font-size: 13px;
+        font-weight: 800;
+    }
+
+/* =========================================================
+   DATE INFORMATION
+========================================================= */
+
+.pending-date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 110px;
+}
+
+    .pending-date-info strong {
+        color: #374151;
+        font-size: 12px;
+        font-weight: 750;
+        white-space: nowrap;
+    }
+
+    .pending-date-info span {
+        color: #9ca3af;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+.pending-date-missing {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.pending-status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 11px;
+    border: 1px solid #fde68a;
+    border-radius: 20px;
+    background: #fffbeb;
+    color: #b45309;
+    font-size: 10px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+    /* Support different enum names */
+
+    .pending-status-badge.pending {
+        background: #fffbeb;
+        border-color: #fde68a;
+        color: #b45309;
+    }
+
+    .pending-status-badge.accepted,
+    .pending-status-badge.shopowneraccepted {
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #2563eb;
+    }
+
+    .pending-status-badge.ready,
+    .pending-status-badge.readyforpickup,
+    .pending-status-badge.readyfordelivery {
+        background: #f5f3ff;
+        border-color: #ddd6fe;
+        color: #7c3aed;
+    }
+
+    .pending-status-badge.pickup,
+    .pending-status-badge.pickedup,
+    .pending-status-badge.outfordelivery {
+        background: #fff7ed;
+        border-color: #fed7aa;
+        color: #c2410c;
+    }
+
+    .pending-status-badge.processing {
+        background: #fefce8;
+        border-color: #fde68a;
+        color: #a16207;
+    }
+
+    .pending-status-badge.delivered,
+    .pending-status-badge.completed {
+        background: #ecfdf5;
+        border-color: #a7f3d0;
+        color: #047857;
+    }
+
+    .pending-status-badge.cancelled,
+    .pending-status-badge.rejected {
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #b91c1c;
+    }
+
+/* =========================================================
+   ITEMS
+========================================================= */
+
+.pending-items-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.pending-items-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 9px;
+    border: 1px solid #cffafe;
+    border-radius: 8px;
+    background: #ecfeff;
+    color: #087ea4;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+    .pending-items-count i {
+        font-size: 10px;
+    }
+
+.pending-items-label {
+    color: #9ca3af;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.pending-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 650;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+    .pending-view-btn:hover {
+        background: #1597d0;
+        color: #fff;
+        transform: translateY(-1px);
+        box-shadow: 0 5px 12px rgba(21, 151, 208, .25);
+    }
+
+/* =========================================================
+   TABLE FOOTER
+========================================================= */
+
+.pending-table-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 22px;
+    border-top: 1px solid #f0f0f0;
+    background: #fafafa;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+    .pending-table-footer i {
+        color: #1597d0;
+    }
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.pending-empty-state {
+    max-width: 650px;
+    margin: 50px auto;
+    padding: 50px 25px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
+}
+
+.pending-empty-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ecfeff;
+    color: #22c7e8;
+    font-size: 25px;
+}
+
+.pending-empty-state h3 {
+    margin: 0 0 8px;
+    color: #1f2937;
+    font-size: 20px;
+    font-weight: 750;
+}
+
+.pending-empty-state p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+    .pending-orders-page {
+        padding: 30px 20px 50px;
+    }
+
+    .pending-orders-table {
+        min-width: 1250px;
+    }
+
+        .pending-orders-table th,
+        .pending-orders-table td {
+            padding: 14px 15px;
+        }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+    .pending-orders-page {
+        padding: 20px 15px 40px;
+    }
+
+    .pending-orders-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+    }
+
+    .pending-orders-header-content {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .pending-orders-header-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .pending-orders-header h2 {
+        font-size: 24px;
+    }
+
+    .pending-orders-header p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .back-orders-btn {
+        align-self: flex-start;
+    }
+
+    .pending-summary {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+        padding: 18px;
+    }
+
+    .pending-table-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    .pending-table-card {
+        border-radius: 12px;
+    }
+
+    .pending-orders-table {
+        min-width: 1250px;
+    }
+
+    .pending-empty-state {
+        margin: 30px auto;
+        padding: 35px 18px;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+    .pending-orders-page {
+        padding: 18px 12px 35px;
+    }
+
+    .pending-orders-header h2 {
+        font-size: 21px;
+    }
+
+    .pending-summary {
+        padding: 16px;
+    }
+
+    .pending-summary-left strong {
+        font-size: 23px;
+    }
+}
+
