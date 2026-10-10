@@ -1,9 +1,8 @@
-﻿using GoPress.Application.DTOs.Orders;
-using GoPress.Domain.Enums;
+﻿using GoPress.Mvc.Areas.Customer.Models;
 
-namespace GoPress.Application.DTOs.Admin
+namespace GoPress.Mvc.Areas.Admin.Models
 {
-    public class AdminOrderDto
+    public class AdminOrderViewModel 
     {
         public int OrderId { get; set; }
 
@@ -25,6 +24,7 @@ namespace GoPress.Application.DTOs.Admin
 
         public string DeliveryAddress { get; set; }
 
-        public List<OrderItemResponseDto> OrderItems { get; set; }= new();
+        public List<OrderItemResponseViewModel> OrderItems { get; set; } = new();
     }
+
 }

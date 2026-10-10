@@ -46,5 +46,22 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
 
             return View(response.Data);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GepAllPendingOrderByAdmin()
+        {
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                  "api/Admin/Orders/Pending-Orders"
+                );
+
+            if(response==null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Pending Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+            return View(response);
+        }
+
     }
 }

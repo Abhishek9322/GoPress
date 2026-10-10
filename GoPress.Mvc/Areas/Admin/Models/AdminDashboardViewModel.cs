@@ -1,4 +1,6 @@
-﻿namespace GoPress.Mvc.Areas.Admin.Models
+﻿using GoPress.Mvc.Areas.ShopOwner.Models;
+
+namespace GoPress.Mvc.Areas.Admin.Models
 {
     public class AdminDashboardViewModel
     {
@@ -22,4 +24,5 @@
 
         public int CompletedOrders { get; set; }
     }
+
 }
