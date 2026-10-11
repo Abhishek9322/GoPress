@@ -63,5 +63,39 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
             return View(response.Data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllAcceptedOrdersByAdmin()
+        {
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                "api/Admin/Orders/Accepted-Orders"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Accepted Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+
+                return View(response.Data);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllDeliverdOrdersByAdmin()
+        {
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                "api/Admin/Orders/Deliverd-Orders"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Deliverd Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+
+            return View(response.Data);
+        }
+
     }
 }
