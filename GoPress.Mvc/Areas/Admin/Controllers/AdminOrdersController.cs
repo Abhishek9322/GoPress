@@ -60,7 +60,7 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
                 TempData["Error"] = "Unable To load Pending Order";
                 return View(new Response<List<AdminOrderViewModel>>());
             }
-            return View(response);
+            return View(response.Data);
         }
 
     }
