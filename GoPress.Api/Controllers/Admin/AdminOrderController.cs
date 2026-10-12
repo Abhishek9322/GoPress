@@ -40,7 +40,6 @@ namespace GoPress.Api.Controllers.Admin
         }
 
 
-
         [HttpGet("Pending-Orders")]
         public async Task<IActionResult> GetPendingOrders()
         {
@@ -50,6 +49,17 @@ namespace GoPress.Api.Controllers.Admin
             return Ok(response);
 
         }
+        [HttpGet("Pickup-Assigned")]
+        public async Task<IActionResult> GetAllPickupAssignedOrders()
+        {
+            var response = await _mediator.Send(
+                new GetAllPickupAssignedOrdersQuery());   
+
+            return Ok(response);
+        }
+
+
+
 
 
         [HttpGet("Deliverd-Orders")]
