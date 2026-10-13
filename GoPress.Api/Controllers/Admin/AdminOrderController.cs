@@ -60,6 +60,16 @@ namespace GoPress.Api.Controllers.Admin
 
 
 
+
+        [HttpGet("Processing-Orders")]
+        public async Task<IActionResult> GetAllProcessingOrders()
+        {
+            var response = await _mediator.Send(new GetAllProcessingOrdersQuery());
+            return Ok(response);
+        }
+
+
+
         [HttpGet("Deliverd-Orders")]
         public async Task<IActionResult> GetDeliverdOrders()
         {

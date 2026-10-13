@@ -738,17 +738,31 @@
 
                                             <a class="dropdown-item"
                                                asp-area="Admin"
-                                               asp-controller="Approvel"
-                                               asp-action="GetAllDeActiveUsers">
+                                               asp-controller="AdminOrders"
+                                               asp-action="GetAllPickupAssignedOrdersByAdmin">
 
                                                 <i class="fa-solid fa-user-slash"></i>
 
-                                                Deactive Users
+                                                PickupAssigned Orders
 
                                             </a>
 
                                         </li>
 
+                                        <li>
+
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="AdminOrders"
+                                               asp-action="GetAllProcessingOrdersByAdmin">
+
+                                                <i class="fa-solid fa-user-slash"></i>
+
+                                                processing Orders
+
+                                            </a>
+
+                                        </li>
 
                                         <!-- DIVIDER -->
 

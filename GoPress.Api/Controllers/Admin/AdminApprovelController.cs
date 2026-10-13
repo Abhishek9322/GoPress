@@ -92,6 +92,10 @@ namespace GoPress.Api.Controllers.Admin
             return Ok(responce);
         }
 
+
+
+        //Appy Resoure based RESt principal for this particlar API/  not now here  
+
         [HttpGet("Approved-DeliveryBoy")]
         public async Task<IActionResult> GetAllApprovedDeliveryBoy()
         {

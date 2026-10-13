@@ -97,6 +97,24 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
             return View(response.Data);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProcessingOrdersByAdmin()
+        {
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                "api/Admin/Orders/Processing-Orders"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Processing Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+
+            return View(response.Data);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllDeliverdOrdersByAdmin()
         {
