@@ -20,7 +20,7 @@ namespace GoPress.Application.Features.AdminOrdersmanagment.GetAllOrderByStatus.
     {
 
         private readonly ILogger<GetdeliverdOrderByAdminQueryHandler> _logger;
-        private readonly ICacheService _cacheService;
+        private readonly ICacheService _cacheService; 
         private readonly IOrderRepository _orderRepository;
         public GetAllPickupAssignedOrdersQueryHandler(ILogger<GetdeliverdOrderByAdminQueryHandler> logger,
             ICacheService cacheService,
