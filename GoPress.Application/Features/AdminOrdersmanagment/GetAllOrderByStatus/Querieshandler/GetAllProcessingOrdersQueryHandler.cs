@@ -64,7 +64,7 @@ namespace GoPress.Application.Features.AdminOrdersmanagment.GetAllOrderByStatus.
                     Price = item.Price,
                     TotalPrice = item.TotalPrice
                 }).ToList()
-            }).ToList();
+            }).ToList(); 
 
 
             await _cacheService.SetAsync(CacheKeys.ProcessingOrders, response, TimeSpan.FromMinutes(5));
