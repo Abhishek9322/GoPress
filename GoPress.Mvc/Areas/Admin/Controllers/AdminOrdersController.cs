@@ -117,6 +117,25 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAllReadyForDeliveryOrdersByAdmin()
+        {
+
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                "api/Admin/Orders/ReadyForDelivery-Orders"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Ready For Delivery Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+
+            return View(response.Data);
+        }
+
+
+        [HttpGet]
         public async Task<IActionResult> GetAllDeliverdOrdersByAdmin()
         {
             var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
