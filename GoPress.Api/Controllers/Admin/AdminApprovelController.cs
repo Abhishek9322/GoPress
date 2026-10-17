@@ -66,6 +66,7 @@ namespace GoPress.Api.Controllers.Admin
             return Ok(response);
         }
 
+
         [HttpPut("{userId}/reject")]
         public async Task<IActionResult> RejectUser(int userId, RejectUserCommand command)
         {

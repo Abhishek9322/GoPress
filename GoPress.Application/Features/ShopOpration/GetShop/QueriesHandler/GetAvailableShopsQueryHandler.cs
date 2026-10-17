@@ -29,8 +29,7 @@ namespace GoPress.Application.Features.ShopOpration.GetShop.QueriesHandler
                "Customer {CustomerId} requested available shops.",
                request.CustomerId);
 
-            var customer = await _userRepository
-                .GetCustomerWithProfileAsync(request.CustomerId);
+            var customer = await _userRepository.GetCustomerWithProfileAsync(request.CustomerId);
 
             if (customer == null)
             {
@@ -58,8 +57,7 @@ namespace GoPress.Application.Features.ShopOpration.GetShop.QueriesHandler
                 "Searching available shops in city {City}.",   
                 city);
 
-            var shops = await _userRepository
-                .GetAvailableShopsAsync(city); 
+            var shops = await _userRepository.GetAvailableShopsAsync(city); 
 
             if (!shops.Any())
             {
