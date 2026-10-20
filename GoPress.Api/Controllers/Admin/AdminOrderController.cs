@@ -87,7 +87,7 @@ namespace GoPress.Api.Controllers.Admin
         {
             var response = await _mediator.Send(new GetAllOutForDeliveryOrdersByAdminQuery());
 
-            return Ok();
+            return Ok(response);
         }
 
 
