@@ -81,6 +81,23 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAllPickedUpOrdersByAdmin()
+        {
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                "api/Admin/Orders/PickedUp-Orders"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Picked Up Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+
+            return View(response.Data);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> GetAllPickupAssignedOrdersByAdmin()
         {
             var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
