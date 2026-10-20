@@ -151,6 +151,25 @@ namespace GoPress.Mvc.Areas.Admin.Controllers
             return View(response.Data);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllOutForDeliveryOrdersByAdmin()
+        {
+
+            var response = await _apiService.GetAsync<Response<List<AdminOrderViewModel>>>
+                (
+                "api/Admin/Orders/OutForDelivery-Orders"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable To load Out For Delivery Order";
+                return View(new Response<List<AdminOrderViewModel>>());
+            }
+
+            return View(response.Data);
+        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> GetAllDeliverdOrdersByAdmin()
