@@ -52,13 +52,19 @@ namespace GoPress.Api.Controllers.Admin
         [HttpGet("Pickup-Assigned")]
         public async Task<IActionResult> GetAllPickupAssignedOrders()
         {
-            var response = await _mediator.Send(
-                new GetAllPickupAssignedOrdersQuery());   
+            var response = await _mediator.Send(new GetAllPickupAssignedOrdersQuery());   
 
             return Ok(response);
         }
 
 
+        [HttpGet("PickedUp-Orders")]
+        public async Task<IActionResult> GetAllPickedUpOrders()
+        {
+            var response = await _mediator.Send(new GetAllPickedUpOrdersQuery());
+
+            return Ok(response);
+        }
 
 
         [HttpGet("Processing-Orders")]
@@ -75,6 +81,8 @@ namespace GoPress.Api.Controllers.Admin
             var response = await _mediator.Send(new GetAllReadyForDeliveryOrdersQuery());
             return Ok(response);
         }
+
+
 
         [HttpGet("Deliverd-Orders")]
         public async Task<IActionResult> GetDeliverdOrders()

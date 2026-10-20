@@ -54,14 +54,14 @@ namespace GoPress.Api.Controllers.Admin
 
 
         [HttpPut("{userId}/approve")]
-        public async Task<IActionResult> ApproveUser(int userId)
+        public async Task<IActionResult> ApproveUser(int userId,CancellationToken cancellationToken)
         {
             var command = new ApproveUserCommand
             {
                 UserId = userId
             };
 
-            var response = await _mediator.Send(command);
+            var response = await _mediator.Send(command,cancellationToken);
 
             return Ok(response);
         }

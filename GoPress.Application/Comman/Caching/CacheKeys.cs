@@ -29,6 +29,9 @@ namespace GoPress.Application.Comman.Caching
         public const string PickupAssignedOrders = "PickupAssignedOrders";
 
         public const string ProcessingOrders = "ProcessingOrders";
+
         public const string ReadyForDelivery = "ReadyForDelivery";
+
+        public const string PickedUpOrders = "PickedUpOrders";
     }
 }
