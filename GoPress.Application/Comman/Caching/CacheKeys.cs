@@ -33,5 +33,7 @@ namespace GoPress.Application.Comman.Caching
         public const string ReadyForDelivery = "ReadyForDelivery";
 
         public const string PickedUpOrders = "PickedUpOrders";
+
+        public const string OutForDeliveryOrders = "OutForDeliveryOrders";
     }
 }

@@ -82,6 +82,13 @@ namespace GoPress.Api.Controllers.Admin
             return Ok(response);
         }
 
+        [HttpGet("OutForDelivery-Orders")]
+        public async Task<IActionResult> GetAllOutFordeliveryOrders()
+        {
+            var response = await _mediator.Send(new GetAllOutForDeliveryOrdersByAdminQuery());
+
+            return Ok();
+        }
 
 
         [HttpGet("Deliverd-Orders")]
