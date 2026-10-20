@@ -8,12 +8,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using FluentValidation;
+using GoPress.Application.Comman.Behaviors;
+using GoPress.Application.Features.AdminApproval.Approved.Command;
+using MediatR;
 using GoPress.Application.Interfaces.Repositories;
 using GoPress.Application.Interfaces.Services;
 using GoPress.Infrastructure.Services;
 using GoPress.Application.Interfaces.Caching;
 using GoPress.Infrastructure.Caching;
+using GoPress.Application.Features.AdminApproval.Approved.Validator;
 
 namespace GoPress.Infrastructure
 {
@@ -30,6 +34,10 @@ namespace GoPress.Infrastructure
                 options.UseSqlServer(configuration.GetConnectionString("StartConnection"));
             });
 
+
+          // service.AddValidatorsFromAssemblyContaining<ApproveUserCommandValidator>();
+
+            service.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehavior<,>));
 
             // Repository and interface and the service inject here 
             service.AddScoped<IUserRepository, UserRepository>();
