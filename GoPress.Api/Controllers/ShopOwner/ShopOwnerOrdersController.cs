@@ -24,7 +24,22 @@ namespace GoPress.Api.Controllers.ShopOwner
         }
 
 
-       
+        [HttpGet("{orderId}/Pending")]
+        public async Task<IActionResult> GetAllPendingOrders(int orderId)
+        {
+            var currentUser = User.GetCurrentUser();
+            var query = new GetAllPendingOrdersByShopOwnerQuery
+            {
+               ShopownerId= currentUser.UserId
+            };
+
+            var response = await _mediator.Send(query); 
+
+            return Ok(response);
+        }
+
+
+
         [HttpPut("{orderId}/accept-order")]
         public async Task<IActionResult> AcceptOrder(int orderId)
         {
@@ -244,14 +259,8 @@ namespace GoPress.Api.Controllers.ShopOwner
 
 
 
-        //[HttpGet("{orderId}")]
-        //public async Task<IActionResult> GetOrderDetails(int orderId)
-        //{
-        //    return Ok();
-        //}
 
 
-      
 
     }
 
