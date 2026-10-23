@@ -34,6 +34,23 @@ namespace GoPress.Mvc.Areas.ShopOwner.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> AllPendingOrders(int id)
+        {
+            var response = await _apiService.GetAsync<Response<List<AllPendingOrdersViewModel>>>
+                (
+                   $"api/ShopOwner/Orders/{id}/Pending"
+                );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load Pending orders.";
+                return View(new  List<AllPendingOrdersViewModel>());
+            }
+
+            return View(response.Data);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AcceptedOrders()
         {
             var response = await _apiService.GetAsync<Response<List<AllAcceptedOrdersViewModel>>>

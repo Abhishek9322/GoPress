@@ -147,6 +147,16 @@ namespace GoPress.Infrastructure.Repositories
                                          .ToListAsync();
         }
 
+
+        public async Task<List<Order>> GetAllPendingOrdersByShopOwner(int shopOwnerId)
+        {
+            return await _context.Orders
+                 .Include(x => x.Customer)
+                 .Where(x => x.ShopOwnerId == shopOwnerId && x.Status == OrderStatusEnum.Pending)
+                 .AsNoTracking()
+                 .ToListAsync();
+        }
+
         public async Task<List<Order>> GetAllAcceptedOrderByShopowner(int ShopOwnerId)
         {
             return await _context.Orders
@@ -157,6 +167,9 @@ namespace GoPress.Infrastructure.Repositories
                                  .AsNoTracking()
                                  .ToListAsync();
         }
+
+
+
 
         public async Task<List<Order>> GetRejectedOrdersByShopOwnerAsync(int shopOwnerId)
         {
