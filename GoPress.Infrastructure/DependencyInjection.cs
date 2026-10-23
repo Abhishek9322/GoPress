@@ -35,7 +35,7 @@ namespace GoPress.Infrastructure
             });
 
 
-          // service.AddValidatorsFromAssemblyContaining<ApproveUserCommandValidator>();
+          service.AddValidatorsFromAssemblyContaining<ApproveUserCommandValidator>();
 
             service.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehavior<,>));
 
