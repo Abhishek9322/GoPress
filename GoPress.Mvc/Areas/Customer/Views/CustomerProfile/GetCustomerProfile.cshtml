@@ -1,0 +1,252 @@
+﻿@model GoPress.Mvc.Areas.Customer.Models.CustomerProfileViewModel
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "_Layout";
+
+var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+    ? "Customer"
+    : Model.FullName.Trim();
+
+    var initials = string.Concat(
+        fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Take(2)
+                .Select(x => char.ToUpperInvariant(x[0]))
+    );
+
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-profile.css"
+          asp-append-version="true" />
+}
+
+<div class="customer-profile-page">
+
+  
+    <!-- PAGE HEADER -->
+    <div class="profile-header">
+
+        <div class="profile-header-content">
+
+            <div class="profile-header-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+
+            <div>
+                <h2>My Profile</h2>
+                <p>View your personal information and account details.</p>
+            </div>
+
+        </div>
+
+        <a asp-area="Customer"
+           asp-controller="Dashboard"
+           asp-action="Index"
+           class="profile-back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- ERROR MESSAGE -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="profile-alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+    <!-- PROFILE CARD -->
+    <div class="profile-card">
+
+        <!-- BANNER -->
+        <div class="profile-banner">
+
+            <div class="profile-banner-circle circle-one"></div>
+            <div class="profile-banner-circle circle-two"></div>
+
+            <!-- EDIT PROFILE BUTTON -->
+            <a asp-area="Customer"
+               asp-controller="CustomerProfile"
+               asp-action="EditProfile"
+               class="profile-edit-btn">
+
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Edit Profile</span>
+
+            </a>
+
+        </div>
+
+        <div class="profile-card-body">
+
+            <!-- CUSTOMER IDENTITY -->
+            <div class="profile-identity">
+
+                <div class="profile-avatar">
+                    @initials
+                </div>
+
+                <div class="profile-identity-info">
+
+                    <h3>@fullName</h3>
+
+                    <span class="profile-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        GoPress Customer
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- PERSONAL INFORMATION -->
+            <div class="profile-section">
+
+                <div class="profile-section-heading">
+
+                    <div class="profile-section-icon">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+
+                    <div>
+                        <h4>Personal Information</h4>
+                        <p>Your registered customer details</p>
+                    </div>
+
+                </div>
+
+                <div class="profile-details-grid">
+
+                    <!-- CUSTOMER ID -->
+                    <div class="profile-detail-item">
+
+                        <div class="profile-detail-icon">
+                            <i class="fa-solid fa-id-card"></i>
+                        </div>
+
+                        <div class="profile-detail-content">
+                            <span class="profile-detail-label">
+                                Customer ID
+                            </span>
+
+                            <span class="profile-detail-value profile-customer-id">
+                                #@Model.UserId
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- FULL NAME -->
+                    <div class="profile-detail-item">
+
+                        <div class="profile-detail-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="profile-detail-content">
+                            <span class="profile-detail-label">
+                                Full Name
+                            </span>
+
+                            <span class="profile-detail-value">
+                                @(string.IsNullOrWhiteSpace(Model?.FullName)
+                                                                ? "Not provided"
+                                                                : Model.FullName)
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="profile-detail-item">
+
+                        <div class="profile-detail-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+
+                        <div class="profile-detail-content">
+                            <span class="profile-detail-label">
+                                Email Address
+                            </span>
+
+                            <span class="profile-detail-value">
+                                @(string.IsNullOrWhiteSpace(Model?.Email)
+                                                                ? "Not provided"
+                                                                : Model.Email)
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- PHONE -->
+                    <div class="profile-detail-item">
+
+                        <div class="profile-detail-icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div class="profile-detail-content">
+                            <span class="profile-detail-label">
+                                Phone Number
+                            </span>
+
+                            <span class="profile-detail-value">
+                                @(string.IsNullOrWhiteSpace(Model?.PhoneNumber)
+                                                                ? "Not provided"
+                                                                : Model.PhoneNumber)
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACCOUNT INFORMATION -->
+            <div class="profile-account-info">
+
+                <div class="profile-account-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div>
+                    <h5>Your Account Information</h5>
+
+                    <p>
+                        Your personal information is associated with your
+                        GoPress customer account. If any details are
+                        incorrect, please contact the support team.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="profile-card-footer">
+
+            <span>
+                <i class="fa-solid fa-lock"></i>
+                Your profile information
+            </span>
+
+            <span class="profile-brand">
+                GoPress <i class="fa-solid fa-shirt"></i>
+            </span>
+
+        </div>
+
+    </div>
+  
+
+</div>
