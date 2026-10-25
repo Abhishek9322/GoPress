@@ -1077,13 +1077,14 @@
                             <!-- =================================================
                                  PROFILE
                             ================================================== -->
-
-                            <li>
+                            @if (User.IsInRole("Customer"))
+                            {
+                             <li>
 
                                 <a class="profile-dropdown-item"
-                                   asp-area="Admin"
-                                   asp-controller="Profile"
-                                   asp-action="Index">
+                                       asp-area="Customer"
+                                   asp-controller="CustomerProfile"
+                                       asp-action="GetCustomerProfile">
 
                                     <i class="fa-solid fa-user"></i>
 
@@ -1092,7 +1093,43 @@
                                 </a>
 
                             </li>
+                            }
 
+                            @if (User.IsInRole("ShopOwner"))
+                            {
+                                <li>
+
+                                    <a class="profile-dropdown-item"
+                                       asp-area="Customer"
+                                       asp-controller="CustomerProfile"
+                                       asp-action="GetCustomerProfile">
+
+                                        <i class="fa-solid fa-user"></i>
+
+                                        <span>Profile</span>
+
+                                    </a>
+
+                                </li>
+                            }
+
+                            @if (User.IsInRole("DeliveryBoy"))
+                            {
+                                <li>
+
+                                    <a class="profile-dropdown-item"
+                                       asp-area="Customer"
+                                       asp-controller="CustomerProfile"
+                                       asp-action="GetCustomerProfile">
+
+                                        <i class="fa-solid fa-user"></i>
+
+                                        <span>Profile</span>
+
+                                    </a>
+
+                                </li>
+                            }
 
                             <!-- =================================================
                                  ADMIN ONLY OPTIONS
