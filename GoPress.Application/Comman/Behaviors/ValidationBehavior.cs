@@ -24,7 +24,7 @@ namespace GoPress.Application.Comman.Behaviors
 
             foreach (var validator in _validators)
             {
-                var result = await validator.ValidateAsync( request,cancellationToken);
+                var result = await validator.ValidateAsync(request,cancellationToken);
 
                 validationErrors.AddRange(result.Errors);
             }

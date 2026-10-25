@@ -31,8 +31,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
 
         public async Task<Response<string>> Handle(UpdateCustomerOrderCommand request, CancellationToken cancellationToken)
         {
-            var order =
-                await _orderRepository.GetByIdForUpdateOrder(request.OrderId);
+            var order =await _orderRepository.GetByIdForUpdateOrder(request.OrderId);
 
             if (order == null)
             {
@@ -57,7 +56,6 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandlers
 
             decimal totalAmount = 0;
 
-            //order.OrderItems.Clear();
             _orderRepository.RemoveOrderItems(order.OrderItems);
 
             order.OrderItems.Clear();
