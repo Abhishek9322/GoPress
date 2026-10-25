@@ -20,8 +20,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandler
         }
         public async Task<Response<string>> Handle(AddClothPriceCommand request, CancellationToken cancellationToken)
         {
-            var existing = await _shopOwnerClothPriceRepository
-                 .GetByShopOwnerAndClothTypeAsync(request.ShopOwnerId,request.Price.ClothTypeId);
+            var existing = await _shopOwnerClothPriceRepository.GetByShopOwnerAndClothTypeAsync(request.ShopOwnerId,request.Price.ClothTypeId);
 
             if (existing != null)
             {
@@ -37,8 +36,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandler
                 Price = request.Price.Price
             });
 
-            return new Response<string>(
-              "Price Added Successfully");
+            return new Response<string>("Price Added Successfully");
         }
     }
 }

@@ -20,8 +20,7 @@ namespace GoPress.Application.Features.Orders.CreateOrder.CommaandHandler
         }
         public async Task<Response<string>> Handle(DeleteClothPriceCommand request, CancellationToken cancellationToken)
         {
-            var price = await _shopOwnerClothPriceRepository
-                                  .GetByIdAsync(request.PriceId);
+            var price = await _shopOwnerClothPriceRepository.GetByIdAsync(request.PriceId);
 
             if (price == null)
             {
