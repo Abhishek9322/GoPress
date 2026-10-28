@@ -20,7 +20,7 @@ namespace GoPress.Api.Controllers.ShopOwner
             _mediator=mediator;
         }
 
-        [HttpGet]
+        [HttpGet("Get-Profile")]
         public async Task<IActionResult> GetProfile()
         {
             var currentUser = User.GetCurrentUser();
