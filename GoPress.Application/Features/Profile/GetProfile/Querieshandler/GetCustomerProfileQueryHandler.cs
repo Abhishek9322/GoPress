@@ -36,7 +36,6 @@ namespace GoPress.Application.Features.Profile.GetProfile.Querieshandler
                 return new Response<CustomerProfileDto>(
                     "Customer not found.");
             }
-
             var response = new CustomerProfileDto
             {
                 UserId = customerprofile.Id,
