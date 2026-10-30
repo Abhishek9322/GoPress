@@ -150,14 +150,14 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var response =
-                await _apiService.GetAsync<Response<OrderViewModel>>(
-                    $"api/Customers/orders/{id}");
+            var response =await _apiService.GetAsync<Response<OrderViewModel>>
+                (
+                    $"api/Customers/orders/{id}"
+                );
 
             if (response == null || response.Data == null)
             {
                 TempData["Error"] = "Unable to load order.";
-
                 return RedirectToAction(nameof(AllOrders));
             }
 
@@ -165,12 +165,9 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
             if (order.Status.ToString() != "Pending")
             {
-                TempData["Error"] =
-                    "Only pending orders can be updated.";
+                TempData["Error"] ="Only pending orders can be updated.";
 
-                return RedirectToAction(
-                    nameof(Details),
-                    new { id });
+                return RedirectToAction(nameof(Details),new { id });
             }
 
             var model = new UpdateOrderViewModel
@@ -234,12 +231,12 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                         .ToList()
                 };
 
-                var response =
-                    await _apiService.PutAsync<
-                        UpdateOrderRequestModel,
-                        Response<string>>(
+                var response = await _apiService.PutAsync<UpdateOrderRequestModel,Response<string>>
+                            (
                             $"api/Customers/orders/{model.OrderId}",
-                            request);
+                            request
+                            
+                            );
 
                 if (response == null)
                 {
