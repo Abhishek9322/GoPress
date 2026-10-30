@@ -44,8 +44,7 @@ namespace GoPress.Infrastructure.Seed
                 IsActive = true
             };
 
-            await context.ApplicationUsers
-               .AddAsync(admin);
+            await context.ApplicationUsers.AddAsync(admin);
 
             await context.SaveChangesAsync();
         }

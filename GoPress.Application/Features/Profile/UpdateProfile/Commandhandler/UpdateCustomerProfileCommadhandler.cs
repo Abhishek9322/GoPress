@@ -49,9 +49,7 @@ namespace GoPress.Application.Features.Profile.UpdateProfile.Commandhandler
               "Profile updated successfully for User {UserId}",
               request.UserId);
 
-            return new Response<UpdateCustomerProfileDto>(
-                "Profile updated successfully.");
-
+            return new Response<UpdateCustomerProfileDto>("Profile updated successfully.");
 
         }
     }

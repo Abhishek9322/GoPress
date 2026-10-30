@@ -31,5 +31,51 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
             return View(response.Data);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetUpdateCustomerProfile()
+        {
+            var response = await _apiService.GetAsync<Response<CustomerProfileViewModel>>(
+                "api/Customer/Profiles/Get-Profile"
+            );
+
+            if (response == null || response.Data == null)
+            {
+                TempData["Error"] = "Unable to load Customer profile.";
+
+                return RedirectToAction(nameof(GetCustomerProfile));
+            }
+
+            var model = new UpdateCustomerProfileViewModel
+            {
+                FullName = response.Data.FullName,
+                PhoneNumber = response.Data.PhoneNumber
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateCustomerProfile(UpdateCustomerProfileViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+               return View ("GetCustomerprofile", model);
+            }
+
+            var response = await _apiService.PutAsync<UpdateCustomerProfileViewModel,Response<string>>
+                (
+                "api/Customer/Profiles/Update-Profile",model
+                );
+
+            if(response==null )
+            {
+               ModelState.AddModelError(string.Empty, "Unable to update Customer profile.");
+                return View(model);
+            }
+                return RedirectToAction(nameof(GetCustomerProfile));
+        }
     }
 }

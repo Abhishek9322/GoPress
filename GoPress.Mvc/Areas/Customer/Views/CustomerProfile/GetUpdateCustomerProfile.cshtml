@@ -1,0 +1,262 @@
+﻿@model GoPress.Mvc.Areas.Customer.Models.UpdateCustomerProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "_Layout";
+
+    var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+        ? "Customer"
+        : Model.FullName.Trim();
+
+    var initials = string.Concat(
+        fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Take(2)
+                .Select(x => char.ToUpperInvariant(x[0]))
+    );
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/customer-profile-edit.css"
+          asp-append-version="true" />
+}
+
+<div class="customer-edit-page">
+
+    <!-- PAGE HEADER -->
+    <div class="profile-header">
+
+        <div class="profile-header-content">
+
+            <div class="profile-header-icon">
+                <i class="fa-solid fa-user-pen"></i>
+            </div>
+
+            <div>
+                <h2>Edit Profile</h2>
+                <p>Update your personal information and account details.</p>
+            </div>
+
+        </div>
+
+        <a asp-area="Customer"
+           asp-controller="CustomerProfile"
+           asp-action="GetCustomerProfile"
+           class="profile-back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Profile
+
+        </a>
+
+    </div>
+
+
+    <!-- PROFILE CARD -->
+    <div class="profile-card">
+
+        <!-- BANNER -->
+        <div class="profile-banner">
+
+            <div class="profile-banner-circle circle-one"></div>
+            <div class="profile-banner-circle circle-two"></div>
+
+            <div class="edit-banner-text">
+
+                <span class="edit-banner-icon">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </span>
+
+                @* <span>Profile Settings</span> *@
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-card-body">
+
+            <!-- CUSTOMER IDENTITY -->
+            <div class="profile-identity">
+
+                <div class="profile-avatar">
+                    @initials
+                </div>
+
+                <div class="profile-identity-info">
+
+                    <h3>@fullName</h3>
+
+                    <span class="profile-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        GoPress Customer
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- FORM SECTION -->
+            <div class="edit-profile-section">
+
+                <div class="profile-section-heading">
+
+                    <div class="profile-section-icon">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+
+                    <div>
+                        <h4>Personal Information</h4>
+                        <p>Make changes to your registered details</p>
+                    </div>
+
+                </div>
+
+
+                <!-- ERROR MESSAGE -->
+                <div asp-validation-summary="ModelOnly"
+                     class="edit-validation-summary">
+                </div>
+
+
+                <form asp-area="Customer"
+                      asp-controller="CustomerProfile"
+                      asp-action="UpdateCustomerProfile"
+                      method="post">
+
+                    @Html.AntiForgeryToken()
+
+
+                    <!-- FULL NAME -->
+                    <div class="edit-form-group">
+
+                        <label asp-for="FullName">
+                            Full Name
+                            <span>*</span>
+                        </label>
+
+                        <div class="edit-input-wrapper">
+
+                            <div class="edit-input-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                            <input asp-for="FullName"
+                                   class="edit-form-control"
+                                   placeholder="Enter your full name"
+                                   autocomplete="name" />
+
+                        </div>
+
+                        <span asp-validation-for="FullName"
+                              class="edit-field-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- PHONE NUMBER -->
+                    <div class="edit-form-group">
+
+                        <label asp-for="PhoneNumber">
+                            Phone Number
+                            <span>*</span>
+                        </label>
+
+                        <div class="edit-input-wrapper">
+
+                            <div class="edit-input-icon">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+
+                            <input asp-for="PhoneNumber"
+                                   class="edit-form-control"
+                                   placeholder="Enter your phone number"
+                                   type="tel"
+                                   autocomplete="tel" />
+
+                        </div>
+
+                        <span asp-validation-for="PhoneNumber"
+                              class="edit-field-error">
+                        </span>
+
+                    </div>
+
+
+                    <!-- INFORMATION MESSAGE -->
+                    <div class="edit-info-box">
+
+                        <div class="edit-info-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                        <div>
+                            <h5>Keep Your Profile Updated</h5>
+
+                            <p>
+                                Make sure your name and phone number are
+                                correct so we can provide you with a
+                                smooth GoPress service experience.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ACTION BUTTONS -->
+                    <div class="edit-form-actions">
+
+                        <a asp-area="Customer"
+                           asp-controller="CustomerProfile"
+                           asp-action="GetCustomerProfile"
+                           class="edit-cancel-btn">
+
+                            <i class="fa-solid fa-xmark"></i>
+                            Cancel
+
+                        </a>
+
+                        <button type="submit"
+                                class="edit-save-btn">
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Changes
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="profile-card-footer">
+
+            <span>
+                <i class="fa-solid fa-lock"></i>
+                Your information is securely protected
+            </span>
+
+            <span class="profile-brand">
+                GoPress <i class="fa-solid fa-shirt"></i>
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}

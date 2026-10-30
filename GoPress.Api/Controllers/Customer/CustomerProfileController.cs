@@ -33,7 +33,7 @@ namespace GoPress.Api.Controllers.Customer
             return Ok(response);
         }
 
-        [HttpPut("update profile")]
+        [HttpPut("update-profile")]
         public async Task<IActionResult> UpdateProfile(UpdateCustomerProfileDto update)
         {
             var currentuser = User.GetCurrentUser();
