@@ -1,0 +1,485 @@
+﻿@model GoPress.Mvc.Areas.DeliveryBoy.Models.UpdateDeliveryProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Delivery Profile";
+    Layout = "_Layout";
+
+var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+    ? "Delivery Partner"
+    : Model.FullName.Trim();
+
+    var initials = string.Concat(
+        fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Take(2)
+                .Select(x => char.ToUpperInvariant(x[0]))
+    );
+
+
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/delivery-profile-edit.css"
+          asp-append-version="true" />
+}
+
+<div class="delivery-edit-page">
+
+   
+    <!-- PAGE HEADER -->
+    <div class="delivery-header">
+
+        <div class="delivery-header-content">
+
+            <div class="delivery-header-icon">
+                <i class="fa-solid fa-motorcycle"></i>
+            </div>
+
+            <div>
+                <h2>Edit Delivery Profile</h2>
+                <p>Manage your personal, address and delivery information.</p>
+            </div>
+
+        </div>
+
+        <a asp-area="DeliveryBoy"
+           asp-controller="DeliveryBoyProfile"
+           asp-action="GetDeliveryBoyProfile"
+           class="delivery-back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Profile
+
+        </a>
+
+    </div>
+
+
+    <!-- PROFILE CARD -->
+    <div class="delivery-profile-card">
+
+        <!-- BANNER -->
+        <div class="delivery-banner">
+
+            <div class="delivery-banner-circle circle-one"></div>
+            <div class="delivery-banner-circle circle-two"></div>
+
+            <div class="delivery-banner-text">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Profile Settings</span>
+            </div>
+
+        </div>
+
+
+        <div class="delivery-card-body">
+
+            <!-- DELIVERY BOY IDENTITY -->
+            <div class="delivery-identity">
+
+                <div class="delivery-avatar">
+                    @initials
+                </div>
+
+                <div class="delivery-identity-info">
+
+                    <h3>@fullName</h3>
+
+                    <span class="delivery-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        GoPress Delivery Partner
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- UPDATE PROFILE FORM -->
+            <form asp-area="DeliveryBoy"
+                  asp-controller="DeliveryBoyProfile"
+                  asp-action="UpdateDeliveryBoyProfile"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="delivery-validation-summary">
+                </div>
+
+
+                <!-- PERSONAL INFORMATION -->
+                <div class="delivery-form-section">
+
+                    <div class="delivery-section-heading">
+
+                        <div class="delivery-section-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h4>Personal Information</h4>
+                            <p>Your basic personal details</p>
+                        </div>
+
+                    </div>
+
+                    <div class="delivery-form-grid">
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="FullName">
+                                Full Name <span>*</span>
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <input asp-for="FullName"
+                                       class="delivery-form-control"
+                                       placeholder="Enter your full name" />
+
+                            </div>
+
+                            <span asp-validation-for="FullName"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="PhoneNumber">
+                                Phone Number <span>*</span>
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+
+                                <input asp-for="PhoneNumber"
+                                       type="tel"
+                                       class="delivery-form-control"
+                                       placeholder="Enter phone number" />
+
+                            </div>
+
+                            <span asp-validation-for="PhoneNumber"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ADDRESS INFORMATION -->
+                <div class="delivery-form-section">
+
+                    <div class="delivery-section-heading">
+
+                        <div class="delivery-section-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+                            <h4>Address Information</h4>
+                            <p>Your current residential address</p>
+                        </div>
+
+                    </div>
+
+                    <div class="delivery-form-grid">
+
+                        <div class="delivery-form-group full-width">
+
+                            <label asp-for="Address">
+                                Address <span>*</span>
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+
+                                <input asp-for="Address"
+                                       class="delivery-form-control"
+                                       placeholder="Enter complete address" />
+
+                            </div>
+
+                            <span asp-validation-for="Address"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="City">City <span>*</span></label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-city"></i>
+                                </div>
+
+                                <input asp-for="City"
+                                       class="delivery-form-control"
+                                       placeholder="Enter city" />
+
+                            </div>
+
+                            <span asp-validation-for="City"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="State">State <span>*</span></label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-map"></i>
+                                </div>
+
+                                <input asp-for="State"
+                                       class="delivery-form-control"
+                                       placeholder="Enter state" />
+
+                            </div>
+
+                            <span asp-validation-for="State"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="Pincode">
+                                Pincode <span>*</span>
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+                                </div>
+
+                                <input asp-for="Pincode"
+                                       class="delivery-form-control"
+                                       placeholder="Enter pincode"
+                                       inputmode="numeric" />
+
+                            </div>
+
+                            <span asp-validation-for="Pincode"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VEHICLE INFORMATION -->
+                <div class="delivery-form-section">
+
+                    <div class="delivery-section-heading">
+
+                        <div class="delivery-section-icon">
+                            <i class="fa-solid fa-motorcycle"></i>
+                        </div>
+
+                        <div>
+                            <h4>Delivery & Vehicle Information</h4>
+                            <p>Your registered vehicle details</p>
+                        </div>
+
+                    </div>
+
+                    <div class="delivery-form-grid">
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="BikeNumber">
+                                Bike Registration Number
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                </div>
+
+                                <input asp-for="BikeNumber"
+                                       class="delivery-form-control"
+                                       placeholder="MH12AB1234" />
+
+                            </div>
+
+                            <span asp-validation-for="BikeNumber"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="LicenseNumber">
+                                Driving License Number
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-id-card"></i>
+                                </div>
+
+                                <input asp-for="LicenseNumber"
+                                       class="delivery-form-control"
+                                       placeholder="Enter license number" />
+
+                            </div>
+
+                            <span asp-validation-for="LicenseNumber"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IDENTITY VERIFICATION -->
+                <div class="delivery-form-section">
+
+                    <div class="delivery-section-heading">
+
+                        <div class="delivery-section-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                        <div>
+                            <h4>Identity Verification</h4>
+                            <p>Your government identity information</p>
+                        </div>
+
+                    </div>
+
+                    <div class="delivery-form-grid">
+
+                        <div class="delivery-form-group">
+
+                            <label asp-for="AadhaarNumber">
+                                Aadhaar Number
+                            </label>
+
+                            <div class="delivery-input-wrapper">
+
+                                <div class="delivery-input-icon">
+                                    <i class="fa-solid fa-fingerprint"></i>
+                                </div>
+
+                                <input asp-for="AadhaarNumber"
+                                       type="password"
+                                       class="delivery-form-control"
+                                       placeholder="Enter Aadhaar number"
+                                       maxlength="12"
+                                       inputmode="numeric"
+                                       autocomplete="off" />
+
+                            </div>
+
+                            <span asp-validation-for="AadhaarNumber"
+                                  class="delivery-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="delivery-security-info">
+
+                        <div class="delivery-security-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+                        <div>
+                            <h5>Your Information Is Protected</h5>
+
+                            <p>
+                                Your personal and identity information
+                                should be handled securely. Sensitive
+                                information is not displayed openly.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM BUTTONS -->
+                <div class="delivery-form-actions">
+
+                    <a asp-area="DeliveryBoy"
+                       asp-controller="DeliveryBoyProfile"
+                       asp-action="GetDeliveryBoyProfile"
+                       class="delivery-cancel-btn">
+
+                        <i class="fa-solid fa-xmark"></i>
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="delivery-save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="delivery-card-footer">
+
+            <span>
+                <i class="fa-solid fa-shield-halved"></i>
+                GoPress Secure Delivery Partner Account
+            </span>
+
+            <span class="delivery-brand">
+                GoPress <i class="fa-solid fa-shirt"></i>
+            </span>
+
+        </div>
+
+    </div>
+   
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

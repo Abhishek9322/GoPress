@@ -42,7 +42,7 @@ namespace GoPress.Application.Features.Profile.UpdateProfile.Commandhandler
             deliveryBoyProfile.DeliveryBoyProfile.Pincode = request.UpdateDeliveryBoy.Pincode;
             deliveryBoyProfile.DeliveryBoyProfile.BikeNumber = request.UpdateDeliveryBoy.BikeNumber;
             deliveryBoyProfile.DeliveryBoyProfile.LicenseNumber = request.UpdateDeliveryBoy.BikeNumber;
-            deliveryBoyProfile.DeliveryBoyProfile.Address = request.UpdateDeliveryBoy.AadhaarNumber;
+            deliveryBoyProfile.DeliveryBoyProfile.AadhaarNumber = request.UpdateDeliveryBoy.AadhaarNumber;
 
 
 
