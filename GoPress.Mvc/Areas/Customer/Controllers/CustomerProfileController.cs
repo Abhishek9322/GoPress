@@ -28,7 +28,7 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
 
                 return View(new CustomerProfileViewModel());
             }
-
+            TempData["Success"] = "Customer profile updated successfully.";
             return View(response.Data);
         }
 
@@ -53,6 +53,7 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                 PhoneNumber = response.Data.PhoneNumber
             };
 
+           TempData["Success"] = "Customer profile loaded successfully.";
             return View(model);
         }
 
@@ -75,7 +76,9 @@ namespace GoPress.Mvc.Areas.Customer.Controllers
                ModelState.AddModelError(string.Empty, "Unable to update Customer profile.");
                 return View(model);
             }
-                return RedirectToAction(nameof(GetCustomerProfile));
+
+            TempData["Success"] ="Customer profile updated successfully.";
+            return RedirectToAction(nameof(GetCustomerProfile));
         }
     }
 }

@@ -62,6 +62,14 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
             <span>@TempData["Error"]</span>
         </div>
     }
+    @if (TempData["Success"] != null)
+    {
+        <div class="profile-success-alert">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>@TempData["Success"]</span>
+        </div>
+    }
+
 
     <!-- PROFILE CARD -->
     <div class="profile-card">
