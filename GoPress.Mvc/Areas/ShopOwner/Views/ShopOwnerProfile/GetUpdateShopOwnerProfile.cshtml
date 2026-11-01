@@ -1,0 +1,464 @@
+﻿@model GoPress.Mvc.Areas.ShopOwner.Models.UpdateShopOwnerProfileViewModel
+
+@{
+    ViewData["Title"] = "Edit Shop Owner Profile";
+    Layout = "_Layout";
+
+    var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+        ? "Shop Owner"
+        : Model.FullName.Trim();
+
+    var initials = string.Concat(
+        fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Take(2)
+                .Select(x => char.ToUpperInvariant(x[0]))
+    );
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/shopowner-profile-edit.css"
+          asp-append-version="true" />
+}
+
+<div class="shopowner-edit-page">
+
+    <!-- PAGE HEADER -->
+    <div class="shopowner-header">
+
+        <div class="shopowner-header-content">
+
+            <div class="shopowner-header-icon">
+                <i class="fa-solid fa-store"></i>
+            </div>
+
+            <div>
+                <h2>Edit Shop Profile</h2>
+                <p>Manage your personal details and shop information.</p>
+            </div>
+
+        </div>
+
+        <a asp-area="ShopOwner"
+           asp-controller="ShopOwnerProfile"
+           asp-action="GetShopOwnerProfile"
+           class="shopowner-back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Profile
+
+        </a>
+
+    </div>
+
+
+    <!-- PROFILE CARD -->
+    <div class="shopowner-profile-card">
+
+        <!-- BANNER -->
+        <div class="shopowner-banner">
+
+            <div class="shopowner-banner-circle circle-one"></div>
+            <div class="shopowner-banner-circle circle-two"></div>
+
+            <div class="shopowner-banner-text">
+                <i class="fa-solid fa-pen-to-square"></i>
+                <span>Profile Settings</span>
+            </div>
+
+        </div>
+
+
+        <div class="shopowner-card-body">
+
+            <!-- SHOP OWNER IDENTITY -->
+            <div class="shopowner-identity">
+
+                <div class="shopowner-avatar">
+                    @initials
+                </div>
+
+                <div class="shopowner-identity-info">
+
+                    <h3>@fullName</h3>
+
+                    <span class="shopowner-badge">
+                        <i class="fa-solid fa-circle-check"></i>
+                        GoPress Verified Shop Owner
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- UPDATE PROFILE FORM -->
+            <form asp-area="ShopOwner"
+                  asp-controller="ShopOwnerProfile"
+                  asp-action="UpdateShopOwnerProfile"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="shopowner-validation-summary">
+                </div>
+
+
+                <!-- PERSONAL INFORMATION -->
+                <div class="shopowner-form-section">
+
+                    <div class="shopowner-section-heading">
+
+                        <div class="shopowner-section-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h4>Personal Information</h4>
+                            <p>Your basic personal details</p>
+                        </div>
+
+                    </div>
+
+                    <div class="shopowner-form-grid">
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="FullName">
+                                Full Name <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <input asp-for="FullName"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter your full name" />
+
+                            </div>
+
+                            <span asp-validation-for="FullName"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="PhoneNumber">
+                                Phone Number <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+
+                                <input asp-for="PhoneNumber"
+                                       type="tel"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter phone number" />
+
+                            </div>
+
+                            <span asp-validation-for="PhoneNumber"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SHOP INFORMATION -->
+                <div class="shopowner-form-section">
+
+                    <div class="shopowner-section-heading">
+
+                        <div class="shopowner-section-icon">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+
+                        <div>
+                            <h4>Shop Information</h4>
+                            <p>Your registered shop details</p>
+                        </div>
+
+                    </div>
+
+                    <div class="shopowner-form-grid">
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="ShopName">
+                                Shop Name <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-shop"></i>
+                                </div>
+
+                                <input asp-for="ShopName"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter shop name" />
+
+                            </div>
+
+                            <span asp-validation-for="ShopName"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+
+                        <div class="shopowner-form-group full-width">
+
+                            <label asp-for="ShopAddress">
+                                Shop Address <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+
+                                <input asp-for="ShopAddress"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter complete shop address" />
+
+                            </div>
+
+                            <span asp-validation-for="ShopAddress"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="City">
+                                City <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-city"></i>
+                                </div>
+
+                                <input asp-for="City"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter city" />
+
+                            </div>
+
+                            <span asp-validation-for="City"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="State">
+                                State <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-map"></i>
+                                </div>
+
+                                <input asp-for="State"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter state" />
+
+                            </div>
+
+                            <span asp-validation-for="State"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="Pincode">
+                                Pincode <span>*</span>
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+                                </div>
+
+                                <input asp-for="Pincode"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter pincode"
+                                       inputmode="numeric" />
+
+                            </div>
+
+                            <span asp-validation-for="Pincode"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUSINESS VERIFICATION -->
+                <div class="shopowner-form-section">
+
+                    <div class="shopowner-section-heading">
+
+                        <div class="shopowner-section-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                        <div>
+                            <h4>Business Verification</h4>
+                            <p>Your registered business identification details</p>
+                        </div>
+
+                    </div>
+
+                    <div class="shopowner-form-grid">
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="ShopLicenseNumber">
+                                Shop License Number
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-file-contract"></i>
+                                </div>
+
+                                <input asp-for="ShopLicenseNumber"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter shop license number" />
+
+                            </div>
+
+                            <span asp-validation-for="ShopLicenseNumber"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+
+                        <div class="shopowner-form-group">
+
+                            <label asp-for="GSTNumber">
+                                GST Number
+                            </label>
+
+                            <div class="shopowner-input-wrapper">
+
+                                <div class="shopowner-input-icon">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+
+                                <input asp-for="GSTNumber"
+                                       class="shopowner-form-control"
+                                       placeholder="Enter GST number"
+                                       maxlength="15"
+                                       autocomplete="off" />
+
+                            </div>
+
+                            <span asp-validation-for="GSTNumber"
+                                  class="shopowner-field-error"></span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SECURITY INFO -->
+                    <div class="shopowner-security-info">
+
+                        <div class="shopowner-security-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+
+                        <div>
+                            <h5>Your Business Information Is Protected</h5>
+
+                            <p>
+                                Your shop registration and business
+                                identification details should be handled
+                                securely and used only for verification.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM BUTTONS -->
+                <div class="shopowner-form-actions">
+
+                    <a asp-area="ShopOwner"
+                       asp-controller="ShopOwnerProfile"
+                       asp-action="GetShopOwnerProfile"
+                       class="shopowner-cancel-btn">
+
+                        <i class="fa-solid fa-xmark"></i>
+                        Cancel
+
+                    </a>
+
+                    <button type="submit"
+                            class="shopowner-save-btn">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- FOOTER -->
+        <div class="shopowner-card-footer">
+
+            <span>
+                <i class="fa-solid fa-shield-halved"></i>
+                GoPress Secure Shop Owner Account
+            </span>
+
+            <span class="shopowner-brand">
+                GoPress <i class="fa-solid fa-shirt"></i>
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
