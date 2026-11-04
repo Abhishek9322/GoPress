@@ -27,14 +27,14 @@ namespace GoPress.Application.Features.Profile.GetProfile.Querieshandler
                 throw new Exception("Admin Can Not Found .");
             }
 
-            var admin= new AdminProfileResponseDto
+            var admin = new AdminProfileResponseDto
             {
-                Id=adminProfile.Id,
-                FullName=adminProfile.FullName,
+                Id = adminProfile.Id,
+                FullName = adminProfile.FullName,
                 Email = adminProfile.Email,
                 PhoneNumber = adminProfile.PhoneNumber,
-                Role = adminProfile.Role.ToString()
-               
+                Role = adminProfile.Role.ToString(),
+                IsActive = adminProfile.IsActive,
             };
 
             return new Response<AdminProfileResponseDto>(admin,"Get Admin Sccuessfully ");
