@@ -1,5 +1,6 @@
 ﻿using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Entities;
+using GoPress.Domain.Enums;
 using GoPress.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,12 @@ namespace GoPress.Infrastructure.Repositories
         public ProfileRepository(ApplicationDbContext context)
         {
             _context= context;
+        }
+
+        public async Task<ApplicationUser?> GetAdminProfile(int adminId, CancellationToken cancellationToken)
+        {
+            return await _context.ApplicationUsers
+                 .FirstOrDefaultAsync(x => x.Id==adminId && x.Role == UserRoleenum.Admin,cancellationToken);
         }
 
         public async Task<ApplicationUser?> GetByIdAsync(int id)

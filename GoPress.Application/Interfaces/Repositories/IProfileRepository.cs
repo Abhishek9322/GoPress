@@ -15,6 +15,8 @@ namespace GoPress.Application.Interfaces.Repositories
         Task<ApplicationUser?> GetShopOwnerProfileAsync(int userId);
 
         Task<ApplicationUser?> GetDeliveryBoyProfileAsync(int userId);
+
+        Task<ApplicationUser?> GetAdminProfile(int adminId,CancellationToken cancellationToken);
         Task<ApplicationUser?> GetByIdAsync(int id);
         Task updateAsync(ApplicationUser user);
     }
