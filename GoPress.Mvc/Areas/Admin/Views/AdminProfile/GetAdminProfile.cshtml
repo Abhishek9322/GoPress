@@ -1,0 +1,394 @@
+﻿@model GoPress.Mvc.Areas.Admin.Models.AdminProfileViewModel
+
+@{
+    ViewData["Title"] = "Admin Profile";
+    Layout = "_Layout";
+
+
+var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+    ? "Administrator"
+    : Model.FullName.Trim();
+
+    var initials = string.Concat(
+        fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Take(2)
+                .Select(x => char.ToUpperInvariant(x[0]))
+    );
+
+    var isActive = Model?.IsActive ?? false;
+
+    var adminRole = string.IsNullOrWhiteSpace(Model?.Role)
+        ? "Administrator"
+        : Model.Role;
+
+
+}
+
+@section Styles
+{
+    <link rel="stylesheet"
+          href="~/css/Admin.Profile.css"
+          asp-append-version="true" />
+}
+
+<div class="admin-profile-page">
+
+  
+    <!-- PAGE HEADER -->
+    <div class="admin-profile-header">
+
+        <div class="admin-profile-header-content">
+
+            <div class="admin-profile-header-icon">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+
+            <div>
+                <h2>Admin Profile</h2>
+                <p>Manage and view your administrator account information.</p>
+            </div>
+
+        </div>
+
+        <a asp-area="Admin"
+           asp-controller="Dashboard"
+           asp-action="Index"
+           class="admin-profile-back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Dashboard
+
+        </a>
+
+    </div>
+
+    <!-- ERROR MESSAGE -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="admin-profile-alert">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>@TempData["Error"]</span>
+        </div>
+    }
+
+    <!-- SUCCESS MESSAGE -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="admin-profile-success-alert">
+            <i class="fa-solid fa-circle-check"></i>
+            <span>@TempData["Success"]</span>
+        </div>
+    }
+
+    <!-- ADMIN PROFILE CARD -->
+    <div class="admin-profile-card">
+
+        <!-- PROFILE BANNER -->
+        <div class="admin-profile-banner">
+
+            <div class="admin-profile-banner-circle admin-circle-one"></div>
+            <div class="admin-profile-banner-circle admin-circle-two"></div>
+
+            <!-- ADMIN LABEL -->
+            <div class="admin-banner-label">
+
+                <i class="fa-solid fa-shield-halved"></i>
+                ADMINISTRATOR
+
+            </div>
+
+        </div>
+
+        <div class="admin-profile-card-body">
+
+            <!-- ADMIN IDENTITY -->
+            <div class="admin-profile-identity">
+
+                <div class="admin-profile-avatar">
+                    @initials
+
+                    <span class="admin-avatar-status @(isActive ? "active" : "inactive")"></span>
+                </div>
+
+                <div class="admin-profile-identity-info">
+
+                    <h3>@fullName</h3>
+
+                    <div class="admin-profile-badges">
+
+                        <span class="admin-profile-role-badge">
+                            <i class="fa-solid fa-user-shield"></i>
+                            @adminRole
+                        </span>
+
+                        <span class="admin-profile-status-badge @(isActive ? "status-active" : "status-inactive")">
+
+                            <i class="fa-solid fa-circle"></i>
+
+                            @(isActive ? "Active Account" : "Inactive Account")
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ADMIN OVERVIEW -->
+            <div class="admin-profile-overview">
+
+                <div class="admin-overview-item">
+
+                    <div class="admin-overview-icon">
+                        <i class="fa-solid fa-id-card"></i>
+                    </div>
+
+                    <div>
+                        <span>Admin ID</span>
+                        <h4>#@Model.Id</h4>
+                    </div>
+
+                </div>
+
+                <div class="admin-overview-item">
+
+                    <div class="admin-overview-icon">
+                        <i class="fa-solid fa-user-tag"></i>
+                    </div>
+
+                    <div>
+                        <span>Account Role</span>
+                        <h4>@adminRole</h4>
+                    </div>
+
+                </div>
+
+                <div class="admin-overview-item">
+
+                    <div class="admin-overview-icon">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+
+                    <div>
+                        <span>Account Status</span>
+                        <h4 class="@(isActive ? "admin-text-active" : "admin-text-inactive")">
+                            @(isActive ? "Active" : "Inactive")
+                        </h4>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PERSONAL INFORMATION -->
+            <div class="admin-profile-section">
+
+                <div class="admin-profile-section-heading">
+
+                    <div class="admin-section-icon">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+
+                    <div>
+                        <h4>Personal Information</h4>
+                        <p>Your registered administrator details</p>
+                    </div>
+
+                </div>
+
+                <div class="admin-profile-details-grid">
+
+                    <!-- ADMIN ID -->
+                    <div class="admin-profile-detail-item">
+
+                        <div class="admin-detail-icon">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+
+                        <div class="admin-detail-content">
+
+                            <span class="admin-detail-label">
+                                Administrator ID
+                            </span>
+
+                            <span class="admin-detail-value admin-id-value">
+                                #@Model.Id
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- FULL NAME -->
+                    <div class="admin-profile-detail-item">
+
+                        <div class="admin-detail-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="admin-detail-content">
+
+                            <span class="admin-detail-label">
+                                Full Name
+                            </span>
+
+                            <span class="admin-detail-value">
+                                @(string.IsNullOrWhiteSpace(Model?.FullName)
+                                                                ? "Not provided"
+                                                                : Model.FullName)
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="admin-profile-detail-item">
+
+                        <div class="admin-detail-icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+
+                        <div class="admin-detail-content">
+
+                            <span class="admin-detail-label">
+                                Email Address
+                            </span>
+
+                            <span class="admin-detail-value">
+                                @(string.IsNullOrWhiteSpace(Model?.Email)
+                                                                ? "Not provided"
+                                                                : Model.Email)
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- PHONE -->
+                    <div class="admin-profile-detail-item">
+
+                        <div class="admin-detail-icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div class="admin-detail-content">
+
+                            <span class="admin-detail-label">
+                                Phone Number
+                            </span>
+
+                            <span class="admin-detail-value">
+                                @(string.IsNullOrWhiteSpace(Model?.PhoneNumber)
+                                                                ? "Not provided"
+                                                                : Model.PhoneNumber)
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ROLE -->
+                    <div class="admin-profile-detail-item">
+
+                        <div class="admin-detail-icon">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+
+                        <div class="admin-detail-content">
+
+                            <span class="admin-detail-label">
+                                Administrator Role
+                            </span>
+
+                            <span class="admin-detail-value">
+                                @adminRole
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <!-- STATUS -->
+                    <div class="admin-profile-detail-item">
+
+                        <div class="admin-detail-icon">
+                            <i class="fa-solid fa-toggle-on"></i>
+                        </div>
+
+                        <div class="admin-detail-content">
+
+                            <span class="admin-detail-label">
+                                Account Status
+                            </span>
+
+                            <span class="admin-detail-value @(isActive ? "admin-text-active" : "admin-text-inactive")">
+
+                                <i class="fa-solid fa-circle admin-status-dot"></i>
+
+                                @(isActive ? "Active" : "Inactive")
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ADMIN SECURITY INFORMATION -->
+            <div class="admin-profile-security">
+
+                <div class="admin-security-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+
+                <div>
+
+                    <h5>Administrator Security</h5>
+
+                    <p>
+                        Your administrator account provides access to
+                        GoPress management features. Keep your account
+                        credentials secure and ensure that only authorized
+                        administrators have access to your account.
+                    </p>
+
+                    <div class="admin-security-note">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Your administrator account is protected.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CARD FOOTER -->
+        <div class="admin-profile-card-footer">
+
+            <span>
+                <i class="fa-solid fa-lock"></i>
+                Secure Administrator Account
+            </span>
+
+            <span class="admin-profile-brand">
+                GoPress
+                <i class="fa-solid fa-shirt"></i>
+                <span class="admin-brand-separator">|</span>
+                ADMIN PANEL
+            </span>
+
+        </div>
+
+    </div>
+    
+
+</div>
