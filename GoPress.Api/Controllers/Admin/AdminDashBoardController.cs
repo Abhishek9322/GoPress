@@ -1,4 +1,5 @@
 ﻿using GoPress.Application.Features.DashBoard.Queries;
+using GoPress.Application.Interfaces.Caching;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,11 +12,11 @@ namespace GoPress.Api.Controllers.Admin
     [Authorize(Roles = "Admin")]
     public class AdminDashBoardController : ControllerBase
     {
-
         private readonly IMediator _mediator;
         public AdminDashBoardController(IMediator mediator)
         {
             _mediator = mediator;
+      
         }
        
         [HttpGet]
@@ -27,5 +28,6 @@ namespace GoPress.Api.Controllers.Admin
 
             return Ok(response);
         }
+
     }
 }
