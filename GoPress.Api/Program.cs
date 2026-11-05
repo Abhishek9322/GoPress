@@ -19,6 +19,15 @@ builder.Services.AddApplicationService();     // Application Layer DI
 
 builder.Services.AddInfrastructureServices(builder.Configuration);     // Infrastructure Layer DI
 
+//redise caching 
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+   options.Configuration= "localhost:6379";
+    options.InstanceName = "GoPress_";
+}); 
+
+
 //builder.Services.AddAplicationService();
 
 //git test

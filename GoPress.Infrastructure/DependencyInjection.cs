@@ -55,6 +55,8 @@ namespace GoPress.Infrastructure
             service.AddSingleton<ICacheService, CacheService>();
             service.AddMemoryCache();
 
+            service.AddScoped<IRedisCacheService, RedisCacheService>();
+
             return service;
         }
 

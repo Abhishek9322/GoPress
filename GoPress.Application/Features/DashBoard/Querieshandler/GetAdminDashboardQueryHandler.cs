@@ -17,50 +17,41 @@ namespace GoPress.Application.Features.DashBoard.Querieshandler
     public class GetAdminDashboardQueryHandler : IRequestHandler<GetAdminDashboardQuery, Response<AdminDashboardDto>>
     {
         private readonly ILogger<GetAdminDashboardQueryHandler> _logger;
-        private readonly IAdminRepository _adminRepository;   
-        private readonly ICacheService _cacheService;
+        private readonly IAdminRepository _adminRepository;
+        private readonly IRedisCacheService _redisCacheService;
         public GetAdminDashboardQueryHandler(IAdminRepository adminRepository,
             ILogger<GetAdminDashboardQueryHandler> logger,
-            ICacheService cacheService)
+            IRedisCacheService redisCacheService)
         {
             _adminRepository = adminRepository;
             _logger = logger;
-            _cacheService = cacheService;
+            _redisCacheService = redisCacheService;
         }
         public async Task<Response<AdminDashboardDto>> Handle(GetAdminDashboardQuery request, CancellationToken cancellationToken)
         {
 
-            _logger.LogInformation("Checking dashboard cache.");
+            var cacheKey = RedisCacheKeys.AdminDashboard;
 
-            var cachedDashboard=await _cacheService.GetAsync<AdminDashboardDto>(CacheKeys.AdminDashboard);
+            _logger.LogInformation( "Checking Admin Dashboard Redis cache.");
+
+            var cachedDashboard = await _redisCacheService.GetAsync<AdminDashboardDto>(cacheKey);
 
             if (cachedDashboard != null)
             {
-                _logger.LogInformation("Dashboard returned from cache.");
+                _logger.LogInformation("Admin Dashboard Cache Hit.");
 
-                return new Response<AdminDashboardDto>(
-                    cachedDashboard,
-                    "Dashboard retrieved from cache.");
+                return new Response<AdminDashboardDto>(cachedDashboard,"Dashboard retrieved successfully from cache.");
             }
 
-            _logger.LogInformation("Cache miss. Fetching dashboard from database.");
-
-
-            _logger.LogInformation(
-               "Admin dashboard requested.");
+            _logger.LogInformation("Admin Dashboard Cache Miss. Fetching data from database.");
 
             var dashboard =await _adminRepository.GetDashboardAsync();
 
-            await _cacheService.SetAsync(
-                CacheKeys.AdminDashboard,
-                dashboard,
-                TimeSpan.FromMinutes(5));
+            await _redisCacheService.SetAsync(cacheKey,dashboard,TimeSpan.FromMinutes(5));
 
-            _logger.LogInformation("Dashboard cached successfully.");
+            _logger.LogInformation("Admin Dashboard successfully stored in Redis.");
 
-            return new Response<AdminDashboardDto>(
-                dashboard,
-                "Dashboard retrieved successfully.");
+            return new Response<AdminDashboardDto>(dashboard,"Dashboard retrieved successfully.");
 
 
         }
