@@ -1,456 +1,792 @@
-﻿/* ======================================================
+﻿/* =========================================
    ADMIN DASHBOARD
-====================================================== */
+========================================= */
 
 body {
     background: #f4f7fb;
 }
 
-
-/* ===========================================
-   CONTAINER
-=========================================== */
-
 .dashboard-container {
-    max-width: 1400px;
-    margin: 40px auto;
-    padding: 0 20px;
+    max-width: 1500px;
+    margin: 25px auto;
+    padding: 0 22px 30px;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 
-/* ===========================================
+/* =========================================
    HEADER
-=========================================== */
+========================================= */
 
 .dashboard-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 35px;
-    flex-wrap: wrap;
     gap: 20px;
+    background: linear-gradient(120deg, #ffffff, #f0fcff);
+    padding: 25px 30px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    border: 1px solid #e8f1f5;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.035);
 }
 
-    .dashboard-header h2 {
-        font-size: 34px;
-        font-weight: 700;
-        color: #1f2937;
-        margin-bottom: 8px;
-    }
+.welcome-label {
+    color: #0ea5c6;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
 
-    .dashboard-header p {
-        color: #6b7280;
-        margin: 0;
-        font-size: 15px;
-    }
+.welcome-content h2 {
+    font-size: 27px;
+    font-weight: 750;
+    color: #1f2937;
+    margin: 7px 0;
+}
 
-
-/* ===========================================
-   DATE
-=========================================== */
+.welcome-content p {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+}
 
 .dashboard-date {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
     background: #ffffff;
-    padding: 14px 22px;
-    border-radius: 14px;
-    font-weight: 600;
+    border: 1px solid #e5edf2;
+    border-radius: 13px;
+}
+
+.date-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: #e6faff;
+    color: #0ea5c6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+}
+
+.dashboard-date span {
+    display: block;
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.dashboard-date h6 {
+    margin: 3px 0 0;
     color: #374151;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+    font-size: 13px;
+    font-weight: 700;
 }
 
 
-/* ===========================================
+/* =========================================
+   SECTION HEADING
+========================================= */
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+    .section-heading h3,
+    .management-header h3,
+    .summary-heading h3 {
+        font-size: 19px;
+        font-weight: 750;
+        color: #1f2937;
+        margin-bottom: 4px;
+    }
+
+    .section-heading p,
+    .management-header p,
+    .summary-heading p {
+        font-size: 12px;
+        color: #9ca3af;
+        margin: 0;
+    }
+
+.total-users-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 14px;
+    border-radius: 25px;
+    background: #e6faff;
+    color: #0ea5c6;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================
    STATISTICS GRID
-=========================================== */
+========================================= */
 
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 22px;
 }
 
 
-/* ===========================================
-   DASHBOARD CARD
-=========================================== */
+/* =========================================
+   STATISTICS CARD
+========================================= */
 
 .dashboard-card {
     background: #ffffff;
-    border-radius: 18px;
-    padding: 28px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
-    transition: transform .3s ease, box-shadow .3s ease;
-    border-left: 5px solid #26c6da;
+    padding: 17px;
+    border-radius: 15px;
+    border: 1px solid #edf0f4;
+    border-top: 3px solid #26c6da;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.035);
+    transition: all 0.3s ease;
+    min-width: 0;
+}
+
+    .dashboard-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 9px 22px rgba(0,0,0,0.08);
+    }
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 16px;
+}
+
+.card-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+.card-status {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 5px 7px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.card-info h2 {
+    font-size: 29px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 4px;
+}
+
+.card-info p {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin: 0;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f0f1f3;
+    padding-top: 10px;
+    margin-top: 13px;
+}
+
+    .card-footer span {
+        font-size: 9px;
+        color: #9ca3af;
+    }
+
+    .card-footer i {
+        font-size: 10px;
+        color: #9ca3af;
+        transition: 0.3s;
+    }
+
+.dashboard-card:hover .card-footer i {
+    transform: translateX(3px);
+    color: #0ea5c6;
 }
 
 
-    /* ===========================================
-   CARD HOVER
-=========================================== */
+/* =========================================
+   STATISTICS COLORS
+========================================= */
 
-    .dashboard-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
+.customers {
+    border-top-color: #26c6da;
+}
+
+    .customers .card-icon {
+        background: #e6faff;
+        color: #0ea5c6;
+    }
+
+.shopowners {
+    border-top-color: #3b82f6;
+}
+
+    .shopowners .card-icon {
+        background: #eff6ff;
+        color: #3b82f6;
+    }
+
+.deliveryboys {
+    border-top-color: #8b5cf6;
+}
+
+    .deliveryboys .card-icon {
+        background: #f5f0ff;
+        color: #8b5cf6;
+    }
+
+.shop-approvals {
+    border-top-color: #f59e0b;
+}
+
+    .shop-approvals .card-icon {
+        background: #fff7e6;
+        color: #f59e0b;
+    }
+
+.delivery-approvals {
+    border-top-color: #f97316;
+}
+
+    .delivery-approvals .card-icon {
+        background: #fff3e9;
+        color: #f97316;
+    }
+
+.active-users {
+    border-top-color: #22c55e;
+}
+
+    .active-users .card-icon {
+        background: #eafbf0;
+        color: #22c55e;
+    }
+
+.inactive-users {
+    border-top-color: #6b7280;
+}
+
+    .inactive-users .card-icon {
+        background: #f3f4f6;
+        color: #6b7280;
+    }
+
+.total-orders {
+    border-top-color: #06b6d4;
+}
+
+    .total-orders .card-icon {
+        background: #e6fbff;
+        color: #06b6d4;
+    }
+
+.pending-orders {
+    border-top-color: #eab308;
+}
+
+    .pending-orders .card-icon {
+        background: #fefce8;
+        color: #eab308;
+    }
+
+.completed-orders {
+    border-top-color: #16a34a;
+}
+
+    .completed-orders .card-icon {
+        background: #eafbf0;
+        color: #16a34a;
     }
 
 
-    /* ===========================================
-   CARD TITLE
-=========================================== */
+/* =========================================
+   ADMIN MANAGEMENT GRID
+========================================= */
 
-    .dashboard-card h5 {
-        color: #6b7280;
-        font-size: 15px;
-        margin-bottom: 18px;
+.admin-management-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   MANAGEMENT CARD
+========================================= */
+
+.management-card {
+    background: #ffffff;
+    padding: 21px;
+    border-radius: 16px;
+    border: 1px solid #edf0f4;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.035);
+    min-width: 0;
+}
+
+.management-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 23px;
+}
+
+    .management-header h3 {
+        font-size: 16px;
+    }
+
+    .management-header p {
+        font-size: 11px;
+    }
+
+.management-icon {
+    width: 39px;
+    height: 39px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e6faff;
+    color: #0ea5c6;
+    border-radius: 11px;
+    font-size: 16px;
+}
+
+.approval-icon {
+    background: #fff7e6;
+    color: #f59e0b;
+}
+
+
+/* =========================================
+   USER AND ORDER SUMMARY
+========================================= */
+
+.user-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-summary-item {
+    width: 100%;
+}
+
+.user-summary-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 9px;
+}
+
+    .user-summary-info span {
+        color: #4b5563;
+        font-size: 12px;
         font-weight: 600;
     }
 
+    .user-summary-info strong {
+        color: #1f2937;
+        font-size: 13px;
+        font-weight: 750;
+    }
 
-    /* ===========================================
-   CARD VALUE
-=========================================== */
+    .user-summary-info i {
+        font-size: 9px;
+        margin-right: 5px;
+    }
 
-    .dashboard-card h2 {
-        font-size: 40px;
+.active-dot {
+    color: #22c55e;
+}
+
+.inactive-dot {
+    color: #9ca3af;
+}
+
+.completed-dot {
+    color: #22c55e;
+}
+
+.pending-dot {
+    color: #f59e0b;
+}
+
+
+/* =========================================
+   SUMMARY PROGRESS
+========================================= */
+
+.summary-progress {
+    height: 8px;
+    width: 100%;
+    background: #f0f3f6;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.summary-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+.active-fill {
+    background: #22c55e;
+}
+
+.inactive-fill {
+    background: #9ca3af;
+}
+
+.completed-fill {
+    background: #22c55e;
+}
+
+.pending-fill {
+    background: #f59e0b;
+}
+
+
+/* =========================================
+   SUMMARY FOOTER
+========================================= */
+
+.user-total-footer,
+.approval-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 23px;
+    padding: 12px 14px;
+    background: #f5fcfe;
+    border: 1px solid #e5f6fa;
+    border-radius: 11px;
+}
+
+    .user-total-footer span,
+    .approval-footer span {
+        font-size: 11px;
+        color: #6b7280;
+        font-weight: 600;
+    }
+
+    .user-total-footer strong,
+    .approval-footer strong {
+        font-size: 17px;
+        font-weight: 800;
+        color: #0ea5c6;
+    }
+
+
+/* =========================================
+   APPROVAL MANAGEMENT
+========================================= */
+
+.approval-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.approval-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 12px;
+    border: 1px solid #edf0f4;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+    .approval-item:hover {
+        background: #fffaf0;
+        border-color: #fce7b2;
+    }
+
+.approval-item-icon {
+    width: 39px;
+    height: 39px;
+    min-width: 39px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 11px;
+}
+
+.shop-approval-icon {
+    background: #fff7e6;
+    color: #f59e0b;
+}
+
+.delivery-approval-icon {
+    background: #fff3e9;
+    color: #f97316;
+}
+
+.approval-content {
+    flex: 1;
+    min-width: 0;
+}
+
+    .approval-content h5 {
+        font-size: 12px;
         font-weight: 700;
-        color: #111827;
+        color: #1f2937;
+        margin: 0 0 4px;
+    }
+
+    .approval-content p {
+        font-size: 10px;
+        color: #9ca3af;
         margin: 0;
     }
 
-
-    /* ======================================================
-   ADMIN CARD COLORS
-====================================================== */
-
-
-    /* -------------------------------------------
-   Total Customers
-------------------------------------------- */
-
-    .dashboard-card:nth-child(1) {
-        border-left-color: #26c6da;
-    }
-
-
-    /* -------------------------------------------
-   Total ShopOwners
-------------------------------------------- */
-
-    .dashboard-card:nth-child(2) {
-        border-left-color: #3b82f6;
-    }
-
-
-/* -------------------------------------------
-   Total Delivery Boys
-------------------------------------------- */
-
-.TotalDeliveryBoys {
-    border-left-color: #8b5cf6;
-}
-
-
-/* -------------------------------------------
-   Pending ShopOwner Approvals
-------------------------------------------- */
-
-.PendingShopOwnerApprovals {
-    border-left-color: #f59e0b;
-}
-
-
-/* -------------------------------------------
-   Pending DeliveryBoy Approvals
-------------------------------------------- */
-
-.PendingDeliveryBoyApprovals {
-    border-left-color: #f97316;
-}
-
-
-/* -------------------------------------------
-   Active Users
-------------------------------------------- */
-
-.ActiveUsers {
-    border-left-color: #22c55e;
-}
-
-
-/* -------------------------------------------
-   Inactive Users
-------------------------------------------- */
-
-.InactiveUsers {
-    border-left-color: #6b7280;
-}
-
-
-/* -------------------------------------------
-   Total Orders
-------------------------------------------- */
-
-.TotalOrders {
-    border-left-color: #06b6d4;
-}
-
-
-/* -------------------------------------------
-   Pending Orders
-------------------------------------------- */
-
-.PendingOrders {
-    border-left-color: #eab308;
-}
-
-
-/* -------------------------------------------
-   Completed Orders
-------------------------------------------- */
-
-.CompletedOrders {
-    border-left-color: #16a34a;
-}
-
-
-/* ===========================================
-   QUICK ACTION SECTION
-=========================================== */
-
-.action-section {
-    background: #ffffff;
+.approval-count {
+    background: #fff7e6;
+    color: #d97706;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 6px 10px;
     border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, .06);
 }
 
 
-    /* ===========================================
-   QUICK ACTION TITLE
-=========================================== */
+/* =========================================
+   PLATFORM SUMMARY
+========================================= */
 
-    .action-section h3 {
-        margin-bottom: 25px;
-        font-size: 24px;
-        color: #1f2937;
-        font-weight: 700;
+.platform-summary {
+    background: #ffffff;
+    padding: 23px;
+    border-radius: 16px;
+    border: 1px solid #edf0f4;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.035);
+}
+
+.summary-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+    .summary-heading h3 {
+        font-size: 17px;
     }
 
+    .summary-heading p {
+        font-size: 11px;
+    }
 
-/* ===========================================
-   ACTION BUTTONS
-=========================================== */
-
-.action-buttons {
+.summary-heading-icon {
+    width: 39px;
+    height: 39px;
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-
-/* ===========================================
-   PRIMARY BUTTON
-=========================================== */
-
-.action-btn {
-    display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 180px;
-    height: 52px;
-    padding: 0 25px;
-    border-radius: 12px;
-    text-decoration: none;
-    background: #26c6da;
-    color: #ffffff;
-    font-weight: 600;
-    transition: background .3s ease, transform .2s ease, box-shadow .3s ease;
+    background: #e6faff;
+    color: #0ea5c6;
+    border-radius: 11px;
+    font-size: 17px;
 }
 
 
-    /* ===========================================
-   PRIMARY BUTTON HOVER
-=========================================== */
+/* =========================================
+   SUMMARY ACTION GRID
+========================================= */
 
-    .action-btn:hover {
-        background: #0ea5c6;
-        color: #ffffff;
+.summary-action-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.summary-action {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 14px;
+    background: #f9fbfd;
+    border: 1px solid #edf0f4;
+    border-radius: 12px;
+    transition: 0.3s;
+    min-width: 0;
+}
+
+    .summary-action:hover {
+        background: #f3fcfe;
+        border-color: #c7f0f6;
         transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(14, 165, 198, .25);
     }
 
+.summary-action-icon {
+    min-width: 39px;
+    height: 39px;
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
 
-    /* ===========================================
-   SECONDARY BUTTON
-=========================================== */
+.customers-action {
+    background: #e6faff;
+    color: #0ea5c6;
+}
 
-    .action-btn.secondary {
-        background: #ffffff;
-        color: #374151;
-        border: 1px solid #d1d5db;
-    }
+.shop-action {
+    background: #eff6ff;
+    color: #3b82f6;
+}
+
+.delivery-action {
+    background: #f5f0ff;
+    color: #8b5cf6;
+}
+
+.orders-action {
+    background: #e6fbff;
+    color: #06b6d4;
+}
+
+.summary-action h5 {
+    color: #1f2937;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0 0 5px;
+}
+
+.summary-action p {
+    color: #9ca3af;
+    font-size: 9px;
+    margin: 0;
+}
 
 
-        /* ===========================================
-   SECONDARY BUTTON HOVER
-=========================================== */
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
 
-        .action-btn.secondary:hover {
-            background: #26c6da;
-            color: #ffffff;
-            border-color: #26c6da;
-        }
-
-
-/* ======================================================
-   TABLET
-====================================================== */
-
-@media (max-width: 992px) {
-
-    .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-        .dashboard-header h2 {
-            font-size: 28px;
-        }
+@media(max-width: 1200px) {
 
     .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .dashboard-card {
-        padding: 24px;
+    .admin-management-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-        .dashboard-card h2 {
-            font-size: 36px;
-        }
+    .summary-action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 
-/* ======================================================
-   MOBILE
-====================================================== */
+@media(max-width: 992px) {
 
-@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .admin-management-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media(max-width: 768px) {
 
     .dashboard-container {
-        margin: 25px auto;
-        padding: 0 15px;
+        padding: 0 15px 25px;
+        margin-top: 20px;
     }
-
-
-    /* Header */
 
     .dashboard-header {
-        margin-bottom: 25px;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 22px;
     }
 
-        .dashboard-header h2 {
-            font-size: 26px;
-        }
-
-
-    /* Date */
-
-    .dashboard-date {
-        width: 100%;
-        text-align: center;
-        padding: 12px 15px;
+    .welcome-content h2 {
+        font-size: 24px;
     }
-
-
-    /* Grid */
 
     .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 18px;
-        margin-bottom: 30px;
-    }
-
-
-    /* Cards */
-
-    .dashboard-card {
-        padding: 22px;
-        border-left-width: 4px;
-    }
-
-        .dashboard-card h5 {
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .dashboard-card h2 {
-            font-size: 32px;
-        }
-
-
-    /* Quick Actions */
-
-    .action-section {
-        padding: 22px;
-        border-radius: 16px;
-    }
-
-        .action-section h3 {
-            font-size: 21px;
-            margin-bottom: 20px;
-        }
-
-
-    /* Buttons */
-
-    .action-buttons {
-        flex-direction: column;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
     }
 
-    .action-btn {
-        width: 100%;
-        min-width: 0;
+    .dashboard-card {
+        padding: 15px;
+    }
+
+    .card-info h2 {
+        font-size: 27px;
+    }
+
+    .card-status {
+        font-size: 8px;
+        padding: 5px 6px;
+    }
+
+    .admin-management-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .platform-summary {
+        padding: 18px;
     }
 }
 
 
-/* ======================================================
-   SMALL MOBILE
-====================================================== */
+@media(max-width: 480px) {
 
-@media (max-width: 480px) {
-
-    .dashboard-container {
-        padding: 0 12px;
+    .dashboard-grid {
+        grid-template-columns: 1fr;
     }
 
-    .dashboard-card {
-        padding: 20px;
-        border-radius: 15px;
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
     }
-
-        .dashboard-card h5 {
-            font-size: 13px;
-        }
-
-        .dashboard-card h2 {
-            font-size: 30px;
-        }
 
     .dashboard-date {
-        font-size: 13px;
+        width: 100%;
     }
 
-    .action-section {
-        padding: 20px;
+    .summary-action-grid {
+        grid-template-columns: 1fr;
     }
 
-    .action-btn {
-        height: 48px;
-        font-size: 14px;
+    .management-card {
+        padding: 17px;
     }
 }
