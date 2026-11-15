@@ -1,168 +1,735 @@
 ﻿@model GoPress.Mvc.Areas.Admin.Models.AdminDashboardViewModel
+
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Admin Dashboard";
     Layout = "_Layout";
+
+    var totalUsers = Model.TotalCustomers +
+                     Model.TotalShopOwners +
+                     Model.TotalDeliveryBoys;
+
+    var userActivityTotal = Model.ActiveUsers + Model.InactiveUsers;
+
+    var activePercentage = userActivityTotal > 0
+        ? Math.Min(100, Model.ActiveUsers * 100.0 / userActivityTotal)
+        : 0;
+
+    var inactivePercentage = userActivityTotal > 0
+        ? Math.Min(100, Model.InactiveUsers * 100.0 / userActivityTotal)
+        : 0;
+
+    var completedPercentage = Model.TotalOrders > 0
+        ? Math.Min(100, Model.CompletedOrders * 100.0 / Model.TotalOrders)
+        : 0;
+
+    var pendingPercentage = Model.TotalOrders > 0
+        ? Math.Min(100, Model.PendingOrders * 100.0 / Model.TotalOrders)
+        : 0;
+
+    var totalApprovals = Model.PendingShopOwnerApprovals +
+                         Model.PendingDeliveryBoyApprovals;
 }
 
 @section Styles
 {
-     <link rel="stylesheet"
-           href="~/css/Admin-Dashboard.css"
-           asp-append-version="true" />
+    <link rel="stylesheet"
+          href="~/css/Admin-Dashboard.css"
+          asp-append-version="true" />
 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 }
+
 
 <div class="dashboard-container">
 
-    <!-- Header -->
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
 
     <div class="dashboard-header">
 
-        @* <div> *@
+        <div class="welcome-content">
 
-        @*     <h2> *@
-        @*         Welcome Back  *@
-        @*     </h2> *@
+            <span class="welcome-label">ADMIN CONTROL PANEL</span>
 
-        @*     <p> *@
-        @*         Manage your laundry orders from one place. *@
-        @*     </p> *@
+            <h2>Welcome Back, Admin!</h2>
 
-        @* </div> *@
+            <p>Monitor and manage your entire GoPress platform from one place.</p>
+
+        </div>
+
 
         <div class="dashboard-date">
 
-            @DateTime.Now.ToString("dddd, dd MMM yyyy")
+            <div class="date-icon">
+                <i class="fa-regular fa-calendar"></i>
+            </div>
+
+            <div>
+                <span>Today</span>
+                <h6>@DateTime.Now.ToString("dd MMM yyyy")</h6>
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Statistics -->
+
+
+    <!-- =========================================
+         PLATFORM STATISTICS
+    ========================================== -->
+
+    <div class="section-heading">
+
+        <div>
+            <h3>Platform Overview</h3>
+            <p>Monitor your GoPress platform statistics.</p>
+        </div>
+
+        <span class="total-users-badge">
+            <i class="fa-solid fa-users"></i>
+            @totalUsers Total Users
+        </span>
+
+    </div>
+
+
+
+    <!-- =========================================
+         STATISTICS GRID
+    ========================================== -->
 
     <div class="dashboard-grid">
 
-        <div class="dashboard-card">
 
-            <h5>Total Customers</h5>
+        <!-- Customers -->
 
-            <h2>@Model.TotalCustomers</h2>
+        <div class="dashboard-card customers">
 
-        </div>
+            <div class="card-top">
 
-        <div class="dashboard-card">
+                <div class="card-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
 
-            <h5>Total ShopOwners</h5>
+                <span class="card-status">Customers</span>
 
-            <h2>@Model.TotalShopOwners</h2>
+            </div>
 
-        </div>
+            <div class="card-info">
 
-        <div class="dashboard-card TotalDeliveryBoys">
+                <h2>@Model.TotalCustomers</h2>
 
-            <h5>Total DeliveryBoys</h5>
+                <p>Total Customers</p>
 
-            <h2>@Model.TotalDeliveryBoys</h2>
+            </div>
 
-        </div>
-
-        <div class="dashboard-card PendingShopOwnerApprovals">
-
-            <h5>Pending ShopOwner Approvals</h5>
-
-            <h2>@Model.PendingShopOwnerApprovals</h2>
+            <div class="card-footer">
+                <span>Registered customers</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card PendingDeliveryBoyApprovals">
 
-            <h5>Pending DeliveryBoy Approvals</h5>
+        <!-- ShopOwners -->
 
-            <h2>@Model.PendingDeliveryBoyApprovals</h2>
+        <div class="dashboard-card shopowners">
 
-        </div>
+            <div class="card-top">
 
-        <div class="dashboard-card ActiveUsers">
+                <div class="card-icon">
+                    <i class="fa-solid fa-store"></i>
+                </div>
 
-            <h5>Active Users</h5>
+                <span class="card-status">Shop Owners</span>
 
-            <h2>@Model.ActiveUsers</h2>
+            </div>
 
-        </div>
+            <div class="card-info">
 
-        <div class="dashboard-card InactiveUsers">
+                <h2>@Model.TotalShopOwners</h2>
 
-            <h5>Inactive Users</h5>
+                <p>Total Shop Owners</p>
 
-            <h2>@Model.InactiveUsers</h2>
+            </div>
 
-        </div>
-
-        <div class="dashboard-card TotalOrders">
-
-            <h5>Total Orders</h5>
-
-            <h2>@Model.TotalOrders</h2>
+            <div class="card-footer">
+                <span>Registered shops</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card PendingOrders">
 
-            <h5>Pending Orders</h5>
+        <!-- Delivery Boys -->
 
-            <h2>@Model.PendingOrders</h2>
+        <div class="dashboard-card deliveryboys">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+
+                <span class="card-status">Delivery Partners</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.TotalDeliveryBoys</h2>
+
+                <p>Total Delivery Boys</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Registered delivery partners</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card CompletedOrders">
 
-            <h5>Completed Orders</h5>
+        <!-- Pending Shop Approvals -->
 
-            <h2>@Model.CompletedOrders</h2>
+        <div class="dashboard-card shop-approvals">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-shop-lock"></i>
+                </div>
+
+                <span class="card-status">Action Required</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.PendingShopOwnerApprovals</h2>
+
+                <p>ShopOwner Approvals</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Awaiting verification</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Pending Delivery Approvals -->
+
+        <div class="dashboard-card delivery-approvals">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+
+                <span class="card-status">Action Required</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.PendingDeliveryBoyApprovals</h2>
+
+                <p>DeliveryBoy Approvals</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Awaiting verification</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Active Users -->
+
+        <div class="dashboard-card active-users">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+
+                <span class="card-status">Active</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.ActiveUsers</h2>
+
+                <p>Active Users</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Currently active users</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Inactive Users -->
+
+        <div class="dashboard-card inactive-users">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-user-slash"></i>
+                </div>
+
+                <span class="card-status">Inactive</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.InactiveUsers</h2>
+
+                <p>Inactive Users</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Currently inactive users</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Total Orders -->
+
+        <div class="dashboard-card total-orders">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+
+                <span class="card-status">Orders</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.TotalOrders</h2>
+
+                <p>Total Orders</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Platform-wide orders</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Pending Orders -->
+
+        <div class="dashboard-card pending-orders">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+                <span class="card-status">Pending</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.PendingOrders</h2>
+
+                <p>Pending Orders</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Awaiting completion</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Completed Orders -->
+
+        <div class="dashboard-card completed-orders">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <span class="card-status">Completed</span>
+
+            </div>
+
+            <div class="card-info">
+
+                <h2>@Model.CompletedOrders</h2>
+
+                <p>Completed Orders</p>
+
+            </div>
+
+            <div class="card-footer">
+                <span>Successfully completed</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Quick Actions -->
 
-    <div class="action-section">
 
-        <h3>
-            Quick Actions
-        </h3>
+    <!-- =========================================
+         ADMIN MANAGEMENT SECTION
+    ========================================== -->
 
-        @* <div class="action-buttons"> *@ 
+    <div class="admin-management-grid">
 
-        @*     <a asp-area="Customer" *@
-        @*        asp-controller="Orders" *@
-        @*        asp-action="Create" *@
-        @*        class="action-btn"> *@
 
-        @*         New Order *@
+        <!-- USER MANAGEMENT -->
 
-        @*     </a> *@
+        <div class="management-card">
 
-        <a asp-area="Customer"
-           asp-controller="Orders"
-           asp-action="AllOrders"
-           class="action-btn">
+            <div class="management-header">
 
-            My Orders
+                <div>
+                    <h3>User Management</h3>
+                    <p>Platform user activity overview.</p>
+                </div>
 
-        </a>
+                <div class="management-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
 
-        <a asp-area="Customer"
-           asp-controller="Profile"
-           asp-action="Index"
-           class="action-btn secondary">
+            </div>
 
-            Profile
 
-        </a>
+            <div class="user-summary">
+
+                <div class="user-summary-item">
+
+                    <div class="user-summary-info">
+
+                        <span>
+                            <i class="fa-solid fa-circle active-dot"></i>
+                            Active Users
+                        </span>
+
+                        <strong>@Model.ActiveUsers</strong>
+
+                    </div>
+
+                    <div class="summary-progress">
+
+                        <div class="summary-fill active-fill"
+                             style="width: @activePercentage%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="user-summary-item">
+
+                    <div class="user-summary-info">
+
+                        <span>
+                            <i class="fa-solid fa-circle inactive-dot"></i>
+                            Inactive Users
+                        </span>
+
+                        <strong>@Model.InactiveUsers</strong>
+
+                    </div>
+
+                    <div class="summary-progress">
+
+                        <div class="summary-fill inactive-fill"
+                             style="width: @inactivePercentage%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="user-total-footer">
+
+                <span>Total Registered Users</span>
+
+                <strong>@totalUsers</strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ORDER MANAGEMENT -->
+
+        <div class="management-card">
+
+            <div class="management-header">
+
+                <div>
+                    <h3>Order Management</h3>
+                    <p>Platform-wide order progress.</p>
+                </div>
+
+                <div class="management-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+
+            </div>
+
+
+            <div class="user-summary">
+
+                <div class="user-summary-item">
+
+                    <div class="user-summary-info">
+
+                        <span>
+                            <i class="fa-solid fa-circle completed-dot"></i>
+                            Completed Orders
+                        </span>
+
+                        <strong>@Model.CompletedOrders</strong>
+
+                    </div>
+
+                    <div class="summary-progress">
+
+                        <div class="summary-fill completed-fill"
+                             style="width: @completedPercentage%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="user-summary-item">
+
+                    <div class="user-summary-info">
+
+                        <span>
+                            <i class="fa-solid fa-circle pending-dot"></i>
+                            Pending Orders
+                        </span>
+
+                        <strong>@Model.PendingOrders</strong>
+
+                    </div>
+
+                    <div class="summary-progress">
+
+                        <div class="summary-fill pending-fill"
+                             style="width: @pendingPercentage%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="user-total-footer">
+
+                <span>Total Platform Orders</span>
+
+                <strong>@Model.TotalOrders</strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- APPROVAL MANAGEMENT -->
+
+        <div class="management-card approval-card">
+
+            <div class="management-header">
+
+                <div>
+                    <h3>Pending Approvals</h3>
+                    <p>Registrations requiring verification.</p>
+                </div>
+
+                <div class="management-icon approval-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+
+            </div>
+
+
+            <div class="approval-list">
+
+
+                <div class="approval-item">
+
+                    <div class="approval-item-icon shop-approval-icon">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+
+                    <div class="approval-content">
+                        <h5>ShopOwner Requests</h5>
+                        <p>Pending shop registrations</p>
+                    </div>
+
+                    <span class="approval-count">
+                        @Model.PendingShopOwnerApprovals
+                    </span>
+
+                </div>
+
+
+                <div class="approval-item">
+
+                    <div class="approval-item-icon delivery-approval-icon">
+                        <i class="fa-solid fa-truck"></i>
+                    </div>
+
+                    <div class="approval-content">
+                        <h5>DeliveryBoy Requests</h5>
+                        <p>Pending partner registrations</p>
+                    </div>
+
+                    <span class="approval-count">
+                        @Model.PendingDeliveryBoyApprovals
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="approval-footer">
+
+                <span>Total Pending Requests</span>
+
+                <strong>@totalApprovals</strong>
+
+            </div>
+
+        </div>
 
     </div>
 
-</div>
+
+
+    <!-- =========================================
+         PLATFORM MANAGEMENT SUMMARY
+    ========================================== -->
+
+    <div class="platform-summary">
+
+        <div class="summary-heading">
+
+            <div>
+                <h3>Platform Management Summary</h3>
+                <p>Quick overview of your administrative responsibilities.</p>
+            </div>
+
+            <i class="fa-solid fa-gauge-high summary-heading-icon"></i>
+
+        </div>
+
+
+        <div class="summary-action-grid">
+
+
+            <div class="summary-action">
+
+                <div class="summary-action-icon customers-action">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+
+                <div>
+                    <h5>Customer Management</h5>
+                    <p>Registered customers: @Model.TotalCustomers</p>
+                </div>
+
+            </div>
+
+
+            <div class="summary-action">
+
+                <div class="summary-action-icon shop-action">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+
+                <div>
+                    <h5>Shop Management</h5>
+                    <p>Registered shops: @Model.TotalShopOwners</p>
+                </div>
+
+            </div>
+
+
+            <div class="summary-action">
+
+                <div class="summary-action-icon delivery-action">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+
+                <div>
+                    <h5>Delivery Management</h5>
+                    <p>Delivery partners: @Model.TotalDeliveryBoys</p>
+                </div>
+
+            </div>
+
+
+            <div class="summary-action">
+
+                <div class="summary-action-icon orders-action">
+                    <i class="fa-solid fa-box"></i>
+                </div>
+
+                <div>
+                    <h5>Order Management</h5>
+                    <p>Total platform orders: @Model.TotalOrders</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
