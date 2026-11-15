@@ -1,7 +1,7 @@
 ﻿@model GoPress.Mvc.Areas.ShopOwner.Models.ShopOwnerDashboardViewModel
 
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "ShopOwner Dashboard";
     Layout = "_Layout";
 }
 
@@ -10,159 +10,661 @@
     <link rel="stylesheet"
           href="~/css/ShopOwner-Dashboard.css"
           asp-append-version="true" />
-}
 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+}
 
 <div class="dashboard-container">
 
-    <!-- Header -->
+    <!-- =========================================
+         DASHBOARD HEADER
+    ========================================== -->
 
     <div class="dashboard-header">
 
-        @* <div> *@
+        <div class="welcome-content">
 
-        @*     <h2> *@
-        @*         Welcome Back  *@
-        @*     </h2> *@
+            <span class="welcome-label">SHOP OWNER DASHBOARD</span>
 
-        @*     <p> *@
-        @*         Manage your laundry orders from one place. *@
-        @*     </p> *@
+            <h2>Welcome Back!</h2>
 
-        @* </div> *@
+            <p>Manage your laundry business and keep track of your orders.</p>
+
+        </div>
 
         <div class="dashboard-date">
 
-            @DateTime.Now.ToString("dddd, dd MMM yyyy")
+            <div class="date-icon">
+                <i class="fa-regular fa-calendar"></i>
+            </div>
+
+            <div>
+                <span>Today</span>
+                <h6>@DateTime.Now.ToString("dd MMM yyyy")</h6>
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Statistics -->
+
+    <!-- =========================================
+         STATISTICS HEADING
+    ========================================== -->
+
+    <div class="section-heading">
+
+        <div>
+            <h3>Business Overview</h3>
+            <p>Monitor your shop's order activities.</p>
+        </div>
+
+        <span class="total-order-badge">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            @Model.TotalOrders Total Orders
+        </span>
+
+    </div>
+
+
+    <!-- =========================================
+         STATISTICS CARDS
+    ========================================== -->
 
     <div class="dashboard-grid">
 
-        <div class="dashboard-card">
 
-            <h5>Total Orders</h5>
+        <!-- Total Orders -->
 
-            <h2>@Model.TotalOrders</h2>
+        <div class="dashboard-card total-card">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+
+                <span class="card-status">All Orders</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.TotalOrders</h2>
+                <p>Total Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Overall shop orders</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card">
 
-            <h5>ReadyForPickup Orders</h5>
-
-            <h2>@Model.ReadyForPickupOrders</h2>
-
-        </div>
+        <!-- Pending -->
 
         <div class="dashboard-card pending">
 
-            <h5>Pending Orders</h5>
+            <div class="card-top">
 
-            <h2>@Model.PendingOrders</h2>
+                <div class="card-icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+                <span class="card-status">Waiting</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.PendingOrders</h2>
+                <p>Pending Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Awaiting your action</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
+
+
+        <!-- Accepted -->
 
         <div class="dashboard-card accepted">
 
-            <h5>Accepted</h5>
+            <div class="card-top">
 
-            <h2>@Model.AcceptedOrders</h2>
+                <div class="card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
 
-        </div>
+                <span class="card-status">Confirmed</span>
 
-        <div class="dashboard-card PickedUpOrders">
+            </div>
 
-            <h5>PickedUp Orders</h5>
+            <div class="card-info">
+                <h2>@Model.AcceptedOrders</h2>
+                <p>Accepted Orders</p>
+            </div>
 
-            <h2>@Model.PickedUpOrders</h2>
-
-        </div>
-
-        <div class="dashboard-card OutForDeliveryOrders">
-
-            <h5>Rejected Orders</h5>
-
-            <h2>@Model.RejectedOrders</h2>
-
-        </div>
-
-        <div class="dashboard-card DeliveredOrders">
-
-            <h5>Delivered</h5>
-
-            <h2>@Model.DeliveredOrders</h2>
+            <div class="card-footer">
+                <span>Orders accepted</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card TotalRevenue">
 
-            <h5>TotalRevenue</h5>
+        <!-- Ready For Pickup -->
 
-            <h2>@Model.TotalRevenue</h2>
+        <div class="dashboard-card ready">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+
+                <span class="card-status">Ready</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.ReadyForPickupOrders</h2>
+                <p>Ready For Pickup</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Waiting for pickup</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card TodayOrders">
 
-            <h5>Today Orders</h5>
+        <!-- Picked Up -->
 
-            <h2>@Model.TodayOrders</h2>
+        <div class="dashboard-card picked">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-truck-ramp-box"></i>
+                </div>
+
+                <span class="card-status">Picked Up</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.PickedUpOrders</h2>
+                <p>Picked Up Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Collected orders</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card ThisMonthOrders">
 
-            <h5>ThisMonth Orders</h5>
+        <!-- Delivered -->
 
-            <h2>@Model.ThisMonthOrders</h2>
+        <div class="dashboard-card success">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+
+                <span class="card-status">Completed</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.DeliveredOrders</h2>
+                <p>Delivered Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Successfully completed</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Rejected -->
+
+        <div class="dashboard-card rejected">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+
+                <span class="card-status">Rejected</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.RejectedOrders</h2>
+                <p>Rejected Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Rejected requests</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Total Revenue -->
+
+        <div class="dashboard-card revenue">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+
+                <span class="card-status">Earnings</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2 class="revenue-value">
+                    ₹@Model.TotalRevenue.ToString("N0")
+                </h2>
+                <p>Total Revenue</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Overall shop revenue</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Today Orders -->
+
+        <div class="dashboard-card today">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </div>
+
+                <span class="card-status">Today</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.TodayOrders</h2>
+                <p>Today's Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Orders received today</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Monthly Orders -->
+
+        <div class="dashboard-card monthly">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <span class="card-status">Monthly</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.ThisMonthOrders</h2>
+                <p>This Month Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Monthly order activity</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Quick Actions -->
 
-    <div class="action-section">
+    <!-- =========================================
+         BOTTOM DASHBOARD SECTION
+    ========================================== -->
 
-        <h3>
-            Quick Actions
-        </h3>
+    <div class="dashboard-bottom">
 
-        @* <div class="action-buttons"> *@
 
-        @*     <a asp-area="Customer" *@
-        @*        asp-controller="Orders" *@
-        @*        asp-action="Create" *@
-        @*        class="action-btn"> *@
+        <!-- LEFT: QUICK ACTIONS -->
 
-        @*         New Order *@
+        <div class="quick-action-section">
 
-        @*     </a> *@
+            <div class="quick-action-header">
 
-        <a asp-area="ShopOwner"
-           asp-controller="Orders"
-           asp-action="AllOrders"
-           class="action-btn">
+                <div>
+                    <h3>Quick Actions</h3>
+                    <p>Manage your shop activities</p>
+                </div>
 
-            My Orders
+                <i class="fa-solid fa-bolt action-heading-icon"></i>
 
-        </a>
+            </div>
 
-        <a asp-area="Customer"
-           asp-controller="Profile"
-           asp-action="Index"
-           class="action-btn secondary">
 
-            Profile
+            <div class="action-list">
 
-        </a>
+
+                <a asp-area="ShopOwner"
+                   asp-controller="Orders"
+                   asp-action="AllOrders"
+                   class="action-card primary-action">
+
+                    <div class="action-icon">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+
+                    <div class="action-content">
+                        <h5>Manage Orders</h5>
+                        <p>View and manage all orders</p>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+                </a>
+
+
+                <a asp-area="ShopOwner"
+                   asp-controller="Profile"
+                   asp-action="Index"
+                   class="action-card">
+
+                    <div class="action-icon">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+
+                    <div class="action-content">
+                        <h5>My Profile</h5>
+                        <p>Manage shop information</p>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT: ORDER STATUS OVERVIEW -->
+
+        <div class="order-overview-section">
+
+            <div class="overview-header">
+
+                <div>
+                    <h3>Order Status Overview</h3>
+                    <p>Track your shop's order progress.</p>
+                </div>
+
+                <div class="overview-icon">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+
+            </div>
+
+
+            <div class="order-progress-list">
+
+
+                <!-- Pending -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-regular fa-clock pending-text"></i>
+                            Pending
+                        </span>
+
+                        <strong>@Model.PendingOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill pending-fill"
+                             style="width: @(Model.TotalOrders > 0 ? Math.Min(100, Model.PendingOrders * 100.0 / Model.TotalOrders) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Accepted -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-circle-check accepted-text"></i>
+                            Accepted
+                        </span>
+
+                        <strong>@Model.AcceptedOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill accepted-fill"
+                             style="width: @(Model.TotalOrders > 0 ? Math.Min(100, Model.AcceptedOrders * 100.0 / Model.TotalOrders) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Ready For Pickup -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-bag-shopping ready-text"></i>
+                            Ready For Pickup
+                        </span>
+
+                        <strong>@Model.ReadyForPickupOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill ready-fill"
+                             style="width: @(Model.TotalOrders > 0 ? Math.Min(100, Model.ReadyForPickupOrders * 100.0 / Model.TotalOrders) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Picked Up -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-truck-ramp-box picked-text"></i>
+                            Picked Up
+                        </span>
+
+                        <strong>@Model.PickedUpOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill picked-fill"
+                             style="width: @(Model.TotalOrders > 0 ? Math.Min(100, Model.PickedUpOrders * 100.0 / Model.TotalOrders) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Delivered -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-check-double success-text"></i>
+                            Delivered
+                        </span>
+
+                        <strong>@Model.DeliveredOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill success-fill"
+                             style="width: @(Model.TotalOrders > 0 ? Math.Min(100, Model.DeliveredOrders * 100.0 / Model.TotalOrders) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="overview-footer">
+
+                <div>
+                    <span>Total Orders</span>
+                    <h4>@Model.TotalOrders</h4>
+                </div>
+
+                <div class="completed-label">
+                    <i class="fa-solid fa-circle-check"></i>
+                    @Model.DeliveredOrders Completed
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         BUSINESS PERFORMANCE
+    ========================================== -->
+
+    <div class="business-performance">
+
+        <div class="performance-header">
+
+            <div>
+                <h3>Business Performance</h3>
+                <p>A quick summary of your shop's activity.</p>
+            </div>
+
+            <div class="performance-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+        </div>
+
+
+        <div class="performance-grid">
+
+
+            <!-- Revenue -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon-box revenue-box">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+
+                <div>
+                    <span>Total Revenue</span>
+                    <h3>₹@Model.TotalRevenue.ToString("N0")</h3>
+                    <small>Overall earnings</small>
+                </div>
+
+            </div>
+
+
+            <!-- Today -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon-box today-box">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </div>
+
+                <div>
+                    <span>Today's Orders</span>
+                    <h3>@Model.TodayOrders</h3>
+                    <small>Orders received today</small>
+                </div>
+
+            </div>
+
+
+            <!-- Monthly -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon-box monthly-box">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div>
+                    <span>Monthly Orders</span>
+                    <h3>@Model.ThisMonthOrders</h3>
+                    <small>Orders this month</small>
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
-
