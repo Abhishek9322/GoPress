@@ -1,158 +1,756 @@
 ﻿@model GoPress.Mvc.Areas.DeliveryBoy.Models.DeliveryBoyDashboardViewModel
+
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Delivery Dashboard";
     Layout = "_Layout";
 }
 
 @section Styles
 {
-     <link rel="stylesheet"
-           href="~/css/DeliveryBoy-Dashboard.css"
-           asp-append-version="true" />
+    <link rel="stylesheet"
+          href="~/css/DeliveryBoy-Dashboard.css"
+          asp-append-version="true" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 }
-
-
 
 <div class="dashboard-container">
 
-    <!-- Header -->
+    <!-- =========================================
+         DASHBOARD HEADER
+    ========================================== -->
 
     <div class="dashboard-header">
 
-        @* <div> *@
+        <div class="welcome-content">
 
-        @*     <h2> *@
-        @*         Welcome Back  *@
-        @*     </h2> *@
+            <span class="welcome-label">DELIVERY PARTNER DASHBOARD</span>
 
-        @*     <p> *@
-        @*         Manage your laundry orders from one place. *@
-        @*     </p> *@
+            <h2>Welcome Back!</h2>
 
-        @* </div> *@
+            <p>Manage your deliveries, track pickups and complete your tasks.</p>
+
+        </div>
 
         <div class="dashboard-date">
 
-            @DateTime.Now.ToString("dddd, dd MMM yyyy")
+            <div class="date-icon">
+                <i class="fa-regular fa-calendar"></i>
+            </div>
+
+            <div>
+                <span>Today</span>
+                <h6>@DateTime.Now.ToString("dd MMM yyyy")</h6>
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Statistics -->
+
+    <!-- =========================================
+         STATISTICS HEADING
+    ========================================== -->
+
+    <div class="section-heading">
+
+        <div>
+            <h3>Delivery Overview</h3>
+            <p>Monitor your delivery activities.</p>
+        </div>
+
+        <span class="total-order-badge">
+            <i class="fa-solid fa-truck-fast"></i>
+            @Model.AvailableOrders Available Orders
+        </span>
+
+    </div>
+
+
+    <!-- =========================================
+         STATISTICS CARDS
+    ========================================== -->
 
     <div class="dashboard-grid">
 
-        <div class="dashboard-card">
 
-            <h5>Today Deliveries Orders</h5>
+        <!-- Available Orders -->
 
-            <h2>@Model.TodayDeliveries</h2>
+        <div class="dashboard-card available">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-box-open"></i>
+                </div>
+
+                <span class="card-status">Available</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.AvailableOrders</h2>
+                <p>Available Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Orders available to accept</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card">
 
-            <h5>Available Orders</h5>
-
-            <h2>@Model.AvailableOrders</h2>
-
-        </div>
-
-        <div class="dashboard-card pending">
-
-            <h5>Pending PickupOrders</h5>
-
-            <h2>@Model.PendingPickupOrders</h2>
-
-        </div>
+        <!-- Accepted Orders -->
 
         <div class="dashboard-card accepted">
 
-            <h5>Accepted</h5>
+            <div class="card-top">
 
-            <h2>@Model.AcceptedOrders</h2>
+                <div class="card-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
 
-        </div>
+                <span class="card-status">Accepted</span>
 
-        <div class="dashboard-card PickedUpOrders">
+            </div>
 
-            <h5>PickedUp Orders</h5>
+            <div class="card-info">
+                <h2>@Model.AcceptedOrders</h2>
+                <p>Accepted Orders</p>
+            </div>
 
-            <h2>@Model.PickedUpOrders</h2>
-
-        </div>
-
-        <div class="dashboard-card OutForDeliveryOrders">
-
-            <h5>Out For Delivery Orders</h5>
-
-            <h2>@Model.OutForDeliveryOrders</h2>
-
-        </div>
-
-        <div class="dashboard-card DeliveredOrders">
-
-            <h5>Delivered</h5>
-
-            <h2>@Model.DeliveredOrders</h2>
+            <div class="card-footer">
+                <span>Orders accepted by you</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card ReadyForDeliveryOrders">
 
-            <h5>ReadyFor Delivery Orders</h5>
+        <!-- Pending Pickup -->
 
-            <h2>@Model.ReadyForDeliveryOrders</h2>
+        <div class="dashboard-card pending">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-regular fa-clock"></i>
+                </div>
+
+                <span class="card-status">Waiting</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.PendingPickupOrders</h2>
+                <p>Pending Pickup</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Pickup tasks pending</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
-        <div class="dashboard-card ThisMonthDeliveries">
 
-            <h5>ThisMonth Deliveries</h5>
+        <!-- Picked Up -->
 
-            <h2>@Model.ThisMonthDeliveries</h2>
+        <div class="dashboard-card picked">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-box"></i>
+                </div>
+
+                <span class="card-status">Collected</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.PickedUpOrders</h2>
+                <p>Picked Up Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Orders successfully picked up</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Out For Delivery -->
+
+        <div class="dashboard-card delivery">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+
+                <span class="card-status">On The Way</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.OutForDeliveryOrders</h2>
+                <p>Out For Delivery</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Active delivery orders</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Ready For Delivery -->
+
+        <div class="dashboard-card ready">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+
+                <span class="card-status">Ready</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.ReadyForDeliveryOrders</h2>
+                <p>Ready For Delivery</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Orders ready for delivery</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Delivered -->
+
+        <div class="dashboard-card success">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+
+                <span class="card-status">Completed</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.DeliveredOrders</h2>
+                <p>Delivered Orders</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Successfully delivered</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Today Deliveries -->
+
+        <div class="dashboard-card today">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </div>
+
+                <span class="card-status">Today</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.TodayDeliveries</h2>
+                <p>Today's Deliveries</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Delivery activity today</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+        </div>
+
+
+        <!-- Monthly Deliveries -->
+
+        <div class="dashboard-card monthly">
+
+            <div class="card-top">
+
+                <div class="card-icon">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <span class="card-status">Monthly</span>
+
+            </div>
+
+            <div class="card-info">
+                <h2>@Model.ThisMonthDeliveries</h2>
+                <p>This Month Deliveries</p>
+            </div>
+
+            <div class="card-footer">
+                <span>Monthly delivery activity</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
 
         </div>
 
     </div>
 
-    <!-- Quick Actions -->
 
-    <div class="action-section">
+    <!-- =========================================
+         BOTTOM DASHBOARD SECTION
+    ========================================== -->
 
-        <h3>
-            Quick Actions
-        </h3>
+    <div class="dashboard-bottom">
 
-        @* <div class="action-buttons"> *@ 
 
-        @*     <a asp-area="Customer" *@
-        @*        asp-controller="Orders" *@
-        @*        asp-action="Create" *@
-        @*        class="action-btn"> *@
+        <!-- LEFT: QUICK ACTIONS -->
 
-        @*         New Order *@
+        <div class="quick-action-section">
 
-        @*     </a> *@
+            <div class="quick-action-header">
 
-            <a asp-area="Customer"
-               asp-controller="Orders"
-               asp-action="AllOrders"
-               class="action-btn">
+                <div>
+                    <h3>Quick Actions</h3>
+                    <p>Manage your delivery activities</p>
+                </div>
 
-                My Orders
+                <i class="fa-solid fa-bolt action-heading-icon"></i>
 
-            </a>
+            </div>
 
-            <a asp-area="Customer"
-               asp-controller="Profile"
-               asp-action="Index"
-               class="action-btn secondary">
 
-                Profile
+            <div class="action-list">
 
-            </a>
+
+                <a asp-area="DeliveryBoy"
+                   asp-controller="Orders"
+                   asp-action="AllOrders"
+                   class="action-card primary-action">
+
+                    <div class="action-icon">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+
+                    <div class="action-content">
+                        <h5>Manage Deliveries</h5>
+                        <p>View and manage delivery orders</p>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+                </a>
+
+
+                <a asp-area="DeliveryBoy"
+                   asp-controller="Profile"
+                   asp-action="Index"
+                   class="action-card">
+
+                    <div class="action-icon">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+
+                    <div class="action-content">
+                        <h5>My Profile</h5>
+                        <p>Manage your personal details</p>
+                    </div>
+
+                    <i class="fa-solid fa-chevron-right action-arrow"></i>
+
+                </a>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT: DELIVERY STATUS OVERVIEW -->
+
+        <div class="order-overview-section">
+
+            <div class="overview-header">
+
+                <div>
+                    <h3>Delivery Status Overview</h3>
+                    <p>Track your delivery progress.</p>
+                </div>
+
+                <div class="overview-icon">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+
+            </div>
+
+
+            <div class="order-progress-list">
+
+
+                <!-- Accepted -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-circle-check accepted-text"></i>
+                            Accepted
+                        </span>
+
+                        <strong>@Model.AcceptedOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill accepted-fill"
+                             style="width: @(Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders > 0 ? Math.Min(100, Model.AcceptedOrders * 100.0 / (Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders)) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Pending Pickup -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-regular fa-clock pending-text"></i>
+                            Pending Pickup
+                        </span>
+
+                        <strong>@Model.PendingPickupOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill pending-fill"
+                             style="width: @(Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders > 0 ? Math.Min(100, Model.PendingPickupOrders * 100.0 / (Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders)) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Picked Up -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-box picked-text"></i>
+                            Picked Up
+                        </span>
+
+                        <strong>@Model.PickedUpOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill picked-fill"
+                             style="width: @(Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders > 0 ? Math.Min(100, Model.PickedUpOrders * 100.0 / (Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders)) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Out For Delivery -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-truck-fast delivery-text"></i>
+                            Out For Delivery
+                        </span>
+
+                        <strong>@Model.OutForDeliveryOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill delivery-fill"
+                             style="width: @(Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders > 0 ? Math.Min(100, Model.OutForDeliveryOrders * 100.0 / (Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders)) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Delivered -->
+
+                <div class="progress-item">
+
+                    <div class="progress-info">
+
+                        <span>
+                            <i class="fa-solid fa-check-double success-text"></i>
+                            Delivered
+                        </span>
+
+                        <strong>@Model.DeliveredOrders</strong>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div class="progress-fill success-fill"
+                             style="width: @(Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders > 0 ? Math.Min(100, Model.DeliveredOrders * 100.0 / (Model.AcceptedOrders + Model.PendingPickupOrders + Model.PickedUpOrders + Model.OutForDeliveryOrders + Model.DeliveredOrders)) : 0)%">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Overview Footer -->
+
+            <div class="overview-footer">
+
+                <div>
+                    <span>Total Delivery Activity</span>
+
+                    <h4>
+                        @(Model.AcceptedOrders +
+                                                Model.PendingPickupOrders +
+                                                Model.PickedUpOrders +
+                                                Model.OutForDeliveryOrders +
+                                                Model.DeliveredOrders)
+                    </h4>
+                </div>
+
+                <div class="completed-label">
+                    <i class="fa-solid fa-circle-check"></i>
+                    @Model.DeliveredOrders Completed
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         DELIVERY PERFORMANCE
+    ========================================== -->
+
+    <div class="delivery-performance">
+
+        <div class="performance-header">
+
+            <div>
+                <h3>Delivery Performance</h3>
+                <p>A quick summary of your delivery activity.</p>
+            </div>
+
+            <div class="performance-icon">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+
+        </div>
+
+
+        <div class="performance-grid">
+
+
+            <!-- Today -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon-box today-box">
+                    <i class="fa-solid fa-calendar-day"></i>
+                </div>
+
+                <div>
+                    <span>Today's Deliveries</span>
+                    <h3>@Model.TodayDeliveries</h3>
+                    <small>Delivery activity today</small>
+                </div>
+
+            </div>
+
+
+            <!-- Monthly -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon-box monthly-box">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div>
+                    <span>Monthly Deliveries</span>
+                    <h3>@Model.ThisMonthDeliveries</h3>
+                    <small>Deliveries this month</small>
+                </div>
+
+            </div>
+
+
+            <!-- Completed -->
+
+            <div class="performance-card">
+
+                <div class="performance-icon-box completed-box">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+
+                <div>
+                    <span>Completed Deliveries</span>
+                    <h3>@Model.DeliveredOrders</h3>
+                    <small>Successfully delivered</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         DELIVERY WORKFLOW
+    ========================================== -->
+
+    <div class="delivery-workflow">
+
+        <div class="workflow-header">
+
+            <div>
+                <h3>Delivery Workflow</h3>
+                <p>Understand your delivery journey.</p>
+            </div>
+
+            <div class="workflow-icon">
+                <i class="fa-solid fa-route"></i>
+            </div>
+
+        </div>
+
+
+        <div class="workflow-steps">
+
+
+            <div class="workflow-step">
+
+                <div class="workflow-step-icon accepted-step">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+                <div>
+                    <h5>Accepted</h5>
+                    <p>Accept the delivery request.</p>
+                </div>
+
+            </div>
+
+
+            <div class="workflow-connector"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="workflow-step-icon pickup-step">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+
+                <div>
+                    <h5>Pickup</h5>
+                    <p>Collect the laundry order.</p>
+                </div>
+
+            </div>
+
+
+            <div class="workflow-connector"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="workflow-step-icon collected-step">
+                    <i class="fa-solid fa-box"></i>
+                </div>
+
+                <div>
+                    <h5>Picked Up</h5>
+                    <p>Confirm order collection.</p>
+                </div>
+
+            </div>
+
+
+            <div class="workflow-connector"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="workflow-step-icon delivery-step">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+
+                <div>
+                    <h5>Delivery</h5>
+                    <p>Deliver to the customer.</p>
+                </div>
+
+            </div>
+
+
+            <div class="workflow-connector"></div>
+
+
+            <div class="workflow-step">
+
+                <div class="workflow-step-icon completed-step">
+                    <i class="fa-solid fa-check-double"></i>
+                </div>
+
+                <div>
+                    <h5>Completed</h5>
+                    <p>Confirm successful delivery.</p>
+                </div>
+
+            </div>
 
         </div>
 
