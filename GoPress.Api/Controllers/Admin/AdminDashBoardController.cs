@@ -22,9 +22,7 @@ namespace GoPress.Api.Controllers.Admin
         [HttpGet]
         public async Task<IActionResult> GetDashboard()
         {
-            var response =
-                await _mediator.Send(
-                    new GetAdminDashboardQuery());
+            var response =await _mediator.Send(new GetAdminDashboardQuery());
 
             return Ok(response);
         }
