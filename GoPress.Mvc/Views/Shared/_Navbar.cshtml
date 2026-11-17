@@ -78,6 +78,20 @@
                     ================================================== -->
                     @if (User.IsInRole("Customer"))
                     {
+                        <!-- CUSTOMER DASHBOARD -->
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-area="Customer"
+                               asp-controller="Dashboard"
+                               asp-action="Dashboard">
+
+                                <i class="fa-solid fa-chart-line nav-icon"></i>
+                                Overview Dashboard
+
+                            </a>
+                        </li>
+
+                        <!-- CUSTOMER ORDERS -->
                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle"
@@ -87,59 +101,46 @@
                                aria-expanded="false">
 
                                 <i class="fa-solid fa-user nav-icon"></i>
-
                                 My Orders
 
                             </a>
 
-
                             <ul class="dropdown-menu role-dropdown">
 
                                 <li>
-
                                     <a class="dropdown-item"
                                        asp-area="Customer"
                                        asp-controller="Orders"
                                        asp-action="AllOrders">
 
                                         <i class="fa-solid fa-list-check"></i>
-
                                         My Orders
 
                                     </a>
-
                                 </li>
 
-
                                 <li>
-
                                     <a class="dropdown-item"
                                        asp-area="Customer"
                                        asp-controller="Orders"
                                        asp-action="Browse">
 
                                         <i class="fa-solid fa-store"></i>
-
                                         Browse Shops
 
                                     </a>
-
                                 </li>
 
-
                                 <li>
-
                                     <a class="dropdown-item"
                                        asp-area="Customer"
                                        asp-controller="Orders"
                                        asp-action="Create">
 
                                         <i class="fa-solid fa-plus"></i>
-
                                         Create Order
 
                                     </a>
-
                                 </li>
 
                             </ul>
@@ -147,12 +148,23 @@
                         </li>
                     }
 
-
                     <!-- =================================================
                          DELIVERY BOY NAVIGATION
                     ================================================== -->
                     @if (User.IsInRole("DeliveryBoy"))
                     {
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-area="DeliveryBoy"
+                               asp-controller="Dashboard"
+                               asp-action="Dashboard">
+
+                                <i class="fa-solid fa-chart-line nav-icon"></i>
+                                Overview Dashboard
+
+                            </a>
+                        </li>
+
                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle"
@@ -276,6 +288,18 @@
                     ================================================== -->
                     @if (User.IsInRole("ShopOwner"))
                     {
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-area="ShopOwner"
+                               asp-controller="Dashboard"
+                               asp-action="Dashboard">
+
+                                <i class="fa-solid fa-chart-line nav-icon"></i>
+                                Overview Dashboard
+
+                            </a>
+                        </li>
+
                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle"
@@ -452,6 +476,19 @@
                     ================================================== -->
                     @if (User.IsInRole("Admin"))
                     {
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               asp-area="Admin"
+                               asp-controller="Dashboard"
+                               asp-action="Dashboard">
+
+                                <i class="fa-solid fa-chart-line nav-icon"></i>
+                                Overview Dashboard
+
+                            </a>
+                        </li>
+
+
                         <li class="nav-item dropdown">
 
                             <!-- ADMIN -->
