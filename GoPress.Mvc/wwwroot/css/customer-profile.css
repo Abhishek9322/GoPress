@@ -772,7 +772,7 @@
         padding: 16px;
     }
 
-    .profile-details-grid {
+    .profile-details-grid {    
         grid-template-columns: 1fr;
     }
 
