@@ -1,527 +1,796 @@
 ﻿/* =====================================================
-GOPRESS SHOP OWNER PROFILE
-Theme: Cyan Blue / White / Slate
+   GOPRESS SHOP OWNER PROFILE
+   Premium SaaS Dashboard Design
+   Theme: Cyan Blue / White / Slate
+===================================================== */
+
+
+/* =====================================================
+   MAIN PAGE
 ===================================================== */
 
 .shop-owner-profile-page {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 35px 25px 60px;
+    padding: 32px 25px 55px;
     color: #111827;
 }
 
-    /* PAGE HEADER */
 
-    .shop-owner-profile-page .shop-profile-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 28px;
-    }
+/* =====================================================
+   PAGE HEADER
+===================================================== */
 
-    .shop-owner-profile-page .shop-profile-header-content {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
+.shop-profile-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
 
-    .shop-owner-profile-page .shop-profile-header-icon {
-        width: 55px;
-        height: 55px;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 14px;
-        background: linear-gradient(135deg, #22c7e8, #1597d0);
+.shop-profile-heading-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.shop-profile-heading-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #22c7e8, #1597d0);
+    color: #ffffff;
+    font-size: 22px;
+    box-shadow: 0 7px 20px rgba(21, 151, 208, .2);
+}
+
+.shop-profile-heading-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #1597d0;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.shop-profile-page-header h2 {
+    margin: 0 0 5px;
+    color: #111827;
+    font-size: 28px;
+    font-weight: 850;
+}
+
+.shop-profile-page-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   DASHBOARD BUTTON
+===================================================== */
+
+.shop-profile-dashboard-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 17px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #374151;
+    font-size: 11px;
+    font-weight: 750;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .25s ease;
+}
+
+    .shop-profile-dashboard-btn:hover {
+        background: #1597d0;
+        border-color: #1597d0;
         color: #ffffff;
-        font-size: 22px;
-        box-shadow: 0 8px 20px rgba(34, 199, 232, .25);
+        transform: translateY(-2px);
     }
 
-    .shop-owner-profile-page .shop-profile-header h2 {
-        margin: 0 0 5px;
-        color: #111827;
-        font-size: 29px;
-        font-weight: 750;
+
+/* =====================================================
+   ALERTS
+===================================================== */
+
+.shop-profile-alert {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 13px 17px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.shop-profile-error {
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+.shop-profile-success {
+    border: 1px solid #a7f3d0;
+    background: #ecfdf5;
+    color: #047857;
+}
+
+
+/* =====================================================
+   MAIN LAYOUT
+===================================================== */
+
+.shop-profile-dashboard-layout {
+    display: grid;
+    grid-template-columns: 310px minmax(0, 1fr);
+    gap: 22px;
+    align-items: stretch;
+}
+
+
+/* =====================================================
+   LEFT SIDEBAR
+===================================================== */
+
+.shop-profile-sidebar-card {
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 17px;
+    background: #ffffff;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, .05);
+}
+
+
+/* =====================================================
+   SIDEBAR COVER
+===================================================== */
+
+.shop-profile-sidebar-cover {
+    position: relative;
+    height: 125px;
+    overflow: hidden;
+    background: linear-gradient(120deg, #22c7e8, #1597d0);
+}
+
+.shop-cover-circle {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 50%;
+}
+
+.shop-cover-circle-one {
+    top: -95px;
+    right: -20px;
+    width: 210px;
+    height: 210px;
+}
+
+.shop-cover-circle-two {
+    right: 90px;
+    bottom: -115px;
+    width: 180px;
+    height: 180px;
+}
+
+.shop-cover-brand {
+    position: absolute;
+    top: 17px;
+    left: 19px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: rgba(255, 255, 255, .9);
+    font-size: 11px;
+    font-weight: 850;
+    letter-spacing: 1.2px;
+}
+
+
+/* =====================================================
+   SIDEBAR CONTENT
+===================================================== */
+
+.shop-profile-sidebar-content {
+    padding: 0 23px 22px;
+}
+
+
+/* =====================================================
+   AVATAR
+===================================================== */
+
+.shop-profile-avatar-container {
+    position: relative;
+    width: fit-content;
+    margin-top: -57px;
+    margin-bottom: 14px;
+}
+
+.shop-profile-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 108px;
+    height: 108px;
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ecfeff, #cffafe);
+    color: #1597d0;
+    font-size: 34px;
+    font-weight: 850;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, .12);
+}
+
+.shop-profile-avatar-check {
+    position: absolute;
+    right: 5px;
+    bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+    background: #1597d0;
+    color: #ffffff;
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   SHOP OWNER INFORMATION
+===================================================== */
+
+.shop-profile-user-info h3 {
+    margin: 0 0 10px;
+    color: #111827;
+    font-size: 21px;
+    font-weight: 850;
+    overflow-wrap: anywhere;
+}
+
+.shop-profile-user-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border: 1px solid #cffafe;
+    border-radius: 20px;
+    background: #ecfeff;
+    color: #087ea4;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.shop-profile-user-info p {
+    margin: 13px 0 19px;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   REGISTERED SHOP BOX
+===================================================== */
+
+.shop-profile-id-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 15px;
+    border: 1px solid #cffafe;
+    border-radius: 11px;
+    background: #f0fdff;
+}
+
+    .shop-profile-id-box span {
+        display: block;
+        margin-bottom: 6px;
+        color: #64748b;
+        font-size: 9px;
+        font-weight: 800;
+        letter-spacing: .8px;
     }
 
-    .shop-owner-profile-page .shop-profile-header p {
-        margin: 0;
-        color: #6b7280;
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    /* BACK BUTTON */
-
-    .shop-owner-profile-page .shop-profile-back-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 11px 16px;
-        border: 1px solid #e5e7eb;
-        border-radius: 9px;
-        background: #ffffff;
-        color: #374151;
-        font-size: 12px;
-        font-weight: 650;
-        text-decoration: none;
-        white-space: nowrap;
-        transition: all .2s ease;
-    }
-
-        .shop-owner-profile-page .shop-profile-back-btn:hover {
-            background: #1597d0;
-            border-color: #1597d0;
-            color: #ffffff;
-            transform: translateY(-1px);
-        }
-
-    /* ALERTS */
-
-    .shop-owner-profile-page .shop-profile-alert,
-    .shop-owner-profile-page .shop-profile-success-alert {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 13px 17px;
-        margin-bottom: 22px;
-        border-radius: 10px;
-        font-size: 13px;
-        font-weight: 600;
+    .shop-profile-id-box strong {
+        display: block;
+        color: #1597d0;
+        font-size: 14px;
+        font-weight: 850;
         overflow-wrap: anywhere;
     }
 
-    .shop-owner-profile-page .shop-profile-alert {
-        border: 1px solid #fecaca;
-        background: #fef2f2;
-        color: #b91c1c;
-    }
-
-    .shop-owner-profile-page .shop-profile-success-alert {
-        border: 1px solid #a7f3d0;
-        background: #ecfdf5;
-        color: #047857;
-    }
-
-    /* PROFILE CARD */
-
-    .shop-owner-profile-page .shop-profile-card {
-        overflow: hidden;
-        border: 1px solid #e5e7eb;
-        border-radius: 17px;
-        background: #ffffff;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, .05);
-    }
-
-    /* BANNER */
-
-    .shop-owner-profile-page .shop-profile-banner {
-        position: relative;
-        height: 155px;
-        overflow: hidden;
-        background: linear-gradient(120deg, #22c7e8, #1597d0);
-    }
-
-    .shop-owner-profile-page .shop-profile-banner-circle {
-        position: absolute;
-        border: 1px solid rgba(255, 255, 255, .25);
-        border-radius: 50%;
-    }
-
-    .shop-owner-profile-page .circle-one {
-        top: -125px;
-        right: 10%;
-        width: 230px;
-        height: 230px;
-    }
-
-    .shop-owner-profile-page .circle-two {
-        right: 27%;
-        bottom: -110px;
-        width: 175px;
-        height: 175px;
-    }
-
-    /* EDIT PROFILE BUTTON */
-
-    .shop-owner-profile-page .shop-profile-edit-btn {
-        position: absolute;
-        top: 20px;
-        right: 25px;
-        z-index: 2;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 9px;
-        padding: 11px 17px;
-        background: #ffffff;
+    .shop-profile-id-box > i {
         color: #1597d0;
-        border: 1px solid rgba(255, 255, 255, .8);
-        border-radius: 9px;
-        font-size: 12px;
-        font-weight: 750;
-        text-decoration: none;
-        white-space: nowrap;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, .10);
-        transition: all .25s ease;
+        font-size: 25px;
+        opacity: .65;
     }
 
-        .shop-owner-profile-page .shop-profile-edit-btn i {
-            font-size: 14px;
-        }
 
-        .shop-owner-profile-page .shop-profile-edit-btn:hover {
-            background: #111827;
-            border-color: #111827;
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 18px rgba(0, 0, 0, .15);
-        }
+/* =====================================================
+   EDIT PROFILE BUTTON
+===================================================== */
 
-    /* CARD BODY */
+.shop-profile-edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 19px;
+    padding: 13px 15px;
+    border-radius: 10px;
+    background: linear-gradient(120deg, #22c7e8, #1597d0);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(21, 151, 208, .2);
+    transition: all .25s ease;
+}
 
-    .shop-owner-profile-page .shop-profile-card-body {
-        padding: 0 35px 32px;
+    .shop-profile-edit-button:hover {
+        background: #111827;
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, .13);
     }
 
-    /* SHOP OWNER IDENTITY */
+.shop-edit-arrow {
+    margin-left: auto;
+    font-size: 11px;
+    transition: transform .2s ease;
+}
 
-    .shop-owner-profile-page .shop-profile-identity {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: flex-end;
-        gap: 20px;
-        margin-top: -55px;
-    }
+.shop-profile-edit-button:hover .shop-edit-arrow {
+    transform: translateX(4px);
+}
 
-    .shop-owner-profile-page .shop-profile-avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 112px;
-        height: 112px;
-        flex-shrink: 0;
-        border: 5px solid #ffffff;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #ecfeff, #cffafe);
+
+/* =====================================================
+   SIDEBAR SECURITY
+===================================================== */
+
+.shop-profile-sidebar-security {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 17px;
+    color: #9ca3af;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+    .shop-profile-sidebar-security i {
         color: #1597d0;
-        font-size: 34px;
-        font-weight: 800;
-        box-shadow: 0 5px 18px rgba(0, 0, 0, .08);
     }
 
-    .shop-owner-profile-page .shop-profile-identity-info {
-        min-width: 0;
-        padding-bottom: 9px;
+
+/* =====================================================
+   RIGHT MAIN CONTENT
+===================================================== */
+
+.shop-profile-main-content {
+    min-width: 0;
+    padding: 27px;
+    border: 1px solid #e5e7eb;
+    border-radius: 17px;
+    background: #ffffff;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, .05);
+}
+
+
+/* =====================================================
+   CONTENT HEADER
+===================================================== */
+
+.shop-profile-content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 29px;
+}
+
+.shop-profile-content-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+    color: #1597d0;
+    font-size: 9px;
+    font-weight: 850;
+    letter-spacing: 1.4px;
+}
+
+.shop-profile-content-header h3 {
+    margin: 0 0 7px;
+    color: #111827;
+    font-size: 21px;
+    font-weight: 850;
+}
+
+.shop-profile-content-header p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.shop-profile-content-header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 13px;
+    background: #ecfeff;
+    color: #1597d0;
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   INFORMATION SECTIONS
+===================================================== */
+
+.shop-profile-information-section,
+.shop-profile-account-section {
+    margin-top: 26px;
+}
+
+.shop-profile-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.shop-section-title-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: #ecfeff;
+    color: #1597d0;
+    font-size: 15px;
+}
+
+.shop-profile-section-title h4 {
+    margin: 0 0 4px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.shop-profile-section-title p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   DETAILS GRID
+===================================================== */
+
+.shop-profile-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+
+/* =====================================================
+   INFORMATION CARD
+===================================================== */
+
+.shop-profile-info-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+    min-height: 105px;
+    padding: 17px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: all .25s ease;
+}
+
+    .shop-profile-info-card:hover {
+        border-color: #a5f3fc;
+        background: #f8fdff;
+        transform: translateY(-3px);
+        box-shadow: 0 7px 20px rgba(21, 151, 208, .07);
     }
 
-        .shop-owner-profile-page .shop-profile-identity-info h3 {
-            margin: 0 0 9px;
-            color: #111827;
-            font-size: 24px;
-            font-weight: 800;
-            overflow-wrap: anywhere;
-        }
 
-    .shop-owner-profile-page .shop-profile-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        padding: 7px 11px;
-        border: 1px solid #cffafe;
-        border-radius: 20px;
-        background: #ecfeff;
-        color: #087ea4;
-        font-size: 11px;
-        font-weight: 750;
-    }
+/* CARD ICON */
 
-    /* INFORMATION SECTIONS */
+.shop-info-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    border-radius: 11px;
+    background: #ecfeff;
+    color: #1597d0;
+    font-size: 16px;
+    transition: all .25s ease;
+}
 
-    .shop-owner-profile-page .shop-profile-section {
-        margin-top: 30px;
-    }
+.shop-profile-info-card:hover .shop-info-card-icon {
+    background: #1597d0;
+    color: #ffffff;
+}
 
-    .shop-owner-profile-page .shop-profile-section-heading {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 22px;
-    }
 
-    .shop-owner-profile-page .shop-profile-section-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 42px;
-        height: 42px;
-        flex-shrink: 0;
-        border-radius: 11px;
-        background: #ecfeff;
-        color: #1597d0;
-        font-size: 17px;
-    }
+/* CARD DETAILS */
 
-    .shop-owner-profile-page .shop-profile-section-heading h4 {
-        margin: 0 0 5px;
-        color: #111827;
-        font-size: 17px;
-        font-weight: 750;
-    }
+.shop-info-card-details {
+    min-width: 0;
+}
 
-    .shop-owner-profile-page .shop-profile-section-heading p {
-        margin: 0;
-        color: #9ca3af;
-        font-size: 12px;
-    }
-
-    /* DETAILS GRID */
-
-    .shop-owner-profile-page .shop-profile-details-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 17px;
-    }
-
-    .shop-owner-profile-page .shop-profile-detail-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 13px;
-        min-width: 0;
-        padding: 19px;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        background: #ffffff;
-        transition: all .2s ease;
-    }
-
-        .shop-owner-profile-page .shop-profile-detail-item:hover {
-            border-color: #a5f3fc;
-            background: #f8fdff;
-            transform: translateY(-2px);
-        }
-
-    .shop-owner-profile-page .shop-profile-detail-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 43px;
-        height: 43px;
-        flex-shrink: 0;
-        border-radius: 11px;
-        background: #ecfeff;
-        color: #1597d0;
-        font-size: 16px;
-    }
-
-    .shop-owner-profile-page .shop-profile-detail-content {
-        min-width: 0;
-        padding-top: 2px;
-    }
-
-    .shop-owner-profile-page .shop-profile-detail-label {
+    .shop-info-card-details span {
         display: block;
         margin-bottom: 7px;
         color: #9ca3af;
-        font-size: 10px;
-        font-weight: 750;
-        text-transform: uppercase;
+        font-size: 9px;
+        font-weight: 850;
         letter-spacing: .7px;
     }
 
-    .shop-owner-profile-page .shop-profile-detail-value {
-        display: block;
+    .shop-info-card-details h5 {
+        margin: 0;
         color: #1f2937;
-        font-size: 13px;
-        font-weight: 700;
-        line-height: 1.7;
+        font-size: 12px;
+        font-weight: 750;
+        line-height: 1.6;
         overflow-wrap: anywhere;
     }
 
-    /* ACCOUNT INFORMATION */
 
-    .shop-owner-profile-page .shop-profile-account-info {
-        display: flex;
-        align-items: flex-start;
-        gap: 13px;
-        margin-top: 30px;
-        padding: 19px;
-        border: 1px solid #cffafe;
-        border-radius: 12px;
-        background: #f0fdff;
-    }
+/* CARD NUMBER */
 
-    .shop-owner-profile-page .shop-profile-account-icon {
-        margin-top: 2px;
-        color: #1597d0;
-        font-size: 19px;
-        flex-shrink: 0;
-    }
+.shop-info-card-number {
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    color: #e5e7eb;
+    font-size: 10px;
+    font-weight: 850;
+}
 
-    .shop-owner-profile-page .shop-profile-account-info h5 {
+
+/* =====================================================
+   ACCOUNT SECURITY
+===================================================== */
+
+.shop-profile-security-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    overflow: hidden;
+    padding: 19px;
+    border: 1px solid #cffafe;
+    border-radius: 13px;
+    background: linear-gradient(110deg, #ecfeff, #ffffff);
+}
+
+.shop-security-main-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #1597d0;
+    font-size: 19px;
+    box-shadow: 0 3px 10px rgba(21, 151, 208, .08);
+}
+
+.shop-security-content {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+}
+
+    .shop-security-content h5 {
         margin: 0 0 7px;
         color: #155e75;
-        font-size: 13px;
-        font-weight: 750;
+        font-size: 12px;
+        font-weight: 850;
     }
 
-    .shop-owner-profile-page .shop-profile-account-info p {
+    .shop-security-content p {
         margin: 0;
         color: #64748b;
-        font-size: 12px;
+        font-size: 10px;
         line-height: 1.8;
     }
 
-    /* FOOTER */
+.shop-security-decoration {
+    margin-left: auto;
+    color: rgba(21, 151, 208, .12);
+    font-size: 45px;
+}
 
-    .shop-owner-profile-page .shop-profile-card-footer {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 15px;
-        padding: 16px 30px;
-        border-top: 1px solid #f0f0f0;
-        background: #fafafa;
-        color: #9ca3af;
-        font-size: 11px;
-    }
 
-        .shop-owner-profile-page .shop-profile-card-footer > span:first-child {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+/* =====================================================
+   BOTTOM BAR
+===================================================== */
 
-            .shop-owner-profile-page .shop-profile-card-footer > span:first-child i {
-                color: #1597d0;
-            }
+.shop-profile-bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0f3;
+}
 
-    .shop-owner-profile-page .shop-profile-brand {
+.shop-profile-bottom-left,
+.shop-profile-bottom-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.shop-profile-bottom-left {
+    color: #9ca3af;
+}
+
+    .shop-profile-bottom-left i {
         color: #1597d0;
-        font-size: 12px;
-        font-weight: 800;
-        white-space: nowrap;
     }
 
-/* TABLET */
+.shop-profile-bottom-brand {
+    color: #1597d0;
+    letter-spacing: 1px;
+}
 
-@media (max-width: 768px) {
 
-   
+/* =====================================================
+   TABLET RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .shop-profile-dashboard-layout {
+        grid-template-columns: 270px minmax(0, 1fr);
+        gap: 15px;
+    }
+
+    .shop-profile-main-content {
+        padding: 20px;
+    }
+
+    .shop-profile-details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =====================================================
+   MOBILE RESPONSIVE
+===================================================== */
+
+@media (max-width: 650px) {
+
     .shop-owner-profile-page {
-        padding: 25px 18px 40px;
+        padding: 23px 15px 40px;
     }
 
-    .shop-owner-profile-page .shop-profile-header {
+    .shop-profile-page-header {
         align-items: flex-start;
         flex-direction: column;
         gap: 18px;
     }
 
-        .shop-owner-profile-page .shop-profile-header h2 {
-            font-size: 25px;
+        .shop-profile-page-header h2 {
+            font-size: 24px;
         }
 
-    .shop-owner-profile-page .shop-profile-back-btn {
-        align-self: flex-start;
-    }
-
-    .shop-owner-profile-page .shop-profile-banner {
-        height: 130px;
-    }
-
-    .shop-owner-profile-page .shop-profile-edit-btn {
-        top: 15px;
-        right: 15px;
-        padding: 9px 12px;
-        gap: 7px;
-        font-size: 11px;
-    }
-
-        .shop-owner-profile-page .shop-profile-edit-btn i {
-            font-size: 12px;
-        }
-
-    .shop-owner-profile-page .shop-profile-card-body {
-        padding: 0 22px 25px;
-    }
-
-    .shop-owner-profile-page .shop-profile-identity {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: -48px;
-    }
-
-    .shop-owner-profile-page .shop-profile-avatar {
-        width: 98px;
-        height: 98px;
-        font-size: 30px;
-    }
-
-    .shop-owner-profile-page .shop-profile-identity-info {
-        padding-bottom: 0;
-    }
-
-        .shop-owner-profile-page .shop-profile-identity-info h3 {
-            font-size: 21px;
-        }
-
-    .shop-owner-profile-page .shop-profile-details-grid {
+    .shop-profile-dashboard-layout {
         grid-template-columns: 1fr;
-        gap: 12px;
+        gap: 17px;
     }
 
-    .shop-owner-profile-page .shop-profile-section,
-    .shop-owner-profile-page .shop-profile-account-info {
-        margin-top: 25px;
+    .shop-profile-sidebar-content {
+        padding: 0 22px 22px;
     }
 
-    .shop-owner-profile-page .shop-profile-card-footer {
-        padding: 15px 20px;
+    .shop-profile-main-content {
+        padding: 21px;
     }
 
+    .shop-profile-details-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
-/* SMALL MOBILE */
 
-@media (max-width: 380px) {
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 430px) {
 
     .shop-owner-profile-page {
-        padding: 20px 12px 35px;
+        padding: 19px 11px 32px;
     }
 
-    .shop-owner-profile-page .shop-profile-header-content {
+    .shop-profile-heading-left {
         gap: 12px;
     }
 
-    .shop-owner-profile-page .shop-profile-header-icon {
-        width: 46px;
-        height: 46px;
-        font-size: 18px;
+    .shop-profile-heading-icon {
+        width: 47px;
+        height: 47px;
+        font-size: 19px;
     }
 
-    .shop-owner-profile-page .shop-profile-header h2 {
-        font-size: 22px;
+    .shop-profile-page-header h2 {
+        font-size: 21px;
     }
 
-    .shop-owner-profile-page .shop-profile-card-body {
-        padding-right: 15px;
-        padding-left: 15px;
-    }
-
-    .shop-owner-profile-page .shop-profile-detail-item {
-        padding: 14px;
-    }
-
-    .shop-owner-profile-page .shop-profile-card-footer {
-        padding: 14px;
+    .shop-profile-page-header p {
         font-size: 10px;
     }
 
+    .shop-profile-main-content {
+        padding: 16px;
+    }
+
+    .shop-profile-details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shop-profile-info-card {
+        min-height: 90px;
+        padding: 14px;
+    }
+
+    .shop-profile-content-header h3 {
+        font-size: 18px;
+    }
+
+    .shop-security-decoration {
+        display: none;
+    }
+
+    .shop-profile-bottom-bar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
 }

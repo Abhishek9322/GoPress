@@ -4,10 +4,9 @@
     ViewData["Title"] = "My Shop Profile";
     Layout = "_Layout";
 
-
-var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
-    ? "Shop Owner"
-    : Model.FullName.Trim();
+    var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+        ? "Shop Owner"
+        : Model.FullName.Trim();
 
     var initials = string.Concat(
         fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
@@ -21,8 +20,6 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
             ? "Not provided"
             : value.Trim();
     }
-
-
 }
 
 @section Styles
@@ -34,27 +31,38 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
 
 <div class="shop-owner-profile-page">
 
-    
+
     <!-- PAGE HEADER -->
-    <div class="shop-profile-header">
 
-        <div class="shop-profile-header-content">
+    <div class="shop-profile-page-header">
 
-            <div class="shop-profile-header-icon">
+        <div class="shop-profile-heading-left">
+
+            <div class="shop-profile-heading-icon">
                 <i class="fa-solid fa-store"></i>
             </div>
 
             <div>
+
+                <span class="shop-profile-heading-label">
+                    GOPRESS / SHOP OWNER
+                </span>
+
                 <h2>My Shop Profile</h2>
-                <p>View your personal information and registered shop details.</p>
+
+                <p>
+                    Manage your personal and business information.
+                </p>
+
             </div>
 
         </div>
 
+
         <a asp-area="ShopOwner"
            asp-controller="Dashboard"
            asp-action="Dashboard"
-           class="shop-profile-back-btn">
+           class="shop-profile-dashboard-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
             Back to Dashboard
@@ -63,383 +71,688 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
 
     </div>
 
-    <!-- ERROR MESSAGE -->
+
+    <!-- ALERT MESSAGES -->
     @if (TempData["Error"] != null)
     {
-        <div class="shop-profile-alert">
+        <div class="shop-profile-alert shop-profile-error">
+
             <i class="fa-solid fa-circle-exclamation"></i>
+
             <span>@TempData["Error"]</span>
+
         </div>
     }
 
-    <!-- SUCCESS MESSAGE -->
     @if (TempData["Success"] != null)
     {
-        <div class="shop-profile-success-alert">
+        <div class="shop-profile-alert shop-profile-success">
+
             <i class="fa-solid fa-circle-check"></i>
+
             <span>@TempData["Success"]</span>
+
         </div>
     }
 
-    <!-- PROFILE CARD -->
-    <div class="shop-profile-card">
 
-        <!-- BANNER -->
-        <div class="shop-profile-banner">
 
-            <div class="shop-profile-banner-circle circle-one"></div>
-            <div class="shop-profile-banner-circle circle-two"></div>
+    <!-- MAIN PROFILE LAYOUT -->
 
-            <!-- EDIT PROFILE BUTTON -->
-            <a asp-area="ShopOwner"
-               asp-controller="ShopOwnerProfile"
-               asp-action="GetUpdateShopOwnerProfile"
-               class="shop-profile-edit-btn">
+    <div class="shop-profile-dashboard-layout">
 
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span>Edit Profile</span>
 
-            </a>
+        <!-- LEFT SIDEBAR -->
 
-        </div>
+        <aside class="shop-profile-sidebar-card">
 
-        <div class="shop-profile-card-body">
 
-            <!-- SHOP OWNER IDENTITY -->
-            <div class="shop-profile-identity">
+            <!-- SIDEBAR COVER -->
 
-                <div class="shop-profile-avatar">
-                    @initials
+            <div class="shop-profile-sidebar-cover">
+
+                <div class="shop-cover-circle shop-cover-circle-one"></div>
+
+                <div class="shop-cover-circle shop-cover-circle-two"></div>
+
+                <div class="shop-cover-brand">
+
+                    <i class="fa-solid fa-shirt"></i>
+
+                    GOPRESS
+
                 </div>
 
-                <div class="shop-profile-identity-info">
+            </div>
 
-                    <h3>@fullName</h3>
 
-                    <span class="shop-profile-badge">
-                        <i class="fa-solid fa-circle-check"></i>
-                        GoPress Shop Owner
+
+            <!-- SIDEBAR CONTENT -->
+
+            <div class="shop-profile-sidebar-content">
+
+
+                <!-- AVATAR -->
+
+                <div class="shop-profile-avatar-container">
+
+                    <div class="shop-profile-avatar">
+                        @initials
+                    </div>
+
+                    <span class="shop-profile-avatar-check">
+                        <i class="fa-solid fa-check"></i>
                     </span>
 
                 </div>
 
-            </div>
 
-            <!-- PERSONAL INFORMATION -->
-            <div class="shop-profile-section">
 
-                <div class="shop-profile-section-heading">
+                <!-- SHOP OWNER INFORMATION -->
 
-                    <div class="shop-profile-section-icon">
-                        <i class="fa-solid fa-address-card"></i>
-                    </div>
+                <div class="shop-profile-user-info">
 
-                    <div>
-                        <h4>Personal Information</h4>
-                        <p>Your registered account details</p>
-                    </div>
+                    <h3>@fullName</h3>
 
-                </div>
+                    <span class="shop-profile-user-role">
 
-                <div class="shop-profile-details-grid">
+                        <i class="fa-solid fa-circle-check"></i>
 
-                    <!-- FULL NAME -->
-                    <div class="shop-profile-detail-item">
+                        Shop Owner
 
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Full Name
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.FullName)
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <!-- EMAIL -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-envelope"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Email Address
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.Email)
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <!-- PHONE -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Phone Number
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.PhoneNumber)
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- SHOP INFORMATION -->
-            <div class="shop-profile-section">
-
-                <div class="shop-profile-section-heading">
-
-                    <div class="shop-profile-section-icon">
-                        <i class="fa-solid fa-store"></i>
-                    </div>
-
-                    <div>
-                        <h4>Shop Information</h4>
-                        <p>Details about your registered laundry shop</p>
-                    </div>
-
-                </div>
-
-                <div class="shop-profile-details-grid">
-
-                    <!-- SHOP NAME -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-shop"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Shop Name
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.ShopName)
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <!-- SHOP ADDRESS -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Shop Address
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.ShopAddress)
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- LOCATION INFORMATION -->
-            <div class="shop-profile-section">
-
-                <div class="shop-profile-section-heading">
-
-                    <div class="shop-profile-section-icon">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                    </div>
-
-                    <div>
-                        <h4>Location Information</h4>
-                        <p>Your shop's registered location</p>
-                    </div>
-
-                </div>
-
-                <div class="shop-profile-details-grid">
-
-                    <!-- CITY -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-city"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                City
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.City)
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <!-- STATE -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-map"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                State
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.State)
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <!-- PINCODE -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-location-crosshairs"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Pincode
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.Pincode)
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- BUSINESS DOCUMENTS -->
-            <div class="shop-profile-section">
-
-                <div class="shop-profile-section-heading">
-
-                    <div class="shop-profile-section-icon">
-                        <i class="fa-solid fa-file-shield"></i>
-                    </div>
-
-                    <div>
-                        <h4>Business Documents</h4>
-                        <p>Your registered shop identification details</p>
-                    </div>
-
-                </div>
-
-                <div class="shop-profile-details-grid">
-
-                    <!-- SHOP LICENSE -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-file-contract"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                Shop License Number
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.ShopLicenseNumber)
-                            </span>
-                        </div>
-
-                    </div>
-
-                    <!-- GST NUMBER -->
-                    <div class="shop-profile-detail-item">
-
-                        <div class="shop-profile-detail-icon">
-                            <i class="fa-solid fa-file-invoice"></i>
-                        </div>
-
-                        <div class="shop-profile-detail-content">
-                            <span class="shop-profile-detail-label">
-                                GST Number
-                            </span>
-
-                            <span class="shop-profile-detail-value">
-                                @DisplayValue(Model?.GSTNumber)
-                            </span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- ACCOUNT INFORMATION -->
-            <div class="shop-profile-account-info">
-
-                <div class="shop-profile-account-icon">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-
-                <div>
-                    <h5>Your Shop Account Information</h5>
+                    </span>
 
                     <p>
-                        Your GoPress shop profile contains your personal details,
-                        business information, registered address, and document
-                        details. Please ensure your information is accurate and
-                        up to date. Contact the GoPress support team if you need
-                        assistance.
+                        Welcome to your GoPress business account.
                     </p>
+
+                </div>
+
+
+
+                <!-- SHOP NAME BOX -->
+
+                <div class="shop-profile-id-box">
+
+                    <div>
+
+                        <span>REGISTERED SHOP</span>
+
+                        <strong>
+                            @DisplayValue(Model?.ShopName)
+                        </strong>
+
+                    </div>
+
+                    <i class="fa-solid fa-shop"></i>
+
+                </div>
+
+
+
+                <!-- EDIT PROFILE BUTTON -->
+
+                <a asp-area="ShopOwner"
+                   asp-controller="ShopOwnerProfile"
+                   asp-action="GetUpdateShopOwnerProfile"
+                   class="shop-profile-edit-button">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+
+                    Edit Shop Profile
+
+                    <i class="fa-solid fa-arrow-right shop-edit-arrow"></i>
+
+                </a>
+
+
+
+                <!-- SECURITY MESSAGE -->
+
+                <div class="shop-profile-sidebar-security">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <span>
+                        Your business information matters to us.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </aside>
+
+
+
+        <!-- RIGHT MAIN CONTENT -->
+
+        <main class="shop-profile-main-content">
+
+
+            <!-- CONTENT HEADER -->
+
+            <div class="shop-profile-content-header">
+
+                <div>
+
+                    <span class="shop-profile-content-eyebrow">
+                        BUSINESS ACCOUNT OVERVIEW
+                    </span>
+
+                    <h3>Shop Information</h3>
+
+                    <p>
+                        Your registered personal and business details.
+                    </p>
+
+                </div>
+
+                <div class="shop-profile-content-header-icon">
+
+                    <i class="fa-solid fa-address-card"></i>
+
                 </div>
 
             </div>
 
-        </div>
 
-        <!-- FOOTER -->
-        <div class="shop-profile-card-footer">
 
-            <span>
-                <i class="fa-solid fa-lock"></i>
-                Your shop profile information
-            </span>
+            <!-- =====================================
+                 PERSONAL INFORMATION
+            ====================================== -->
 
-            <span class="shop-profile-brand">
-                GoPress <i class="fa-solid fa-shirt"></i>
-            </span>
+            <div class="shop-profile-information-section">
 
-        </div>
+                <div class="shop-profile-section-title">
+
+                    <div class="shop-section-title-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Personal Information</h4>
+
+                        <p>
+                            Your registered account details
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="shop-profile-details-grid">
+
+
+                    <!-- FULL NAME -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>FULL NAME</span>
+
+                            <h5>
+                                @DisplayValue(Model?.FullName)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">01</div>
+
+                    </div>
+
+
+
+                    <!-- EMAIL -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>EMAIL ADDRESS</span>
+
+                            <h5>
+                                @DisplayValue(Model?.Email)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">02</div>
+
+                    </div>
+
+
+
+                    <!-- PHONE -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>PHONE NUMBER</span>
+
+                            <h5>
+                                @DisplayValue(Model?.PhoneNumber)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">03</div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 SHOP INFORMATION
+            ====================================== -->
+
+            <div class="shop-profile-information-section">
+
+                <div class="shop-profile-section-title">
+
+                    <div class="shop-section-title-icon">
+
+                        <i class="fa-solid fa-store"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Business Information</h4>
+
+                        <p>
+                            Your registered laundry shop details
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="shop-profile-details-grid">
+
+
+                    <!-- SHOP NAME -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-shop"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>SHOP NAME</span>
+
+                            <h5>
+                                @DisplayValue(Model?.ShopName)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">04</div>
+
+                    </div>
+
+
+
+                    <!-- SHOP ADDRESS -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>SHOP ADDRESS</span>
+
+                            <h5>
+                                @DisplayValue(Model?.ShopAddress)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">05</div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 LOCATION INFORMATION
+            ====================================== -->
+
+            <div class="shop-profile-information-section">
+
+                <div class="shop-profile-section-title">
+
+                    <div class="shop-section-title-icon">
+
+                        <i class="fa-solid fa-map-location-dot"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Location Information</h4>
+
+                        <p>
+                            Your shop's registered location
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="shop-profile-details-grid">
+
+
+                    <!-- CITY -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-city"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>CITY</span>
+
+                            <h5>
+                                @DisplayValue(Model?.City)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">06</div>
+
+                    </div>
+
+
+
+                    <!-- STATE -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-map"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>STATE</span>
+
+                            <h5>
+                                @DisplayValue(Model?.State)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">07</div>
+
+                    </div>
+
+
+
+                    <!-- PINCODE -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-location-crosshairs"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>PINCODE</span>
+
+                            <h5>
+                                @DisplayValue(Model?.Pincode)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">08</div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 BUSINESS DOCUMENTS
+            ====================================== -->
+
+            <div class="shop-profile-information-section">
+
+                <div class="shop-profile-section-title">
+
+                    <div class="shop-section-title-icon">
+
+                        <i class="fa-solid fa-file-shield"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Business Documents</h4>
+
+                        <p>
+                            Your registered business identification details
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="shop-profile-details-grid">
+
+
+                    <!-- SHOP LICENSE -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-file-contract"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>SHOP LICENSE NUMBER</span>
+
+                            <h5>
+                                @DisplayValue(Model?.ShopLicenseNumber)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">09</div>
+
+                    </div>
+
+
+
+                    <!-- GST NUMBER -->
+
+                    <div class="shop-profile-info-card">
+
+                        <div class="shop-info-card-icon">
+
+                            <i class="fa-solid fa-file-invoice"></i>
+
+                        </div>
+
+                        <div class="shop-info-card-details">
+
+                            <span>GST NUMBER</span>
+
+                            <h5>
+                                @DisplayValue(Model?.GSTNumber)
+                            </h5>
+
+                        </div>
+
+                        <div class="shop-info-card-number">10</div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =====================================
+                 ACCOUNT SECURITY
+            ====================================== -->
+
+            <div class="shop-profile-account-section">
+
+                <div class="shop-profile-section-title">
+
+                    <div class="shop-section-title-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h4>Account & Security</h4>
+
+                        <p>
+                            Important information about your shop account
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="shop-profile-security-box">
+
+                    <div class="shop-security-main-icon">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                    </div>
+
+                    <div class="shop-security-content">
+
+                        <h5>Your Business Information Matters</h5>
+
+                        <p>
+                            Your GoPress shop profile contains your personal
+                            details, business information, registered address
+                            and document details. Please ensure your
+                            information is accurate and up to date.
+                            Contact the GoPress support team if you need
+                            assistance.
+                        </p>
+
+                    </div>
+
+                    <div class="shop-security-decoration">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BOTTOM FOOTER -->
+
+            <div class="shop-profile-bottom-bar">
+
+                <div class="shop-profile-bottom-left">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+                        GoPress Shop Owner Profile
+                    </span>
+
+                </div>
+
+                <div class="shop-profile-bottom-brand">
+
+                    GOPRESS
+
+                    <i class="fa-solid fa-shirt"></i>
+
+                </div>
+
+            </div>
+
+
+        </main>
 
     </div>
-   
+
 </div>
