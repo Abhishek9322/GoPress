@@ -4,10 +4,9 @@
     ViewData["Title"] = "My Profile";
     Layout = "_Layout";
 
-
-var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
-    ? "Delivery Partner"
-    : Model.FullName.Trim();
+    var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
+        ? "Delivery Boy"
+        : Model.FullName.Trim();
 
     var initials = string.Concat(
         fullName.Split(' ', StringSplitOptions.RemoveEmptyEntries)
@@ -21,11 +20,9 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
             ? "Not provided"
             : value.Trim();
     }
-
 }
 
-@section Styles
-{
+@section Styles {
     <link rel="stylesheet"
           href="~/css/delivery-boy-profile.css"
           asp-append-version="true" />
@@ -34,17 +31,17 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
 <div class="delivery-profile-page">
 
     <!-- PAGE HEADER -->
-    <div class="profile-header">
+    <div class="delivery-profile-header">
 
-        <div class="profile-header-content">
+        <div class="delivery-profile-header-content">
 
-            <div class="profile-header-icon">
+            <div class="delivery-profile-header-icon">
                 <i class="fa-solid fa-motorcycle"></i>
             </div>
 
             <div>
-                <h2>My Profile</h2>
-                <p>Manage your personal information and delivery partner details.</p>
+                <h2>My Delivery Profile</h2>
+                <p>Manage your personal and delivery information.</p>
             </div>
 
         </div>
@@ -52,7 +49,7 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
         <a asp-area="DeliveryBoy"
            asp-controller="Dashboard"
            asp-action="Dashboard"
-           class="profile-back-btn">
+           class="delivery-profile-back-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
             Back to Dashboard
@@ -64,7 +61,7 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
     <!-- ERROR MESSAGE -->
     @if (TempData["Error"] != null)
     {
-        <div class="profile-alert">
+        <div class="delivery-profile-alert">
             <i class="fa-solid fa-circle-exclamation"></i>
             <span>@TempData["Error"]</span>
         </div>
@@ -73,135 +70,155 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
     <!-- SUCCESS MESSAGE -->
     @if (TempData["Success"] != null)
     {
-        <div class="profile-success-alert">
+        <div class="delivery-profile-success-alert">
             <i class="fa-solid fa-circle-check"></i>
             <span>@TempData["Success"]</span>
         </div>
     }
 
-    <!-- PROFILE CARD -->
-    <div class="profile-card">
+    <!-- MAIN PROFILE LAYOUT -->
+    <div class="delivery-profile-layout">
 
-        <!-- BANNER -->
-        <div class="profile-banner">
+        <!-- LEFT SIDEBAR -->
+        <aside class="delivery-profile-sidebar">
 
-            <div class="profile-banner-circle circle-one"></div>
-            <div class="profile-banner-circle circle-two"></div>
+            <div class="delivery-profile-sidebar-banner">
 
-            <!-- EDIT PROFILE BUTTON -->
-            <a asp-area="DeliveryBoy"
-               asp-controller="DeliveryBoyProfile"
-               asp-action="GetUpdatedDeliveryBoyProfile"
-               class="profile-edit-btn">
+                <div class="delivery-sidebar-circle circle-one"></div>
+                <div class="delivery-sidebar-circle circle-two"></div>
 
-                <i class="fa-solid fa-pen-to-square"></i>
-                <span>Edit Profile</span>
+            </div>
 
-            </a>
+            <div class="delivery-profile-sidebar-body">
 
-        </div>
-
-        <div class="profile-card-body">
-
-            <!-- DELIVERY PARTNER IDENTITY -->
-            <div class="profile-identity">
-
-                <div class="profile-avatar">
+                <!-- AVATAR -->
+                <div class="delivery-profile-avatar">
                     @initials
                 </div>
 
-                <div class="profile-identity-info">
+                <h3>@fullName</h3>
 
-                    <h3>@fullName</h3>
+                <span class="delivery-profile-badge">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Delivery Partner
+                </span>
 
-                    <span class="profile-badge">
-                        <i class="fa-solid fa-circle-check"></i>
-                        GoPress Delivery Partner
-                    </span>
+                <div class="delivery-profile-sidebar-divider"></div>
+
+                <!-- VEHICLE INFORMATION -->
+                <div class="delivery-sidebar-info">
+
+                    <div class="delivery-sidebar-info-icon">
+                        <i class="fa-solid fa-motorcycle"></i>
+                    </div>
+
+                    <div>
+                        <span>Vehicle Number</span>
+                        <h4>@DisplayValue(Model?.BikeNumber)</h4>
+                    </div>
+
+                </div>
+
+                <!-- EDIT PROFILE BUTTON -->
+                <a asp-area="DeliveryBoy"
+                   asp-controller="DeliveryBoyProfile"
+                   asp-action="GetUpdatedDeliveryBoyProfile"
+                   class="delivery-profile-edit-btn">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Edit Profile
+
+                </a>
+
+                <!-- SECURITY NOTE -->
+                <div class="delivery-profile-security-note">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <div>
+                        <strong>Account Security</strong>
+                        <p>Keep your personal and delivery details updated.</p>
+                    </div>
 
                 </div>
 
             </div>
 
+        </aside>
+
+        <!-- RIGHT CONTENT -->
+        <main class="delivery-profile-content">
+
             <!-- PERSONAL INFORMATION -->
-            <div class="profile-section">
+            <section class="delivery-profile-section">
 
-                <div class="profile-section-heading">
+                <div class="delivery-profile-section-heading">
 
-                    <div class="profile-section-icon">
+                    <div class="delivery-profile-section-icon">
                         <i class="fa-solid fa-address-card"></i>
                     </div>
 
                     <div>
                         <h4>Personal Information</h4>
-                        <p>Your registered delivery partner details</p>
+                        <p>Your registered account details</p>
                     </div>
 
                 </div>
 
-                <div class="profile-details-grid">
+                <div class="delivery-profile-details-grid">
 
                     <!-- FULL NAME -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-user"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Full Name</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.FullName)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Full Name</span>
+                            <strong>@DisplayValue(Model?.FullName)</strong>
                         </div>
 
                     </div>
 
                     <!-- EMAIL -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-envelope"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Email Address</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.Email)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Email Address</span>
+                            <strong>@DisplayValue(Model?.Email)</strong>
                         </div>
 
                     </div>
 
                     <!-- PHONE -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-phone"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Phone Number</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.PhoneNumber)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Phone Number</span>
+                            <strong>@DisplayValue(Model?.PhoneNumber)</strong>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
             <!-- ADDRESS INFORMATION -->
-            <div class="profile-section">
+            <section class="delivery-profile-section">
 
-                <div class="profile-section-heading">
+                <div class="delivery-profile-section-heading">
 
-                    <div class="profile-section-icon">
+                    <div class="delivery-profile-section-icon">
                         <i class="fa-solid fa-location-dot"></i>
                     </div>
 
@@ -212,212 +229,190 @@ var fullName = string.IsNullOrWhiteSpace(Model?.FullName)
 
                 </div>
 
-                <div class="profile-details-grid">
+                <div class="delivery-profile-details-grid">
 
                     <!-- ADDRESS -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item delivery-detail-full">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-house"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Address</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.Address)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Address</span>
+                            <strong>@DisplayValue(Model?.Address)</strong>
                         </div>
 
                     </div>
 
                     <!-- CITY -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-city"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">City</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.City)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>City</span>
+                            <strong>@DisplayValue(Model?.City)</strong>
                         </div>
 
                     </div>
 
                     <!-- STATE -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-map"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">State</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.State)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>State</span>
+                            <strong>@DisplayValue(Model?.State)</strong>
                         </div>
 
                     </div>
 
                     <!-- PINCODE -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
+                        <div class="delivery-profile-detail-icon">
                             <i class="fa-solid fa-location-crosshairs"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Pincode</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.Pincode)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Pincode</span>
+                            <strong>@DisplayValue(Model?.Pincode)</strong>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
             <!-- VEHICLE INFORMATION -->
-            <div class="profile-section">
+            <section class="delivery-profile-section">
 
-                <div class="profile-section-heading">
+                <div class="delivery-profile-section-heading">
 
-                    <div class="profile-section-icon">
+                    <div class="delivery-profile-section-icon">
                         <i class="fa-solid fa-motorcycle"></i>
                     </div>
 
                     <div>
                         <h4>Vehicle Information</h4>
-                        <p>Your registered delivery vehicle</p>
+                        <p>Your registered delivery vehicle details</p>
                     </div>
 
                 </div>
 
-                <div class="profile-details-grid">
+                <div class="delivery-profile-details-grid">
 
                     <!-- BIKE NUMBER -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
-                            <i class="fa-solid fa-id-card"></i>
+                        <div class="delivery-profile-detail-icon">
+                            <i class="fa-solid fa-motorcycle"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Bike Number</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.BikeNumber)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Vehicle Registration Number</span>
+                            <strong>@DisplayValue(Model?.BikeNumber)</strong>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
-            <!-- DOCUMENT INFORMATION -->
-            <div class="profile-section">
+            <!-- IDENTITY AND LICENSE INFORMATION -->
+            <section class="delivery-profile-section">
 
-                <div class="profile-section-heading">
+                <div class="delivery-profile-section-heading">
 
-                    <div class="profile-section-icon">
+                    <div class="delivery-profile-section-icon">
                         <i class="fa-solid fa-file-shield"></i>
                     </div>
 
                     <div>
-                        <h4>Document Information</h4>
-                        <p>Your registered identity and driving documents</p>
+                        <h4>Identity & License Information</h4>
+                        <p>Your registered identity and driving license details</p>
                     </div>
 
                 </div>
 
-                <div class="profile-details-grid">
+                <div class="delivery-profile-details-grid">
 
                     <!-- LICENSE NUMBER -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
-                            <i class="fa-solid fa-id-card-clip"></i>
+                        <div class="delivery-profile-detail-icon">
+                            <i class="fa-solid fa-id-card"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">License Number</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.LicenseNumber)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Driving License Number</span>
+                            <strong>@DisplayValue(Model?.LicenseNumber)</strong>
                         </div>
 
                     </div>
 
                     <!-- AADHAAR NUMBER -->
-                    <div class="profile-detail-item">
+                    <div class="delivery-profile-detail-item">
 
-                        <div class="profile-detail-icon">
-                            <i class="fa-solid fa-address-card"></i>
+                        <div class="delivery-profile-detail-icon">
+                            <i class="fa-solid fa-fingerprint"></i>
                         </div>
 
-                        <div class="profile-detail-content">
-                            <span class="profile-detail-label">Aadhaar Number</span>
-
-                            <span class="profile-detail-value">
-                                @DisplayValue(Model?.AadhaarNumber)
-                            </span>
+                        <div class="delivery-profile-detail-content">
+                            <span>Aadhaar Number</span>
+                            <strong>@DisplayValue(Model?.AadhaarNumber)</strong>
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            </section>
 
             <!-- ACCOUNT INFORMATION -->
-            <div class="profile-account-info">
+            <div class="delivery-profile-account-info">
 
-                <div class="profile-account-icon">
+                <div class="delivery-profile-account-icon">
                     <i class="fa-solid fa-shield-halved"></i>
                 </div>
 
                 <div>
-                    <h5>Your Account Information</h5>
+                    <h5>Your Delivery Partner Account</h5>
 
                     <p>
-                        Your profile contains your personal details, residential
-                        address, vehicle information, and identity documents.
-                        Please ensure your information is accurate and up to date.
-                        Contact the GoPress support team if you need assistance.
+                        Your GoPress delivery profile contains your personal
+                        information, residential address, vehicle details,
+                        and identity information. Please ensure your details
+                        are accurate and up to date.
                     </p>
                 </div>
 
             </div>
 
-        </div>
-
-        <!-- FOOTER -->
-        <div class="profile-card-footer">
-
-            <span>
-                <i class="fa-solid fa-lock"></i>
-                Your profile information
-            </span>
-
-            <span class="profile-brand">
-                GoPress <i class="fa-solid fa-shirt"></i>
-            </span>
-
-        </div>
+        </main>
 
     </div>
- 
+
+    <!-- FOOTER -->
+    <div class="delivery-profile-footer">
+
+        <span>
+            <i class="fa-solid fa-lock"></i>
+            Your profile information is protected.
+        </span>
+
+        <span class="delivery-profile-brand">
+            GoPress <i class="fa-solid fa-shirt"></i>
+        </span>
+
+    </div>
 
 </div>
