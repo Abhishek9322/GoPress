@@ -44,5 +44,7 @@ namespace GoPress.Domain.Entities
         public ApplicationUser DeliveryBoy { get; set; }
 
         public ICollection<OrderItem> OrderItems { get; set; }
+
+        public ICollection<SupportTicket> SupportTickets { get; set; }= new List<SupportTicket>();
     }
 }

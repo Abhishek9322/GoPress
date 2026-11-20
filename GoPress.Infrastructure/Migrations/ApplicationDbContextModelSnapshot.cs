@@ -483,6 +483,115 @@ namespace GoPress.Infrastructure.Migrations
                     b.ToTable("ShopOwnerProfiles");
                 });
 
+            modelBuilder.Entity("GoPress.Domain.Entities.SupportMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AttachmentUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ReadAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupportTicketId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("SupportTicketId");
+
+                    b.ToTable("SupportMessages");
+                });
+
+            modelBuilder.Entity("GoPress.Domain.Entities.SupportTicket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AssignedAdminId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ClosedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ResolvedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TicketNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignedAdminId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("TicketNumber")
+                        .IsUnique();
+
+                    b.ToTable("SupportTickets");
+                });
+
             modelBuilder.Entity("GoPress.Domain.Entities.CustomerProfile", b =>
                 {
                     b.HasOne("GoPress.Domain.Entities.ApplicationUser", "User")
@@ -591,8 +700,47 @@ namespace GoPress.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("GoPress.Domain.Entities.SupportMessage", b =>
+                {
+                    b.HasOne("GoPress.Domain.Entities.ApplicationUser", "Sender")
+                        .WithMany("SupportMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GoPress.Domain.Entities.SupportTicket", "SupportTicket")
+                        .WithMany("Messages")
+                        .HasForeignKey("SupportTicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sender");
+
+                    b.Navigation("SupportTicket");
+                });
+
+            modelBuilder.Entity("GoPress.Domain.Entities.SupportTicket", b =>
+                {
+                    b.HasOne("GoPress.Domain.Entities.ApplicationUser", "AssignedAdmin")
+                        .WithMany("AssignedSupportTickets")
+                        .HasForeignKey("AssignedAdminId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("GoPress.Domain.Entities.Order", "Order")
+                        .WithMany("SupportTickets")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AssignedAdmin");
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("GoPress.Domain.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("AssignedSupportTickets");
+
                     b.Navigation("CustomerOrders");
 
                     b.Navigation("CustomerProfile")
@@ -611,6 +759,8 @@ namespace GoPress.Infrastructure.Migrations
 
                     b.Navigation("ShopOwnerProfile")
                         .IsRequired();
+
+                    b.Navigation("SupportMessages");
                 });
 
             modelBuilder.Entity("GoPress.Domain.Entities.ClothType", b =>
@@ -621,6 +771,13 @@ namespace GoPress.Infrastructure.Migrations
             modelBuilder.Entity("GoPress.Domain.Entities.Order", b =>
                 {
                     b.Navigation("OrderItems");
+
+                    b.Navigation("SupportTickets");
+                });
+
+            modelBuilder.Entity("GoPress.Domain.Entities.SupportTicket", b =>
+                {
+                    b.Navigation("Messages");
                 });
 #pragma warning restore 612, 618
         }
