@@ -39,5 +39,10 @@ namespace GoPress.Domain.Entities
 
         public ICollection<Order> DeliveryBoyOrders { get; set; }
         public ICollection<ShopOwnerClothPrice>ShopOwnerClothPrices{ get; set; }
+
+        //support
+        public ICollection<SupportTicket> AssignedSupportTickets { get; set; }= new List<SupportTicket>();
+
+        public ICollection<SupportMessage> SupportMessages { get; set; } = new List<SupportMessage>();
     }
 }

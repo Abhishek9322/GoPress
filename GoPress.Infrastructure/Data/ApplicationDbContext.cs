@@ -26,6 +26,8 @@ namespace GoPress.Infrastructure.Data
 
         public DbSet<ShopOwnerClothPrice> ShopOwnerClothPrices { get; set; }    
 
+        public DbSet<SupportMessage> SupportMessages { get; set; }
+        public DbSet <SupportTicket> SupportTickets { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -179,6 +181,77 @@ namespace GoPress.Infrastructure.Data
                   x.ClothTypeId
              })
               .IsUnique();
+
+
+            // ==========================
+            // SUPPORT TICKET RELATIONSHIPS
+            // ==========================
+
+            // Order -> SupportTickets (One-to-Many)
+            modelBuilder.Entity<SupportTicket>()
+                .HasOne(x => x.Order)
+                .WithMany(x => x.SupportTickets)
+                .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            // Admin -> Assigned SupportTickets (One-to-Many)
+            modelBuilder.Entity<SupportTicket>()
+                .HasOne(x => x.AssignedAdmin)
+                .WithMany(x => x.AssignedSupportTickets)
+                .HasForeignKey(x => x.AssignedAdminId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ==========================
+            // SUPPORT MESSAGE RELATIONSHIPS
+            // ==========================
+
+            // SupportTicket -> SupportMessages (One-to-Many)
+            modelBuilder.Entity<SupportMessage>()
+                .HasOne(x => x.SupportTicket)
+                .WithMany(x => x.Messages)
+                .HasForeignKey(x => x.SupportTicketId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+            // ApplicationUser -> SupportMessages (One-to-Many)
+            modelBuilder.Entity<SupportMessage>()
+                .HasOne(x => x.Sender)
+                .WithMany(x => x.SupportMessages)
+                .HasForeignKey(x => x.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // ==========================
+            // SUPPORT INDEXES
+            // ==========================
+
+            // Unique Ticket Number
+            modelBuilder.Entity<SupportTicket>()
+                .HasIndex(x => x.TicketNumber)
+                .IsUnique();
+
+            // Tickets by Order
+            modelBuilder.Entity<SupportTicket>()
+                .HasIndex(x => x.OrderId);
+
+            // Tickets by Status
+            modelBuilder.Entity<SupportTicket>()
+                .HasIndex(x => x.Status);
+
+            // Tickets assigned to Admin
+            modelBuilder.Entity<SupportTicket>()
+                .HasIndex(x => x.AssignedAdminId);
+
+            // Messages by Support Ticket
+            modelBuilder.Entity<SupportMessage>()
+                .HasIndex(x => x.SupportTicketId);
+
+            // Messages by Sender
+            modelBuilder.Entity<SupportMessage>()
+                .HasIndex(x => x.SenderId);
+
+
+
         }
     }
 }
