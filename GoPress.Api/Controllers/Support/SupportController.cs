@@ -1,6 +1,7 @@
 ﻿using GoPress.Api.Extensions;
 using GoPress.Application.DTOs.Support;
 using GoPress.Application.Features.Support.CreateSupportTicket.Command;
+using GoPress.Application.Features.Support.GetSupportTicket.Queries;
 using GoPress.Application.Interfaces.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +31,24 @@ namespace GoPress.Api.Controllers.Support
             {
                 CustomerId = currentUser.UserId,
                 Ticket = request
+            });
+
+            if(!response.Succeeded)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpGet("Get-All-Tickets")]
+        public async Task<IActionResult> GetAllCustomerTickets()
+        {
+            var currentUser = User.GetCurrentUser();    
+
+            var response=await _mediator.Send(new GetCustomerSupportTicketsQuery
+            {
+                CustomerId = currentUser.UserId
             });
 
             return Ok(response);
