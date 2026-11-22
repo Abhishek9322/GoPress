@@ -70,6 +70,15 @@ namespace GoPress.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Order> GetCustomerOrderForSupportAsync(int orderId, int customerId)
+        {
+            return await _context.Orders
+                 .Include(t => t.Customer)
+                 .Where(t => t.Id == orderId && t.CustomerId == customerId && !t.IsDeleted)
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync();
+        }
+
         public async Task<SupportTicket?> GetSupportTicketByIdAsync(int ticketId)
         {
             return await _context.SupportTickets
