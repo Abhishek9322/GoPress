@@ -11,8 +11,6 @@
     <Folder Include="Features\AdminApproval\Rejectuser\Queries\" />
     <Folder Include="Features\Auth\QueriesHandler\" />
     <Folder Include="Features\Auth\Queries\" />
-    <Folder Include="Features\Support\CreateSupportTicket\Command\" />
-    <Folder Include="Features\Support\CreateSupportTicket\CommandHandler\" />
     <Folder Include="Features\Support\GetSupportTicket\QueriesHandler\" />
     <Folder Include="Features\Support\GetSupportTicket\Queries\" />
     <Folder Include="Validators\" />
