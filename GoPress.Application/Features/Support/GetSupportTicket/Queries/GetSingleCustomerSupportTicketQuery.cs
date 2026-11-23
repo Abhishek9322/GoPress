@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Support.GetSupportTicket.Queries
 {
-    public class GetSingleSupportTicketQuery:IRequest<Response<SupportTicketDto>>
+    public class GetSingleCustomerSupportTicketQuery:IRequest<Response<SupportTicketDto>>
     {
         public int CustomerId { get; set; } 
         public int TicketId { get; set; }

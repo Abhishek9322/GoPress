@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace GoPress.Api.Controllers.Support
 {
-    [Route("api/Support")]
+    [Route("api/customer/Support")]
     [ApiController]
     [Authorize(Roles = "Customer")]
-    public class SupportController : ControllerBase
+    public class CustomerSupportController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public SupportController(IMediator mediator)
+        public CustomerSupportController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -59,7 +59,7 @@ namespace GoPress.Api.Controllers.Support
         {
             var currentUser=User.GetCurrentUser();
 
-            var response = await _mediator.Send(new GetSingleSupportTicketQuery
+            var response = await _mediator.Send(new GetSingleCustomerSupportTicketQuery
             {
                 CustomerId = currentUser.UserId,
                 TicketId= ticketId
