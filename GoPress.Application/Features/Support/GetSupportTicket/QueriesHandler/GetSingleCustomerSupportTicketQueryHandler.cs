@@ -12,16 +12,16 @@ using System.Threading.Tasks;
 
 namespace GoPress.Application.Features.Support.GetSupportTicket.QueriesHandler
 {
-    public class GetSingleSupportTicketQueryHandler : IRequestHandler<GetSingleSupportTicketQuery, Response<SupportTicketDto>>
+    public class GetSingleCustomerSupportTicketQueryHandler : IRequestHandler<GetSingleCustomerSupportTicketQuery, Response<SupportTicketDto>>
     {
         private readonly ISupportTicketRepository _supportTicketRepository;
         private readonly ILogger<GetCustomerSupportTicketsQueryHandler> _logger;
-        public GetSingleSupportTicketQueryHandler(ISupportTicketRepository supportTicketRepository,ILogger<GetCustomerSupportTicketsQueryHandler> logger)
+        public GetSingleCustomerSupportTicketQueryHandler(ISupportTicketRepository supportTicketRepository,ILogger<GetCustomerSupportTicketsQueryHandler> logger)
         {
             _logger= logger;
             _supportTicketRepository= supportTicketRepository;
         }
-        public async Task<Response<SupportTicketDto>> Handle(GetSingleSupportTicketQuery request, CancellationToken cancellationToken)
+        public async Task<Response<SupportTicketDto>> Handle(GetSingleCustomerSupportTicketQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation(
                 "Customer {CustomerId} is requesting Support Ticket {TicketId}",
