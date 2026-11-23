@@ -54,6 +54,25 @@ namespace GoPress.Api.Controllers.Support
             return Ok(response);
         }
 
+        [HttpGet("Get-byId")]
+        public async Task<IActionResult> GetCustomerTicketById(int ticketId)
+        {
+            var currentUser=User.GetCurrentUser();
+
+            var response = await _mediator.Send(new GetSingleSupportTicketQuery
+            {
+                CustomerId = currentUser.UserId,
+                TicketId= ticketId
+            });
+
+            if(response.Data==null)
+            {
+                return BadRequest(response);    
+            }
+
+            return Ok(response);
+        }
+
     }
 
 

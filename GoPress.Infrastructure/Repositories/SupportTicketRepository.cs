@@ -79,6 +79,19 @@ namespace GoPress.Infrastructure.Repositories
                  .FirstOrDefaultAsync();
         }
 
+        public async Task<SupportTicket?> GetCustomerTicketByIdAsync(int customerId, int ticketId)
+        {
+            return await _context.SupportTickets
+                .Include(x => x.Order)
+                .Include(x => x.AssignedAdmin)
+                .Where(x =>
+                           x.Id == ticketId &&
+                           x.Order.CustomerId == customerId &&
+                          !x.IsDeleted)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<SupportTicket?> GetSupportTicketByIdAsync(int ticketId)
         {
             return await _context.SupportTickets
