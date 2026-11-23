@@ -21,6 +21,7 @@ namespace GoPress.Application.Interfaces.Repositories
         Task<List<SupportTicket>> GetByCustomerIdAsync(int customerId);
 
         Task<List<SupportTicket>> GetAllSupportTicketAsync();
+        Task<SupportTicket?> GetCustomerTicketByIdAsync(int customerId, int ticketId);
 
         Task<List<SupportTicket>> GetByStatusAsyns(SupportTicketStatusEnum status);
 
