@@ -17,12 +17,12 @@ namespace GoPress.Application.Features.Support.CreateSupportTicket.CommandHandle
     {
         private readonly ILogger<CreateSupportTicketCommandHandler> _logger;
         private readonly ISupportTicketRepository _supportTicket;
-        private readonly IOrderRepository _orderRepository;
+      
         public CreateSupportTicketCommandHandler(ILogger<CreateSupportTicketCommandHandler> logger, ISupportTicketRepository supportTicket)
         {
             _logger = logger;
             _supportTicket = supportTicket;
-            _orderRepository = _orderRepository;
+           
         }
         public async Task<Response<int>> Handle(CreateSupportTicketCommand request, CancellationToken cancellationToken)
         {
@@ -30,6 +30,17 @@ namespace GoPress.Application.Features.Support.CreateSupportTicket.CommandHandle
                "Customer {CustomerId} is creating a support ticket for Order {OrderId}",
                request.CustomerId,
                request.Ticket.OrderId);
+
+
+            var admin = await _supportTicket.GetActiveAdminAsync();
+
+            if (admin == null)
+            {
+                _logger.LogWarning("No active admin found to assign support ticket.");
+
+                return new Response<int>(
+                    "Currently no admin is available to handle support tickets.");
+            }
 
             var order=await _supportTicket.GetCustomerOrderForSupportAsync(request.CustomerId, request.Ticket.OrderId);
 
@@ -56,6 +67,7 @@ namespace GoPress.Application.Features.Support.CreateSupportTicket.CommandHandle
                 Category = request.Ticket.Category,
                 Status = SupportTicketStatusEnum.Open,
                 Priority = SupportPriorityEnum.Medium,
+                AssignedAdminId=admin.Id,
                 CreatedAt = DateTime.UtcNow
             };
 
