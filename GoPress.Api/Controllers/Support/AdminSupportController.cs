@@ -1,4 +1,5 @@
 ﻿using GoPress.Application.Features.Support.GetSupportTicket.Queries;
+using GoPress.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,5 +28,21 @@ namespace GoPress.Api.Controllers.Support
             }
             return Ok(response);
         }
+
+        [HttpGet("Get-Tickets-By-Status")]
+        public async Task<IActionResult> GetTicketByStatus([FromQuery] SupportTicketStatusEnum support)
+        {
+            var response = await _mediator.Send(new GetSupportTicketsByStatusQuery
+            {
+                Status = support
+            });
+
+            if (response == null)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+
     }
 }

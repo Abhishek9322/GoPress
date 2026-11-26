@@ -16,7 +16,7 @@ namespace GoPress.Application.Features.Support.GetSupportTicket.QueriesHandler
     {
         private readonly ISupportTicketRepository _supportTicketRepository;
         private readonly ILogger<GetAllAdminSupportTicketQueryHandler> _logger;
-        public GetAllAdminSupportTicketQueryHandler(ISupportTicketRepository supportTicketRepository,Logger<GetAllAdminSupportTicketQueryHandler> logger)
+        public GetAllAdminSupportTicketQueryHandler(ISupportTicketRepository supportTicketRepository,ILogger<GetAllAdminSupportTicketQueryHandler> logger)
         {
             _supportTicketRepository = supportTicketRepository;
             _logger = logger;
