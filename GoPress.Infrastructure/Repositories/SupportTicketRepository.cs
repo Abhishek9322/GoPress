@@ -1,4 +1,5 @@
-﻿using GoPress.Application.Interfaces.Repositories;
+﻿using AutoMapper.Configuration.Annotations;
+using GoPress.Application.Interfaces.Repositories;
 using GoPress.Domain.Entities;
 using GoPress.Domain.Enums;
 using GoPress.Infrastructure.Data;
@@ -23,6 +24,14 @@ namespace GoPress.Infrastructure.Repositories
             await _context.SupportTickets.AddAsync(supportTicket);
             await _context.SaveChangesAsync();
             return supportTicket;
+        }
+
+        public async Task<ApplicationUser?> GetActiveAdminAsync()
+        {
+            return await _context.ApplicationUsers
+                  .Where(x => x.Role == UserRoleenum.Admin && x.IsActive && !x.IsDeleted)
+                  .OrderBy(x => x.CreatedAt)
+                  .FirstOrDefaultAsync();
         }
 
         public async Task<List<SupportTicket>> GetAllSupportTicketAsync()

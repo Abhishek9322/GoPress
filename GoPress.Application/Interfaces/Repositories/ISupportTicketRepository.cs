@@ -10,6 +10,8 @@ namespace GoPress.Application.Interfaces.Repositories
 {
     public interface ISupportTicketRepository
     {
+        Task<ApplicationUser?> GetActiveAdminAsync();
+
         Task<SupportTicket> CreateSupportTicketAsync(SupportTicket supportTicket);
 
         Task<SupportTicket?> GetSupportTicketByIdAsync(int ticketId);
